@@ -1,0 +1,46 @@
+{
+  "variables": {
+    "hobo": "local-hobo.example.net",
+    "authentic": "local-auth.example.net",
+    "combo": "local.example.net",
+    "combo_agent": "local.example.net",
+    "fargo": "local.example.net",
+    "passerelle": "local.example.net"
+  },
+  "steps": [
+    {"create-hobo": {
+      "url": "https://${hobo}/"
+    }},
+    {"create-superuser": {
+      "email": "admints@example.net"
+    }},
+    {"create-authentic": {
+      "url": "https://${authentic}/",
+      "title": "Guichet citoyen local - Authentic"
+    }},
+    {"set-idp": {
+    }},
+    {"create-combo": {
+      "url": "https://${combo}/",
+      "title": "Guichet citoyen local - Portail",
+      "template_name": "portal-user"
+    }},
+    {"create-combo": {
+      "url": "https://${combo_agent}/",
+      "slug": "portal-agent",
+      "title": "Guichet citoyen local - Portail agent",
+      "template_name": "portal-agent"
+    }},
+    {"create-fargo": {
+      "url": "https://${fargo}/",
+      "title": "Porte-documents local - Fargo"
+    }},
+    {"create-passerelle": {
+      "url": "https://${passerelle}/",
+      "title": "Guichet citoyen local - Passerelle"
+    }},
+    {"set-theme": {
+      "theme": "imio"
+    }}
+  ]
+}

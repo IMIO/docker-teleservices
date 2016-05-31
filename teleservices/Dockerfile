@@ -1,0 +1,39 @@
+# Dockerfile
+FROM debian:wheezy
+
+ENV DEBIAN_FRONTEND noninteractive
+
+#Update Packages List
+RUN echo "APT::Install-Suggests \"false\";\nAPT::Install-Recommends \"false\";" >> /etc/apt/apt.conf
+# Avoid ERROR: invoke-rc.d: policy-rc.d denied execution of start.
+RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d
+RUN apt-get update && apt-get install -y wget gnupg debian-archive-keyring rsyslog python-dns gettext
+RUN wget -O - http://deb.entrouvert.org/entrouvert.gpg | apt-key add -
+RUN echo "deb http://http.debian.net/debian wheezy-backports main"> /etc/apt/sources.list.d/backports.list
+RUN echo "deb http://deb.entrouvert.org/ wheezy main\ndeb http://deb.entrouvert.org/ wheezy-eobuilder main\ndeb http://deb.entrouvert.org/ wheezy-testing main\n" > /etc/apt/sources.list.d/entrouvert.list
+RUN echo "Package: *\nPin: release a=wheezy-eobuilder\nPin-Priority: 900" > /etc/apt/preferences.d/wheezy-eobuilder.pref
+RUN apt-get update && apt-get install -t wheezy-backports -y nginx
+RUN apt-get install -y wcs-au-quotidien python-hobo combo fargo python-fargo hobo-agent libjs-leaflet passerelle python-suds -t wheezy-testing
+RUN apt-get install -y python-eopayment authentic2-multitenant imio-publik-themes publik-base-theme python-authentic2-auth-fedict python-passerelle-imio-liege-lisrue -t wheezy-eobuilder
+# authentic
+RUN ln -s /usr/lib/python2.7/dist-packages/authentic2/static/authentic2 /var/lib/authentic2-multitenant/static/
+RUN ln -s /usr/lib/python2.7/dist-packages/authentic2/static/jquery /var/lib/authentic2-multitenant/static/
+RUN ln -s /usr/lib/python2.7/dist-packages/authentic2/static/ulx /var/lib/authentic2-multitenant/static/
+RUN chown -R www-data:www-data /var/lib/authentic2-multitenant/static
+RUN echo "BIND=0.0.0.0:8000" >/etc/default/authentic2-multitenant
+
+# wcs
+RUN echo "exit 0" > /etc/default/wcs
+
+#cleanup
+RUN apt-get -y remove python-dev wget && apt-get -y autoremove
+RUN apt-get clean
+RUN mkdir -p /var/lib/authentic2/locale/fr/LC_MESSAGES
+COPY mail-translation.py /var/lib/authentic2/locale/fr/LC_MESSAGES
+RUN /var/lib/authentic2/locale/fr/LC_MESSAGES/mail-translation.py
+COPY run.sh /
+RUN echo "Europe/Brussels" > /etc/timezone
+RUN dpkg-reconfigure tzdata
+
+# Run
+CMD ["/run.sh"]
