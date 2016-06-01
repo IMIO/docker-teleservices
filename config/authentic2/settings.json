@@ -2,6 +2,7 @@
     "THEME_SKELETON_URL": "http://local.example.net/__skeleton__/" ,
     "A2_AUTH_SAML_ENABLE": false,
     "A2_AUTH_FEDICT_ENABLE": true,
+    "A2_PROFILE_DISPLAY_EMPTY_FIELDS": true,
     "MELLON_PUBLIC_KEYS": ["/var/lib/authentic2-multitenant/tenants/local-auth.example.net/saml.crt"],
     "MELLON_PRIVATE_KEY": "/var/lib/authentic2-multitenant/tenants/local-auth.example.net/saml.key",
     "MELLON_IDENTITY_PROVIDERS": [
