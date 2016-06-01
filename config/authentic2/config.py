@@ -14,7 +14,7 @@
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-TEMPLATE_DEBUG = False
+TEMPLATE_DEBUG = True
 
 ADMINS = (
   ('Admins IMIO', 'admints@example.net'),
