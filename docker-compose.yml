@@ -35,7 +35,6 @@ services:
       - ./config/authentic2:/etc/authentic2-multitenant
       - ./config/hobo-agent:/etc/hobo-agent
       - ./config/passerelle:/etc/passerelle
-      - ./imio-publik-themes:/usr/share/publik/themes/imio
     command: /bin/sh -c "sleep 10 ; /run.sh"
     depends_on:
       - database
