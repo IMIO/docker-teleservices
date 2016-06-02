@@ -24,7 +24,7 @@
     },
     {
       "service-id": "combo",
-      "template_name": "",
+      "template_name": "portal-user",
       "variables": {},
       "title": "Guichet citoyen - LOCAL",
       "saml-sp-metadata-url": "http://local.example.net/accounts/mellon/metadata/",
@@ -35,7 +35,7 @@
     },
     {
       "service-id": "combo_agent",
-      "template_name": "",
+      "template_name": "portal-agent",
       "variables": {},
       "title": "Guichet citoyen LOCAL - Portail agent",
       "saml-sp-metadata-url": "http://local-portail-agent.example.net/accounts/mellon/metadata/",
