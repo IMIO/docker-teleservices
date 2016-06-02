@@ -88,6 +88,7 @@ server {
         }
 
         location / {
+            rewrite            ^/accounts/saml/login/ /accounts/fedict/login/ last;
             proxy_pass         http://unix:/run/authentic2-multitenant/authentic2-multitenant.sock;
             proxy_set_header   Host $http_host;
             proxy_set_header   X-Real-IP       $remote_addr;
