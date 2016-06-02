@@ -16,6 +16,14 @@ AGENT_HOST_PATTERNS = {
     'fargo': ['local-documents.example.net'],
 }
 
+CACHES = {
+    'default': {
+        'BACKEND': 'hobo.multitenant.cache.TenantCache',
+        'REAL_BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '172.17.0.1:11211',
+    }
+}
+
 WCS_MANAGE_COMMAND = 'sudo -u wcs-au-quotidien /usr/sbin/wcsctl -f /etc/wcs/wcs-au-quotidien.cfg'
 AUTHENTIC_MANAGE_COMMAND = 'sudo -u authentic-multitenant /usr/bin/authentic2-multitenant-manage'
 COMBO_MANAGE_COMMAND = 'sudo -u combo /usr/bin/combo-manage'
