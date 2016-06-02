@@ -67,6 +67,7 @@ SESSION_COOKIE_SECURE = False
 #A2_IDP_CAS_ENABLE = False
 # OpenID 1.0 / 2.0 IDP
 #A2_IDP_OPENID_ENABLE = False
+MELLON_ADAPTER = ('authentic2_auth_fedict.adapters.AuthenticAdapter',)
 
 # Authentifications
 #A2_AUTH_PASSWORD_ENABLE = True
