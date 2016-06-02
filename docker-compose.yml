@@ -6,7 +6,6 @@ services:
     mem_limit: 2048m
     ports:
         - "80:80"
-        - "8000:8000"
     extra_hosts:
         local.example.net:
           127.0.0.1

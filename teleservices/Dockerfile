@@ -25,6 +25,7 @@ RUN chown -R www-data:www-data /var/lib/authentic2-multitenant/static
 RUN echo "exit 0" > /etc/default/wcs
 
 #cleanup
+RUN rm -f /etc/default/authentic2-multitenant
 RUN apt-get -y remove python-dev wget && apt-get -y autoremove
 RUN apt-get clean
 RUN mkdir -p /var/lib/authentic2/locale/fr/LC_MESSAGES
