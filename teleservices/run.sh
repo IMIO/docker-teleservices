@@ -3,6 +3,7 @@ rm /var/run/{authentic2-multitenant/authentic2-multitenant,fargo/fargo,combo/com
 /etc/hobo/fix-permissions.sh
 service rsyslog start
 service combo start
+service authentic2-multitenant update
 service authentic2-multitenant start
 service wcs-au-quotidien start
 service passerelle start
