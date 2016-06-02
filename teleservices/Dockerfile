@@ -20,7 +20,6 @@ RUN ln -s /usr/lib/python2.7/dist-packages/authentic2/static/authentic2 /var/lib
 RUN ln -s /usr/lib/python2.7/dist-packages/authentic2/static/jquery /var/lib/authentic2-multitenant/static/
 RUN ln -s /usr/lib/python2.7/dist-packages/authentic2/static/ulx /var/lib/authentic2-multitenant/static/
 RUN chown -R www-data:www-data /var/lib/authentic2-multitenant/static
-RUN echo "BIND=0.0.0.0:8000" >/etc/default/authentic2-multitenant
 
 # wcs
 RUN echo "exit 0" > /etc/default/wcs
