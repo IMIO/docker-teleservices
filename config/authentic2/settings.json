@@ -3,6 +3,8 @@
     "A2_AUTH_SAML_ENABLE": false,
     "A2_AUTH_FEDICT_ENABLE": true,
     "A2_PROFILE_DISPLAY_EMPTY_FIELDS": true,
+    "A2_OPENED_SESSION_COOKIE_DOMAIN": "parent",
+    "MELLON_LOGIN_URL": "fedict-login",
     "MELLON_PUBLIC_KEYS": ["/var/lib/authentic2-multitenant/tenants/local-auth.example.net/saml.crt"],
     "MELLON_PRIVATE_KEY": "/var/lib/authentic2-multitenant/tenants/local-auth.example.net/saml.key",
     "MELLON_IDENTITY_PROVIDERS": [
@@ -12,8 +14,7 @@
     ],
     "MELLON_ATTRIBUTE_MAPPING": {
         "last_name": "{attributes[surname][0]}",
-        "first_name": "{attributes[givenName][0]}",
-        "email": "{attributes[egovNRN][0]}@fedict.invalid" 
+        "first_name": "{attributes[givenName][0]}"
     },
     "A2_USERNAME_LABEL": "Adresse e-mail"
 }
