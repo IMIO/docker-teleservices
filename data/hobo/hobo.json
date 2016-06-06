@@ -222,6 +222,105 @@
         "user_editable": true,
         "asked_on_registration": false,
         "name": "niss"
+      },
+      {
+        "kind": "string",
+        "description": "",
+        "required": false,
+        "user_visible": false,
+        "label": "Num\u00e9ro d'entreprise",
+        "disabled": false,
+        "user_editable": false,
+        "asked_on_registration": false,
+        "name": "enterprise_number"
+      },
+      {
+        "kind": "string",
+        "description": "",
+        "required": false,
+        "user_visible": false,
+        "label": "D\u00e9nomination",
+        "disabled": false,
+        "user_editable": false,
+        "asked_on_registration": false,
+        "name": "enterprise_name"
+      },
+      {
+        "kind": "string",
+        "description": "",
+        "required": false,
+        "user_visible": false,
+        "label": "Rue de l'activit\u00e9",
+        "disabled": false,
+        "user_editable": true,
+        "asked_on_registration": false,
+        "name": "enterprise_street"
+      },
+      {
+        "kind": "string",
+        "description": "",
+        "required": false,
+        "user_visible": false,
+        "label": "Num\u00e9ro de porte",
+        "disabled": false,
+        "user_editable": false,
+        "asked_on_registration": false,
+        "name": "enterprise_num_house"
+      },
+      {
+        "kind": "string",
+        "description": "",
+        "required": false,
+        "user_visible": false,
+        "label": "Num\u00e9ro de la bo\u00EEte",
+        "disabled": false,
+        "user_editable": false,
+        "asked_on_registration": false,
+        "name": "enterprise_num_box"
+      },
+      {
+        "kind": "string",
+        "description": "",
+        "required": false,
+        "user_visible": false,
+        "label": "Code postal de l'activit\u00e9",
+        "disabled": false,
+        "user_editable": false,
+        "asked_on_registration": false,
+        "name": "enterprise_zip_code"
+      },
+      {
+        "kind": "string",
+        "description": "",
+        "required": false,
+        "user_visible": false,
+        "label": "Commune de l'activit\u00e9",
+        "disabled": false,
+        "user_editable": false,
+        "asked_on_registration": false,
+        "name": "enterprise_town"
+      },
+      {
+        "kind": "string",
+        "description": "",
+        "required": false,
+        "user_visible": false,
+        "label": "Pays de l'activit\u00e9",
+        "disabled": false,
+        "user_editable": false,
+        "asked_on_registration": false,
+        "name": "enterprise_country"
+      },
+      {
+        "kind": "string",
+        "description": "",
+        "required": false,
+        "user_visible": false,
+        "label": "Code nacebel",
+        "disabled": false,
+        "user_editable": false,
+        "asked_on_registration": false,
+        "name": "enterprise_nacebel"
       }
     ]
   },
