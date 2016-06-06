@@ -113,6 +113,18 @@ class NumHouseField(forms.CharField):
         except ValueError:
             raise forms.ValidationError("Format invalide")
 
+class NumPhoneField(forms.CharField):
+    def validate(self, value):
+        super(NumPhoneField, self).validate(value)
+        if not value:
+            return
+        try:
+            if not re.match("^(0|\\+|00)(\d{8,}", value):
+                raise ValueError()
+        except ValueError:
+            raise forms.ValidationError("Format invalide")
+
+
 
 A2_ATTRIBUTE_KINDS = [
         {
@@ -124,6 +136,11 @@ A2_ATTRIBUTE_KINDS = [
             'label': u'Numéro de maison',
             'name': 'num_house',
             'field_class': NumHouseField,
+        },
+        {
+            'label': u'Numéro de téléphone',
+            'name': 'phone',
+            'field_class': NumPhoneField,
         }
 ]
 

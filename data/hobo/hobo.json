@@ -180,7 +180,7 @@
         "name": "country"
       },
       {
-        "kind": "string",
+        "kind": "NumPhoneField",
         "description": "",
         "required": false,
         "user_visible": true,
