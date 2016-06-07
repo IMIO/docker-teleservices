@@ -119,7 +119,7 @@ class NumPhoneField(forms.CharField):
         if not value:
             return
         try:
-            if not re.match("^(0|\\+|00)(\d{8,}", value):
+            if not re.match("^(0|\\+|00)(\d{8,})", value):
                 raise ValueError()
         except ValueError:
             raise forms.ValidationError("Format invalide")
