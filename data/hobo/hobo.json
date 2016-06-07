@@ -180,7 +180,7 @@
         "name": "country"
       },
       {
-        "kind": "NumPhoneField",
+        "kind": "phone",
         "description": "",
         "required": false,
         "user_visible": true,
@@ -326,6 +326,7 @@
   },
   "variables": {
     "css_variant": "liege",
+    "city_name": "Li\u00e8ge",
     "portal_agent_url": "http://local-portail-agent.example.net/",
     "theme": "liege",
     "portal_agent_title": "Portail agent"
