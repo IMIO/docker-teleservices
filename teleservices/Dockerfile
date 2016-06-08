@@ -7,7 +7,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN echo "APT::Install-Suggests \"false\";\nAPT::Install-Recommends \"false\";" >> /etc/apt/apt.conf
 # Avoid ERROR: invoke-rc.d: policy-rc.d denied execution of start.
 RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d
-RUN apt-get update && apt-get install -y wget gnupg debian-archive-keyring rsyslog python-dns gettext vim.nox bash-completion
+RUN apt-get update && apt-get install -y wget gnupg debian-archive-keyring rsyslog python-dns gettext vim.nox bash-completion libjs-jquery
 RUN wget -O - http://deb.entrouvert.org/entrouvert.gpg | apt-key add -
 RUN echo "deb http://http.debian.net/debian wheezy-backports main"> /etc/apt/sources.list.d/backports.list
 RUN echo "deb http://deb.entrouvert.org/ wheezy main\ndeb http://deb.entrouvert.org/ wheezy-eobuilder main\ndeb http://deb.entrouvert.org/ wheezy-testing main\n" > /etc/apt/sources.list.d/entrouvert.list
