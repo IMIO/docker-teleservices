@@ -48,6 +48,8 @@ CACHES = {
 LANGUAGE_CODE = 'fr-fr'
 TIME_ZONE = 'Europe/Brussels'
 
+LOCALE_PATHS = ('/var/lib/authentic2/locale',) + LOCALE_PATHS
+
 # Sentry / Raven configuration
 #RAVEN_CONFIG = {
 #    'dsn': '',
