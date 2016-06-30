@@ -19,6 +19,12 @@ msgstr ""
 "L’adresse e-mail et le mot de passe que vous avez saisis ne correspondent "
 "pas. Si vous n'avez pas encore créé de compte, cliquez sur le lien "
 "« Enregistrez-vous »."
+
+msgid ""
+"A mail was sent to you with instructions to reset your password"
+msgstr ""
+"Un e-mail vous a été envoyé avec des instructions pour ré-initialiser votre mot de passe. "
+"Si vous n'avez pas encore créé de compte, cliquez sur \"Inscrivez-vous !\""
 """
 
 fd.close()
