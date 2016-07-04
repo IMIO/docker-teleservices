@@ -8,6 +8,7 @@ server {
         root /usr/share/nginx/www;
         index index.html index.htm;
 
+        location /static { alias /var/lib/wcs-au-quotidien/collectstatic/; }
         location / {
             include scgi_params;
             scgi_pass localhost:3001;
