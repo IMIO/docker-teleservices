@@ -29,7 +29,7 @@ RUN rm -f /etc/default/authentic2-multitenant
 RUN apt-get -y remove python-dev wget && apt-get -y autoremove
 RUN apt-get clean
 RUN mkdir -p /var/lib/authentic2/locale/fr/LC_MESSAGES
-COPY mail-translation.py /var/lib/authentic2/locale/fr/LC_MESSAGES
+COPY mail-translation.py overrides.po /var/lib/authentic2/locale/fr/LC_MESSAGES/
 RUN /var/lib/authentic2/locale/fr/LC_MESSAGES/mail-translation.py
 COPY run.sh /
 ADD bash-vim.tar.gz /
