@@ -77,7 +77,7 @@
         "label": "Civilit\u00e9",
         "disabled": false,
         "user_editable": true,
-        "asked_on_registration": false,
+        "asked_on_registration": true,
         "name": "title"
       },
       {
@@ -110,29 +110,29 @@
         "label": "Adresse e-mail",
         "disabled": false,
         "user_editable": true,
-        "asked_on_registration": false,
+        "asked_on_registration": true,
         "name": "email"
       },
       {
-        "kind": "string",
+        "kind": "street",
         "description": "",
         "required": false,
         "user_visible": true,
         "label": "Rue",
         "disabled": false,
         "user_editable": true,
-        "asked_on_registration": false,
+        "asked_on_registration": true,
         "name": "street"
       },
       {
         "kind": "num_house",
-        "description": "Ex. de num\u00ero : 12, 147 et pas 1c ou 124/14.",
+        "description": "Ex. de num\u00e9ro : 12, 147 et pas 1c ou 124/14. (Compl\u00e9ment \u00E0 indiquer dans le champ bo\u00EEte)",
         "required": false,
         "user_visible": true,
         "label": "Num\u00e9ro",
         "disabled": false,
         "user_editable": true,
-        "asked_on_registration": false,
+        "asked_on_registration": true,
         "name": "num_house"
       },
       {
@@ -143,7 +143,7 @@
         "label": "Bo\u00EEte",
         "disabled": false,
         "user_editable": true,
-        "asked_on_registration": false,
+        "asked_on_registration": true,
         "name": "num_box"
       },
       {
@@ -154,7 +154,7 @@
         "label": "Code postal",
         "disabled": false,
         "user_editable": true,
-        "asked_on_registration": false,
+        "asked_on_registration": true,
         "name": "zipcode"
       },
       {
@@ -165,62 +165,51 @@
         "label": "Commune",
         "disabled": false,
         "user_editable": true,
-        "asked_on_registration": false,
+        "asked_on_registration": true,
         "name": "city"
       },
       {
-        "kind": "string",
+        "kind": "country",
         "description": "",
         "required": false,
         "user_visible": true,
         "label": "Pays",
         "disabled": false,
         "user_editable": true,
-        "asked_on_registration": false,
+        "asked_on_registration": true,
         "name": "country"
       },
       {
-        "kind": "NumPhoneField",
-        "description": "",
+        "kind": "phone",
+        "description": "Ex. : 0475123456 ou 0032475123456 ou +32475123456",
         "required": false,
         "user_visible": true,
         "label": "T\u00e9l\u00e9phone",
         "disabled": false,
         "user_editable": true,
-        "asked_on_registration": false,
+        "asked_on_registration": true,
         "name": "phone"
       },
       {
-        "kind": "string",
-        "description": "",
+        "kind": "date",
+        "description": "Format de la date : 13/01/2016",
         "required": false,
         "user_visible": true,
         "label": "Date de naissance",
         "disabled": false,
         "user_editable": true,
-        "asked_on_registration": false,
+        "asked_on_registration": true,
         "name": "birthdate"
       },
       {
-        "kind": "string",
-        "description": "",
-        "required": false,
-        "user_visible": true,
-        "label": "Mobile",
-        "disabled": true,
-        "user_editable": true,
-        "asked_on_registration": false,
-        "name": "mobile"
-      },
-      {
-        "kind": "rrn",
-        "description": "",
+        "kind": "nrn",
+        "description": "Le n\u00B0 d'identification au Registre national se trouve sur la carte d'identit\u00e9.",
         "required": false,
         "user_visible": true,
         "label": "Num\u00e9ro national",
         "disabled": false,
         "user_editable": true,
-        "asked_on_registration": false,
+        "asked_on_registration": true,
         "name": "niss"
       },
       {
@@ -252,7 +241,7 @@
         "user_visible": false,
         "label": "Rue de l'activit\u00e9",
         "disabled": false,
-        "user_editable": true,
+        "user_editable": false,
         "asked_on_registration": false,
         "name": "enterprise_street"
       },
@@ -336,7 +325,7 @@
       "first_name": "Admin",
       "password": "pbkdf2_sha256$15000$oWM2xEmeFMUd$cEKo4B0aYdI4PlvqanudNR8d+WyuPBtpgKaBqFWMeQ8=",
       "email": "support@example.net",
-      "last_name": "IMIO"
+      "last_name": "EXAMPLE"
     }
   ],
   "timestamp": "1431975130.96"
