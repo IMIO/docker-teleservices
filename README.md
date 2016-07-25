@@ -11,27 +11,27 @@ docker-compose 1.6 or above
 
     sudo sh -c "echo '127.0.0.1 local-hobo.example.net local-auth.example.net local-formulaires.example.net local.example.net local-portail-agent.example.net local-documents.example.net local-passerelle.example.net' >> /etc/hosts"
 
-    * Compose and run the container image
+* Compose and run the container image
 
-        docker-compose run localteleservices
+    docker-compose run localteleservices
 
-        * Go to http://local.example.net with you favorite browser, an admin account is
-          setup, username is "admin" and password is "password" (without the quotes).
+* Go to http://local.example.net with you favorite browser, an admin account is
+  setup, username is "admin" and password is "password" (without the quotes).
 
-          ### Development
+### Development
 
-          You can clone modules into the src/ directory and they will automatically be
-          used in the container environment.
+You can clone modules into the src/ directory and they will automatically be
+used in the container environment.
 
-          Supported modules are:
+Supported modules are:
 
-          * combo
-          * imio-publik-themes (hence publik-base-theme)
-          * passerelle
-          * passerelle-imio-tax-compute
+* combo
+* imio-publik-themes (hence publik-base-theme)
+* passerelle
+* passerelle-imio-tax-compute
 
-          Services will be run in django-runserver mode, and can be seen in a screen
-          session running in the container.
+Services will be run in django-runserver mode, and can be seen in a screen
+session running in the container.
 
-              docker exec -ti dockerteleservices_localteleservices_1 bash
-                  script -c "screen -r"
+    docker exec -ti dockerteleservices_localteleservices_1 bash
+    script -c "screen -r"
