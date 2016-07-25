@@ -1,0 +1,57 @@
+version: '2'
+
+services:
+  localteleservices:
+    build:
+      context: teleservices
+      dockerfile: Dockerfile-jessie
+    image: teleservices:jessie
+    mem_limit: 2048m
+    ports:
+        - "80:80"
+    extra_hosts:
+        local.example.net:
+          127.0.0.1
+        local-portail-agent.example.net:
+          127.0.0.1
+        local-auth.example.net:
+          127.0.0.1
+        local-formulaires.example.net:
+          127.0.0.1
+        local-documents.example.net:
+          127.0.0.1
+        local-passerelle.example.net:
+          127.0.0.1
+        local-hobo.example.net:
+          127.0.0.1
+    volumes:
+      - ./data/hobo:/etc/hobo
+      - ./data/combo:/var/lib/combo/tenants
+      - ./data/fargo:/var/lib/fargo/tenants
+      - ./data/authentic2:/var/lib/authentic2-multitenant/tenants
+      - ./data/wcs:/var/lib/wcs-au-quotidien
+      - ./data/passerelle:/var/lib/passerelle/tenants
+      - ./config/nginx:/etc/nginx/sites-available
+      - ./config/combo:/etc/combo
+      - ./config/fargo:/etc/fargo
+      - ./config/authentic2:/etc/authentic2-multitenant
+      - ./config/hobo-agent:/etc/hobo-agent
+      - ./config/passerelle:/etc/passerelle
+    command: /bin/sh -c "sleep 10 ; /run.sh"
+    depends_on:
+      - database
+      - rabbitmq
+  rabbitmq:
+    image: rabbitmq
+    hostname: rabbitmq
+  database:
+    image: postgres
+    hostname: postgres
+    container_name: postgres
+    volumes:
+      - ./data/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d/
+    environment:
+      - "POSTGRES_PASSWORD=password"
+  memcached:
+    image: memcached
+    hostname: memcached
