@@ -9,6 +9,7 @@ do
 	sass \
 		static/liege/style.scss:static/liege/style.css \
 		static/namur/style.scss:static/namur/style.css \
-		static/lalouviere/style.scss:static/lalouviere/style.css
+		static/lalouviere/style.scss:static/lalouviere/style.css \
+>--->---static/huy/style.scss:static/huy/style.css
 	sleep 5
 done
