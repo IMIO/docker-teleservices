@@ -12,10 +12,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
+msgid "Pay"
+msgstr "Payer votre commande"
+
 msgid "A mail was sent to you with instructions to reset your password"
 msgstr ""
 "Un e-mail vous a été envoyé avec des instructions pour ré-initialiser votre mot de passe. "
-"Si vous n'avez pas encore créé de compte, cliquez sur <a href='../accounts/register/'>\"Enregistrez-vous !\"</a>"
+"Si vous n'avez pas encore créé de compte, cliquez sur \"Enregistrez-vous !\""
 
 #, python-format
 msgid ""
