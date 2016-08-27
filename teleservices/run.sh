@@ -28,8 +28,7 @@ service hobo start
 service fargo start
 service nginx start
 service supervisor start
-#hobo-manage cook /etc/hobo/recipe.json
-/etc/hobo/init.sh
+sudo -u hobo hobo-manage cook /etc/hobo/recipe.json
 test -e /var/lib/authentic2-multitenant/tenants/*/settings.json || ln -s /etc/authentic2-multitenant/settings.json /var/lib/authentic2-multitenant/tenants/*/
 
 if [ x$1 = xfromgit ]
