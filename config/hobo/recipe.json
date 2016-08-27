@@ -3,41 +3,46 @@
     "hobo": "local-hobo.example.net",
     "authentic": "local-auth.example.net",
     "combo": "local.example.net",
-    "combo_agent": "local.example.net",
-    "fargo": "local.example.net",
-    "passerelle": "local.example.net"
+    "combo_agent": "local-portail-agent.example.net",
+    "fargo": "local-documents.example.net",
+    "passerelle": "local-passerelle.example.net",
+    "wcs": "local-formulaires.example.net"
   },
   "steps": [
     {"create-hobo": {
-      "url": "https://${hobo}/"
+      "url": "http://${hobo}/"
     }},
     {"create-superuser": {
       "email": "admints@example.net"
     }},
     {"create-authentic": {
-      "url": "https://${authentic}/",
+      "url": "http://${authentic}/",
       "title": "Guichet citoyen local - Authentic"
     }},
     {"set-idp": {
     }},
     {"create-combo": {
-      "url": "https://${combo}/",
+      "url": "http://${combo}/",
       "title": "Guichet citoyen local - Portail",
       "template_name": "portal-user"
     }},
     {"create-combo": {
-      "url": "https://${combo_agent}/",
+      "url": "http://${combo_agent}/",
       "slug": "portal-agent",
       "title": "Guichet citoyen local - Portail agent",
       "template_name": "portal-agent"
     }},
     {"create-fargo": {
-      "url": "https://${fargo}/",
+      "url": "http://${fargo}/",
       "title": "Porte-documents local - Fargo"
     }},
     {"create-passerelle": {
-      "url": "https://${passerelle}/",
+      "url": "http://${passerelle}/",
       "title": "Guichet citoyen local - Passerelle"
+    }},
+    {"create-wcs": {
+      "url": "http://${wcs}/",
+      "title": "Guichet citoyen local - Formulaires"
     }},
     {"set-theme": {
       "theme": "imio"
