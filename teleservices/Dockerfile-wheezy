@@ -13,7 +13,7 @@ RUN echo "deb http://http.debian.net/debian wheezy-backports main"> /etc/apt/sou
 RUN echo "deb http://deb.entrouvert.org/ wheezy main\ndeb http://deb.entrouvert.org/ wheezy-eobuilder main\ndeb http://deb.entrouvert.org/ wheezy-testing main\n" > /etc/apt/sources.list.d/entrouvert.list
 RUN echo "Package: *\nPin: release a=wheezy-eobuilder\nPin-Priority: 900" > /etc/apt/preferences.d/wheezy-eobuilder.pref
 RUN apt-get update && apt-get install -t wheezy-backports -y nginx
-RUN apt-get install -y python-eopayment wcs-au-quotidien python-hobo combo fargo python-fargo hobo-agent libjs-leaflet passerelle python-suds -t wheezy-testing
+RUN apt-get install -y python-eopayment wcs-au-quotidien combo fargo python-fargo hobo hobo-agent libjs-leaflet passerelle python-suds -t wheezy-testing
 RUN apt-get install -y authentic2-multitenant imio-publik-themes publik-base-theme python-authentic2-auth-fedict python-passerelle-imio-liege-lisrue -t wheezy-eobuilder
 # authentic
 RUN ln -s /usr/lib/python2.7/dist-packages/authentic2/static/authentic2 /var/lib/authentic2-multitenant/static/

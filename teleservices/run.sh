@@ -1,5 +1,5 @@
 #!/bin/bash
-rm /var/run/{authentic2-multitenant/authentic2-multitenant,fargo/fargo,combo/combo,nginx,rsyslogd,supervisord,wcs-auquotidien,passerelle/passerelle}.{pid,sock}
+rm /var/run/{authentic2-multitenant/authentic2-multitenant,fargo/fargo,hobo/hobo,combo/combo,nginx,rsyslogd,supervisord,wcs-auquotidien,passerelle/passerelle}.{pid,sock}
 /etc/hobo/fix-permissions.sh
 service rsyslog start
 
@@ -24,6 +24,7 @@ then
 	service passerelle start
 fi
 
+service hobo start
 service fargo start
 service nginx start
 service supervisor start
