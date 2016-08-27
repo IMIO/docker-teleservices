@@ -55,6 +55,7 @@ server {
         location ~ ^/static/(.+)$ {
             root /;
             try_files /var/lib/combo/tenants/$host/static/$1
+                      /var/lib/combo/tenants/$host/theme/static/$1
                       /var/lib/combo/collectstatic/$1
                       =404;
         }
