@@ -25,7 +25,7 @@ services:
         local-hobo.example.net:
           127.0.0.1
     volumes:
-      - ./data/hobo:/etc/hobo
+      - ./data/hobo:/var/lib/hobo/tenants
       - ./data/combo:/var/lib/combo/tenants
       - ./data/fargo:/var/lib/fargo/tenants
       - ./data/authentic2:/var/lib/authentic2-multitenant/tenants
@@ -35,6 +35,7 @@ services:
       - ./config/combo:/etc/combo
       - ./config/fargo:/etc/fargo
       - ./config/authentic2:/etc/authentic2-multitenant
+      - ./config/hobo:/etc/hobo
       - ./config/hobo-agent:/etc/hobo-agent
       - ./config/passerelle:/etc/passerelle
       - ./src:/opt/publik
