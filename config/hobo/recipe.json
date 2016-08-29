@@ -13,7 +13,8 @@
       "url": "http://${hobo}/"
     }},
     {"create-superuser": {
-      "email": "admints@example.net"
+      "email": "admints@example.net",
+      "password": "admin"
     }},
     {"create-authentic": {
       "url": "http://${authentic}/",
