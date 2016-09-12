@@ -8,10 +8,9 @@ then
 	service combo start
 fi
 
-service authentic2-multitenant update
-
 if [ x$1 != xfromgit ] || [ ! -d /opt/publik/authentic ]
 then
+	service authentic2-multitenant update
 	service authentic2-multitenant start
 fi
 
