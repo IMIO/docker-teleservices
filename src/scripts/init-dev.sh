@@ -20,7 +20,7 @@ then
 fi
 
 # passerelle
-if [ -d /opt/publik/combo ]
+if [ -d /opt/publik/passerelle ]
 then
 	sed -i 's/proxy_pass.*passerelle.*/proxy_pass http:\/\/127.0.0.1:8011;/' /etc/nginx/sites-enabled/default
 fi
