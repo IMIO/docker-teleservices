@@ -38,4 +38,4 @@ RUN echo "Europe/Brussels" > /etc/timezone
 RUN dpkg-reconfigure tzdata
 
 # Run
-CMD ["/run.sh"]
+CMD ["/run.sh", "fromgit"]

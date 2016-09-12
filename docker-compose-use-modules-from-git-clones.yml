@@ -38,7 +38,7 @@ services:
       - ./config/hobo-agent:/etc/hobo-agent
       - ./config/passerelle:/etc/passerelle
       - ./src:/opt/publik
-    command: /bin/sh -c "sleep 10 ; /run.sh"
+    command: /bin/sh -c "sleep 10 ; /run.sh fromgit"
     depends_on:
       - database
       - rabbitmq

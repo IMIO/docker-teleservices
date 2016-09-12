@@ -8,9 +8,11 @@ cp /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 # imio-publik-themes
 if [ -d /opt/publik/imio-publik-themes ]
 then
-	ln -sf imio-orig /usr/share/publik/themes/imio
+	rm -f /usr/share/publik/themes/imio
+	ln -s /opt/publik/imio-publik-themes /usr/share/publik/themes/imio
 else
-	ln -sf /opt/publik/imio-publik-themes /usr/share/publik/themes/imio
+	rm -f /usr/share/publik/themes/imio
+	ln -s imio-orig /usr/share/publik/themes/imio
 fi
 
 # combo
