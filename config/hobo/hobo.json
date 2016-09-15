@@ -169,6 +169,17 @@
         "name": "city"
       },
       {
+        "kind": "string",
+        "description": "Lieu-dit,...",
+        "required": false,
+        "user_visible": true,
+        "label": "Compl\u00e9ment d'adresse",
+        "disabled": false,
+        "user_editable": true,
+        "asked_on_registration": true,
+        "name": "address_supplement"
+      },
+      {
         "kind": "country",
         "description": "",
         "required": false,
