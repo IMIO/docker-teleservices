@@ -32,3 +32,8 @@ msgstr ""
 "L’adresse e-mail et le mot de passe que vous avez saisis ne correspondent "
 "pas. Si vous n'avez pas encore créé de compte, cliquez sur le lien "
 "« Enregistrez-vous »."
+
+msgid "Please fill the form to complete your registration"
+msgstr ""
+"En complétant tous les champs de votre profil, gagnez du temps dans la commande de vos documents."
+"Vos données seront reprises automatiquement dans les formulaires de commandes."
