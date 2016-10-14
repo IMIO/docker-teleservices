@@ -40,3 +40,14 @@ msgstr ""
 
 msgid "email address"
 msgstr "Adresse e-mail"
+
+msgid "Supprimer votre compte et toutes vos données personnelles ?"
+msgstr ""
+"En cas de suppression de compte tous les documents et démarches seront pedus. "
+"Si vous êtes certain de vouloir supprimer votre compte, vous pouvez encoder votre mot-de-passe et appuyer sur le bouton \"supprimer\""
+
+
+
+
+
+
