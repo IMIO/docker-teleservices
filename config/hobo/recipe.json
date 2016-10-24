@@ -45,6 +45,13 @@
       "url": "http://${wcs}/",
       "title": "Guichet citoyen local - Formulaires"
     }},
+    {"set-attribute": {
+      "name": "niss",
+      "label": "Num\u00e9ro national",
+      "description": "Le n\u00B0 d'identification au Registre national se trouve sur la carte d'identit\u00e9.",
+      "kind": "nrn",
+      "enabled": true
+    }},
     {"set-theme": {
       "theme": "imio"
     }}
