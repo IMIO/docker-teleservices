@@ -5,7 +5,6 @@ services:
     build:
       context: teleservices
       dockerfile: Dockerfile-wheezy
-    image: teleservices-wheezy:latest
     mem_limit: 2048m
     ports:
         - "80:80"
