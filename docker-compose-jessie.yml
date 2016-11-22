@@ -5,6 +5,7 @@ services:
     build:
       context: teleservices
       dockerfile: Dockerfile-jessie
+    image: teleservices-jessie:latest
     mem_limit: 2048m
     ports:
         - "80:80"

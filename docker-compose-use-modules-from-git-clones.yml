@@ -5,6 +5,7 @@ services:
     build:
       context: teleservices
       dockerfile: Dockerfile-use-modules-from-git-clones
+    image: teleservices-use-modules-from-git-clones:latest
     mem_limit: 2048m
     ports:
         - "80:80"
