@@ -3,6 +3,9 @@ rm /var/run/{authentic2-multitenant/authentic2-multitenant,fargo/fargo,hobo/hobo
 /etc/hobo/fix-permissions.sh
 service rsyslog start
 
+# install link to wcs external scripts
+test -e /var/lib/wcs-au-quotidien/scripts || ln -s /opt/publik/src/wcs-scripts /var/lib/wcs-au-quotidien/scripts
+
 if [ x$1 != xfromgit ] || [ ! -d /opt/publik/combo ]
 then
 	service combo start

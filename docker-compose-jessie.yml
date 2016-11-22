@@ -38,6 +38,7 @@ services:
       - ./config/hobo:/etc/hobo
       - ./config/hobo-agent:/etc/hobo-agent
       - ./config/passerelle:/etc/passerelle
+      - ./src:/opt/publik
     command: /bin/sh -c "sleep 10 ; /run.sh"
     depends_on:
       - database
