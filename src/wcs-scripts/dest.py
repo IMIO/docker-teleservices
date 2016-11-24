@@ -3,7 +3,7 @@ def get(variables):
     liste_vars = ['xxx'] # make sure all attributes are set
     if acceptation in ('Simple', 'Gratuit'):
         liste_vars = ['demandeur_liegeois', 'demandeur_plus_lg', 'demandeur']
-    elif acceptation in ('Tiers', 'Gratuit'):
+    elif acceptation in ('Tiers', ):
         liste_vars = ['perscon', 'perscon_plus_lg']
     result = {}
     for attribute in ('prenom', 'nom', 'rue', 'complement_adresse', 'numero', 'boite', 'codepostal', 'localite', 'pays'):
