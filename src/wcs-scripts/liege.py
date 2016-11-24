@@ -145,7 +145,7 @@ class Liege(town.Town):
           i = i + 1
         sum_cols1_values = sum([new_list[index] for index in lst_cols1])
         sum_cols2_values = sum([new_list[index] for index in lst_cols2])
-    if sum_cols1_values != sum_cols2_values:
+        if sum_cols1_values != sum_cols2_values:
           retour = False
       return retour
     except:
