@@ -1,5 +1,5 @@
 def get(variables):
-    acceptation = variables.get('form_var_acceptation')
+    acceptation = variables.get('form_var_acceptation') or 'Simple'
     liste_vars = ['xxx'] # make sure all attributes are set
     if acceptation in ('Simple', 'Gratuit'):
         liste_vars = ['demandeur_liegeois', 'demandeur_plus_lg', 'demandeur']
