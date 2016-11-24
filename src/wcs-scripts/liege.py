@@ -27,17 +27,6 @@ class Liege(town.Town):
       else:
         return [x for i, x in enumerate(choices) if i in is_not_liege_filtered_list]
 
-#  def concerne_qui(self, choices, is_not_liege_filtered_list = []):
-#    if not self.user_zipcode:
-#      return choices
-#    if self.user_zipcode in ('4000', '4020', '4030', '4031', '4032'):
-#      return choices
-#    else:
-#      if self.form_slug in self.forms_exceptions:
-#        return choices
-#      else:
-#        return [x for i, x in enumerate(choices) if i in is_not_liege_filtered_list]
-
   def is_liege_resident(self, choices, is_liege_filtered_list = [], is_not_liege_filtered_list = []):
     if not self.user_zipcode:
       return choices
