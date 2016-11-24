@@ -16,12 +16,6 @@ class Liege(town.Town):
   def __init__(self):
     super(Liege, self).__init__(variables=globals())
 
-  def criteria_filtered_list(self, choices, value_to_test, criteria_to_test, choices_if_true, choices_if_false):
-    if value_to_test == criteria_to_test:
-      return [x for i, x in enumerate(choices) if i in choices_if_true]
-    else:
-      return [x for i, x in enumerate(choices) if i in choices_if_false]
-
   def is_not_liege_filtered_list(self, choices, is_not_liege_filtered_list = [], forms_exceptions= []):
     if not self.user_zipcode:
       return choices
