@@ -36,6 +36,9 @@ class Town(object):
     else:
       return [x for i, x in enumerate(choices) if i in choices_if_false]
 
+  def get_form_slug(self):
+     return self.form_slug
+
   def get_form_name(self):
      return self.form_name
 

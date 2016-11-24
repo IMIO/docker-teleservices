@@ -64,9 +64,6 @@ class Liege(town.Town):
       return [x for i, x in enumerate(choices) if i in is_not_liege_filtered_list]
 
 
-  def get_form_slug(self):
-    return self.form_slug
-
   def test_liege_and_return_text(self, is_liege_text, is_not_liege_text):
     if self.user_zipcode  in ('4000', '4020', '4030', '4031', '4032'):
       return is_liege_text
