@@ -27,6 +27,10 @@ class Town(object):
       return str(valeur) + " " + texte + " = " + str(int(valeur) * coeff)+ ""
 
   def criteria_filtered_list(self, choices, value_to_test, criteria_to_test, choices_if_true, choices_if_false):
+    if str(choices) not in choices_if_false:
+        # patch for attestatin de milice Liege ... TODO 
+        choices_if_false = [0]
+        return choices_if_false
     if value_to_test == criteria_to_test:
       return [x for i, x in enumerate(choices) if i in choices_if_true]
     else:
