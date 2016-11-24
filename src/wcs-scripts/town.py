@@ -77,6 +77,29 @@ class Town(object):
 #      previousModulo = int(subpart) % ibanValidationModulo
 #    return previousModulo == 1
 
+  # Try to sum each row from a given column in a table (each value from the given column must be integer)
+  # table_var : this is the variable name of the table in forms.
+  # id_colonne : the id of the column in the table!
+  # price : default value = 1.
+  # return =  [sum of all row in given column] * price.
+  def compute_dynamic_tab(self, table_var, id_colonne, price = 1):
+    result = 0
+    if table_var is None:
+      return str(result)
+    else:
+      try:
+        id_col = int(id_colonne)
+        for item in table_var:
+          value = item[id_col]
+          if value == "":
+            value = "0"
+          result = result + int(value)
+        result = int(result) * int(price)
+        return str(result)
+      except:
+        return "compute_dynamic_tab : error" + str(table_var)
+
+
   def compute_tab_col(self, tab_var, num_col, memory_tab):
     error1 = "Erreur compute_tab_col : tableau en mem. different que tableau du formulaire."
     result = 0

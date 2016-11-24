@@ -70,23 +70,6 @@ class Liege(town.Town):
     else:
       return is_not_liege_text
 
-  def compute_dynamic_tab(self, table_var, id_colonne, price = 1):
-    result = 0
-    if table_var is None:
-      return str(result)
-    else:
-      try:
-        id_col = int(id_colonne)
-        for item in table_var:
-          value = item[id_col]
-          if value == "":
-            value = "0"
-          result = result + int(value)
-        result = int(result) * int(price)
-        return str(result)
-      except:
-        return "compute_dynamic_tab : error" + str(table_var)
-
   def validate_dynamic_tab_cells(self, table_var, id_colonne, regex_pattern, id_row = "-1"):
     retour = True
     id_col = int(id_colonne)
