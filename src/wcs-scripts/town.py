@@ -24,11 +24,17 @@ class Town(object):
     def get_form_name(self):
         return self.form_name
 
-    def txt_ifn_zero(self, valeur, texte, coeff = 1):
+    # Méthode qui ser à retourner un texte accompaggé d'un résultat.    
+    # valeur : Un nombre
+    # texte : un article (par exemple)
+    # coeff : un coéfficient multiplicateur
+    # unit : unité de mesure
+    # return sample = "[2] [certficats de domicile] = [10 (valeur*coeff)] [€]"
+    def txt_ifn_zero(self, valeur, texte, coeff = 1, unit = ""):
         if str(valeur) == "0":
             return ""
         else:
-            return str(valeur) + " " + texte + " = " + str(int(valeur) * coeff)+ ""
+            return str(valeur) + " " + texte + " = " + str(int(valeur) * coeff)+ " " + unit
 
     def criteria_filtered_list(self, choices, value_to_test, criteria_to_test, choices_if_true, choices_if_false):
         if str(choices) not in choices_if_false:
@@ -39,6 +45,11 @@ class Town(object):
         else:
             return [x for i, x in enumerate(choices) if i in choices_if_false]
 
+    # Return number of days between two date
+    # date1 : oldest date '%d/%m/%Y' format
+    # date2 : newest date '%d/%m/%Y' format
+    # if date1 older than date2, you get a postivie number of days.
+    # return = Number of day between date2 and date1 
     def diff_dates(self, date1, date2):
         try:
             d1 = datetime.datetime.strptime(date1, '%d/%m/%Y')
@@ -70,6 +81,13 @@ class Town(object):
             except:
                 return "compute_dynamic_tab : error" + str(table_var)
 
+    # Imaginons un tableau. Chaque ligne est un motif et, dans la cellule de chaque motif, on peut y mettre un nombre d'exemplaires. 
+    # Il nous est impossible avec une telle représentation dans l'outil TS2 de faire un calcul directement sur le nombre d'exemplaire * 1 prix. (sauf si on affiche le prix en 2e colonne)
+    # et de retourner un total complet.
+    # Cette méthode apporte une solution à ce prolbème.
+    # tab_var : Nom de la variable du tableau dans le formulaire
+    # num_col : Numéro de colonne qui participe au calcul du résultat
+    # memory_tab : Une liste avec la représentation en mémoire du tableau du formulaire [['id1','libelle1','price1'], ['id2','libelle2','price2'],..]
     def compute_tab_col(self, tab_var, num_col, memory_tab):
         error1 = "Erreur compute_tab_col : tableau en mem. different que tableau du formulaire."
         result = 0
