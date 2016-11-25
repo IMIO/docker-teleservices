@@ -49,7 +49,6 @@ services:
   database:
     image: postgres
     hostname: postgres
-    container_name: postgres
     volumes:
       - ./data/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d/
     environment:
