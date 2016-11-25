@@ -70,25 +70,6 @@ class Liege(town.Town):
         else:
             return is_not_liege_text
 
-    def validate_dynamic_tab_cells(self, table_var, id_colonne, regex_pattern, id_row = "-1"):
-        retour = True
-        id_col = int(id_colonne)
-        try:
-            if id_row == "-1":
-                for item in table_var:
-                    value = item[id_col]
-                    if value == '' or value is None:
-                        value = "0"
-                    if re.match(regex_pattern, value) is None:
-                        return False
-            else:
-                id_r = int(id_row)
-                if re.match(regex_pattern,table_var[id_r][id_col]) is None:
-                    retour = False
-            return retour
-        except:
-            return False
-
     # This is a very specific function to validate a dynamic table in a specific form for LIEGE
     # This form is "Commande courrier/fax/mail"
     def validate_specific_computing_tab(self, table_var, lst_cols1, lst_cols2):
