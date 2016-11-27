@@ -9,5 +9,5 @@ def get(variables):
     for attribute in ('prenom', 'nom', 'rue', 'complement_adresse', 'numero', 'boite', 'codepostal', 'localite', 'pays'):
         for var in liste_vars:
             varname = 'form_var_%s_%s' % (attribute, var)
-            result[attribute] = variables.get(varname) or ''
+            result[attribute] = variables.get(varname) or result.get(attribute, '')
     return result
