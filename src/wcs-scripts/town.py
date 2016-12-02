@@ -126,6 +126,17 @@ class Town(object):
         except:
             return False
 
+    def is_valid_belgian_nrn(self, nrn, can_be_none = 'False'):
+        if can_be_none == 'True' and str(nrn) == "None":
+            return True
+        else:
+            try:
+                if nrn is None:
+                    nrn = "0"
+                return ((97 - int(nrn[:9]) % 97 == int(nrn[-2:])) or (97 - int("2" + nrn[:9]) % 97 == int(nrn[-2:])))
+            except ValueError:
+                return False
+
 # à valider.
 #  def is_valid_iban(self, iban):
 #    ibanValidationModulo = 97
