@@ -12,6 +12,7 @@ else:
 contents = contents.replace('adresse de courriel', 'adresse e-mail'
                   ).replace('Nouveau courriel', 'Nouvelle adresse e-mail'
                   ).replace('un courriel', 'un e-mail'
+                  ).replace('un mail', 'un e-mail'
                   ).replace('courriel', 'adresse e-mail'
                   ).replace('Courriel', 'Adresse e-mail')
 fd = open('/var/lib/authentic2/locale/fr/LC_MESSAGES/authentic.po', 'w')
