@@ -2,7 +2,9 @@ def get(variables):
     acceptation = variables.get('form_var_acceptation') or 'Simple'
     liste_vars = ['xxx'] # make sure all attributes are set
     if acceptation in ('Simple', 'Gratuit'):
-        liste_vars = ['demandeur_liegeois', 'demandeur_plus_lg', 'demandeur']
+        liste_vars = ['demandeur_liegeois', 'demandeur_plus_lg', 'demandeur',
+                'demandeur_rad', 'demandeur_new_lg_etranger',
+                'demandeur_new_lg_belgique']
     elif acceptation in ('Tiers', ):
         liste_vars = ['perscon', 'perscon_plus_lg']
     result = {}
