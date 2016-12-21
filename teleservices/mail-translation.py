@@ -11,6 +11,8 @@ else:
     contents = open('/usr/lib/python2.7/dist-packages/authentic2/locale/fr/LC_MESSAGES/django.po').read()
 contents = contents.replace('adresse de courriel', 'adresse e-mail'
                   ).replace('Nouveau courriel', 'Nouvelle adresse e-mail'
+                  ).replace('dans ce courriel', 'dans cet e-mail'
+                  ).replace('courriel de validation', 'e-mail de validation'
                   ).replace('un courriel', 'un e-mail'
                   ).replace('un mail', 'un e-mail'
                   ).replace('courriel', 'adresse e-mail'
