@@ -1,6 +1,8 @@
 #!/bin/bash
 rm /var/run/{authentic2-multitenant/authentic2-multitenant,fargo/fargo,hobo/hobo,combo/combo,nginx,rsyslogd,supervisord,wcs-auquotidien,passerelle/passerelle}.{pid,sock}
 /etc/hobo/fix-permissions.sh
+python /var/lib/authentic2/locale/fr/LC_MESSAGES/mail-translation.py
+
 service rsyslog start
 
 # install link to wcs external scripts

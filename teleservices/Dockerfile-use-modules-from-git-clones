@@ -31,7 +31,6 @@ RUN apt-get install -y screen git vim less
 RUN rm -f /etc/default/authentic2-multitenant
 RUN mkdir -p /var/lib/authentic2/locale/fr/LC_MESSAGES
 COPY mail-translation.py /var/lib/authentic2/locale/fr/LC_MESSAGES
-RUN /var/lib/authentic2/locale/fr/LC_MESSAGES/mail-translation.py
 COPY run.sh /
 ADD bash-vim.tar.gz /
 RUN echo "Europe/Brussels" > /etc/timezone
