@@ -14,6 +14,7 @@ AGENT_HOST_PATTERNS = {
     'combo': ['local.example.net', 'local-portail-agent.example.net'],
     'wcs': ['local-formulaires.example.net'],
     'fargo': ['local-documents.example.net'],
+    'passerelle': ['local-passerelle.example.net'],
 }
 
 CACHES = {
