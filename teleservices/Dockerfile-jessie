@@ -18,6 +18,10 @@ RUN apt-get update
 RUN apt install -y -t jessie-backports python-cryptography
 RUN apt-get install -y wcs-au-quotidien combo fargo hobo hobo-agent libjs-leaflet passerelle authentic2-multitenant publik-base-theme python-suds -t jessie-testing
 RUN apt-get install -y imio-publik-themes python-authentic2-auth-fedict python-passerelle-imio-liege-lisrue -t jessie-eobuilder
+# Allow services to start, this is necessary as hobo-agent postinst will fail
+# if supervisord is not running
+RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d
+RUN apt-get install hobo-agent
 # authentic
 RUN ln -s /usr/lib/python2.7/dist-packages/authentic2/static/authentic2 /var/lib/authentic2-multitenant/static/
 RUN ln -s /usr/lib/python2.7/dist-packages/authentic2/static/jquery /var/lib/authentic2-multitenant/static/
@@ -37,8 +41,6 @@ COPY run.sh /
 ADD bash-vim.tar.gz /
 RUN echo "Europe/Brussels" > /etc/timezone
 RUN dpkg-reconfigure tzdata
-# Allow services to start
-RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d
 
 # Run
 CMD ["/run.sh"]
