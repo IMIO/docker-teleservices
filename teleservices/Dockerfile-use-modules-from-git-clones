@@ -5,8 +5,9 @@ ENV DEBIAN_FRONTEND noninteractive
 
 #Update Packages List
 RUN echo "APT::Install-Suggests \"false\";\nAPT::Install-Recommends \"false\";" >> /etc/apt/apt.conf
-# Avoid ERROR: invoke-rc.d: policy-rc.d denied execution of start.
-RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d
+# Don't allow services to start when building the image
+RUN echo "#!/bin/sh\nexit 101" > /usr/sbin/policy-rc.d
+RUN chmod +x /usr/sbin/policy-rc.d
 RUN apt-get update && apt-get install -y wget gnupg debian-archive-keyring rsyslog python-dns gettext exim4 vim.nox bash-completion libjs-jquery libreoffice
 RUN wget -O - http://deb.entrouvert.org/entrouvert.gpg | apt-key add -
 RUN echo "deb http://http.debian.net/debian wheezy-backports main"> /etc/apt/sources.list.d/backports.list
@@ -35,6 +36,8 @@ COPY run.sh /
 ADD bash-vim.tar.gz /
 RUN echo "Europe/Brussels" > /etc/timezone
 RUN dpkg-reconfigure tzdata
+# Allow services to start
+RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d
 
 # Run
 CMD ["/run.sh", "fromgit"]
