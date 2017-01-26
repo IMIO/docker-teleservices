@@ -47,6 +47,15 @@ class Lalouviere(town.Town):
         else:
             return is_not_lalouviere_text
 
+    # Has been adapted from Liege.py. (La Louvière reused Pop/Etat Civil Liège's forms)
+    def has_lalouviere_birthplace(self, choices, is_not_lalouviere_filtered_list = []):
+        if not self.user_birthplace:
+            return choices
+        if self.user_birthplace in lalouviere_cities:
+            return choices
+        else:
+            return [x for i, x in enumerate(choices) if i in is_not_lalouviere_filtered_list]
+
     def validate_dynamic_tab_cells(self, table_var, id_colonne, regex_pattern, id_row = "-1"):
         retour = True
         id_col = int(id_colonne)
