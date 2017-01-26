@@ -13,7 +13,7 @@ class Lalouviere(town.Town):
     def __init__(self):
         super(Lalouviere, self).__init__(variables=globals())
 
-    # Has been adapted from Liege.py. (La Louvière reused Pop/Etat Civil Liège's forms)
+    # Has been adapted from Liege.py (La Louvière reused Pop/Etat Civil Liège's forms)
     def is_not_lalouviere_filtered_list(self, choices, is_not_lalouviere_filtered_list = [], forms_exceptions= []):
         if not self.user_zipcode:
             return choices
@@ -25,7 +25,7 @@ class Lalouviere(town.Town):
             else:
                 return [x for i, x in enumerate(choices) if i in is_not_lalouviere_filtered_list
 
-    # Has been adapted from Liege.py. (La Louvière reused Pop/Etat Civil Liège's forms)
+    # Has been adapted from Liege.py (La Louvière reused Pop/Etat Civil Liège's forms)
     def is_lalouviere_resident(self, choices, is_lalouviere_filtered_list = [], is_not_lalouviere_filtered_list = []):
         if not self.user_zipcode:
             return choices
@@ -40,14 +40,30 @@ class Lalouviere(town.Town):
             else:
                 return choices
 
-    # Has been adapted from Liege.py. (La Louvière reused Pop/Etat Civil Liège's forms)
+    # Has been adapted from Liege.py (La Louvière reused Pop/Etat Civil Liège's forms)
     def test_lalouviere_and_return_text(self, is_lalouviere_text, is_not_lalouviere_text):
         if self.user_zipcode  in ('7100',):
             return is_lalouviere_text
         else:
             return is_not_lalouviere_text
 
-    # Has been adapted from Liege.py. (La Louvière reused Pop/Etat Civil Liège's forms)
+    # Has been adapted from Liege.py (La Louvière reused Pop/Etat Civil Liège's forms)
+    def verif_lalouviere_wedding(self, wedding_cities):
+        if wedding_cities in lalouviere_cities or wedding_cities is None:
+            return True
+        else:
+            return False
+    # Has been adapted from Liege.py (La Louvière reused Pop/Etat Civil Liège's forms)
+    def had_lalouviere_wedding(self, choices, is_not_lalouviere_filtered_list = []):
+        if not self.user_wedding_cities:
+            return choices
+        if lalouviere_cities.intersection(self.user_wedding_cities.split('|')):
+            return choices
+        else:
+            return [x for i, x in enumerate(choices) if i in is_not_lalouviere_filtered_list]
+
+
+    # Has been adapted from Liege.py (La Louvière reused Pop/Etat Civil Liège's forms)
     def has_lalouviere_birthplace(self, choices, is_not_lalouviere_filtered_list = []):
         if not self.user_birthplace:
             return choices
