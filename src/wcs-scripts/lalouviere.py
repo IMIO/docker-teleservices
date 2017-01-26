@@ -13,6 +13,18 @@ class Lalouviere(town.Town):
     def __init__(self):
         super(Lalouviere, self).__init__(variables=globals())
 
+    # Has been adapted from Liege.py. (La Louvière reused Pop/Etat Civil Liège's forms)
+    def is_not_lalouviere_filtered_list(self, choices, is_not_lalouviere_filtered_list = [], forms_exceptions= []):
+        if not self.user_zipcode:
+            return choices
+        if self.user_zipcode in ('7100',):
+            return choices
+        else:
+            if self.form_slug in forms_exceptions:
+                return choices
+            else:
+                return [x for i, x in enumerate(choices) if i in is_not_lalouviere_filtered_list
+
     def validate_dynamic_tab_cells(self, table_var, id_colonne, regex_pattern, id_row = "-1"):
         retour = True
         id_col = int(id_colonne)
