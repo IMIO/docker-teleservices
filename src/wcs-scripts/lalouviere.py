@@ -25,6 +25,28 @@ class Lalouviere(town.Town):
             else:
                 return [x for i, x in enumerate(choices) if i in is_not_lalouviere_filtered_list
 
+    # Has been adapted from Liege.py. (La Louvière reused Pop/Etat Civil Liège's forms)
+    def is_lalouviere_resident(self, choices, is_lalouviere_filtered_list = [], is_not_lalouviere_filtered_list = []):
+        if not self.user_zipcode:
+            return choices
+        if self.user_zipcode in ('7100',):
+            if len(is_lalouviere_filtered_list) > 0:
+                return [x for i, x in enumerate(choices) if i in is_lalouviere_filtered_list]
+            else:
+                return choices
+        else:
+            if len(is_not_lalouviere_filtered_list) > 0:
+                return [x for i, x in enumerate(choices) if i in is_not_lalouviere_filtered_list]
+            else:
+                return choices
+
+    # Has been adapted from Liege.py. (La Louvière reused Pop/Etat Civil Liège's forms)
+    def test_lalouviere_and_return_text(self, is_lalouviere_text, is_not_lalouviere_text):
+        if self.user_zipcode  in ('7100',):
+            return is_lalouviere_text
+        else:
+            return is_not_lalouviere_text
+
     def validate_dynamic_tab_cells(self, table_var, id_colonne, regex_pattern, id_row = "-1"):
         retour = True
         id_col = int(id_colonne)
