@@ -8,5 +8,8 @@ then
 _EOF_
 fi
 
+cp /opt/publik/hooks/tournaiteleservices/CA-AD-tournai.crt /usr/local/share/ca-certificates/
+update-ca-certificates
+
 # use native authentic translations
 rm -f /var/lib/authentic2/locale/fr/LC_MESSAGES/django.mo
