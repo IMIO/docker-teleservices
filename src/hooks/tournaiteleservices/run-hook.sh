@@ -7,3 +7,6 @@ then
 194.78.28.150 SRV-DC1.tournai.be
 _EOF_
 fi
+
+# use native authentic translations
+rm -f /var/lib/authentic2/locale/fr/LC_MESSAGES/django.mo
