@@ -1,12 +1,16 @@
 #!/bin/bash
 rm /var/run/{authentic2-multitenant/authentic2-multitenant,fargo/fargo,hobo/hobo,combo/combo,nginx,rsyslogd,supervisord,wcs-auquotidien,passerelle/passerelle}.{pid,sock}
 /etc/hobo/fix-permissions.sh
-python /var/lib/authentic2/locale/fr/LC_MESSAGES/mail-translation.py
 
-service rsyslog start
+python /var/lib/authentic2/locale/fr/LC_MESSAGES/mail-translation.py
 
 # install link to wcs external scripts
 test -e /var/lib/wcs-au-quotidien/scripts || ln -s /opt/publik/wcs-scripts /var/lib/wcs-au-quotidien/scripts
+
+HOSTNAME=$(hostname)
+test -f /opt/publik/hooks/$HOSTNAME/run-hook.sh && /opt/publik/hooks/$HOSTNAME/run-hook.sh
+
+service rsyslog start
 
 if [ x$1 != xfromgit ] || [ ! -d /opt/publik/combo ]
 then
