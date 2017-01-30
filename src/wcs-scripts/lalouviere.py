@@ -23,7 +23,7 @@ class Lalouviere(town.Town):
             if self.form_slug in forms_exceptions:
                 return choices
             else:
-                return [x for i, x in enumerate(choices) if i in is_not_lalouviere_filtered_list
+                return [x for i, x in enumerate(choices) if i in is_not_lalouviere_filtered_list]
 
     # Has been adapted from Liege.py (La Louvière reused Pop/Etat Civil Liège's forms)
     def is_lalouviere_resident(self, choices, is_lalouviere_filtered_list = [], is_not_lalouviere_filtered_list = []):
