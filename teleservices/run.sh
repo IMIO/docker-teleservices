@@ -35,6 +35,7 @@ fi
 
 service hobo start
 service fargo start
+service bijoe start
 service nginx start
 service supervisor start
 sudo -u hobo hobo-manage cook /etc/hobo/recipe.json
