@@ -41,6 +41,27 @@ class Namur(town.Town):
             nouvelle_liste.append(new_item)
         return nouvelle_liste
 
+    # Permet, à partir d'une liste alimentée par un dictionnaire avec, par exemple, un id, un text et un prix
+    # et à partir d'un tableau qui reprend certains intitulés de la liste et qui demande, par exemple un nombre d'exemplaire pour les items de la liste
+    # de renvoyer le total
+    # table_var : La variable du tableau qui contient le nb d'exemplaires pour les articles de la liste à choix multiple préalablement sélectionnés.
+    # list_var_raw : La variable "raw" de la liste d'item
+    # list_name : str qui contient le nom de la variable de la liste d'item
+    # rich_list_properties_name : Notre liste, alimentée par un dictionnaire est enrichie par une propriétés "price" ==> rich_liste_properties_name = "price" 
+    # table_col : Spécifie la colonne du tableau qui sera utilisée dans le calcul avec la propriété enrichie de la liste.
+    def compute_price(self, table_var, list_var_raw, list_name, rich_list_properties_name, table_col=0):
+        filtered_table = []
+        for elem in table_var:
+            try:
+                filtered_table.append(int(elem[table_col]))
+            except:
+                pass
+        list_motifs = []
+        i = 0
+        while i<len(list_var_raw):
+            list_motifs.append(int(globals().get(list_name + "_" + str(i) + "_" + rich_list_properties_name)))
+            i = i+1
+        return str(sum(map(operator.mul, list_motifs, filtered_table)))
 
 current_commune = Namur()
 function = args[0]
