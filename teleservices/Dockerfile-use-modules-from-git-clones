@@ -1,5 +1,5 @@
 # Dockerfile
-FROM debian:wheezy
+FROM debian:jessie
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -8,18 +8,20 @@ RUN echo "APT::Install-Suggests \"false\";\nAPT::Install-Recommends \"false\";" 
 # Don't allow services to start when building the image
 RUN echo "#!/bin/sh\nexit 101" > /usr/sbin/policy-rc.d
 RUN chmod +x /usr/sbin/policy-rc.d
-RUN apt-get update && apt-get install -y wget gnupg debian-archive-keyring rsyslog python-dns gettext exim4 vim.nox bash-completion libjs-jquery libreoffice
+RUN sed -i "s%httpredir.debian.org%debian.mirrors.ovh.net%g" /etc/apt/sources.list
+RUN apt-get update && apt-get install -y nginx wget gnupg debian-archive-keyring rsyslog python-dns gettext vim.nox bash-completion libjs-jquery libreoffice
 RUN wget -O - http://deb.entrouvert.org/entrouvert.gpg | apt-key add -
-RUN echo "deb http://http.debian.net/debian wheezy-backports main"> /etc/apt/sources.list.d/backports.list
-RUN echo "deb http://deb.entrouvert.org/ wheezy main\ndeb http://deb.entrouvert.org/ wheezy-eobuilder main\ndeb http://deb.entrouvert.org/ wheezy-testing main\n" > /etc/apt/sources.list.d/entrouvert.list
-RUN echo "Package: *\nPin: release a=wheezy-eobuilder\nPin-Priority: 900" > /etc/apt/preferences.d/wheezy-eobuilder.pref
-RUN apt-get update && apt-get install -t wheezy-backports -y nginx
-RUN apt-get install -y python-eopayment wcs-au-quotidien combo fargo python-fargo hobo libjs-leaflet passerelle python-suds -t wheezy-testing
-RUN apt-get install -y authentic2-multitenant imio-publik-themes publik-base-theme python-authentic2-auth-fedict python-passerelle-imio-liege-lisrue -t wheezy-eobuilder
+RUN echo "deb http://http.debian.net/debian jessie-backports main"> /etc/apt/sources.list.d/backports.list
+RUN echo "deb http://deb.entrouvert.org/ jessie main\ndeb http://deb.entrouvert.org/ jessie-eobuilder main\ndeb http://deb.entrouvert.org/ jessie-testing main\n" > /etc/apt/sources.list.d/entrouvert.list
+RUN echo "Package: *\nPin: release a=jessie-eobuilder\nPin-Priority: 900" > /etc/apt/preferences.d/jessie-eobuilder.pref
+RUN apt-get update
+RUN apt install -y -t jessie-backports python-cryptography
+RUN apt-get install -y wcs-au-quotidien combo fargo hobo bijoe libjs-leaflet passerelle authentic2-multitenant publik-base-theme python-suds -t jessie-testing
+RUN apt-get install -y imio-publik-themes python-authentic2-auth-fedict python-passerelle-imio-liege-lisrue -t jessie-eobuilder
 # Allow services to start, this is necessary as hobo-agent postinst will fail
 # if supervisord is not running
 RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d
-RUN apt-get install -y -t wheezy-testing hobo-agent
+RUN apt-get install -y -t jessie-testing hobo-agent
 # authentic
 RUN ln -s /usr/lib/python2.7/dist-packages/authentic2/static/authentic2 /var/lib/authentic2-multitenant/static/
 RUN ln -s /usr/lib/python2.7/dist-packages/authentic2/static/jquery /var/lib/authentic2-multitenant/static/
@@ -29,13 +31,12 @@ RUN chown -R www-data:www-data /var/lib/authentic2-multitenant/static
 # wcs
 RUN echo "exit 0" > /etc/default/wcs
 
-RUN apt-get install -y -t wheezy-eobuilder ruby-sass
-RUN apt-get install -y screen git vim less
+RUN apt-get install -y screen git vim less ruby-sass
 
 #cleanup
 RUN rm -f /etc/default/authentic2-multitenant
 RUN mkdir -p /var/lib/authentic2/locale/fr/LC_MESSAGES
-COPY mail-translation.py /var/lib/authentic2/locale/fr/LC_MESSAGES
+COPY mail-translation.py overrides.po /var/lib/authentic2/locale/fr/LC_MESSAGES/
 COPY run.sh /
 ADD bash-vim.tar.gz /
 RUN echo "Europe/Brussels" > /etc/timezone
