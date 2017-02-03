@@ -73,7 +73,7 @@ class Town(object):
                 id_col = int(id_colonne)
                 for item in table_var:
                     value = item[id_col]
-                    if value == "":
+                    if value is None or value == "":
                         value = "0"
                     result = result + int(value)
                 result = int(result) * int(price)
