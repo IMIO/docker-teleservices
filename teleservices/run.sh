@@ -35,6 +35,7 @@ fi
 
 service hobo start
 service fargo start
+service bijoe update
 service bijoe start
 service nginx start
 service supervisor start
