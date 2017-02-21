@@ -30,7 +30,7 @@ class Liege(town.Town):
     def is_liege_resident(self, choices, is_liege_filtered_list = [], is_not_liege_filtered_list = [], is_authentication_aware = 'False'):
         if not self.user_zipcode or (self.strong_authentication == False and is_authentication_aware == 'True'):
             return choices
-        else
+        else:
             return self.is_liege_resident(choices, is_liege_filtered_list, is_not_liege_filtered_list)
 
     def is_liege_resident(self, choices, is_liege_filtered_list = [], is_not_liege_filtered_list = []):
