@@ -13,6 +13,7 @@ class Town(object):
         self.user_birthplace = variables.get('session_user_var_birthplace')
         self.user_wedding_cities = variables.get('session_user_var_wedding_cities') or ''
         self.user_title = variables.get('session_user_var_title')
+        self.strong_authentication = variables.get('session_user_var_verified_fields') or None
         try:
             self.form_slug = variables.get('form_slug')
         except NameError:
