@@ -28,20 +28,14 @@ class Liege(town.Town):
                 return [x for i, x in enumerate(choices) if i in is_not_liege_filtered_list]
 
     def is_liege_resident(self, choices, is_liege_filtered_list = [], is_not_liege_filtered_list = [], is_authentication_aware = 'False'):
-        if not self.user_zipcode or (self.user_birthplace is None and is_authentication_aware == 'True'):
-            # self.strong_authentication == False
-            return choices
-        else:
-            return self.is_liege_resident(choices, is_liege_filtered_list, is_not_liege_filtered_list)
-
-    def is_liege_resident(self, choices, is_liege_filtered_list = [], is_not_liege_filtered_list = []):
-        if not self.user_zipcode:
-            return choices
         if self.user_zipcode in ('4000', '4020', '4030', '4031', '4032'):
-            if len(is_liege_filtered_list) > 0:
-                return [x for i, x in enumerate(choices) if i in is_liege_filtered_list]
-            else:
+            if ((self.user_birthplace is None or self.user_birthplace == '') and is_authentication_aware == 'True'):
                 return choices
+            else:
+                if len(is_liege_filtered_list) > 0:
+                    return [x for i, x in enumerate(choices) if i in is_liege_filtered_list]
+                else:
+                    return choices
         else:
             if len(is_not_liege_filtered_list) > 0:
                 return [x for i, x in enumerate(choices) if i in is_not_liege_filtered_list]
