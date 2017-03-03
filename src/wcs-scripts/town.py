@@ -25,7 +25,7 @@ class Town(object):
     def get_form_name(self):
         return self.form_name
 
-    # Méthode qui ser à retourner un texte accompaggé d'un résultat.    
+    # Méthode qui ser à retourner un texte accompaggé d'un résultat.
     # valeur : Un nombre
     # texte : un article (par exemple)
     # coeff : un coéfficient multiplicateur
@@ -39,7 +39,7 @@ class Town(object):
 
     def criteria_filtered_list(self, choices, value_to_test, criteria_to_test, choices_if_true, choices_if_false):
         if str(choices) not in choices_if_false:
-            # patch for attestatin de milice Liege ... TODO 
+            # patch for attestatin de milice Liege ... TODO
             choices_if_false = [0]
         if value_to_test == criteria_to_test:
             return [x for i, x in enumerate(choices) if i in choices_if_true]
@@ -50,7 +50,7 @@ class Town(object):
     # date1 : oldest date '%d/%m/%Y' format
     # date2 : newest date '%d/%m/%Y' format
     # if date1 older than date2, you get a postivie number of days.
-    # return = Number of day between date2 and date1 
+    # return = Number of day between date2 and date1
     def diff_dates(self, date1, date2):
         try:
             d1 = datetime.datetime.strptime(date1, '%d/%m/%Y')
@@ -106,11 +106,14 @@ class Town(object):
                     result = "Erreur compute_tab_col"
         return str(result)
 
-    # Use in Liege and Namur
-    #
     def validate_dynamic_tab_cells(self, table_var, id_colonne, regex_pattern, id_row = "-1"):
         retour = True
         id_col = int(id_colonne)
+        is_date = False
+        value = None
+        if regex_pattern == "is_date":
+            is_date = True
+            regex_pattern = "(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((19|20)\\d\\d)"
         try:
             if id_row == "-1":
                 for item in table_var:
@@ -118,10 +121,20 @@ class Town(object):
                     if value == '' or value is None:
                         value = "0"
                     if re.match(regex_pattern, value) is None:
-                        return False
+                        retour = False
             else:
                 id_r = int(id_row)
-                if re.match(regex_pattern,table_var[id_r][id_col]) is None:
+                value = table_var[id_r][id_col]
+                if re.match(regex_pattern, value) is None:
+                    retour = False
+            if retour is True and is_date is True:
+                try:
+                    annee = value.split('/')[2]
+                    mois = value.split('/')[1]
+                    jour = value.split('/')[0]
+                    newDate = datetime.datetime(int(annee), int(mois), int(jour))
+                    retour = True
+                except ValueError:
                     retour = False
             return retour
         except:
