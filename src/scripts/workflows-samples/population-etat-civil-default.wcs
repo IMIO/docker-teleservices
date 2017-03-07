@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="utf-8"?>
+<workflow id="4">
+  <name>Population, etat civil (default)</name>
+  <roles>
+    <role id="_receiver">Agent traitant</role>
+  </roles><last_modification user_id="1">2017-03-07 14:13:46</last_modification>
+  <possible_status>
+    <status>
+      <id>just_submitted</id>
+      <name>Juste envoy&#233;</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item id="2" type="sendmail">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to><subject>Nouveau formulaire ([name])</subject>
+          <body>Bonjour,
+
+Un nouveau formulaire a &#233;t&#233; compl&#233;t&#233;, vous pouvez le consulter
+en suivant ce lien :
+  [form_url_backoffice]
+
+[if-any details]
+Pour r&#233;f&#233;rence, voici le d&#233;tail du formulaire :
+
+[details]
+[end]
+</body>
+        </item><item id="1" type="set-backoffice-fields">
+          <fields>
+            <field>
+              <field_id>bo1</field_id>
+              <value>=locals().get("form_var_followmail")</value>
+            </field><field>
+              <field_id>bo2</field_id>
+              <value>=locals().get("form_var_nb_exemplaire")</value>
+            </field><field>
+              <field_id>bo3</field_id>
+              <value>=str(float(locals().get("form_var_montant"))) or  "0"</value>
+            </field><field>
+              <field_id>bo4</field_id>
+              <value>=locals().get("form_var_online_payment_raw") or False</value>
+            </field>
+          </fields>
+        </item><item id="5" type="jump">
+          <status>10</status>
+          <condition>form_var_wf_paiement_en_ligne_raw is True</condition>
+        </item><item id="6" type="jump">
+          <status>11</status>
+          <condition>form_var_wf_paiement_en_ligne_raw is None or form_var_wf_paiement_en_ligne_raw is False</condition>
+        </item>
+      </items>
+    </status><status>
+      <id>2</id>
+      <name>send_mail_1</name>
+      <colour>FF9900</colour>
+      <visibility />
+      <items>
+        <item id="1" type="sendmail">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>Administration de [[NOM_COMMUNE]] : Nouveau formulaire ([name])</subject>
+          <body>Madame, Monsieur,
+
+Vous venez de soumettre la d&#233;marche [form_name] via notre E-Guichet.
+Votre commande a bien &#233;t&#233; enregistr&#233;e dans notre syst&#232;me.
+Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en mentionnant les instructions de paiement suivantes : 
+
+- B&#233;n&#233;ficiaire : &lt;b&gt;Ville de [[NOM_COMMUNE]] - [[ADRESSE_COMMUNE]]
+- Num&#233;ro de compte b&#233;n&#233;ficiaire (IBAN) : [form_option_iban]
+- R&#233;f&#233;rence de la commande (communication libre) : [form_number]
+- Montant de la commande : [form_var_wf_total_commande]
+
+En vous connectant au E-Guichet, vous pouvez &#224; tout moment reprendre connaissance de votre d&#233;marche :
+[url]
+
+
+[if-any details]
+Pour r&#233;f&#233;rence, voici le d&#233;tail du formulaire:
+
+[details]
+[end]
+
+Bien cordialement, 
+
+
+[[NOM_COMMUNE]]
+[[ADRESSE_COMMUNE]]</body>
+        </item><item id="2" type="jump">
+          <status>new</status>
+        </item>
+      </items>
+    </status><status>
+      <id>new</id>
+      <name>En attente de paiement</name>
+      <colour>FFFF00</colour>
+      <visibility />
+      <items>
+        <item id="1" type="displaymsg">
+          <message>Madame,&lt;br&gt;
+Monsieur,&lt;br&gt;
+&lt;br&gt;
+Votre commande a bien &#233;t&#233; enregistr&#233;e dans notre syst&#232;me.
+&lt;br&gt;&lt;br&gt;
+Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en mentionnant les instructions de paiement suivantes : 
+&lt;ul&gt;
+&lt;li&gt;B&#233;n&#233;ficiaire : &lt;b&gt;Ville de [[NOM_COMMUNE]] - [[ADRESSE_COMMUNE]]&lt;/b&gt;&lt;/li&gt;
+&lt;li&gt;Num&#233;ro de compte b&#233;n&#233;ficiaire (IBAN) : &lt;b&gt;[form_option_iban]&lt;/b&gt;&lt;/li&gt;
+&lt;li&gt;R&#233;f&#233;rence de la commande (communication libre) : &lt;b&gt;[form_number]&lt;/b&gt;&lt;/li&gt;
+&lt;li&gt;Montant de la commande : &lt;b&gt;[form_var_wf_total_commande]&lt;/b&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+Veuillez bien &#224; "Signaler que votre paiement a &#233;t&#233; r&#233;alis&#233;" via le bouton ci-dessous cette page.&lt;br/&gt;
+Ceci aura pour effet d'avertir directement l'un de nos agents pour traiter au plus vite votre demande.  
+&lt;/p&gt;</message>
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to>
+        </item><item id="2" type="choice">
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>5</status>
+          <label>Paiement re&#231;u</label>
+          <require_confirmation>False</require_confirmation>
+        </item><item id="3" type="choice">
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>3</status>
+          <label>Refuser pour cause de non paiement</label>
+          <require_confirmation>False</require_confirmation>
+        </item>
+      </items>
+    </status><status>
+      <id>5</id>
+      <name>mail_following? (pec)</name>
+      <colour>FF9900</colour>
+      <visibility>
+        <role>_receiver</role>
+      </visibility><items>
+        <item id="1" type="jump">
+          <status>accepted</status>
+          <condition>form_var_wf_follow_mail == "False"</condition>
+        </item><item id="2" type="jump">
+          <status>6</status>
+          <condition>form_var_wf_follow_mail == "True"</condition>
+        </item>
+      </items>
+    </status><status>
+      <id>3</id>
+      <name>mail_following? (refus)</name>
+      <colour>FF9900</colour>
+      <visibility>
+        <role>_receiver</role>
+      </visibility><items>
+        <item id="1" type="jump">
+          <status>4</status>
+          <condition>form_var_wf_follow_mail == "False"</condition>
+        </item><item id="2" type="jump">
+          <status>7</status>
+          <condition>form_var_wf_follow_mail == "True"</condition>
+        </item>
+      </items>
+    </status><status>
+      <id>7</id>
+      <name>send_mail_3</name>
+      <colour>FF9900</colour>
+      <visibility>
+        <role>_receiver</role>
+      </visibility><items>
+        <item id="1" type="sendmail">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>Administration de [[NOM_COMMUNE]] : REFUS pour "[form_name]"</subject>
+          <body>Bonjour,
+
+Nous sommes au regret de vous informer que votre d&#233;marche "[form_name]" n'a pas pu aboutir.
+
+Bien cordialement,
+</body>
+        </item><item id="2" type="jump">
+          <status>4</status>
+        </item>
+      </items>
+    </status><status>
+      <id>4</id>
+      <name>rejet&#233;</name>
+      <colour>FF0000</colour>
+      <visibility />
+      <items />
+    </status><status>
+      <id>accepted</id>
+      <name>En cours de traitement</name>
+      <colour>66CCFF</colour>
+      <visibility />
+      <items>
+        <item id="1" type="choice">
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>8</status>
+          <label>Terminer</label>
+          <require_confirmation>False</require_confirmation>
+        </item><item id="2" type="choice">
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>3</status>
+          <label>Refuser la demande</label>
+          <require_confirmation>False</require_confirmation>
+        </item>
+      </items>
+    </status><status>
+      <id>6</id>
+      <name>send_mail_2</name>
+      <colour>FF9900</colour>
+      <visibility>
+        <role>_receiver</role>
+      </visibility><items>
+        <item id="1" type="jump">
+          <status>accepted</status>
+        </item><item id="2" type="sendmail">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>Administration de [[NOM_COMMUNE]] : D&#233;marche "[form_name]" accept&#233;e.</subject>
+          <body>Bonjour,
+
+Nous avons bien re&#231;u votre paiement. Votre demande va &#234;tre trait&#233;e dans les meilleurs d&#233;lais. 
+
+[if-any user]
+Vous pouvez continuer &#224; suivre son &#233;tat d'avancement en suivant ce lien :
+[url]
+[else]
+[end]
+
+Bien cordialement, 
+
+</body>
+        </item>
+      </items>
+    </status><status>
+      <id>8</id>
+      <name>mail_following? (end)</name>
+      <colour>FF9900</colour>
+      <visibility>
+        <role>_receiver</role>
+      </visibility><items>
+        <item id="1" type="jump">
+          <status>finished</status>
+          <condition>form_var_wf_follow_mail == "False"</condition>
+        </item><item id="2" type="jump">
+          <status>9</status>
+          <condition>form_var_wf_follow_mail == "True"</condition>
+        </item>
+      </items>
+    </status><status>
+      <id>9</id>
+      <name>send_mail_4</name>
+      <colour>FF9900</colour>
+      <visibility>
+        <role>_receiver</role>
+      </visibility><items>
+        <item id="1" type="sendmail">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>Administration de [[NOM_COMMUNE]] : D&#233;marche "[form_name]" trait&#233;e.</subject>
+          <body>Bonjour,
+Votre d&#233;marche "[form_name]" a &#233;t&#233; trait&#233;e par nos services. 
+Lors de la compl&#233;tion de votre d&#233;marche, vous aviez sp&#233;cifi&#233; comme destination :  
+"[form_var_destination]".
+
+Bien cordialement,</body>
+        </item><item id="2" type="jump">
+          <status>finished</status>
+        </item>
+      </items>
+    </status><status>
+      <id>finished</id>
+      <name>Termin&#233;</name>
+      <colour>00FF00</colour>
+      <visibility />
+      <items />
+    </status><status>
+      <id>10</id>
+      <name>Paiement en ligne</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item id="1" type="webservice_call">
+          <url>[portal_url]api/lingo/add-basket-item?NameId=[form_user_name_identifier_0]</url>
+          <post>True</post>
+          <varname>transaction_info</varname>
+          <post_data>
+            <item>
+              <name>amount</name>
+              <value>[form_var_wf_total_commande]</value>
+            </item>
+          </post_data><action_on_app_error>:pass</action_on_app_error>
+          <action_on_4xx>:stop</action_on_4xx>
+          <action_on_5xx>:stop</action_on_5xx>
+          <action_on_bad_data>:pass</action_on_bad_data>
+          <action_on_network_errors>:stop</action_on_network_errors>
+          <notify_on_errors>True</notify_on_errors>
+          <record_errors>True</record_errors>
+          <label>Paiement en ligne</label>
+          <method>POST</method>
+          <response_type>json</response_type>
+        </item><item id="2" type="jump">
+          <status>12</status>
+          <trigger>cancelled</trigger>
+        </item><item id="3" type="jump">
+          <status>5</status>
+          <trigger>paid</trigger>
+        </item>
+      </items>
+    </status><status>
+      <id>11</id>
+      <name>PC Banking (virement)</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item id="1" type="jump">
+          <status>new</status>
+          <condition>form_var_wf_follow_mail == "False"</condition>
+        </item><item id="2" type="jump">
+          <status>2</status>
+          <condition>form_var_wf_follow_mail == "True"</condition>
+        </item>
+      </items>
+    </status><status>
+      <id>12</id>
+      <name>Demande annul&#233;e par le citoyen</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items />
+    </status>
+  </possible_status><variables>
+    <formdef>
+      <name>-</name>
+      <fields>
+        <field>
+          <label>cout du document</label>
+          <type>string</type>
+          <required>True</required>
+          <varname>cost</varname>
+          <in_listing>False</in_listing>
+          <prefill>
+            <type>string</type>
+            <value>"0"</value>
+          </prefill><id>1</id>
+        </field><field>
+          <label>iban</label>
+          <type>string</type>
+          <required>False</required>
+          <varname>iban</varname>
+          <in_listing>False</in_listing>
+          <prefill>
+            <type>none</type>
+          </prefill><id>2</id>
+        </field><field>
+          <label>Motifs disponibles</label>
+          <type>items</type>
+          <required>True</required>
+          <varname>motifs_disponibles</varname>
+          <in_listing>False</in_listing>
+          <prefill>
+            <type>none</type>
+          </prefill><max_choices>0</max_choices>
+          <data_source>
+            <type>motivationterms</type>
+          </data_source><anonymise>True</anonymise>
+          <display_disabled_items>False</display_disabled_items>
+          <id>3</id>
+        </field><field>
+          <label>Destinations</label>
+          <type>items</type>
+          <required>True</required>
+          <varname>destinations</varname>
+          <in_listing>False</in_listing>
+          <prefill>
+            <type>none</type>
+          </prefill><max_choices>0</max_choices>
+          <data_source>
+            <type>destinationterms</type>
+          </data_source><anonymise>True</anonymise>
+          <display_disabled_items>False</display_disabled_items>
+          <id>4</id>
+        </field><field>
+          <label>Paiement en ligne (panier)</label>
+          <type>item</type>
+          <required>False</required>
+          <hint>---</hint>
+          <varname>paiement_en_ligne</varname>
+          <in_listing>True</in_listing>
+          <prefill>
+            <type>none</type>
+          </prefill><items>
+            <item>Forcer</item>
+            <item>Proposer</item>
+          </items><show_as_radio>False</show_as_radio>
+          <in_filters>False</in_filters>
+          <anonymise>False</anonymise>
+          <display_disabled_items>False</display_disabled_items>
+          <id>5</id>
+        </field>
+      </fields>
+    </formdef>
+  </variables><backoffice-fields>
+    <formdef>
+      <name>-</name>
+      <fields>
+        <field>
+          <label>Suivis par mail</label>
+          <type>bool</type>
+          <required>False</required>
+          <varname>wf_follow_mail</varname>
+          <in_listing>False</in_listing>
+          <id>bo1</id>
+        </field><field>
+          <label>Nombre d'exemplaires</label>
+          <type>string</type>
+          <required>True</required>
+          <varname>wf_nb_exemplaires</varname>
+          <in_listing>True</in_listing>
+          <id>bo2</id>
+        </field><field>
+          <label>Total de la commande</label>
+          <type>string</type>
+          <required>True</required>
+          <varname>wf_total_commande</varname>
+          <in_listing>True</in_listing>
+          <id>bo3</id>
+        </field><field>
+          <label>Paiement en ligne</label>
+          <type>bool</type>
+          <required>False</required>
+          <varname>wf_paiement_en_ligne</varname>
+          <in_listing>False</in_listing>
+          <id>bo4</id>
+        </field><field>
+          <label>motif du refus</label>
+          <type>item</type>
+          <required>True</required>
+          <varname>wf_motif_refus</varname>
+          <in_listing>True</in_listing>
+          <items>
+            <item>non paiement</item>
+            <item>autre</item>
+          </items><show_as_radio>False</show_as_radio>
+          <in_filters>False</in_filters>
+          <anonymise>False</anonymise>
+          <display_disabled_items>False</display_disabled_items>
+          <id>bo5</id>
+        </field>
+      </fields>
+    </formdef>
+  </backoffice-fields>
+</workflow>
