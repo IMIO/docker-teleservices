@@ -11,6 +11,7 @@ HOSTNAME=$(hostname)
 test -f /opt/publik/hooks/$HOSTNAME/run-hook.sh && /opt/publik/hooks/$HOSTNAME/run-hook.sh
 
 service rsyslog start
+service cron start
 
 if [ x$1 != xfromgit ] || [ ! -d /opt/publik/combo ]
 then
