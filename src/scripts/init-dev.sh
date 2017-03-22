@@ -36,13 +36,13 @@ fi
 # passerelle-imio-tax-compute
 if [ -d /opt/publik/passerelle-imio-tax-compute ]
 then
-	(cd /opt/publik/passerelle-imio-tax-compute && python setup.py develop)
+	(cd /opt/publik/passerelle-imio-tax-compute && python setup.py develop --no-deps)
 fi
 
 # authentic2-auth-fedict
 if [ -d /opt/publik/authentic2-auth-fedict ]
 then
-	(cd /opt/publik/authentic2-auth-fedict && python setup.py develop)
+	(cd /opt/publik/authentic2-auth-fedict && python setup.py develop --no-deps)
 fi
 
 service nginx reload
