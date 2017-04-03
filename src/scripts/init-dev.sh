@@ -45,4 +45,10 @@ then
 	(cd /opt/publik/authentic2-auth-fedict && python setup.py develop --no-deps)
 fi
 
+# passerelle-imio-ts1-datasources
+if [ -d /opt/publik/passerelle-imio-ts1-datasources ]
+then
+    (cd /opt/publik/passerelle-imio-ts1-datasources && python setup.py develop --no-deps)
+fi
+
 service nginx reload
