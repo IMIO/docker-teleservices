@@ -1,0 +1,158 @@
+{
+  "resources": [
+    {
+      "motivations": [
+        {
+          "text": "Allocations familiales : gratuit", 
+          "price": "0.0", 
+          "slug": "allocations-familiales", 
+          "description": "Allocations familiales"
+        }, 
+        {
+          "text": "Assurance : co\u00fbt 2\u20ac", 
+          "price": "2.0", 
+          "slug": "assurance", 
+          "description": "Assurance"
+        }, 
+        {
+          "text": "Autre : indiquer la raison dans le commentaire", 
+          "price": "0.0", 
+          "slug": "autre", 
+          "description": "Autre"
+        }, 
+        {
+          "text": "Avocat : co\u00fbt 2\u20ac", 
+          "price": "2.0", 
+          "slug": "avocat", 
+          "description": "Avocat"
+        }, 
+        {
+          "text": "Banque : co\u00fbt 2\u20ac", 
+          "price": "2.0", 
+          "slug": "banque", 
+          "description": "Banque"
+        }, 
+        {
+          "text": "Bourse d'\u00e9tudes : gratuit", 
+          "price": "0.0", 
+          "slug": "bourse-d-etudes", 
+          "description": "Bourse d'\u00e9tudes"
+        }, 
+        {
+          "text": "Consulat : co\u00fbt 2\u20ac", 
+          "price": "2.0", 
+          "slug": "consulat", 
+          "description": "Consulat"
+        }, 
+        {
+          "text": "Cr\u00e8che : gratuit", 
+          "price": "0.0", 
+          "slug": "creche", 
+          "description": "Cr\u00e8che"
+        }, 
+        {
+          "text": "Demande d'emploi : gratuit", 
+          "price": "0.0", 
+          "slug": "demande-d-emploi", 
+          "description": "Demande d'emploi"
+        }, 
+        {
+          "text": "Ecole : gratuit", 
+          "price": "0.0", 
+          "slug": "ecole", 
+          "description": "Ecole"
+        }, 
+        {
+          "text": "Huissier : co\u00fbt 2\u20ac", 
+          "price": "2.0", 
+          "slug": "huissier", 
+          "description": "Huissier"
+        }, 
+        {
+          "text": "Logement social : gratuit", 
+          "price": "0.0", 
+          "slug": "logement-social", 
+          "description": "Logement social"
+        }, 
+        {
+          "text": "Mutuelle : gratuit", 
+          "price": "0.0", 
+          "slug": "mutuelle", 
+          "description": "Mutuelle"
+        }, 
+        {
+          "text": "Notaire : co\u00fbt 2\u20ac", 
+          "price": "2.0", 
+          "slug": "notaire", 
+          "description": "Notaire"
+        }, 
+        {
+          "text": "Pension : gratuit", 
+          "price": "0.0", 
+          "slug": "pension", 
+          "description": "Pension"
+        }, 
+        {
+          "text": "Pour mariage en Belgique : gratuit", 
+          "price": "0.0", 
+          "slug": "pour-mariage-belgique", 
+          "description": "Pour mariage en Belgique"
+        }, 
+        {
+          "text": "R\u00e9gion Wallonne : gratuit", 
+          "price": "0.0", 
+          "slug": "region-wallonne", 
+          "description": "R\u00e9gion Wallonne"
+        }, 
+        {
+          "text": "Succession : co\u00fbt 2\u20ac", 
+          "price": "2.0", 
+          "slug": "succession", 
+          "description": "Succession"
+        }, 
+        {
+          "text": "Syndicat - ONEM : gratuit", 
+          "price": "0.0", 
+          "slug": "syndicat", 
+          "description": "Syndicat"
+        }, 
+        {
+          "text": "Usage \u00e0 l'\u00e9tranger : co\u00fbt 2\u20ac", 
+          "price": "2.0", 
+          "slug": "usage-etranger", 
+          "description": "Usage \u00e0 l'\u00e9tranger"
+        }
+      ], 
+      "log_level": "NOTSET", 
+      "description": ".", 
+      "title": "test ts1, ter", 
+      "access_rights": [], 
+      "slug": "test-ts1-ter", 
+      "@type": "passerelle-resource", 
+      "resource_type": "passerelle_imio_ts1_datasources.imiots1datasources", 
+      "destinations": [
+        {
+          "text": "Envoi \u00e0 domicile par recommand\u00e9: co\u00fbt 6\u20ac", 
+          "price": "5.0", 
+          "paymentrequired": true, 
+          "slug": "recommande", 
+          "description": "Mode de r\u00e9ception : envoi par recommand\u00e9"
+        }, 
+        {
+          "text": "Envoi \u00e0 domicile : co\u00fbt 1\u20ac", 
+          "price": "1.0", 
+          "paymentrequired": true, 
+          "slug": "poste", 
+          "description": "Mode de r\u00e9ception : envoi \u00e0 domicile"
+        }, 
+        {
+          "text": "R\u00e9cup\u00e9rer le document \u00e0 la commune lorsqu'il est pr\u00eat", 
+          "price": "0.0", 
+          "paymentrequired": false, 
+          "slug": "commune", 
+          "description": "Mode de r\u00e9ception \u00e0 la commune"
+        }
+      ]
+    }
+  ]
+}
