@@ -1,0 +1,9 @@
+<datasources id="99">
+  <name>passerelle_destinations</name>
+  <slug>passerelle_destinations</slug>
+  <description>Fait r&#233;f&#233;rence au plugins passerelle afin de r&#233;cup&#233;rer les destinations.</description>
+  <data_source>
+    <type>json</type>
+    <value>http://local-passerelle.example.net/imio-ts1-datasources/gestion-des-motifs-et-des-destinations/destinationterms/</value>
+  </data_source>
+</datasources>
