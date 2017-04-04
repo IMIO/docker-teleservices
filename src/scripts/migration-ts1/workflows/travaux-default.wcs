@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<workflow id="5">
+<workflow id="4">
   <name>Travaux (default)</name>
   <roles>
     <role id="_receiver">Agent traitant</role>
-  </roles><last_modification user_id="1">2017-03-07 14:13:46</last_modification>
+  </roles><last_modification user_id="1">2017-04-04 09:23:13</last_modification>
   <possible_status>
     <status>
       <id>just_submitted</id>
@@ -41,6 +41,9 @@ Pour r&#233;f&#233;rence, voici le d&#233;tail du formulaire :
             </field><field>
               <field_id>bo4</field_id>
               <value>=locals().get("form_var_online_payment_raw") or False</value>
+            </field><field>
+              <field_id>bo6</field_id>
+              <value>=locals().get("form_user_field_numero_national")</value>
             </field>
           </fields>
         </item><item id="5" type="jump">
@@ -55,8 +58,9 @@ Pour r&#233;f&#233;rence, voici le d&#233;tail du formulaire :
       <id>2</id>
       <name>send_mail_1</name>
       <colour>FF9900</colour>
-      <visibility />
-      <items>
+      <visibility>
+        <role>_receiver</role>
+      </visibility><items>
         <item id="1" type="sendmail">
           <to>
             <item role_id="_submitter">_submitter</item>
@@ -449,9 +453,15 @@ Bien cordialement,</body>
           <anonymise>False</anonymise>
           <display_disabled_items>False</display_disabled_items>
           <id>bo5</id>
+        </field><field>
+          <label>nn</label>
+          <type>string</type>
+          <required>False</required>
+          <varname>wf_nn</varname>
+          <in_listing>True</in_listing>
+          <id>bo6</id>
         </field>
       </fields>
     </formdef>
   </backoffice-fields>
 </workflow>
-
