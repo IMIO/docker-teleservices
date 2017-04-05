@@ -125,9 +125,9 @@
       ],
       "log_level": "NOTSET",
       "description": ".",
-      "title": "test ts1,ter",
+      "title": "Gestion des motifs et des destinations",
       "access_rights": [],
-      "slug": "test-ts1-ter",
+      "slug": "gestion-des-motifs-et-des-destinations",
       "@type": "passerelle-resource",
       "resource_type": "passerelle_imio_ts1_datasources.imiots1datasources",
       "destinations": [
