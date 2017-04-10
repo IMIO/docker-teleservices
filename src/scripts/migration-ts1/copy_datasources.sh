@@ -1,5 +1,5 @@
 # SAMPLE : sh copy_categories.sh lalouviere lescommunes.be
-if ! [ -d /var/lib/wcs-au-quotidien/$1-formulaires.$2/datasrouces ]
+if ! [ -d /var/lib/wcs-au-quotidien/$1-formulaires.$2/datasources ]
 then
     (mkdir /var/lib/wcs-au-quotidien/$1-formulaires.$2/datasources)
 fi
