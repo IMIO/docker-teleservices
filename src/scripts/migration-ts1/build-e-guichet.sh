@@ -29,5 +29,11 @@ sudo -u  wcs-au-quotidien wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vh
 sudo -u  wcs-au-quotidien wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2 /opt/publik/scripts/migration-ts1/import-forms.py /opt/publik/scripts/migration-ts1/forms/
 
 # Import combo site structure
-combo-manage tenant_command import_site -d $1.$2 /opt/publik/scripts/migration-ts1/combo-site/combo-site-structure.json
+sed "s/COMMUNE/$1/g" combo-site/combo-site-structure.json
+sudo -u combo combo-manage tenant_command import_site -d $1.$2 /opt/publik/scripts/migration-ts1/combo-site/combo-site-structure.json
+sed "s/$1/COMMUNE/g" combo-site/combo-site-structure.json
 
+# Add hobo extra params
+sudo -u hobo hobo-manage cook /etc/hobo/recipe.json
+sed "s~commune~$1~g" hobo/recipe-commune-extra.json > /etc/hobo/recipe-$1-extra.json
+test -e /etc/hobo/recipe-$1-extra.json && sudo -u hobo hobo-manage cook /etc/hobo/recipe-$1-extra.json
