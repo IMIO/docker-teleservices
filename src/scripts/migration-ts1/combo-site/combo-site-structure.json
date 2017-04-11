@@ -102,7 +102,7 @@
   }, 
   {
     "fields": {
-      "redirect_url": "https://huy-formulaires.guichet-citoyen.be/tryauth", 
+      "redirect_url": "https://COMMUNE-formulaires.guichet-citoyen.be/tryauth", 
       "exclude_from_navigation": false, 
       "parent": null, 
       "title": "D\u00e9marches", 
@@ -131,7 +131,7 @@
   }, 
   {
     "fields": {
-      "redirect_url": "https://huy-auth.guichet-citoyen.be/accounts", 
+      "redirect_url": "https://COMMUNE-auth.guichet-citoyen.be/accounts", 
       "exclude_from_navigation": false, 
       "parent": null, 
       "title": "Profil", 

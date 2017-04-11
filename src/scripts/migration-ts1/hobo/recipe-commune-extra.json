@@ -1,0 +1,141 @@
+{
+  "variables": {
+    "authentic": "commune-auth.guichet-citoyen.be",
+    "combo": "commune.guichet-citoyen.be",
+    "combo_agent": "commune-portail-agent.guichet-citoyen.be",
+    "fargo": "commune-documents.guichet-citoyen.be",
+    "passerelle": "commune-passerelle.guichet-citoyen.be",
+    "hobo": "commune-hobo.guichet-citoyen.be",
+    "wcs": "commune-formulaires.guichet-citoyen.be"
+  },
+  "steps": [
+    {"create-hobo": {
+      "url": "https://${hobo}/"
+    }},
+    {"create-combo": {
+      "url": "https://${combo}/",
+      "title": "Guichet citoyen commune - Portail",
+      "template_name": "portal-user"
+    }},
+    {"create-combo": {
+      "url": "https://${combo_agent}/",
+      "slug": "portal-agent",
+      "title": "Guichet citoyen commune - Portail agent",
+      "template_name": "portal-agent"
+    }},
+    {"enable-attribute": {
+        "name": "country"
+    }},
+    {"enable-attribute": {
+        "name": "birthdate"
+    }},
+    {"disable-attribute": {
+        "name": "mobile"
+    }},
+    {"disable-attribute": {
+        "name": "address"
+    }},
+    {"set-attribute": {
+      "name": "title",
+      "asked_on_registration": true,
+      "label": "Civilité",
+      "order": 1
+    }},
+    {"set-attribute": {
+      "name": "first_name",
+      "label": "Prénom",
+      "asked_on_registration": true,
+      "required": true,
+      "order": 2
+    }},
+    {"set-attribute": {
+      "name": "last_name",
+      "label": "Nom",
+      "asked_on_registration": true,
+      "required": true,
+      "order": 3
+    }},
+    {"set-attribute": {
+      "name": "email",
+      "label": "Adresse électronique",
+      "order": 4
+    }},
+    {"set-attribute": {
+      "name": "street",
+      "label": "Rue",
+      "asked_on_registration": true,
+      "required": true,
+      "kind": "street",
+      "order": 5
+    }},
+    {"set-attribute": {
+      "name": "num_house",
+      "label": "Numéro",
+      "asked_on_registration": true,
+      "description": "Ex. de num\u00e9ro : 12, 147 et pas 1c ou 124/14. (Compl\u00e9ment \u00E0 indiquer dans le champ bo\u00EEte)",
+      "required": true,
+      "kind": "num_house",
+      "order": 7
+    }},
+    {"set-attribute": {
+      "name": "num_box",
+      "label": "Boîte",
+      "asked_on_registration": true,
+      "order": 8
+    }},
+    {"set-attribute": {
+      "name": "address_supplement",
+      "label": "Complément d'adresse",
+      "description": "Lieu-dit,...",
+      "asked_on_registration": true,
+      "order": 6
+    }},
+    {"set-attribute": {
+      "name": "zipcode",
+      "label": "Code postal",
+      "asked_on_registration": true,
+      "required": true,
+      "order": 9
+    }},
+    {"set-attribute": {
+      "name": "city",
+      "label": "Commune",
+      "asked_on_registration": true,
+      "required": true,
+      "order": 10
+    }},
+    {"set-attribute": {
+      "name": "country",
+      "asked_on_registration": true,
+      "label": "Pays",
+      "kind": "country",
+      "required": true,
+      "order": 11
+    }},
+    {"set-attribute": {
+      "name": "phone",
+      "label": "Téléphone",
+      "description": "Ex. : 0475123456 ou 0032475123456 ou +32475123456",
+      "kind": "phone",
+      "asked_on_registration": true,
+      "order": 12
+    }},
+    {"set-attribute": {
+      "name": "birthdate",
+      "label": "Date de naissance",
+      "description": "Format de la date : 13/01/2016",
+      "asked_on_registration": true,
+      "required": true,
+      "kind": "date",
+      "order": 13
+    }},
+    {"set-attribute": {
+      "name": "niss",
+      "order": 14,
+      "asked_on_registration": true,
+      "kind": "nrn",
+      "description": "Le n\u00B0 d'identification au Registre national se trouve sur la carte d'identit\u00e9.",
+      "label": "Numéro national"
+    }}
+  ]
+}
