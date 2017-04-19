@@ -12,7 +12,7 @@
 # This file is sourced by "execfile" from /usr/lib/passerelle/debian_config.py
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = False
 
 ADMINS = (
@@ -62,4 +62,7 @@ CSRF_COOKIE_SECURE = False
 SESSION_COOKIE_SECURE = False
 # SESSION_COOKIE_SECURE = True
 
+INSTALLED_APPS += ('passerelle_imio_ts1_datasources',)
+TENANT_APPS += ('passerelle_imio_ts1_datasources',)
+PASSERELLE_APP_PASSERELLE_IMIO_TS1_DATASOURCES_ENABLED = True
 
