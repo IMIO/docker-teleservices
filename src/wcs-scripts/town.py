@@ -151,6 +151,19 @@ class Town(object):
             except ValueError:
                 return False
 
+    def is_valid_tva_number(self, tva_number):
+        if not tva_number[:2].upper() == 'BE':
+            return False
+        if not len(tva_number) == 12:
+            return False
+        if re.match("^[0-9]{10}$", tva_number[2:]):
+            int_value = int(tva_number[2:10])
+            check_digit = int(int_value / 97) % 97
+            if check_digit == int(tva_number[10:12]):
+                return True
+            else:
+                return False
+
 # à valider.
 #  def is_valid_iban(self, iban):
 #    ibanValidationModulo = 97
