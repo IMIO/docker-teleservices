@@ -113,7 +113,7 @@ class Town(object):
         value = None
         if regex_pattern == "is_date":
             is_date = True
-            regex_pattern = "(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((19|20)\\d\\d)"
+            regex_pattern = "(0?[1-9]|[12][0-9]|3[01])[-./](0?[1-9]|1[012])[-./]((19|20)\\d\\d)"
         try:
             if id_row == "-1":
                 for item in table_var:
@@ -129,9 +129,10 @@ class Town(object):
                     retour = False
             if retour is True and is_date is True:
                 try:
-                    annee = value.split('/')[2]
-                    mois = value.split('/')[1]
-                    jour = value.split('/')[0]
+                    separators = re.sub('[0-9]*', '', value)
+                    annee = value.split(separators[0])[2]
+                    mois = value.split(separators[0])[1]
+                    jour = value.split(separators[0])[0]
                     newDate = datetime.datetime(int(annee), int(mois), int(jour))
                     retour = True
                 except ValueError:
