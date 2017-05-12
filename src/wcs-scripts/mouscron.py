@@ -13,7 +13,7 @@ import town
 class Mouscron(town.Town):
 
     def __init__(self):
-        super(Oupeye, self).__init__(variables=globals())
+        super(Mouscron, self).__init__(variables=globals())
         self.lst_motifs_dispo = globals().get('form_option_motifs_disponibles_structured')
 
 
