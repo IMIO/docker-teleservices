@@ -12,4 +12,6 @@ def get(variables):
         for var in liste_vars:
             varname = 'form_var_%s_%s' % (attribute, var)
             result[attribute] = variables.get(varname) or result.get(attribute) or ''
+            if result[attribute] == 'None':
+                result[attribute] = ''
     return result
