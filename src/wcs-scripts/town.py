@@ -14,6 +14,7 @@ class Town(object):
         self.user_wedding_cities = variables.get('session_user_var_wedding_cities') or ''
         self.user_title = variables.get('session_user_var_title')
         self.strong_authentication = variables.get('session_user_var_verified_fields') or None
+        self.form_objects = variables.get('form_objects')
         try:
             self.form_slug = variables.get('form_slug')
         except NameError:
@@ -141,6 +142,18 @@ class Town(object):
         except:
             return False
 
+    def compute_standard_motivations_table(self, motif_tab_var, lst_motifs_disponibles_var):
+        # In the stdrd motivation table, column0 is motivations' title and column1 is number of copies.
+        col_title = 0
+        col_nb_copies = 1
+        total_price = float(0)
+        lst_selected_motifs = [x for x in motif_tab_var if x[0] != '' and x[0] is not None]
+        for selected_motif in lst_selected_motifs:
+            for motif in lst_motifs_disponibles_var:
+                if selected_motif[col_title] == motif['text']:
+                    total_price += int(selected_motif[col_nb_copies]) * float(motif['price'])
+        return str(total_price)
+
     def is_valid_belgian_nrn(self, nrn, can_be_none = 'False'):
         if can_be_none == 'True' and str(nrn) == "None":
             return True
@@ -164,6 +177,11 @@ class Town(object):
                 return True
             else:
                 return False
+
+    def check_duplicate_field(self, varname):
+        field_id = [x for x in self.form_objects.formdef.fields if x.varname == varname][0].id
+        result = bool(len([x for x in self.form_objects.formdef.data_class().select() if x.data.get(field_id) == globals().get("form_var_%s" % (varname)) and not x.is_draft()]) == 0)
+
 
 # à valider.
 #  def is_valid_iban(self, iban):
