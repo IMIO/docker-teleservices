@@ -13,7 +13,16 @@ import town
 class Oupeye(town.Town):
 
     def __init__(self):
-        super(Namur, self).__init__(variables=globals())
+        super(Oupeye, self).__init__(variables=globals())
+        self.lst_motifs_dispo = globals().get('form_option_motifs_disponibles_structured')
+
+    def autorisation_voyage_enfants_concernes(self):
+        # enfants_concernes = variables.get('form_var_tab_enfants_concernes')
+        return "aaa" # enfants_concernes
+
+    def motif_compute(self, selected_motifs_var):
+        lst_prices = [float(motif['price']) for motif in self.lst_motifs_dispo if motif['id'] in form_var_motif_raw]
+        return sum(lst_prices)
 
 current_commune = Oupeye()
 function = args[0]
@@ -28,3 +37,4 @@ if args[1] is not None:
         result = functionList[function](*params)
 else:
     result = functionList[function]()
+
