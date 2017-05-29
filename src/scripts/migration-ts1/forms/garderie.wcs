@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <formdef>
-  <name>Problème avec l'état de la route</name>
-  <url_name>route</url_name>
-  <description>Vous avez remarqué un problème concernant l&#39;état de la route, merci de nous le faire savoir.</description>
+  <name>Garderie</name>
+  <url_name>garderie</url_name>
+  <description>&lt;p&gt;Formulaire pour tout ce qui concerne les garderies&lt;/p&gt;</description>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
   <disabled>true</disabled>
@@ -12,14 +12,14 @@
   <private_status_and_history>false</private_status_and_history>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category category_id="98">Travaux</category>
-  <workflow workflow_id="travaux-default">Travaux (default)</workflow>
+  <category category_id="99">Etat civil - Population</category>
+  <workflow workflow_id="pop-etatcivil-default">Population, etat civil (default)</workflow>
   <max_field_id>28</max_field_id>
   <last_modification user_id="1">2016-11-21 14:44:14</last_modification>
   <fields>
 
     <field>
-      <label>Problème avec l'état de la route</label>
+      <label>Garderie</label>
       <type>page</type>
       <post_conditions>
         
@@ -148,6 +148,162 @@
     </field>
 
 
+    
+    
+    
+    
+
+    
+    
+    <field>
+      <label>Commentaire</label>
+      <type>text</type>
+      <required>False</required>
+      <varname>commentaire</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><cols>100</cols>
+      <rows>10</rows>
+      <pre>False</pre>
+      <id>20</id>
+    </field>
+        
+
+    
+    
+    
+    
+
+    
+        
+
+    
+    <field>
+      <label>Pr&#233;nom de l'enfant</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>prenom_enfant</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-3</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>12</id>
+    </field>
+    
+    
+    
+    
+
+    
+        
+
+    
+    
+    <field>
+      <label>Nom de l'enfant</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>nom_enfant</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-3</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>13</id>
+    </field>
+    
+    
+    
+
+    
+        
+
+    
+    
+    
+    <field>
+      <label>Date de naissance de l'enfant</label>
+      <type>date</type>
+      <required>True</required>
+      <varname>date_naissance_enfant</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-3</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><minimum_is_future>False</minimum_is_future>
+      <date_in_the_past>False</date_in_the_past>
+      <date_can_be_today>False</date_can_be_today>
+      <id>14</id>
+    </field>
+    
+    
+
+    
+        
+
+    
+    
+    
+        
+    <field>
+      <label>Personne de contact</label>
+      <type>text</type>
+      <required>True</required>
+      <varname>p_contact</varname>
+      <hint>Entrez ici les informations personnelle d'une personne de contact en cas d'urgences.</hint>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><cols>100</cols>
+      <rows>7</rows>
+      <pre>False</pre>
+      <id>15</id>
+    </field>
+    
+
+    
+        
+
+    
+    
+    
+    
+
+    
+    <field>
+      <label>Sp&#233;cifier le num&#233;ro national de la personne d&#233;c&#233;d&#233;e OU sa date de naissance.</label>
+      <type>comment</type>
+      <id>28</id>
+    </field><field>
+      <label>Num&#233;ro de registre national de la personne d&#233;c&#233;d&#233;e</label>
+      <type>string</type>
+      <required>False</required>
+      <varname>nn_deceased</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>18</id>
+    </field>
+    
+        
+
+    
+    
+    
+    
+
+    
+        
+
+    
+    
+    
+    
+
+    
+        
+
 <!-- Gestion des motifs à l'aide d'une variable des workflows. 
      Celle-ci doit s'appeler : "motifs-disponibles" et la variable associée "motifsdisponibles"
      -->
@@ -268,14 +424,14 @@
     <role role_id="logged-users">logged-users</role>
   </user-roles>
   <options>
-      <option varname="cost">0</option>
-      <option varname="iban">123-4567890-02</option>
+      <option varname="cost">5.0</option>
+      <option varname="iban">BE74 7775 9004 4107</option>
       <option varname="motifs_disponibles_structured" />
-      <option varname="motifs_disponibles_display"></option>
+      <option varname="motifs_disponibles_display">Allocations familiales : gratuit,Ecole : gratuit,Usage &#224; l'&#233;tranger : co&#251;t 2&#8364;</option>
       <option varname="motifs_disponibles" />
 
       <option varname="destinations_structured" />
-      <option varname="destinations_display"></option>
+      <option varname="destinations_display">Envoi &#224; domicile : co&#251;t 1&#8364;</option>
       <option varname="destinations" />
   </options>
   

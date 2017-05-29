@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<formdef id="65">
+<formdef>
   <name>Extrait de casier judiciaire (modèle 1)</name>
   <url_name>extrait-casier-judiciaire1</url_name>
   <description>Extrait de casier judiciaire Modèle 1</description>
@@ -12,8 +12,8 @@
   <private_status_and_history>false</private_status_and_history>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category>Etat civil - Population</category>
-  <workflow workflow_id=" pop-etatcivil-default ">Population, etat civil (default)</workflow>
+  <category category_id="99">Etat civil - Population</category>
+  <workflow workflow_id="pop-etatcivil-default">Population, etat civil (default)</workflow>
   <max_field_id>28</max_field_id>
   <last_modification user_id="1">2016-11-21 14:44:14</last_modification>
   <fields>
@@ -34,6 +34,7 @@
       <label>Nom</label>
       <type>string</type>
       <required>True</required>
+      <varname>nom</varname>
       <in_listing>True</in_listing>
       <extra_css_class>grid-1-2</extra_css_class>
       <prefill>
@@ -44,6 +45,7 @@
       <label>Pr&#233;nom</label>
       <type>string</type>
       <required>True</required>
+      <varname>prenom</varname>
       <in_listing>True</in_listing>
       <extra_css_class>grid-1-2</extra_css_class>
       <prefill>
@@ -54,6 +56,7 @@
       <label>Rue</label>
       <type>string</type>
       <required>True</required>
+      <varname>rue</varname>
       <in_listing>False</in_listing>
       <extra_css_class>grid-1-3</extra_css_class>
       <prefill>
@@ -64,6 +67,7 @@
       <label>Num&#233;ro</label>
       <type>string</type>
       <required>True</required>
+      <varname>numero_porte</varname>
       <in_listing>False</in_listing>
       <extra_css_class>grid-1-3</extra_css_class>
       <prefill>
@@ -75,6 +79,7 @@
       <label>Bo&#238;te</label>
       <type>string</type>
       <required>False</required>
+      <varname>boite</varname>
       <in_listing>False</in_listing>
       <extra_css_class>grid-1-3</extra_css_class>
       <prefill>
@@ -85,6 +90,7 @@
       <label>Code postal</label>
       <type>string</type>
       <required>True</required>
+      <varname>code_postal</varname>
       <in_listing>False</in_listing>
       <extra_css_class>grid-1-2</extra_css_class>
       <prefill>
@@ -96,6 +102,7 @@
       <label>Ville</label>
       <type>string</type>
       <required>True</required>
+      <varname>ville</varname>
       <in_listing>False</in_listing>
       <extra_css_class>grid-1-2</extra_css_class>
       <prefill>
@@ -106,6 +113,7 @@
       <label>Num&#233;ro de t&#233;l&#233;phone</label>
       <type>string</type>
       <required>False</required>
+      <varname>telephone</varname>
       <in_listing>True</in_listing>
       <extra_css_class>grid-1-2</extra_css_class>
       <prefill>
@@ -116,6 +124,7 @@
       <label>Num&#233;ro de GSM</label>
       <type>string</type>
       <required>False</required>
+      <varname>gsm</varname>
       <in_listing>True</in_listing>
       <extra_css_class>grid-1-2</extra_css_class>
       <prefill>
@@ -158,6 +167,7 @@
       <label>Commentaire</label>
       <type>text</type>
       <required>False</required>
+      <varname>commentaire</varname>
       <in_listing>False</in_listing>
       <prefill>
         <type>none</type>
@@ -287,12 +297,9 @@
   <user-roles>
     <role role_id="logged-users">logged-users</role>
   </user-roles>
-  <roles>
-    <role role_id="1206f811f24c4526afc4e8a7b146ff93" role_key="_receiver">Agents population</role>
-  </roles>
   <options>
       <option varname="cost">0</option>
-      <option varname="iban"></option>
+      <option varname="iban">123-4567890-02</option>
       <option varname="motifs_disponibles_structured" />
       <option varname="motifs_disponibles_display">Allocations familiales : gratuit,Assurance : co&#251;t 2&#8364;,Avocat : co&#251;t 2&#8364;,Banque : co&#251;t 2&#8364;,Bourse d'&#233;tudes : gratuit,Consulat : co&#251;t 2&#8364;,Cr&#232;che : gratuit,Demande d'emploi : gratuit,Ecole : gratuit,Huissier : co&#251;t 2&#8364;,Logement social : gratuit,Mutuelle : gratuit,Notaire : co&#251;t 2&#8364;,Pension : gratuit,R&#233;gion Wallonne : gratuit,Succession : co&#251;t 2&#8364;,Syndicat - ONEM : gratuit,Usage &#224; l'&#233;tranger : co&#251;t 2&#8364;,Autre : indiquer la raison dans le commentaire</option>
       <option varname="motifs_disponibles" />

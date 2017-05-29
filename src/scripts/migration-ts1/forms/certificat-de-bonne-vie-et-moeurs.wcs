@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <formdef>
-  <name>Problème avec l'état de la route</name>
-  <url_name>route</url_name>
-  <description>Vous avez remarqué un problème concernant l&#39;état de la route, merci de nous le faire savoir.</description>
+  <name>Certificat de bonne vie et moeurs</name>
+  <url_name>certificat-de-bonne-vie-et-moeurs</url_name>
+  <description>&lt;p&gt;Demande de certificat&lt;/p&gt;</description>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
   <disabled>true</disabled>
@@ -12,14 +12,14 @@
   <private_status_and_history>false</private_status_and_history>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category category_id="98">Travaux</category>
-  <workflow workflow_id="travaux-default">Travaux (default)</workflow>
+  <category category_id="99">Etat civil - Population</category>
+  <workflow workflow_id="pop-etatcivil-default">Population, etat civil (default)</workflow>
   <max_field_id>28</max_field_id>
   <last_modification user_id="1">2016-11-21 14:44:14</last_modification>
   <fields>
 
     <field>
-      <label>Problème avec l'état de la route</label>
+      <label>Certificat de bonne vie et moeurs</label>
       <type>page</type>
       <post_conditions>
         
@@ -148,6 +148,36 @@
     </field>
 
 
+    
+    
+    
+    
+
+    
+    
+    <field>
+      <label>Commentaire</label>
+      <type>text</type>
+      <required>False</required>
+      <varname>commentaire</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><cols>100</cols>
+      <rows>10</rows>
+      <pre>False</pre>
+      <id>20</id>
+    </field>
+        
+
+    
+    
+    
+    
+
+    
+        
+
 <!-- Gestion des motifs à l'aide d'une variable des workflows. 
      Celle-ci doit s'appeler : "motifs-disponibles" et la variable associée "motifsdisponibles"
      -->
@@ -271,11 +301,11 @@
       <option varname="cost">0</option>
       <option varname="iban">123-4567890-02</option>
       <option varname="motifs_disponibles_structured" />
-      <option varname="motifs_disponibles_display"></option>
+      <option varname="motifs_disponibles_display">Pension : gratuit</option>
       <option varname="motifs_disponibles" />
 
       <option varname="destinations_structured" />
-      <option varname="destinations_display"></option>
+      <option varname="destinations_display">R&#233;cup&#233;rer le document &#224; la commune lorsqu'il est pr&#234;t</option>
       <option varname="destinations" />
   </options>
   
