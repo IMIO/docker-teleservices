@@ -51,4 +51,10 @@ then
     (cd /opt/publik/passerelle-imio-ts1-datasources && python setup.py develop --no-deps)
 fi
 
+# passerelle-imio-ia-delib
+if [ -d /opt/publik/passerelle-imio-ia-delib ]
+then
+    (cd /opt/publik/passerelle-imio-ia-delib && python setup.py develop --no-deps)
+fi
+
 service nginx reload
