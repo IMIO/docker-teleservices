@@ -50,4 +50,6 @@ then
 	screen -d -m -c /opt/publik/screenrc
 fi
 
+test -f /opt/publik/hooks/$HOSTNAME/run-finish-hook.sh && /opt/publik/hooks/$HOSTNAME/run-finish-hook.sh
+
 tail -f /var/log/syslog
