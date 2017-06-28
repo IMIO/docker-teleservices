@@ -2,7 +2,7 @@
 import datetime
 import re
 import pdb
-
+from decimal import Decimal
 
 class Town(object):
 
@@ -151,7 +151,7 @@ class Town(object):
         for selected_motif in lst_selected_motifs:
             for motif in lst_motifs_disponibles_var:
                 if selected_motif[col_title] == motif['text']:
-                    total_price += int(selected_motif[col_nb_copies]) * float(motif['price'])
+                    total_price += int(selected_motif[col_nb_copies]) * Decimal(motif['price'])
         return str(total_price)
 
     def is_valid_belgian_nrn(self, nrn, can_be_none = 'False'):
