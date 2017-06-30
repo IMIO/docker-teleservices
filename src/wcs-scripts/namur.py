@@ -8,7 +8,7 @@ if 'town' in sys.modules:
     del sys.modules['town']
 
 import town
-
+from decimal import Decimal
 
 class Namur(town.Town):
 
@@ -62,6 +62,16 @@ class Namur(town.Town):
             list_motifs.append(int(globals().get(list_name + "_" + str(i) + "_" + rich_list_properties_name)))
             i = i+1
         return str(sum(map(operator.mul, list_motifs, filtered_table)))
+
+    def compute_virement(self, motif_tab_var, lst_motifs_disponibles_var, postage_fees):
+        # Namur default value (each 5 doc in a letter, add new fees)
+        max_doc_in_letter = 5
+        total_price_motif = Decimal(self.compute_standard_motivations_table(motif_tab_var, lst_motifs_disponibles_var))
+        nb_documents = int(self.compute_dynamic_tab(motif_tab_var, 1))
+        nb_letter = int(nb_documents / max_doc_in_letter) + (((nb_documents % max_doc_in_letter) > 0) and 1 or 0)
+        # compute fees
+        postage_fees = Decimal(nb_letter * postage_fees)
+        return str(total_price_motif + postage_fees)
 
 current_commune = Namur()
 function = args[0]
