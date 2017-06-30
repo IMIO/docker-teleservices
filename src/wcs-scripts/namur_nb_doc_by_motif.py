@@ -1,0 +1,1 @@
+result = str(sum([int(x[1]) for x in globals().get("form_var_table_nb_motifs") if x[0] != '' and x[0] is not None])) if globals().get("form_var_table_nb_motifs") is not None else globals().get("form_var_nb_exemplaire") if globals().get("form_var_nb_exemplaire") is not None else '1'
