@@ -21,7 +21,10 @@ for fichier in os.listdir(folder_path):
                 uuid_at = file_at.read()
                 formdef.workflow_roles = {'_receiver':uuid_at}
         try:
-            new_id = int(sorted(lst_formdef_ids, key=conv)[-1]) + 1
+            if len(lst_formdef_ids) < 1:
+                new_id = 1
+            else:
+                new_id = int(sorted(lst_formdef_ids, key=conv)[-1]) + 1
             lst_formdef_ids.append(new_id)
             formdef.id = new_id
             formdef.store()
