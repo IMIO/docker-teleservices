@@ -528,7 +528,7 @@ Bien cordialement,</body>
             <type>none</type>
           </prefill><max_choices>0</max_choices>
           <data_source>
-            <type>motivationterms</type>
+            <type>passerelle_motifs</type>
           </data_source><anonymise>True</anonymise>
           <display_disabled_items>False</display_disabled_items>
           <id>3</id>
@@ -542,7 +542,7 @@ Bien cordialement,</body>
             <type>none</type>
           </prefill><max_choices>0</max_choices>
           <data_source>
-            <type>destinationterms</type>
+            <type>passerelle_destinations</type>
           </data_source><anonymise>True</anonymise>
           <display_disabled_items>False</display_disabled_items>
           <id>4</id>
