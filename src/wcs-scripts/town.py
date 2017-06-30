@@ -121,7 +121,7 @@ class Town(object):
                     value = item[id_col]
                     if value == '' or value is None:
                         value = "0"
-                    if re.match(regex_pattern, value) is None:
+                    if re.match(regex_pattern, str(value)) is None:
                         retour = False
             else:
                 id_r = int(id_row)
@@ -146,7 +146,7 @@ class Town(object):
         # In the stdrd motivation table, column0 is motivations' title and column1 is number of copies.
         col_title = 0
         col_nb_copies = 1
-        total_price = float(0)
+        total_price = Decimal('0')
         lst_selected_motifs = [x for x in motif_tab_var if x[0] != '' and x[0] is not None]
         for selected_motif in lst_selected_motifs:
             for motif in lst_motifs_disponibles_var:
