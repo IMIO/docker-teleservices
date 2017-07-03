@@ -22,6 +22,9 @@ sudo -u  wcs-au-quotidien wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vh
 # Create passerelle "ts1 datasources connector" with prefilled motivations and destinations terms.
 sudo -u passerelle /usr/bin/passerelle-manage tenant_command import_site -d $1-passerelle.$2 /opt/publik/scripts/migration-ts1/datasources/datasources.json
 
+# Create passerelle "pays" datasource. (To choice country in users' profile).
+sudo -u passerelle /usr/bin/passerelle-manage tenant_command import_site -d $1-passerelle.$2 /opt/publik/scripts/migration-ts1/passerelle/pays.json
+
 # TODO : voir ce que je peux faire pour les datasources par defaut avec l'url de passerelle hardcodee.
 # TO : voir ce que je peux faire pour la datasource de la liste des pays... autant qu'elle soit dedans ;-).
 
@@ -44,3 +47,5 @@ sed -i "s/$1/COMMUNE/g" combo-site/combo-portail-agent-structure.json
 sudo -u hobo hobo-manage cook /etc/hobo/recipe.json
 sed "s~commune~$1~g" hobo/recipe-commune-extra.json > /etc/hobo/recipe-$1-extra.json
 test -e /etc/hobo/recipe-$1-extra.json && sudo -u hobo hobo-manage cook /etc/hobo/recipe-$1-extra.json
+
+cat /etc/combo/settings.py
