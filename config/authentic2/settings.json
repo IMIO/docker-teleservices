@@ -1,5 +1,4 @@
 { 
-    "THEME_SKELETON_URL": "http://local.example.net/__skeleton__/" ,
     "A2_AUTH_SAML_ENABLE": false,
     "A2_AUTH_FEDICT_ENABLE": true,
     "A2_EMAIL_IS_UNIQUE" : true,
