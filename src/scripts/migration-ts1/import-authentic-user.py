@@ -40,6 +40,6 @@ def create_authentic_user():
 
 def create_password(commune_id):
     m = hashlib.md5(commune_id)
-    return m.hexdigest()[10]
+    return m.hexdigest()
 
 create_authentic_user()
