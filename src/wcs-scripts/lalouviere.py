@@ -5,6 +5,7 @@ sys.path.insert(0, '/var/lib/wcs-au-quotidien/scripts')
 if 'town' in sys.modules:
     del sys.modules['town']
 
+import datetime
 import town
 
 
@@ -100,6 +101,21 @@ class Lalouviere(town.Town):
             nouvelle_liste.append(new_item)
         return nouvelle_liste
 
+    def diff_dates_occupation_voie_publique(self, date1, date2):
+        # weekno = datetime.datetime.today().weekday()
+        try:
+            result = "False"
+            today = datetime.datetime.today().strftime("%d/%m/%Y")
+            total_duree_occupation = int(self.diff_dates(date1, date2))
+            if total_duree_occupation >= 15:
+                if int(self.diff_dates(today, date1)) >= 20:
+                    result = "True"
+            else:
+                if int(self.diff_dates(today, date1)) >= 7:
+                    result = "True"
+            return result
+        except:
+            return "diff_dates_occupation_error"
 
 current_commune = Lalouviere()
 function = args[0]
