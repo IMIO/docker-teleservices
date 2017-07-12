@@ -182,6 +182,31 @@ class Town(object):
         field_id = [x for x in self.form_objects.formdef.fields if x.varname == varname][0].id
         result = bool(len([x for x in self.form_objects.formdef.data_class().select() if x.data.get(field_id) == globals().get("form_var_%s" % (varname)) and not x.is_draft()]) == 0)
 
+    # Birthdate like 07/01/1979
+    # Birthdate unknow but good year=> nn like 40 00 00 955-23 (third, fourth, fifth and sixth params are 0 and 2 firsts is year of birthday.
+    # Birthdate unknow => 00 00 01 003-85 (5 firsts number are 0 and sixth is 1
+    # nn like 79010705741
+    def check_birthday_in_nn(self, birthday, nn):
+        result = False
+        try:
+            # date unknow
+            if (birthday is None or birthday == ""):
+                result = "000001" == nn[:6]
+            # year is knowing
+            if (nn.startswith(birthday[-2:] + "0000") or nn.startswith("2" + birthday[-2:] + "000")):
+                result = birthday[-2:] in nn[0:3]
+            # birth in 2000 and later
+            elif(int(birthday[-4:]) >= 2000):
+                reversed_birthday_short_year = ''.join([elt for elt in birthday.split('/')[::-1]])[2:]
+                result = nn[1:7] == reversed_birthday_short_year
+            # birth before 2000
+            else:
+                reversed_birthday_short_year = ''.join([elt for elt in birthday.split('/')[::-1]])[2:]
+                result = nn[:6] == reversed_birthday_short_year
+        except:
+            result = False
+        return result
+
 
 # à valider.
 #  def is_valid_iban(self, iban):
