@@ -39,15 +39,19 @@ def create_authentic_user():
 
         with open("/tmp/tmp_uuid_agent_admin.txt", 'w') as f:
             f.write(role_agent_admin.uuid)
+            f.close()
 
         with open("/tmp/tmp_uuid_agent_fabriques.txt", 'w') as f:
             f.write(role_agent_fabriques.uuid)
+            f.close()
 
         with open("/tmp/tmp_uuid_agent_traitant_pop.txt", 'w') as f:
             f.write(role_agent_traitant_pop.uuid)
+            f.close()
 
         with open("/tmp/tmp_uuid_agent_traitant_trav.txt", 'w') as f:
             f.write(role_agent_traitant_trav.uuid)
+            f.close()
 
         # GET or Create default user with default organisation unit.
         try:
@@ -56,9 +60,9 @@ def create_authentic_user():
             user_admin_commune = User(username='admin_commune', ou=organisation_unit)
             user_admin_commune.set_password(create_password('COMMUNE_ID'))
             user_admin_commune.save()
-            # Set role to user
-            role_agent_admin.members.add(user_admin_commune)
-            role_agent_fabriques.members.add(user_admin_commune)
+        # Set role to user
+        role_agent_admin.members.add(user_admin_commune)
+        role_agent_fabriques.members.add(user_admin_commune)
 
 def create_password(commune_id):
     m = hashlib.md5(commune_id)
