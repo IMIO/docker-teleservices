@@ -11,6 +11,7 @@ def patch_authentic_user():
     OU = get_ou_model()
     Role = get_role_model()
     organisation_unit = OU.objects.get(default = True)
+    user_admin_commune = User.objects.get_or_create(username='admin_commune')[0]
     with provisionning:
 
         role_agent_fabriques = Role(name='Agent ayant acces aux fabriques', ou=organisation_unit)
