@@ -15,6 +15,9 @@ def create_authentic_user():
         role_agent_admin = Role(name='Agent administrateur des utilisateurs', ou=organisation_unit)
         role_agent_admin.save()
 
+        role_agent_fabriques = Role(name='Agent ayant accès aux fabriques', ou=organisation_unit)
+        role_agent_fabriques.save()
+
         role_agent_traitant_pop = Role(name='Agents traitants - Population, etat civil', ou=organisation_unit)
         role_agent_traitant_pop.save()
 
@@ -23,6 +26,9 @@ def create_authentic_user():
 
         with open("/tmp/tmp_uuid_agent_admin.txt", 'w') as f:
             f.write(role_agent_admin.uuid)
+
+        with open("/tmp/tmp_uuid_agent_fabriques.txt", 'w') as f:
+            f.write(role_agent_fabriques.uuid)
 
         with open("/tmp/tmp_uuid_agent_traitant_pop.txt", 'w') as f:
             f.write(role_agent_traitant_pop.uuid)
@@ -37,6 +43,7 @@ def create_authentic_user():
 
         # Set role to user
         role_agent_admin.members.add(user_admin_commune)
+        role_agent_fabriques.members.add(user_admin_commune)
 
 def create_password(commune_id):
     m = hashlib.md5(commune_id)

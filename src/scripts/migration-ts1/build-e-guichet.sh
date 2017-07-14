@@ -1,5 +1,6 @@
 # $1 : commune_id (test, local, huy, liege,...)
 # $2 : domain (guichet-citoyen.be, example.net, ...)
+# $3 : Type Instance light ou full
 
 # Use postgresql with wcs-au-quotidien
 sed -i '/[options] /a postgresql = true' /var/lib/wcs-au-quotidien/$1-formulaires.$2/site-options.cfg
@@ -19,7 +20,7 @@ authentic2-multitenant-manage tenant_command runscript /opt/publik/scripts/migra
 sed -i "s/$1/COMMUNE_ID/g" /opt/publik/scripts/migration-ts1/import-authentic-user.py
 
 # Set permissions
-sudo -u  wcs-au-quotidien wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2 /opt/publik/scripts/migration-ts1/import-permissions.py
+sudo -u  wcs-au-quotidien wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2 /opt/publik/scripts/migration-ts1/import-permissions.py $3
 
 # Create passerelle "ts1 datasources connector" with prefilled motivations and destinations terms.
 sudo -u passerelle /usr/bin/passerelle-manage tenant_command import_site -d $1-passerelle.$2 /opt/publik/scripts/migration-ts1/datasources/datasources.json
