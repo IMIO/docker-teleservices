@@ -1,31 +1,29 @@
 from quixote import get_publisher
 import sys
-
 pub = get_publisher()
+permissions = {
+    'users':[],
+    'roles':[],
+    'settings':[],
+    'bounces':[],
+    'forms':[],
+    'workflows':[],
+    'categories':[]
+}
+
 with open("/tmp/tmp_uuid_agent_admin.txt", 'r') as file_aa:
     uuid_aa = file_aa.read()
-    pub.cfg['admin-permissions'] = {'users':[uuid_aa],
-                                    'roles':[],
-                                    'settings':[],
-                                    'bounces':[],
-                                    'forms':[],
-                                    'workflows':[],
-                                    'categories':[]
-                                   }
-    pub.write_cfg()
+    permissions['users'].append(uuid_aa)
+    file_aa.close()
 
 with open("/tmp/tmp_uuid_agent_fabriques.txt", 'r') as file_aa:
-    set_workflow = []
     uuid_aa = file_aa.read()
+    permissions['forms'].append(uuid_aa)
+    permissions['categories'].append(uuid_aa)
     if len(sys.argv) > 0 and sys.argv[1] == 'full':
-        set_workflow = [uuid_aa]
-    pub.cfg['admin-permissions'] = {'users':[],
-                                    'roles':[],
-                                    'settings':[],
-                                    'bounces':[],
-                                    'forms':[uuid_aa],
-                                    'workflows':set_workflow,
-                                    'categories':[uuid_aa]
-                                   }
-    pub.write_cfg()
+        permissions['workflows'].append(uuid_aa)
+    file_aa.close()
+
+pub.cfg['admin-permissions'] = permissions
+pub.write_cfg()
 
