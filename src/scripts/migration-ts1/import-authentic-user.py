@@ -15,7 +15,7 @@ def create_authentic_user():
         role_agent_admin = Role(name='Agent administrateur des utilisateurs', ou=organisation_unit)
         role_agent_admin.save()
 
-        role_agent_fabriques = Role(name='Agent ayant accès aux fabriques', ou=organisation_unit)
+        role_agent_fabriques = Role(name='Agent ayant acces aux fabriques', ou=organisation_unit)
         role_agent_fabriques.save()
 
         role_agent_traitant_pop = Role(name='Agents traitants - Population, etat civil', ou=organisation_unit)
