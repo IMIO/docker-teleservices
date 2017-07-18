@@ -14,12 +14,6 @@ def create_authentic_user():
     with provisionning:
         # create default role in ts2.
         try:
-            role_agent_admin = Role.objects.get(name='Agent administrateur des utilisateurs')
-        except ObjectDoesNotExist:
-            role_agent_admin = Role(name='Agent administrateur des utilisateurs', ou=organisation_unit)
-            role_agent_admin.save()
-
-        try:
             role_agent_fabriques = Role.objects.get(name='Agent ayant acces aux fabriques')
         except ObjectDoesNotExist:
             role_agent_fabriques = Role(name='Agent ayant acces aux fabriques', ou=organisation_unit)
@@ -37,10 +31,6 @@ def create_authentic_user():
             role_agent_traitant_trav = Role(name='Agents traitants - Travaux', ou=organisation_unit)
             role_agent_traitant_trav.save()
 
-        with open("/tmp/tmp_uuid_agent_admin.txt", 'w') as f:
-            f.write(role_agent_admin.uuid)
-            f.close()
-
         with open("/tmp/tmp_uuid_agent_fabriques.txt", 'w') as f:
             f.write(role_agent_fabriques.uuid)
             f.close()
@@ -56,12 +46,22 @@ def create_authentic_user():
         # GET or Create default user with default organisation unit.
         try:
             user_admin_commune = User.objects.get(username='admin_commune')
+            user_admin_commune.email = "admin_commune@{}.be".format('COMMUNE_ID')
+            user_admin_commune.first_name = "Admin"
+            user_admin_commune.last_name = "Commune"
+
         except:
-            user_admin_commune = User(username='admin_commune', ou=organisation_unit)
+            user_admin_commune = User(username='admin_commune',
+                                 first_name="Admin",
+                                 last_name="Commune",
+                                 email="admin_commune@{}.be".format('COMMUNE_ID'),
+                                 ou=organisation_unit)
             user_admin_commune.set_password(create_password('COMMUNE_ID'))
-            user_admin_commune.save()
-        # Set role to user
-        role_agent_admin.members.add(user_admin_commune)
+        user_admin_commune.save()
+        role_admin_user = Role.objects.get(name="Administrateur des utilisateurs")
+        role_admin_role = Role.objects.get(name="Administrateur des rôles")
+        role_admin_user.members.add(user_admin_commune)
+        role_admin_role.members.add(user_admin_commune)
         role_agent_fabriques.members.add(user_admin_commune)
 
 def create_password(commune_id):
