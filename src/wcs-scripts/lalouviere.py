@@ -5,7 +5,7 @@ sys.path.insert(0, '/var/lib/wcs-au-quotidien/scripts')
 if 'town' in sys.modules:
     del sys.modules['town']
 
-import datetime
+from datetime import date, datetime, timedelta
 import town
 
 
@@ -102,17 +102,31 @@ class Lalouviere(town.Town):
         return nouvelle_liste
 
     def diff_dates_occupation_voie_publique(self, date1, date2):
-        # weekno = datetime.datetime.today().weekday()
         try:
+            legal_holidays = globals().get("form_option_legal_holidays")
             result = "False"
-            today = datetime.datetime.today().strftime("%d/%m/%Y")
+            today = datetime.today().strftime("%d/%m/%Y")
             total_duree_occupation = int(self.diff_dates(date1, date2))
+            nb_extra_days = 0
+            d1 = datetime.strptime(date1, '%d/%m/%Y')
+            d2 = datetime.strptime(date2, '%d/%m/%Y')
+            print d1
+            print d2
+            for single_date in (d1 + timedelta(n) for n in range(total_duree_occupation)):
+                if single_date.weekday() in [5,6]:
+                    nb_extra_days = nb_extra_days + 1
+            for day in legal_holidays:
+                d = datetime.strptime(day[0], '%d/%m/%Y')
+                # 5 is saturday, 6 is sunday.
+                if d1 < d < d2 and d.weekday() not in [5,6]:
+                    print d
+                    nb_extra_days = nb_extra_days + 1
             if total_duree_occupation >= 15:
-                if int(self.diff_dates(today, date1)) >= 20:
-                    result = "True"
+                if int(self.diff_dates(today, date1)) >= (20 + nb_extra_days):
+                result = "True"
             else:
-                if int(self.diff_dates(today, date1)) >= 7:
-                    result = "True"
+                if int(self.diff_dates(today, date1)) >= (7 + nb_extra_days):
+                result = "True"
             return result
         except:
             return "diff_dates_occupation_error"
