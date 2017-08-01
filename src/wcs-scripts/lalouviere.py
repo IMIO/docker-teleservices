@@ -101,7 +101,10 @@ class Lalouviere(town.Town):
             nouvelle_liste.append(new_item)
         return nouvelle_liste
 
-    def diff_dates_occupation_voie_publique(self, date1, date2):
+    # delta_option = 0 : timedelta between date1 and date2
+    # delta_option = 1 : timedelta between date1 and date2 and sum w.e.
+    # delta_option = 2 : timedelta between date1 and date2 and sum w.e. and sum legal holydays.
+    def diff_dates_occupation_voie_publique(self, date1, date2, delta_option=0):
         try:
             legal_holidays = globals().get("form_option_legal_holidays")
             result = "False"
@@ -110,26 +113,26 @@ class Lalouviere(town.Town):
             nb_extra_days = 0
             d1 = datetime.strptime(date1, '%d/%m/%Y')
             d2 = datetime.strptime(date2, '%d/%m/%Y')
-            print d1
-            print d2
-            for single_date in (d1 + timedelta(n) for n in range(total_duree_occupation)):
-                if single_date.weekday() in [5,6]:
-                    nb_extra_days = nb_extra_days + 1
-            for day in legal_holidays:
-                d = datetime.strptime(day[0], '%d/%m/%Y')
-                # 5 is saturday, 6 is sunday.
-                if d1 < d < d2 and d.weekday() not in [5,6]:
-                    print d
-                    nb_extra_days = nb_extra_days + 1
+            if delta_option in [1,2]:
+                for single_date in (d1 + timedelta(n) for n in range(total_duree_occupation)):
+                    if single_date.weekday() in [5,6]:
+                        nb_extra_days = nb_extra_days + 1
+            if delta_option == 2:
+                for day in legal_holidays:
+                    d = datetime.strptime(day[0], '%d/%m/%Y')
+                    # 5 is saturday, 6 is sunday.
+                    if d1 < d < d2 and d.weekday() not in [5,6]:
+                        nb_extra_days = nb_extra_days + 1
             if total_duree_occupation >= 15:
                 if int(self.diff_dates(today, date1)) >= (20 + nb_extra_days):
-                result = "True"
+                    result = "True"
             else:
                 if int(self.diff_dates(today, date1)) >= (7 + nb_extra_days):
-                result = "True"
+                    result = "True"
             return result
         except:
             return "diff_dates_occupation_error"
+
 
 current_commune = Lalouviere()
 function = args[0]
