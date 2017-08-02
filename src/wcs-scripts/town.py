@@ -154,6 +154,9 @@ class Town(object):
                     total_price += int(selected_motif[col_nb_copies]) * Decimal(motif['price'])
         return str(total_price)
 
+    def is_valid_belgian_nn(self, nn, can_be_none = 'False'):
+        return self.is_valid_belgian_nrn(nn, can_be_none)
+
     def is_valid_belgian_nrn(self, nrn, can_be_none = 'False'):
         if can_be_none == 'True' and str(nrn) == "None":
             return True
@@ -169,11 +172,14 @@ class Town(object):
         if not tva_number[:2].upper() == 'BE':
             return False
         if not len(tva_number) == 12:
-            return False
+            if len(tva_number) == 11:
+                tva_number = tva_number[:2] + "0" + tva_number[2:]
+            else:
+                return False
         if re.match("^[0-9]{10}$", tva_number[2:]):
             int_value = int(tva_number[2:10])
-            check_digit = int(int_value / 97) % 97
-            if check_digit == int(tva_number[10:12]):
+            check_digit = int(int_value / 97) * 97
+            if (97 - (int_value - check_digit)) == int(tva_number[10:12]):
                 return True
             else:
                 return False
