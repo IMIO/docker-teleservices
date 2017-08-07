@@ -11,16 +11,11 @@ permissions = {
     'categories':[]
 }
 
-with open("/tmp/tmp_uuid_agent_admin.txt", 'r') as file_aa:
-    uuid_aa = file_aa.read()
-    permissions['users'].append(uuid_aa)
-    file_aa.close()
-
 with open("/tmp/tmp_uuid_agent_fabriques.txt", 'r') as file_aa:
     uuid_aa = file_aa.read()
     permissions['forms'].append(uuid_aa)
     permissions['categories'].append(uuid_aa)
-    if len(sys.argv) > 0 and sys.argv[1] == 'full':
+    if len(sys.argv) > 1 and sys.argv[1] == 'full':
         permissions['workflows'].append(uuid_aa)
     file_aa.close()
 
