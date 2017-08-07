@@ -1,31 +1,31 @@
 [
   {
     "fields": {
-      "picture": "", 
-      "redirect_url": "", 
-      "exclude_from_navigation": false, 
-      "parent": null, 
-      "title": "Accueil", 
-      "last_update_timestamp": "2017-06-30T11:34:59.873Z", 
-      "template_name": "standard", 
-      "public": true, 
-      "groups": [], 
-      "order": 1, 
+      "picture": "",
+      "redirect_url": "",
+      "exclude_from_navigation": false,
+      "parent": null,
+      "title": "Accueil",
+      "last_update_timestamp": "2017-06-30T11:34:59.873Z",
+      "template_name": "standard",
+      "public": true,
+      "groups": [],
+      "order": 1,
       "slug": "index"
-    }, 
+    },
     "cells": [
       {
         "fields": {
-          "extra_css_class": "", 
-          "restricted_to_unlogged": false, 
-          "last_update_timestamp": "2017-06-30T11:35:52.498Z", 
-          "text": "<h2>Bienvenue sur le portail agent de COMMUNE</h2>\r\n", 
-          "order": 1, 
-          "public": true, 
-          "groups": [], 
-          "placeholder": "content", 
+          "extra_css_class": "",
+          "restricted_to_unlogged": false,
+          "last_update_timestamp": "2017-06-30T11:35:52.498Z",
+          "text": "<h2>Bienvenue sur le portail agent de COMMUNE</h2>\r\n",
+          "order": 1,
+          "public": true,
+          "groups": [],
+          "placeholder": "content",
           "slug": "services"
-        }, 
+        },
         "model": "data.textcell"
       }
     ]
