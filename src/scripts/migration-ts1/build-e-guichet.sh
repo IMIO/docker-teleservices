@@ -42,13 +42,16 @@ sudo -u  wcs-au-quotidien wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vh
 
 # Import combo site structure
 sed -i "s/COMMUNE/$1/g" combo-site/combo-site-structure.json
+sed -i "s/DOMAINE/$2/g" combo-site/combo-site-structure.json
 sudo -u combo combo-manage tenant_command import_site -d $1.$2 /opt/publik/scripts/migration-ts1/combo-site/combo-site-structure.json
 sed -i "s/$1/COMMUNE/g" combo-site/combo-site-structure.json
+sed -i "s/$2/DOMAINE/g" combo-site/combo-site-structure.json
 
 sed -i "s/COMMUNE/$1/g" combo-site/combo-portail-agent-structure.json
+sed -i "s/DOMAINE/$2/g" combo-site/combo-portail-agent-structure.json
 sudo -u combo combo-manage tenant_command import_site -d $1-portail-agent.$2 /opt/publik/scripts/migration-ts1/combo-site/combo-portail-agent-structure.json
 sed -i "s/$1/COMMUNE/g" combo-site/combo-portail-agent-structure.json
-
+sed -i "s/$2/DOMAINE/g" combo-site/combo-portail-agent-structure.json
 # Add hobo extra params
 sudo -u hobo hobo-manage cook /etc/hobo/recipe.json
 sed "s~commune~$1~g" hobo/recipe-commune-extra.json > /etc/hobo/recipe-$1-extra.json
