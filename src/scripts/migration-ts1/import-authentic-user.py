@@ -63,11 +63,15 @@ def create_authentic_user():
         role_admin_passerelle =  Role.objects.get(name="Administrateur de Guichet citoyen COMMUNE_ID - Passerelle")
         role_admin_portail_citoyen = Role.objects.get(name="Administrateur de Guichet citoyen COMMUNE_ID - Portail")
         role_admin_portail_agent = Role.objects.get(name="Administrateur de Guichet citoyen COMMUNE_ID - Portail agent")
-        role_admin_portail_agent = Role.objects.get(name="Administrateur de Guichet citoyen COMMUNE_ID - Statistiques")
+        role_admin_stat = Role.objects.get(name="Administrateur de Guichet citoyen COMMUNE_ID - Statistiques")
 
+        role_agent_fabriques.members.add(user_admin_commune)
         role_admin_user.members.add(user_admin_commune)
         role_admin_role.members.add(user_admin_commune)
-        role_agent_fabriques.members.add(user_admin_commune)
+        role_admin_passerelle.members.add(user_admin_commune)
+        role_admin_portail_citoyen.members.add(user_admin_commune)
+        role_admin_portail_agent.members.add(user_admin_commune)
+        role_admin_stat.members.add(user_admin_commune)
 
 def create_password(commune_id):
     m = hashlib.md5(commune_id)
