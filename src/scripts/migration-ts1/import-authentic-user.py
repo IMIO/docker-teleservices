@@ -60,6 +60,11 @@ def create_authentic_user():
         user_admin_commune.save()
         role_admin_user = Role.objects.get(name="Administrateur des utilisateurs")
         role_admin_role = Role.objects.get(name="Administrateur des rôles")
+        role_admin_passerelle =  Role.objects.get(name="Administrateur de Guichet citoyen COMMUNE_ID - Passerelle")
+        role_admin_portail_citoyen = Role.objects.get(name="Administrateur de Guichet citoyen COMMUNE_ID - Portail")
+        role_admin_portail_agent = Role.objects.get(name="Administrateur de Guichet citoyen COMMUNE_ID - Portail agent")
+        role_admin_portail_agent = Role.objects.get(name="Administrateur de Guichet citoyen COMMUNE_ID - Statistiques")
+
         role_admin_user.members.add(user_admin_commune)
         role_admin_role.members.add(user_admin_commune)
         role_agent_fabriques.members.add(user_admin_commune)
