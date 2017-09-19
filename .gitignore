@@ -1,3 +1,5 @@
+*.pyc
+*.tar.gz
 data/authentic2/
 data/combo/
 data/fargo/
