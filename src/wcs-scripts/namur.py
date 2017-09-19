@@ -63,15 +63,45 @@ class Namur(town.Town):
             i = i+1
         return str(sum(map(operator.mul, list_motifs, filtered_table)))
 
-    def compute_virement(self, motif_tab_var, lst_motifs_disponibles_var, postage_fees):
+    def compute_standard_motivations_table(self, motif_tab_var, lst_motifs_disponibles_var):
+        nb_tiers = len(globals().get('form_var_tableau_tiers')) if globals().get('form_var_tableau_tiers') is not None else 1
+        return nb_tiers * Decimal(super(Namur, self).compute_standard_motivations_table(motif_tab_var, lst_motifs_disponibles_var))
+
+    # global_cost != 0 seulement si on n'utilise pas les motifs (motif_tab_var is None and lst_motifs_disponibles_var is None)
+    # global_nb_exemplaire != 0 seulement si on n'utilise pas les motifs (motif_tab_var is None and lst_motifs_disponibles_var is None)
+    def compute_virement(self, motif_tab_var, lst_motifs_disponibles_var, postage_fees, global_cost='0', global_nb_exemplaire='0'):
+        nb_tiers = len(globals().get('form_var_tableau_tiers')) if globals().get('form_var_tableau_tiers') is not None else 1
         # Namur default value (each 5 doc in a letter, add new fees)
         max_doc_in_letter = 5
-        total_price_motif = Decimal(self.compute_standard_motivations_table(motif_tab_var, lst_motifs_disponibles_var))
-        nb_documents = int(self.compute_dynamic_tab(motif_tab_var, 1))
+        if motif_tab_var is None and lst_motifs_disponibles_var is None and global_cost != '0' and global_nb_exemplaire != '0':
+            total_price = Decimal(global_cost) * int(global_nb_exemplaire) * nb_tiers
+            #nb_documents to compute postage fee (*nb_tiers) to compute with number of people
+            nb_documents = int(global_nb_exemplaire) * nb_tiers
+        else:
+            total_price = Decimal(self.compute_standard_motivations_table(motif_tab_var, lst_motifs_disponibles_var))
+            nb_documents = int(self.compute_dynamic_tab(motif_tab_var, 1)) * nb_tiers
         nb_letter = int(nb_documents / max_doc_in_letter) + (((nb_documents % max_doc_in_letter) > 0) and 1 or 0)
         # compute fees
-        postage_fees = Decimal(nb_letter * postage_fees)
-        return str(total_price_motif + postage_fees)
+        postage_fees = int(nb_letter) * Decimal(postage_fees)
+        return str(total_price + postage_fees)
+
+    def generate_structured_communication(transaction_id):
+        split = transaction_id.split('-')
+        transaction_id = split[0] + split[1] + str(sum([ int(c) for c in split[0] ]))
+        count = 10 - len(str(transaction_id))
+        for i in range(0,count):
+            transaction_id = "{}{}".format('0',transaction_id)
+        control = int(transaction_id) % 97
+        str_control = str(control)
+        if control < 10:
+            str_control = "{}{}".format("0",str_control)
+        com = "{}{}".format(transaction_id, str_control)
+        # if int(com[:9]) % 97 == int(com[-2:]:
+        # test if valid structured comm.
+        return "{}/{}/{}".format(com[0:3], com[3:7], com[7:12])
+
+
+
 
 current_commune = Namur()
 function = args[0]
