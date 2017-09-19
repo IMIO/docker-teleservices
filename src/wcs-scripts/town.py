@@ -216,7 +216,7 @@ class Town(object):
     def authentication_delivrance_items_visibility(self, datasource, auth=None):
         if len(auth) > 0:
             for elm in datasource:
-                if 'pdf'in  elm['id'] or 'print' in elm['id']:
+                if 'pdf' in elm['id'] or 'print' in elm['id']:
                     elm['disabled'] = False
         return datasource
 
