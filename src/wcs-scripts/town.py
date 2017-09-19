@@ -213,6 +213,28 @@ class Town(object):
             result = False
         return result
 
+    def authentication_delivrance_items_visibility(self, datasource, auth=None):
+        if len(auth) > 0:
+            for elm in datasource:
+                if 'pdf'in  elm['id'] or 'print' in elm['id']:
+                    elm['disabled'] = False
+        return datasource
+
+    def eid_conditional_datasource(self, ds_if_true, ds_if_false):
+        return self.conditional_datasource(str(self.strong_authentication),'True', '=', ds_if_true, ds_if_false)
+
+    def conditional_datasource(self, variable, value_to_test, operator, ds_if_true, ds_if_false):
+        if operator == 'in':
+           if value_to_test in variable:
+               return ds_if_true
+           else:
+               return ds_if_false
+        if operator == '=':
+           if value_to_test == variable:
+               return ds_if_true
+           else:
+               return ds_if_false
+
 
 # à valider.
 #  def is_valid_iban(self, iban):
