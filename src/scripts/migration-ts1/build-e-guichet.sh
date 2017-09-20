@@ -12,7 +12,7 @@ sh copy_categories.sh $1 $2
 sh copy_datasources.sh $1 $2
 
 # Import wcs user to limit site permissions
-# sudo -u  wcs-au-quotidien wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2 /opt/publik/scripts/migration-ts1/import-wcs-user.py
+# sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2 /opt/publik/scripts/migration-ts1/import-wcs-user.py
 
 # Import defaults authentic users
 sed -i "s/COMMUNE_ID/$1/g" /opt/publik/scripts/migration-ts1/import-authentic-user.py
