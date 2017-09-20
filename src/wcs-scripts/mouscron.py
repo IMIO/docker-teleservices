@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 import sys
-sys.path.insert(0, '/var/lib/wcs-au-quotidien/scripts')
+sys.path.insert(0, '/var/lib/wcs/scripts')
 import re
-import pdb
 
 if 'town' in sys.modules:
     del sys.modules['town']

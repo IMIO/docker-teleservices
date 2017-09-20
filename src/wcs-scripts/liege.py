@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import sys
 import re
-sys.path.insert(0, '/var/lib/wcs-au-quotidien/scripts')
+sys.path.insert(0, '/var/lib/wcs/scripts')
 
 if 'town' in sys.modules:
     del sys.modules['town']
