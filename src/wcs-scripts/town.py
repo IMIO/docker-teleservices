@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import datetime
 import re
-import pdb
 from decimal import Decimal
 
 class Town(object):
