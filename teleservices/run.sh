@@ -1,11 +1,11 @@
 #!/bin/bash
-rm /var/run/{authentic2-multitenant/authentic2-multitenant,fargo/fargo,hobo/hobo,combo/combo,nginx,rsyslogd,supervisord,wcs-auquotidien,passerelle/passerelle,bijoe/bijoe}.{pid,sock}
+rm /var/run/{authentic2-multitenant/authentic2-multitenant,fargo/fargo,hobo/hobo,combo/combo,nginx,rsyslogd,supervisord,wcs,passerelle/passerelle,bijoe/bijoe}.{pid,sock}
 /etc/hobo/fix-permissions.sh
 
 python /var/lib/authentic2/locale/fr/LC_MESSAGES/mail-translation.py
 
 # install link to wcs external scripts
-test -e /var/lib/wcs-au-quotidien/scripts || ln -s /opt/publik/wcs-scripts /var/lib/wcs-au-quotidien/scripts
+test -e /var/lib/wcs/scripts || ln -s /opt/publik/wcs-scripts /var/lib/wcs/scripts
 
 HOSTNAME=$(hostname)
 test -f /opt/publik/hooks/$HOSTNAME/run-hook.sh && /opt/publik/hooks/$HOSTNAME/run-hook.sh
@@ -26,7 +26,7 @@ fi
 
 if [ x$1 != xfromgit ] || [ ! -d /opt/publik/wcs ]
 then
-	service wcs-au-quotidien start
+	service wcs start
 fi
 
 if [ x$1 != xfromgit ] || [ ! -d /opt/publik/passerelle ]

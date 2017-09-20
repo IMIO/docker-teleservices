@@ -8,14 +8,28 @@ server {
         root /usr/share/nginx/www;
         index index.html index.htm;
 
-        location /static { alias /var/lib/wcs-au-quotidien/collectstatic/; }
-        location / {
-            include scgi_params;
-            scgi_pass localhost:3001;
-            scgi_param SCRIPT_NAME  '';
-            scgi_param PATH_INFO  $uri;
-#            scgi_param HTTPS yes;
+        location ~ ^/static/(.+)$ {
+                root /;
+                try_files /var/lib/wcs/$host/static/$1
+                          /var/lib/wcs/$host/theme/static/$1
+                          /var/lib/wcs/collectstatic/$1
+                          =404;
         }
+
+        location /themes {
+            root /;
+            try_files /var/lib/wcs/$host$uri
+                      /usr/share/wcs/$uri
+                      =404;
+        }
+
+        location / {
+            proxy_pass         http://unix:/var/run/wcs/wcs.sock;
+            proxy_set_header   Host $http_host;
+            proxy_set_header   X-Real-IP       $remote_addr;
+            proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+
 
         error_log /var/log/nginx/error-local-formulaires.example.net.log warn;
         access_log /var/log/nginx/access-local-formulaires.example.net.log combined;

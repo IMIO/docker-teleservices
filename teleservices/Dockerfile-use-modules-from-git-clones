@@ -29,9 +29,6 @@ RUN ln -s /usr/lib/python2.7/dist-packages/authentic2/static/jquery /var/lib/aut
 RUN ln -s /usr/lib/python2.7/dist-packages/authentic2/static/ulx /var/lib/authentic2-multitenant/static/
 RUN chown -R www-data:www-data /var/lib/authentic2-multitenant/static
 
-# wcs
-RUN echo "exit 0" > /etc/default/wcs
-
 RUN apt-get install -y screen git vim less ruby-sass
 
 #cleanup
