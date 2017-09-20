@@ -2,8 +2,8 @@
 # $2 : domain (guichet-citoyen.be, example.net, ...)
 # $3 : Type Instance light ou full
 
-# Use postgresql with wcs-au-quotidien
-sed -i '/[options] /a postgresql = true' /var/lib/wcs-au-quotidien/$1-formulaires.$2/site-options.cfg
+# Use postgresql with wcs
+sed -i '/[options] /a postgresql = true' /var/lib/wcs/$1-formulaires.$2/site-options.cfg
 
 # Create categories
 sh copy_categories.sh $1 $2
@@ -20,7 +20,7 @@ authentic2-multitenant-manage tenant_command runscript /opt/publik/scripts/migra
 sed -i "s/$1/COMMUNE_ID/g" /opt/publik/scripts/migration-ts1/import-authentic-user.py
 
 # Set permissions
-sudo -u  wcs-au-quotidien wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2 /opt/publik/scripts/migration-ts1/import-permissions.py $3
+sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2 /opt/publik/scripts/migration-ts1/import-permissions.py $3
 
 # Create passerelle "ts1 datasources connector" with prefilled motivations and destinations terms.
 sudo -u passerelle /usr/bin/passerelle-manage tenant_command import_site -d $1-passerelle.$2 /opt/publik/scripts/migration-ts1/datasources/datasources.json
@@ -35,10 +35,10 @@ sudo -u passerelle /usr/bin/passerelle-manage tenant_command import_site -d $1-p
 # TO : voir ce que je peux faire pour la datasource de la liste des pays... autant qu'elle soit dedans ;-).
 
 # Import workflows
-sudo -u  wcs-au-quotidien wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2 /opt/publik/scripts/migration-ts1/import-workflows.py /opt/publik/scripts/migration-ts1/workflows/
+sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2 /opt/publik/scripts/migration-ts1/import-workflows.py /opt/publik/scripts/migration-ts1/workflows/
 
 # Import forms
-sudo -u  wcs-au-quotidien wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2 /opt/publik/scripts/migration-ts1/import-forms.py /opt/publik/scripts/migration-ts1/forms/
+sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2 /opt/publik/scripts/migration-ts1/import-forms.py /opt/publik/scripts/migration-ts1/forms/
 
 # Import combo site structure
 sed -i "s/COMMUNE/$1/g" combo-site/combo-site-structure.json
