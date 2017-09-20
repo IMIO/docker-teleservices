@@ -235,28 +235,27 @@ class Town(object):
                return ds_if_false
 
 
-# à valider.
-#  def is_valid_iban(self, iban):
-#    ibanValidationModulo = 97
-#    iban = iban.upper()
-#    iban = iban.replace(" ","")
-#    if len(iban) < 5:
-#      return False
-#    modifiedIban = iban[4:len(iban)] + iban[0:4]
-#    numericIbanString = ""
-#    for c in modifiedIban:
-#      currentCharCode = ord(c)
-#      # Integer
-#      if (currentCharCode > 47) and (currentCharCode <  58):
-#        numericIbanString = numericIbanString + c
-#      # Char
-#      elif (currentCharCode > 64) and (currentCharCode < 91):
-#        value = currentCharCode - 65 + 10
-#        numericIbanString = numericIbanString + str(value)
-#      else:
-#        return false;
-#    previousModulo = 0;
-#    for i in xrange(0,len(numericIbanString),5):
-#      subpart = str(previousModulo) + "" + numericIbanString[i:i + 5]
-#      previousModulo = int(subpart) % ibanValidationModulo
-#    return previousModulo == 1
+    def is_valid_iban(self, iban):
+        ibanValidationModulo = 97
+        iban = iban.upper()
+        iban = iban.replace(" ","")
+        if len(iban) < 5:
+            return False
+        modifiedIban = iban[4:len(iban)] + iban[0:4]
+        numericIbanString = ""
+        for c in modifiedIban:
+            currentCharCode = ord(c)
+            # Integer
+            if (currentCharCode > 47) and (currentCharCode <  58):
+                numericIbanString = numericIbanString + c
+            # Char
+            elif (currentCharCode > 64) and (currentCharCode < 91):
+                value = currentCharCode - 65 + 10
+                numericIbanString = numericIbanString + str(value)
+            else:
+                return false;
+        previousModulo = 0;
+        for i in xrange(0,len(numericIbanString),5):
+            subpart = str(previousModulo) + "" + numericIbanString[i:i + 5]
+            previousModulo = int(subpart) % ibanValidationModulo
+        return previousModulo == 1
