@@ -17,8 +17,8 @@ RUN echo "Package: *\nPin: release a=jessie-eobuilder\nPin-Priority: 900" > /etc
 RUN apt-get update
 RUN apt install -y -t jessie-backports python-cryptography
 RUN apt install -y -t jessie-backports python-django python-django-common
-RUN apt-get install -y -t jessie wcs-au-quotidien combo fargo hobo bijoe libjs-leaflet passerelle authentic2-multitenant publik-base-theme python-suds python-django-filters passerelle-imio-extra-fees
-RUN apt-get install -y imio-publik-themes python-authentic2-auth-fedict python-passerelle-imio-liege-lisrue python-passerelle-imio-ts1-datasources -t jessie-eobuilder
+RUN apt-get install -y -t jessie wcs-au-quotidien combo fargo hobo bijoe libjs-leaflet passerelle authentic2-multitenant publik-base-theme python-suds python-django-filters
+RUN apt-get install -y imio-publik-themes python-authentic2-auth-fedict python-passerelle-imio-liege-lisrue python-passerelle-imio-ts1-datasources python-passerelle-imio-extra-fees -t jessie-eobuilder
 # Allow services to start, this is necessary as hobo-agent postinst will fail
 # if supervisord is not running
 RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d
