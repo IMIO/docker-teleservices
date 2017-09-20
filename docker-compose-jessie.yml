@@ -32,7 +32,7 @@ services:
       - ./data/combo:/var/lib/combo/tenants
       - ./data/fargo:/var/lib/fargo/tenants
       - ./data/authentic2:/var/lib/authentic2-multitenant/tenants
-      - ./data/wcs:/var/lib/wcs-au-quotidien
+      - ./data/wcs:/var/lib/wcs
       - ./data/passerelle:/var/lib/passerelle/tenants
       - ./config/nginx:/etc/nginx/sites-available
       - ./config/combo:/etc/combo
