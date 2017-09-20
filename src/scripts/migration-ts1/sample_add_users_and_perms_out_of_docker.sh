@@ -8,6 +8,6 @@ for commune in 'silly' 'olln' 'lierneux' 'huy' 'ecaussinnes' 'honnelles' 'cource
             docker exec -ti $commune"teleservices_"$commune"teleservices_1" sed -i "s/"$commune"/COMMUNE_ID/g" /opt/publik/scripts/migration-ts1/import-authentic-user.py
 
 
-            docker exec -ti $commune"teleservices_"$commune"teleservices_1" sudo -u  wcs-au-quotidien wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$commune"-formulaires.guichet-citoyen.be" /opt/publik/scripts/migration-ts1/import-permissions.py full
+            docker exec -ti $commune"teleservices_"$commune"teleservices_1" sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$commune"-formulaires.guichet-citoyen.be" /opt/publik/scripts/migration-ts1/import-permissions.py full
     done
 
