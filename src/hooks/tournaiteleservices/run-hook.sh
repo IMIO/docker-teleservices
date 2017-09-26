@@ -8,6 +8,7 @@ then
 _EOF_
 fi
 
+# install the certificates used on the Active Directory server
 cp /opt/publik/hooks/tournaiteleservices/CA-AD-tournai*.crt /usr/local/share/ca-certificates/
 update-ca-certificates
 
