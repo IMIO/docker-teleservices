@@ -5,7 +5,7 @@ import sys
 from wcs.formdef import FormDef
 for formdef in FormDef.select():
     json_str = formdef.export_to_json()
-    folder_store_forms = "/opt/publik/gitlab/{}".format(sys.argv[1])
+    folder_store_forms = "/var/tmp/{}".format(sys.argv[1])
     if not os.path.exists(folder_store_forms):
         os.mkdir(folder_store_forms)
     with open ("{}/{}".format(folder_store_forms, formdef.id), 'w') as myfile:
