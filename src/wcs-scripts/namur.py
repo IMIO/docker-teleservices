@@ -100,7 +100,15 @@ class Namur(town.Town):
         # test if valid structured comm.
         return "{}/{}/{}".format(com[0:3], com[3:7], com[7:12])
 
-
+    def html_table(self, table):
+        str_table = "<table>"
+        for item in table:
+            str_table = "{}{}".format(str_table, "<tr>")
+            str_table = "{}{}{}{}".format(str_table, "<td>",item[0],"</td>")
+            str_table = "{}{}{}{}".format(str_table, "<td>",item[0],"</td>")
+            str_table = "{}{}".format(str_table, "</tr>")
+        str_table = "{}{}".format(str_table,"</table>") 
+        return str_table
 
 
 current_commune = Namur()
