@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-if __debug__:
+DEBUG = False
+if DEBUG:
     acte_divorce = {'doc': [['Boul', 'Ch', '07/01/1979', '07/01/2000', '1', '1', ''],
                             ['Boulanger', 'Christophe', '07/01/1979', '07/01/2000', '2', '3', '']], 'ex_places':(4,5)}
     acte_deces = {'doc': [['dfd', 'dddd', '07/01/1979', '07/01/2090', '2', '2', '']], 'ex_places':(4,5)}
