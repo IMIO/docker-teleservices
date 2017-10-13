@@ -114,6 +114,15 @@ class Liege(town.Town):
                             result = True
         return result
 
+    def conteneurs_verts(self, datasource, auth=None, ws=None):
+        if len(ws) <= 1:
+           for item in datasource[1:]:
+                item['disabled'] = True
+        else:
+            datasource[0]['disabled'] = True
+        return datasource
+
+
     def test(self, a):
         return type(Town)
 
