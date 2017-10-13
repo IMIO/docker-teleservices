@@ -113,7 +113,7 @@ class Town(object):
         value = None
         if regex_pattern == "is_date":
             is_date = True
-            regex_pattern = "(0?[1-9]|[12][0-9]|3[01])[-./](0?[1-9]|1[012])[-./]((19|20)\\d\\d)"
+            regex_pattern = "(0?[1-9]|[12][0-9]|3[01])[-./](0?[1-9]|1[012])[-./]((18|19|20|21|22|23|24|25|26|27|28|29)\\d\\d)"
         try:
             if id_row == "-1":
                 for item in table_var:
@@ -233,7 +233,6 @@ class Town(object):
                return ds_if_true
            else:
                return ds_if_false
-
 
     def is_valid_iban(self, iban):
         ibanValidationModulo = 97
