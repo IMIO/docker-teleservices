@@ -9,7 +9,7 @@ if 'town' in sys.modules:
 
 import town
 
-liege_cities = set(['Bressoux', 'Chénée', 'Glain', 'Grivegnée', 'Jupille', 'Liège', 'Rocourt', 'Wandre'])
+liege_cities = set(['Bressoux', 'Chênée', 'Glain', 'Grivegnée', 'Jupille', 'Liège', 'Rocourt', 'Wandre'])
 
 
 class Liege(town.Town):
