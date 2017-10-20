@@ -18,7 +18,7 @@ contents = contents.replace('adresse de courriel', 'adresse e-mail'
                   ).replace('courriel', 'adresse e-mail'
                   ).replace('Courriel', 'Adresse e-mail'
                   ).replace('ré-initialiser', 'réinitialiser'
-                  ).replace('Ré-initialiser', 'Réinitialiser')
+                  ).replace('Ré-initialiser', 'Réinitialiser'
                   ).replace('Ré-initialisez', 'Réinitialisez')
 fd = open('/var/lib/authentic2/locale/fr/LC_MESSAGES/authentic.po', 'w')
 fd.write(contents)
