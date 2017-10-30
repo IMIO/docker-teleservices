@@ -19,7 +19,7 @@ class Lalouviere(town.Town):
     def is_not_lalouviere_filtered_list(self, choices, is_not_lalouviere_filtered_list = [], forms_exceptions= []):
         if not self.user_zipcode:
             return choices
-        if self.user_zipcode in ('7100',):
+        if self.user_zipcode in ('7100', '7110'):
             return choices
         else:
             if self.form_slug in forms_exceptions:
@@ -31,7 +31,7 @@ class Lalouviere(town.Town):
     def is_lalouviere_resident(self, choices, is_lalouviere_filtered_list = [], is_not_lalouviere_filtered_list = []):
         if not self.user_zipcode:
             return choices
-        if self.user_zipcode in ('7100',):
+        if self.user_zipcode in ('7100', '7110'):
             if len(is_lalouviere_filtered_list) > 0:
                 return [x for i, x in enumerate(choices) if i in is_lalouviere_filtered_list]
             else:
@@ -44,7 +44,7 @@ class Lalouviere(town.Town):
 
     # Has been adapted from Liege.py (La Louvière reused Pop/Etat Civil Liège's forms)
     def test_lalouviere_and_return_text(self, is_lalouviere_text, is_not_lalouviere_text):
-        if self.user_zipcode  in ('7100',):
+        if self.user_zipcode  in ('7100', '7110'):
             return is_lalouviere_text
         else:
             return is_not_lalouviere_text
