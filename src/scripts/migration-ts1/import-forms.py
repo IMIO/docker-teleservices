@@ -1,3 +1,5 @@
+# Usage : # sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2 /opt/publik/scripts/migration-ts1/import-forms.py /opt/publik/scripts/migration-ts1/forms/
+
 import os
 import sys
 from wcs.formdef import FormDef
