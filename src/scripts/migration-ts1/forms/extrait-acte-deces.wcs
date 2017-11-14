@@ -295,7 +295,7 @@
       <extra_css_class>readonly</extra_css_class>
       <prefill>
         <type>formula</type>
-        <value>(float(form_option_cost) + float(form_var_motif_price) + float(form_var_destination_price)) * float(form_var_nb_exemplaire)</value>
+        <value>str((Decimal(form_option_cost) + Decimal(form_var_motif_price) + Decimal(form_var_destination_price)) * int(form_var_nb_exemplaire))</value>
       </prefill><id>34</id>
     </field>
 
@@ -319,7 +319,7 @@
       <extra_css_class>readonly</extra_css_class>
       <prefill>
         <type>formula</type>
-        <value>(float(form_option_cost) + float(form_var_motif_price) + float(form_var_destination_price)) * float(form_var_nb_exemplaire)</value>
+        <value>str((Decimal(form_option_cost) + Decimal(form_var_motif_price) + Decimal(form_var_destination_price)) * int(form_var_nb_exemplaire))</value>
       </prefill><id>31</id>
     </field><field>
       <label>Paiement en ligne</label>
