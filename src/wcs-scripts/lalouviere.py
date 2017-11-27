@@ -134,6 +134,29 @@ class Lalouviere(town.Town):
         except:
             return "diff_dates_occupation_error"
 
+    # filtrage de mails pour une liste de dictionnaire telle que :
+    #[{'id':'police','mail':'christophe.boulanger+1@imio.be','text':'la Police'},...]
+    # varname = is a string like : 'formavis_var_liste_avis'
+    # lst_ids = is a form var like : formavis_var_liste_avis_raw
+    # "formavis_var_liste_avis_2_mail" will be the var that keep mail from index 2.
+    def mail_filtering(self, varname, ignore_ids = [], auth_ids = []):
+        is_there_ignore_ids = False if len(ignore_ids) == 0 else True
+        is_there_auth_ids = False  if len(auth_ids) == 0 else True
+        # Authorising list mails are stronger than ignoring list mails
+        str_mails_to_send = ""
+        lst_index_to_keep = []
+        var_raw = globals().get('{}_{}'.format(varname,'raw'))
+        if is_there_ignore_ids is True and is_there_auth_ids is True:
+            is_there_ignore_ids = False
+        if is_there_ignore_ids == True:
+            lst_index_to_keep = [int(var_raw.index(elem)) for elem in var_raw if elem not in ignore_ids]
+        else:
+            lst_index_to_keep = [int(var_raw.index(elem)) for elem in var_raw if elem in auth_ids]
+        for i in lst_index_to_keep:
+            str_mails_to_send += "{};".format(globals().get("{}_{}_mail".format(varname, i)))
+        return str_mails_to_send
+
+
 
 current_commune = Lalouviere()
 function = args[0]
