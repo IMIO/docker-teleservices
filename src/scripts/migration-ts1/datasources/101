@@ -1,0 +1,8 @@
+<datasources id="101">
+  <name>DS_lien_parente</name>
+  <slug>ds_lien_parente</slug>
+  <description>Liste des liens de parent&#233;</description>
+  <data_source>
+    <type>formula</type>
+    <value>[('Epoux','Epoux'),('Epouse','Epouse'),('Fils','Fils'),('Fille','Fille'),('Gendre','Gendre'),('Bru','Bru'),('Petit-fils','Petit-fils'),('Petite-fille','Petite-fille'),('Pere','Pere'),('Mere','Mere'),('Beau-pere','Beau-p&#232;re'),('Belle-mere','Belle-m&#232;re'),('Grand-pere','Grand-p&#232;re'),('Grand-mere','Grand-m&#232;re'),('Beau-fils','Beau-fils'),('Belle-fille','Belle-fille'),('Frere','Frere'),('Soeur','Soeur'),('Beau-frere','Beau-fr&#232;re'),('Belle-soeur','Belle-soeur'),('Oncle','Oncle'),('Tante','Tante'),('Neveu','Neveu'),('Niece','Ni&#232;ce'),('Cousin','Cousin'),('Cousine','Cousine'),('Arriere-petit-fils','Arri&#232;re-petit-fils'),('Arriere-petite-fille','Arri&#232;re-petite-fille'),('Apparente','Apparent&#233;'),('Non-apparente','Non apparent&#233;')]</value>
+  </data_source>
