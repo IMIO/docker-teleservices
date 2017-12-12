@@ -15,7 +15,7 @@
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
   <category category_id="98">Travaux</category>
-  <workflow workflow_id="2">Travaux (default)</workflow>
+  <workflow>Travaux (default)</workflow>
   <max_field_id>28</max_field_id>
   <last_modification user_id="5">2017-12-08 09:43:57</last_modification>
   <fields>

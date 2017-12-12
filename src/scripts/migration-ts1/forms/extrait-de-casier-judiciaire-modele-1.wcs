@@ -15,7 +15,7 @@
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
   <category category_id="99">Etat civil - Population</category>
-  <workflow workflow_id="1">D&#233;partement Citoyen (d&#233;faut)</workflow>
+  <workflow>D&#233;partement Citoyen (d&#233;faut)</workflow>
   <max_field_id>28</max_field_id>
   <last_modification user_id="5">2017-12-08 09:41:09</last_modification>
   <fields>
