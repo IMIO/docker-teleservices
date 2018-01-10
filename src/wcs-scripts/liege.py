@@ -123,6 +123,16 @@ class Liege(town.Town):
         return datasource
 
 
+    def vignette_table_compute(self, table_var, id_colonne, datasource):
+        id_col = int(id_colonne)
+        for item in table_var:
+            for vignette in datasource:
+                if vignette['id'] == item[id_col]:
+                    item[id_col] = vignette['price']
+        result = self.compute_dynamic_tab(table_var, id_colonne)
+        return result
+
+
     def test(self, a):
         return type(Town)
 
