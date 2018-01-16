@@ -31,6 +31,12 @@ def create_authentic_user():
             role_agent_traitant_trav = Role(name='Agents traitants - Travaux', ou=organisation_unit)
             role_agent_traitant_trav.save()
 
+        try:
+            role_citoyen_test = Role.objects.get(name='Citoyen (test)')
+        except ObjectDoesNotExist:
+            role_citoyen_test = Role(name='Citoyen (test)', ou=organisation_unit)
+            role_citoyen_test.save()
+
         with open("/tmp/tmp_uuid_agent_fabriques.txt", 'w') as f:
             f.write(role_agent_fabriques.uuid)
             f.close()
@@ -43,6 +49,9 @@ def create_authentic_user():
             f.write(role_agent_traitant_trav.uuid)
             f.close()
 
+        with open("/tmp/tmp_uuid_citoyen_test.txt", 'w') as f:
+            f.write(role_citoyen_test.uuid)
+            f.close()
         # GET or Create default user with default organisation unit.
         try:
             user_admin_commune = User.objects.get(username='admin_commune')
@@ -66,6 +75,10 @@ def create_authentic_user():
         role_admin_stat = Role.objects.get(name="Administrateur de Guichet citoyen COMMUNE_ID - Statistiques")
 
         role_agent_fabriques.members.add(user_admin_commune)
+        role_citoyen_test.members.add(user_admin_commune)
+        role_agent_traitant_pop.members.add(user_admin_commune)
+        role_agent_traitant_trav.members.add(user_admin_commune)
+
         role_admin_user.members.add(user_admin_commune)
         role_admin_role.members.add(user_admin_commune)
         role_admin_passerelle.members.add(user_admin_commune)
