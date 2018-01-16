@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<workflow id="4">
+  <name>Autorisation de voyage</name>
+  <roles>
+    <role id="_receiver">Agent traitant</role>
+  </roles><last_modification user_id="1">2018-01-16 09:01:54</last_modification>
+  <possible_status>
+    <status>
+      <id>accepted</id>
+      <name>Demande d'autorisation de voyage</name>
+      <colour>0099FF</colour>
+      <visibility />
+      <items>
+        <item id="1" type="export_to_model">
+          <method>non-interactive</method>
+          <model_file>
+            <base_filename>Autorisationdevoyage.odt</base_filename>
+            <content_type>application/octet-stream</content_type>
+            <b64_content>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
+AQAAiRcAAAAA
+</b64_content>
+          </model_file><attach_to_history>True</attach_to_history>
+          <varname>autorisation_de_voyage</varname>
+          <convert_to_pdf>True</convert_to_pdf>
+          <push_to_portfolio>True</push_to_portfolio>
+        </item><item id="2" type="jump">
+          <status>finished</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>finished</id>
+      <name>Messages d'avertissements</name>
+      <colour>000000</colour>
+      <visibility>
+        <role>_receiver</role>
+      </visibility><items>
+        <item id="1" type="sendmail">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to><subject>[form_name] : [form_user_display_name]</subject>
+          <body>Bonjour,
+
+Un formulaire [form_name] vient d'&#234;tre soumis. Vous pouvez en prendre connaissance en suivant ce lien :
+
+[form_url_backoffice]
+
+</body>
+        </item><item id="2" type="sendmail">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>Administration communal : [form_name]</subject>
+          <body>Bonjour,
+
+Nous accusons bonne r&#233;ception de votre d&#233;marche en vue de l'obtention d'une [form_name]. 
+
+Afin de l&#233;galiser le document : se pr&#233;senter au guichet avec la Carte d'identit&#233; (ou copie de la carte d'identit&#233;) de la personne autorisant le voyage (Taxe communale 3&#8364;)
+
+ 
+Bien cordialement, </body>
+        </item><item id="3" type="jump">
+          <status>0</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="4" type="commentable" />
+      </items>
+    </status><status>
+      <id>0</id>
+      <name>En attente (rdv guichet)</name>
+      <colour>0099FF</colour>
+      <visibility />
+      <items>
+        <item id="1" type="displaymsg">
+          <message>&lt;h3&gt;Afin de l&#233;galiser le document : se pr&#233;senter au guichet avec la Carte d'identit&#233; (ou copie de la carte d'identit&#233;) de la personne autorisant le voyage (Taxe communale 3&#8364;)&lt;/h3&gt;
+&lt;h3&gt;Retrouvez votre document dans :&lt;/h3&gt;
+&lt;h3&gt;&lt;a href="[porte_doc_url]"&gt;Le porte-documents&lt;/a&gt;.&lt;/h3&gt;
+&lt;p&gt;
+Bien cordialement,
+&lt;/p&gt;
+&lt;p&gt;Votre administration communale.&lt;/p&gt;</message>
+        </item><item id="2" type="choice">
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>1</status>
+          <label>Autorisation valid&#233;e</label>
+          <backoffice_info_text>&lt;p&gt;Le citoyen s'est pr&amp;eacute;sent&amp;eacute; avec tout les documents adhoc. Le dossier peut &amp;ecirc;tre cl&amp;ocirc;tur&amp;eacute;.&lt;/p&gt;</backoffice_info_text>
+          <require_confirmation>False</require_confirmation>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="3" type="choice">
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>3</status>
+          <label>Dossier incomplet</label>
+          <backoffice_info_text>&lt;p&gt;Le dossier est incomplet, une pr&amp;eacute;sentation ult&amp;eacute;rieur du citoyen est requise &amp;agrave; la commune avec la totalit&amp;eacute; de ses documents&lt;/p&gt;</backoffice_info_text>
+          <require_confirmation>False</require_confirmation>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>1</id>
+      <name>Termin&#233; (dossier complet)</name>
+      <colour>00FF66</colour>
+      <forced_endpoint>true</forced_endpoint>
+      <visibility />
+      <items />
+    </status><status>
+      <id>2</id>
+      <name>Dossier incomplet</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item id="1" type="sendmail">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>Administration communal : Demande incompl&#232;te : [form_name] </subject>
+          <body>Bonjour, 
+
+Nous ne pouvons acc&#233;der &#224; votre demande car votre dossier est incomplet.
+Veuillez trouver ci-dessous les informations qui sont encore n&#233;cessaires &#224; la compl&#233;tion de votre dossier : 
+
+
+[comment_incomplet]
+
+
+Bien cordialement, 
+
+------------------------------------------------------</body>
+        </item><item id="2" type="jump">
+          <status>0</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>3</id>
+      <name>Ajout d'un commentaire</name>
+      <colour>000000</colour>
+      <visibility>
+        <role>_receiver</role>
+      </visibility><items>
+        <item id="1" type="commentable">
+          <label>Commentaire</label>
+          <button_label>Ajouter le commentaire</button_label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><varname>incomplet</varname>
+          <backoffice_info_text>&lt;p&gt;Vous pouvez noter ici les diff&amp;eacute;rentes pi&amp;egrave;ces manquante &amp;agrave; la compl&amp;eacute;tion du dossier du citoyen.&lt;/p&gt;&lt;p&gt;Un mail lui sera envoy&amp;eacute; afin qu'il puisse prendre ses dispositions.&lt;/p&gt;</backoffice_info_text>
+        </item><item id="2" type="jumponsubmit">
+          <status>2</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status>
+  </possible_status><global_actions>
+    <action>
+      <id>1</id>
+      <name>Supprimer la d&#233;marche</name>
+      <items>
+        <item id="1" type="remove" />
+      </items><triggers>
+        <trigger id="a4727a45-c1cb-4495-a91d-3673c069750e" type="manual">
+          <roles>
+            <item role_id="d9eb12f9ba6241c8879875c88f19962e">Debug</item>
+          </roles>
+        </trigger>
+      </triggers>
+    </action>
+  </global_actions>
+</workflow>
