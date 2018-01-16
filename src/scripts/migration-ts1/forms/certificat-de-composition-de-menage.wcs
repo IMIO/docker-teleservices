@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="iso-8859-15"?>
-<formdef id="30">
-  <name>Certificat de r&#233;sidence</name>
-  <url_name>certificat-de-residence</url_name>
+<formdef id="29">
+  <name>Certificat de composition de m&#233;nage</name>
+  <url_name>certificat-de-composition-de-menage</url_name>
   <description>Il faut r&#233;sider obligatoirement dans la commune</description>
-  <internal_identifier>certificat-de-residence</internal_identifier>
+  <internal_identifier>certificat-de-composition-de-menage</internal_identifier>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
   <disabled>false</disabled>
@@ -17,7 +17,7 @@
   <category category_id="99">Etat civil - Population</category>
   <workflow workflow_id="3">D&#233;partement Citoyen (default)</workflow>
   <max_field_id>29</max_field_id>
-  <last_modification user_id="1">2018-01-15 15:48:32</last_modification>
+  <last_modification user_id="1">2018-01-15 15:43:32</last_modification>
   <fields>
     <field>
       <label>Certificat de composition de m&#233;nage</label>
@@ -147,7 +147,7 @@
         <value>_email</value>
       </prefill><id>11</id>
     </field><field>
-      <label>&lt;p&gt;Si vos informations personnelles ont chang&amp;eacute;, vous devez changer votre siganl&amp;eacute;tique dans vos pr&amp;eacute;f&amp;eacute;rences personnelles (&lt;a href="[idp_account_url]edit/"&gt;page de profil&lt;/a&gt;) avant de r&amp;eacute;aliser votre demande. Merci.&lt;/p&gt;</label>
+      <label>&lt;p&gt;Si vos informations personnelles ont chang&amp;eacute;, vous devez changer votre siganl&amp;eacute;tique dans vos pr&amp;eacute;f&amp;eacute;rences personnelles (&lt;a href="https://demo-auth.guichet-citoyen.be/accounts/edit/"&gt;page de profil&lt;/a&gt;) avant de r&amp;eacute;aliser votre demande. Merci.&lt;/p&gt;</label>
       <type>comment</type>
       <id>12</id>
     </field><field>
