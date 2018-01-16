@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="iso-8859-15"?>
-<formdef id="30">
-  <name>Certificat de r&#233;sidence</name>
-  <url_name>certificat-de-residence</url_name>
+<formdef id="32">
+  <name>Certificat de r&#233;sidence avec historique</name>
+  <url_name>certificat-de-residence-avec-historique</url_name>
   <description>Il faut r&#233;sider obligatoirement dans la commune</description>
-  <internal_identifier>certificat-de-residence</internal_identifier>
+  <internal_identifier>certificat-de-residence-avec-historique</internal_identifier>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
   <disabled>false</disabled>
@@ -17,7 +17,7 @@
   <category category_id="99">Etat civil - Population</category>
   <workflow workflow_id="3">D&#233;partement Citoyen (default)</workflow>
   <max_field_id>29</max_field_id>
-  <last_modification user_id="1">2018-01-15 15:48:32</last_modification>
+  <last_modification user_id="1">2018-01-15 16:25:24</last_modification>
   <fields>
     <field>
       <label>Certificat de composition de m&#233;nage</label>
@@ -211,6 +211,7 @@
       <required>False</required>
       <varname>followmail</varname>
       <in_listing>False</in_listing>
+      <extra_css_class>hidden</extra_css_class>
       <prefill>
         <type>none</type>
       </prefill><id>17</id>

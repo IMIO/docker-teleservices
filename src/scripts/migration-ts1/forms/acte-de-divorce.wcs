@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="iso-8859-15"?>
-<formdef id="30">
-  <name>Certificat de r&#233;sidence</name>
-  <url_name>certificat-de-residence</url_name>
-  <description>Il faut r&#233;sider obligatoirement dans la commune</description>
-  <internal_identifier>certificat-de-residence</internal_identifier>
+<formdef id="28">
+  <name>Acte de divorce</name>
+  <url_name>acte-de-divorce</url_name>
+  <description>Copie litt&#233;rale du Registre Communal</description>
+  <internal_identifier>acte-de-divorce</internal_identifier>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
   <disabled>false</disabled>
@@ -16,24 +16,57 @@
   <skip_from_360_view>false</skip_from_360_view>
   <category category_id="99">Etat civil - Population</category>
   <workflow workflow_id="3">D&#233;partement Citoyen (default)</workflow>
-  <max_field_id>29</max_field_id>
-  <last_modification user_id="1">2018-01-15 15:48:32</last_modification>
+  <max_field_id>40</max_field_id>
+  <last_modification user_id="1">2018-01-15 15:37:18</last_modification>
   <fields>
     <field>
-      <label>Certificat de composition de m&#233;nage</label>
+      <label>Extrait acte de mariage</label>
       <type>page</type>
       <post_conditions>
         <post_condition>
           <condition>(form_var_email is not None and form_var_followmail == "True") or (form_var_email is None and form_var_followmail == "False") or (form_var_email is not None and form_var_followmail == "False")</condition>
           <error_message>Si vous souhaitez un suivis par mail, vous devez sp&#233;cifier une adresse e-mail. </error_message>
         </post_condition><post_condition>
-          <condition>form_var_code_postal in form_option_cp_commune.split(',')</condition>
-          <error_message>Votre code postal ne fait pas partie des code postaux de notre commune. Nous ne pourrons faire suite &#224; votre demande.</error_message>
+          <condition>form_var_cp_mariage in form_option_cp_commune.split(',')</condition>
+          <error_message>Le code postal de votre lieu de mariage ne fait pas partie des code postaux de notre commune. Nous ne pourrons faire suite &#224; votre demande.</error_message>
         </post_condition>
       </post_conditions><id>1</id>
     </field><field>
-      <label>Si vous &#234;tes domicili&#233;(e) dans notre commune, vous pouvez utiliser ce formulaire.</label>
+      <label>L'acte de divorce ne vous sera d&#233;livr&#233; UNIQUEMENT si votre mariage a eu lieu dans notre commune.</label>
       <type>comment</type>
+      <id>38</id>
+    </field><field>
+      <label>Lieu du mariage</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>31</id>
+    </field><field>
+      <label>Code postal (mariage)</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>cp_mariage</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><validation>^[0-9]*</validation>
+      <id>39</id>
+    </field><field>
+      <label>Date du mariage</label>
+      <type>date</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <minimum_is_future>False</minimum_is_future>
+      <date_in_the_past>False</date_in_the_past>
+      <date_can_be_today>False</date_can_be_today>
+      <id>40</id>
+    </field><field>
+      <label>Mes coordonn&#233;es</label>
+      <type>title</type>
       <id>29</id>
     </field><field>
       <label>Nom</label>
@@ -211,9 +244,59 @@
       <required>False</required>
       <varname>followmail</varname>
       <in_listing>False</in_listing>
+      <extra_css_class>hidden</extra_css_class>
       <prefill>
         <type>none</type>
       </prefill><id>17</id>
+    </field><field>
+      <label>Informations compl&#233;mentaires</label>
+      <type>page</type>
+      <id>30</id>
+    </field><field>
+      <label>Nom du conjoint</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>33</id>
+    </field><field>
+      <label>Pr&#233;nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>34</id>
+    </field><field>
+      <label>Rue et num&#233;ro</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-1</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>35</id>
+    </field><field>
+      <label>Code postal</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>36</id>
+    </field><field>
+      <label>Localit&#233;</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>37</id>
     </field><field>
       <label>Prix de la d&#233;marche</label>
       <type>page</type>
@@ -270,12 +353,16 @@
     <role role_id="b3ff0e48ced3454c9607b8ad2c6b8c5a" role_key="_receiver">Agents traitants - Population, etat civil</role>
   </roles><options>
     <option varname="destinations_structured" />
+    <option varname="code_postaux_commune" />
     <option varname="motifs_disponibles_structured" />
     <option varname="cost">0</option>
     <option varname="iban" />
+    <option varname="code_postaux_commune_structured" />
     <option varname="motifs_disponibles" />
-    <option varname="motifs_disponibles_display">Assurance : co&#251;t 2&#8364;,Avocat : co&#251;t 2&#8364;,Banque : co&#251;t 2&#8364;,Demande d'emploi : gratuit,Ecole : gratuit,Huissier : co&#251;t 2&#8364;,Notaire : co&#251;t 2&#8364;,Pension : gratuit,Succession : co&#251;t 2&#8364;,Usage &#224; l'&#233;tranger : co&#251;t 2&#8364;,Autre : indiquer la raison dans le commentaire</option>
-    <option varname="destinations_display">R&#233;cup&#233;rer le document &#224; la commune lorsqu'il est pr&#234;t,Envoi &#224; domicile : co&#251;t 1&#8364;,Envoi &#224; domicile par recommand&#233;: co&#251;t 6&#8364;</option>
+    <option varname="motifs_disponibles_display">Allocations familiales : gratuit</option>
+    <option varname="cp">4000</option>
+    <option varname="destinations_display">R&#233;cup&#233;rer le document &#224; la commune lorsqu'il est pr&#234;t</option>
+    <option varname="code_postaux_commune_display">1, 2, 3, 4</option>
     <option varname="destinations" />
   </options><geolocations />
 </formdef>
