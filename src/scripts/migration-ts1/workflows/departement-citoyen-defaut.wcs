@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <workflow id="3">
-  <name>D&#233;partement Citoyen (d&#233;faut)</name>
+  <name>D&#233;partement Citoyen (d&#233;fault)</name>
   <roles>
     <role id="_receiver">Agent traitant</role>
   </roles><last_modification user_id="1">2018-01-15 13:16:59</last_modification>
