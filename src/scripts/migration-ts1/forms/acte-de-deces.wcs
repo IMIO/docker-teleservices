@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-15"?>
-<formdef id="8">
+<formdef id="10">
   <name>Acte de d&#233;c&#232;s</name>
   <url_name>acte-de-deces</url_name>
   <description>Copie litt&#233;rale du Registre Communal</description>
@@ -17,7 +17,7 @@
   <category category_id="99">Etat civil - Population</category>
   <workflow workflow_id="3">D&#233;partement Citoyen (default)</workflow>
   <max_field_id>44</max_field_id>
-  <last_modification user_id="1">2018-01-15 15:37:58</last_modification>
+  <last_modification user_id="1">2018-01-18 14:02:50</last_modification>
   <fields>
     <field>
       <label>Extrait d'acte de d&#233;c&#232;s</label>
@@ -31,7 +31,7 @@
     </field><field>
       <label>Vos coordonn&#233;es</label>
       <type>title</type>
-      <id>35</id>
+      <id>2</id>
     </field><field>
       <label>Nom</label>
       <type>string</type>
@@ -42,7 +42,7 @@
       <prefill>
         <type>user</type>
         <value>_last_name</value>
-      </prefill><id>38</id>
+      </prefill><id>3</id>
     </field><field>
       <label>Pr&#233;nom</label>
       <type>string</type>
@@ -53,7 +53,7 @@
       <prefill>
         <type>user</type>
         <value>_first_name</value>
-      </prefill><id>39</id>
+      </prefill><id>4</id>
     </field><field>
       <label>Rue</label>
       <type>string</type>
@@ -64,7 +64,7 @@
       <prefill>
         <type>user</type>
         <value>_street</value>
-      </prefill><id>4</id>
+      </prefill><id>5</id>
     </field><field>
       <label>Num&#233;ro</label>
       <type>string</type>
@@ -76,7 +76,7 @@
         <type>user</type>
         <value>_num_house</value>
       </prefill><validation>^[0-9]*</validation>
-      <id>5</id>
+      <id>6</id>
     </field><field>
       <label>Bo&#238;te</label>
       <type>string</type>
@@ -87,7 +87,7 @@
       <prefill>
         <type>user</type>
         <value>_num_box</value>
-      </prefill><id>6</id>
+      </prefill><id>7</id>
     </field><field>
       <label>Code postal</label>
       <type>string</type>
@@ -99,7 +99,7 @@
         <type>user</type>
         <value>_zipcode</value>
       </prefill><validation>^[0-9]*</validation>
-      <id>7</id>
+      <id>8</id>
     </field><field>
       <label>Ville</label>
       <type>string</type>
@@ -110,7 +110,7 @@
       <prefill>
         <type>user</type>
         <value>_city</value>
-      </prefill><id>8</id>
+      </prefill><id>9</id>
     </field><field>
       <label>Num&#233;ro de t&#233;l&#233;phone</label>
       <type>string</type>
@@ -121,7 +121,7 @@
       <prefill>
         <type>user</type>
         <value>_phone</value>
-      </prefill><id>9</id>
+      </prefill><id>10</id>
     </field><field>
       <label>Num&#233;ro de GSM</label>
       <type>string</type>
@@ -132,7 +132,7 @@
       <prefill>
         <type>user</type>
         <value>_mobile</value>
-      </prefill><id>10</id>
+      </prefill><id>11</id>
     </field><field>
       <label>Adresse e-mail</label>
       <type>email</type>
@@ -142,11 +142,11 @@
       <prefill>
         <type>user</type>
         <value>_email</value>
-      </prefill><id>11</id>
+      </prefill><id>12</id>
     </field><field>
       <label>&lt;p&gt;Si vos informations personnelles ont chang&amp;eacute;, vous devez changer votre siganl&amp;eacute;tique dans vos pr&amp;eacute;f&amp;eacute;rences personnelles (&lt;a href="[idp_account_url]edit/"&gt;page de profil&lt;/a&gt;) avant de r&amp;eacute;aliser votre demande. Merci.&lt;/p&gt;</label>
       <type>comment</type>
-      <id>12</id>
+      <id>13</id>
     </field><field>
       <label>Qui &#234;tes-vous par rapport &#224; la personne d&#233;c&#233;d&#233;e ?</label>
       <type>item</type>
@@ -167,16 +167,16 @@
       <in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
-      <id>31</id>
+      <id>14</id>
     </field><field>
       <label>Autre lien avec le d&#233;funt</label>
       <type>page</type>
       <condition>form_var_lien_defunt == 'Autre : &#224; pr&#233;ciser'</condition>
-      <id>32</id>
+      <id>15</id>
     </field><field>
       <label>Autre lien avec le d&#233;funt</label>
       <type>title</type>
-      <id>33</id>
+      <id>16</id>
     </field><field>
       <label>Merci de pr&#233;ciser le lien avec la personne d&#233;c&#233;d&#233;e</label>
       <type>string</type>
@@ -184,7 +184,7 @@
       <in_listing>False</in_listing>
       <prefill>
         <type>none</type>
-      </prefill><id>34</id>
+      </prefill><id>17</id>
     </field><field>
       <label>Identification de la personne d&#233;c&#233;d&#233;e</label>
       <type>page</type>
@@ -196,11 +196,11 @@
           <condition>script.town("is_valid_belgian_nrn",{'nrn':form_var_nn,'can_be_none':'False'})</condition>
           <error_message>Erreur : Veuillez v&#233;rifier votre date de naissance ou votre num&#233;ro national.</error_message>
         </post_condition>
-      </post_conditions><id>36</id>
+      </post_conditions><id>18</id>
     </field><field>
       <label>Identification de la personne d&#233;c&#233;d&#233;e</label>
       <type>title</type>
-      <id>37</id>
+      <id>19</id>
     </field><field>
       <label>Nom</label>
       <type>string</type>
@@ -210,7 +210,7 @@
       <extra_css_class>grid-1-2</extra_css_class>
       <prefill>
         <type>none</type>
-      </prefill><id>2</id>
+      </prefill><id>20</id>
     </field><field>
       <label>Pr&#233;nom</label>
       <type>string</type>
@@ -220,7 +220,7 @@
       <extra_css_class>grid-1-2</extra_css_class>
       <prefill>
         <type>none</type>
-      </prefill><id>41</id>
+      </prefill><id>21</id>
     </field><field>
       <label>Date du d&#233;c&#232;s</label>
       <type>date</type>
@@ -232,12 +232,12 @@
       </prefill><minimum_is_future>False</minimum_is_future>
       <date_in_the_past>False</date_in_the_past>
       <date_can_be_today>False</date_can_be_today>
-      <id>43</id>
+      <id>22</id>
     </field><field>
       <label>&lt;p&gt;Sp&amp;eacute;cifier le num&amp;eacute;ro national de la personne d&amp;eacute;c&amp;eacute;d&amp;eacute;e OU sa date de naissance.&lt;/p&gt;</label>
       <type>comment</type>
       <extra_css_class>grid-1-1</extra_css_class>
-      <id>14</id>
+      <id>23</id>
     </field><field>
       <label>Num&#233;ro de registre national du d&#233;funt</label>
       <type>string</type>
@@ -247,7 +247,7 @@
       <extra_css_class>grid-1-2</extra_css_class>
       <prefill>
         <type>none</type>
-      </prefill><id>15</id>
+      </prefill><id>24</id>
     </field><field>
       <label>Date de naissance du d&#233;funt</label>
       <type>date</type>
@@ -260,7 +260,7 @@
       </prefill><minimum_is_future>False</minimum_is_future>
       <date_in_the_past>False</date_in_the_past>
       <date_can_be_today>False</date_can_be_today>
-      <id>44</id>
+      <id>25</id>
     </field><field>
       <label>Nom du conjoint</label>
       <type>string</type>
@@ -269,7 +269,7 @@
       <extra_css_class>grid-1-2</extra_css_class>
       <prefill>
         <type>none</type>
-      </prefill><id>40</id>
+      </prefill><id>26</id>
     </field><field>
       <label>Pr&#233;nom du conjoint</label>
       <type>string</type>
@@ -278,11 +278,11 @@
       <extra_css_class>grid-1-2</extra_css_class>
       <prefill>
         <type>none</type>
-      </prefill><id>3</id>
+      </prefill><id>27</id>
     </field><field>
       <label>Informations administratives</label>
       <type>page</type>
-      <id>42</id>
+      <id>28</id>
     </field><field>
       <label>Motifs</label>
       <type>item</type>
@@ -291,14 +291,15 @@
       <in_listing>False</in_listing>
       <prefill>
         <type>none</type>
-      </prefill><show_as_radio>False</show_as_radio>
+      </prefill><items />
+      <show_as_radio>False</show_as_radio>
       <data_source>
         <type>formula</type>
         <value>form_option_motifs_disponibles_structured</value>
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
-      <id>16</id>
+      <id>29</id>
     </field><field>
       <label>Destination</label>
       <type>item</type>
@@ -307,14 +308,15 @@
       <in_listing>False</in_listing>
       <prefill>
         <type>none</type>
-      </prefill><show_as_radio>False</show_as_radio>
+      </prefill><items />
+      <show_as_radio>False</show_as_radio>
       <data_source>
         <type>formula</type>
         <value>form_option_destinations_structured</value>
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
-      <id>17</id>
+      <id>30</id>
     </field><field>
       <label>Nombre d'exemplaire(s)</label>
       <type>string</type>
@@ -325,7 +327,7 @@
         <type>string</type>
         <value>1</value>
       </prefill><validation>^[0-9]*</validation>
-      <id>18</id>
+      <id>31</id>
     </field><field>
       <label>Commentaire</label>
       <type>text</type>
@@ -337,7 +339,7 @@
       </prefill><cols>100</cols>
       <rows>10</rows>
       <pre>False</pre>
-      <id>13</id>
+      <id>32</id>
     </field><field>
       <label>Suivis par mail</label>
       <type>bool</type>
@@ -347,16 +349,16 @@
       <extra_css_class>hidden</extra_css_class>
       <prefill>
         <type>none</type>
-      </prefill><id>19</id>
+      </prefill><id>33</id>
     </field><field>
       <label>Prix de la d&#233;marche</label>
       <type>page</type>
       <condition>form_option_paiement_en_ligne != "Proposer"</condition>
-      <id>20</id>
+      <id>34</id>
     </field><field>
       <label>Ci-dessous, veuillez prendre connaissance du montant de votre demande.</label>
       <type>comment</type>
-      <id>21</id>
+      <id>35</id>
     </field><field>
       <label>Montant</label>
       <type>string</type>
@@ -367,27 +369,27 @@
       <prefill>
         <type>formula</type>
         <value>str((Decimal(form_option_cost) + Decimal(form_var_motif_price) + Decimal(form_var_destination_price)) * int(form_var_nb_exemplaire))</value>
-      </prefill><id>22</id>
+      </prefill><id>36</id>
     </field><field>
       <label>Prix de la d&#233;marche</label>
       <type>page</type>
-      <condition>form_option_paiement_en_ligne == "Proposer"</condition>
-      <id>23</id>
+      <condition>vars().get('form_option_paiement_en_ligne') is not None and form_option_paiement_en_ligne == "Proposer"</condition>
+      <id>37</id>
     </field><field>
       <label>&lt;p&gt;Ci-dessous, veuillez prendre connaissance du montant de votre demande.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Si vous cochez la case &amp;quot;paiement en ligne&amp;quot;, votre d&amp;eacute;marche sera automatiquement mise dans votre panier pour un paiement global de votre commande&lt;/li&gt;&lt;li&gt;Si vous ne cochez pas la case &amp;quot;paiement en ligne&amp;quot;, vous serez invit&amp;eacute; &amp;agrave; r&amp;eacute;aliser un virement sur un compte&lt;/li&gt;&lt;/ul&gt;</label>
       <type>comment</type>
-      <id>24</id>
+      <id>38</id>
     </field><field>
       <label>Montant</label>
       <type>string</type>
       <required>True</required>
-      <varname>montant</varname>
+      <varname>montant2</varname>
       <in_listing>True</in_listing>
       <extra_css_class>readonly</extra_css_class>
       <prefill>
         <type>formula</type>
         <value>str((Decimal(form_option_cost) + Decimal(form_var_motif_price) + Decimal(form_var_destination_price)) * int(form_var_nb_exemplaire))</value>
-      </prefill><id>25</id>
+      </prefill><id>39</id>
     </field><field>
       <label>Paiement en ligne</label>
       <type>bool</type>
@@ -396,12 +398,12 @@
       <in_listing>False</in_listing>
       <prefill>
         <type>none</type>
-      </prefill><id>26</id>
+      </prefill><id>40</id>
     </field>
   </fields><user-roles>
-    <role role_id="6ad984e02aa942d7b5657dd35e5d099a">Citoyen (test)</role>
+    <role role_id="30b7ecea9d604ccdac50d0f443f4d993">Citoyen (test)</role>
   </user-roles><roles>
-    <role role_id="b3ff0e48ced3454c9607b8ad2c6b8c5a" role_key="_receiver">Agents traitants - Population, etat civil</role>
+    <role role_id="8a6818797e2843cb8faa53278c2d4daa" role_key="_receiver">Agents traitants - Population, etat civil</role>
   </roles><options>
     <option varname="destinations_structured" />
     <option varname="motifs_disponibles_structured" />
