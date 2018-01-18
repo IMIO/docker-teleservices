@@ -5,7 +5,7 @@
     <role id="_receiver">Agent traitant</role>
     <role id="_testeur">testeur</role>
     <role id="_validateur-paiement">Validateur paiement</role>
-  </roles><last_modification user_id="1">2018-01-15 13:17:16</last_modification>
+  </roles><last_modification user_id="1">2018-01-18 14:01:38</last_modification>
   <possible_status>
     <status>
       <id>just_submitted</id>
@@ -23,7 +23,7 @@
               <value>=locals().get("form_var_nb_exemplaire")</value>
             </field><field>
               <field_id>bo3</field_id>
-              <value>=str(Decimal(locals().get("form_var_montant"))) or  "0"</value>
+              <value>=str(Decimal(locals().get('form_var_montant2')) if locals().get('form_var_montant2') is not None else Decimal(locals().get('form_var_montant') or '0'))</value>
             </field><field>
               <field_id>bo4</field_id>
               <value>=locals().get("form_var_online_payment_raw") or False</value>
@@ -508,7 +508,7 @@ Ville de [[NOM_COMMUNE]]
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items><triggers>
-        <trigger id="056dc935-3a4c-4093-a82c-74585f7e618b" type="manual">
+        <trigger id="31c9bd52-1dea-403f-b85e-892286698220" type="manual">
           <roles>
             <item role_id="_testeur">_testeur</item>
           </roles>
@@ -520,7 +520,7 @@ Ville de [[NOM_COMMUNE]]
       <items>
         <item id="1" type="remove" />
       </items><triggers>
-        <trigger id="33222088-c81e-49c4-a63f-4a8a6b3515e3" type="manual">
+        <trigger id="b90a8da3-d22b-45ab-882b-b3237becddac" type="manual">
           <roles>
             <item role_id="_testeur">_testeur</item>
           </roles>
@@ -570,7 +570,8 @@ ex : 4000,4020,4030,4031</hint>
           <in_listing>False</in_listing>
           <prefill>
             <type>none</type>
-          </prefill><max_choices>0</max_choices>
+          </prefill><items />
+          <max_choices>0</max_choices>
           <data_source>
             <type>passerelle_motifs</type>
           </data_source><anonymise>True</anonymise>
@@ -584,7 +585,8 @@ ex : 4000,4020,4030,4031</hint>
           <in_listing>False</in_listing>
           <prefill>
             <type>none</type>
-          </prefill><max_choices>0</max_choices>
+          </prefill><items />
+          <max_choices>0</max_choices>
           <data_source>
             <type>passerelle_destinations</type>
           </data_source><anonymise>True</anonymise>

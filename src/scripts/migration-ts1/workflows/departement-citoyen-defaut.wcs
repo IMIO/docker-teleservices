@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <workflow id="3">
-  <name>D&#233;partement Citoyen (d&#233;fault)</name>
+  <name>D&#233;partement Citoyen (d&#233;faut)</name>
   <roles>
     <role id="_receiver">Agent traitant</role>
-  </roles><last_modification user_id="1">2018-01-15 13:16:59</last_modification>
+  </roles><last_modification user_id="1">2018-01-18 13:43:45</last_modification>
   <possible_status>
     <status>
       <id>just_submitted</id>
@@ -18,7 +18,7 @@
               <value>=locals().get("form_var_nb_exemplaire")</value>
             </field><field>
               <field_id>bo3</field_id>
-              <value>=str(Decimal(locals().get('form_var_montant') or '0'))</value>
+              <value>=str(Decimal(locals().get('form_var_montant2')) if locals().get('form_var_montant2') is not None else Decimal(locals().get('form_var_montant') or '0'))</value>
             </field><field>
               <field_id>bo6</field_id>
               <value>=locals().get("form_user_field_numero_national")</value>
@@ -145,6 +145,13 @@ Bien cordialement,</body>
           <status>17</status>
           <set_marker_on_status>False</set_marker_on_status>
           <trigger>paid</trigger>
+        </item><item id="4" type="choice">
+          <by>
+            <item role_id="logged-users">logged-users</item>
+          </by><status>10</status>
+          <label>DEBUG</label>
+          <require_confirmation>False</require_confirmation>
+          <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
     </status><status>
@@ -289,7 +296,7 @@ Bien cordialement,
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items><triggers>
-        <trigger id="612e9559-7467-4744-b1f3-689ea9276d99" type="manual">
+        <trigger id="fa8397f0-6f7c-4561-8fdc-9ee5f855d65d" type="manual">
           <roles>
             <item role_id="_testeur">_testeur</item>
           </roles>
@@ -301,9 +308,9 @@ Bien cordialement,
       <items>
         <item id="1" type="remove" />
       </items><triggers>
-        <trigger id="234696d9-bac0-4459-8e1c-a323e80994b4" type="manual">
+        <trigger id="2c949752-a344-4e18-ac01-99b0fe61d743" type="manual">
           <roles>
-            <item role_id="_testeur">_testeur</item>
+            <item role_id="158ae02454294bd4a9e4c99af8782b02">Debug</item>
           </roles>
         </trigger>
       </triggers>
@@ -342,8 +349,7 @@ ex : 4000,4020,4030,4031</hint>
           <in_listing>False</in_listing>
           <prefill>
             <type>none</type>
-          </prefill><items />
-          <max_choices>0</max_choices>
+          </prefill><max_choices>0</max_choices>
           <data_source>
             <type>passerelle_motifs</type>
           </data_source><anonymise>True</anonymise>
@@ -357,8 +363,7 @@ ex : 4000,4020,4030,4031</hint>
           <in_listing>False</in_listing>
           <prefill>
             <type>none</type>
-          </prefill><items />
-          <max_choices>0</max_choices>
+          </prefill><max_choices>0</max_choices>
           <data_source>
             <type>passerelle_destinations</type>
           </data_source><anonymise>True</anonymise>
