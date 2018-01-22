@@ -10,5 +10,5 @@ for formdef in FormDef.select():
     folder_store_forms = "/var/lib/wcs/xml_forms_{}".format(sys.argv[1])
     if not os.path.exists(folder_store_forms):
         os.mkdir(folder_store_forms)
-    with open ("{}/{}.wcs".format(folder_store_forms, formdef.id), 'w+') as myfile:
+    with open ("{}/{}.wcs".format(folder_store_forms, formdef.internal_identifier), 'w+') as myfile:
         myfile.write(xml_str)
