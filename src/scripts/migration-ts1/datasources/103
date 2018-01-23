@@ -1,0 +1,8 @@
+<datasources id="100">
+  <name>Mode de d&#233;livrance</name>
+  <slug>mode_de_delivrance</slug>
+  <data_source>
+    <type>formula</type>
+    <value>[{'id': 'print','text': 'Imm&#233;diatement si je dispose d\'une imprimante et d\'un lecteur de carte d\'identit&#233; (Connexion pr&#233;alable avec carte d\'identit&#233; + code PIN requis).','disabled': True},  {'id': 'pdf','text': 'Imm&#233;diatement si je souhaite recevoir une version &#233;lectronique (pdf) de mon document. (Connexion pr&#233;alable avec carte d\'identit&#233; + code PIN requis).','disabled': True},  {'id': 'commune','text': 'Je souhaite r&#233;aliser ma d&#233;marche et recevoir mes documents par le biais de ma commune.','disabled': False}]</value>
+  </data_source>
+</datasources>
