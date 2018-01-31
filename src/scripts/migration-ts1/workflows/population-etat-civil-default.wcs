@@ -23,7 +23,7 @@
               <value>=locals().get("form_var_nb_exemplaire")</value>
             </field><field>
               <field_id>bo3</field_id>
-              <value>=str(Decimal(locals().get('form_var_montant2')) if locals().get('form_var_montant2') is not None else Decimal(locals().get('form_var_montant') or '0'))</value>
+              <value>=str(((Decimal(form_option_cost) + Decimal(form_var_motif_price)) * int(form_var_nb_exemplaire)) + Decimal(form_var_destination_price)) or '0.00'</value>
             </field><field>
               <field_id>bo4</field_id>
               <value>=locals().get("form_var_online_payment_raw") or False</value>
