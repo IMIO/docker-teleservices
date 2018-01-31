@@ -22,12 +22,7 @@
     <field>
       <label>Pr&#233;ambule</label>
       <type>page</type>
-      <post_conditions>
-        <post_condition>
-          <condition>form_var_cp_mariage in form_option_cp_commune.split(',')</condition>
-          <error_message>Le code postal de votre lieu de mariage ne fait pas partie des code postaux de notre commune. Nous ne pourrons faire suite &#224; votre demande.</error_message>
-        </post_condition>
-      </post_conditions><id>1</id>
+      <id>1</id>
     </field><field>
       <label>&lt;p&gt;&lt;strong&gt;L'acte de mariage n'est d&amp;eacute;livrable que pour les personnes qui se sont mari&amp;eacute;es dans notre commune.&lt;/strong&gt;&lt;/p&gt;</label>
       <type>comment</type>
@@ -312,17 +307,8 @@
         <value>1</value>
       </prefill><validation>^[0-9]*</validation>
       <id>30</id>
-    </field><field>
-      <label>Suivis par mail</label>
-      <type>bool</type>
-      <required>False</required>
-      <varname>followmail</varname>
-      <in_listing>False</in_listing>
-      <extra_css_class>hidden</extra_css_class>
-      <prefill>
-        <type>none</type>
-      </prefill><id>31</id>
-    </field><field>
+    </field>
+    <field>
       <label>Prix de la d&#233;marche</label>
       <type>page</type>
       <condition>form_option_paiement_en_ligne != "Proposer"</condition>
