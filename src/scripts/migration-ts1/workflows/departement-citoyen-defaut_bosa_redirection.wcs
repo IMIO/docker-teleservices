@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <workflow id="3">
-  <name>D&#233;partement Citoyen (d&#233;faut)</name>
+  <name>D&#233;partement Citoyen (d&#233;faut) (redirection BOSA)</name>
   <roles>
     <role id="_receiver">Agent traitant</role>
   </roles><last_modification user_id="1">2018-01-23 15:46:09</last_modification>
