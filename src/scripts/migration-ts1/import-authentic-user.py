@@ -37,6 +37,12 @@ def create_authentic_user():
             role_citoyen_test = Role(name='Citoyen (test)', ou=organisation_unit)
             role_citoyen_test.save()
 
+        try:
+            role_debug = Role.objects.get(name='Debug')
+        except ObjectDoesNotExist:
+            role_debug = Role(name='Debug', ou=organisation_unit)
+            role_debug.save()
+
         with open("/tmp/tmp_uuid_agent_fabriques.txt", 'w') as f:
             f.write(role_agent_fabriques.uuid)
             f.close()
@@ -52,6 +58,11 @@ def create_authentic_user():
         with open("/tmp/tmp_uuid_citoyen_test.txt", 'w') as f:
             f.write(role_citoyen_test.uuid)
             f.close()
+
+        with open("/tmp/tmp_uuid_debug.txt", 'w') as f:
+            f.write(role_debug.uuid)
+            f.close()
+
         # GET or Create default user with default organisation unit.
         try:
             user_admin_commune = User.objects.get(username='admin_commune')
