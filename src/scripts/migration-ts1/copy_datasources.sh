@@ -9,3 +9,4 @@ sed "s~http://local-passerelle.example.net~https://$1-passerelle.$2~g" datasourc
 sed "s~http://local-passerelle.example.net~https://$1-passerelle.$2~g" datasources/100 > /var/lib/wcs/$1-formulaires.$2/datasources/100
 sed "s~http://local-passerelle.example.net~https://$1-passerelle.$2~g" datasources/101 > /var/lib/wcs/$1-formulaires.$2/datasources/101
 sed "s~http://local-passerelle.example.net~https://$1-passerelle.$2~g" datasources/102 > /var/lib/wcs/$1-formulaires.$2/datasources/102
+sed "s~http://local-passerelle.example.net~https://$1-passerelle.$2~g" datasources/103 > /var/lib/wcs/$1-formulaires.$2/datasources/103
