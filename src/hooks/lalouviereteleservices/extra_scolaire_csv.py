@@ -1,7 +1,7 @@
 # Test script WCS to export 1 specific form to "csv"
 # sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2
-# sudo -u wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=lalouviere-formulaires.guichet-citoyen.be extra_scolair_csv.py
-# arg : commande_tickets_repas or commande_cartes_garderie
+# sudo -u wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=lalouviere-formulaires.guichet-citoyen.be extra_scolaire_csv.py
+# arg : tickets_repas or cartes_garderie
 
 import csv
 import sys
@@ -11,8 +11,8 @@ from wcs import sql
 from wcs.formdef import FormDef
 
 dicforms = {
-    'commande_tickets_repas':'Commande de tickets repas',
-    'commande_cartes_garderie':'Commande de cartes de garderie'
+    'tickets_repas':'Commande de tickets repas',
+    'cartes_garderies':'Commande de cartes de garderie'
 }
 
 for formdef in FormDef.select(lambda x: x.name== dicforms[sys.argv[1]]):
