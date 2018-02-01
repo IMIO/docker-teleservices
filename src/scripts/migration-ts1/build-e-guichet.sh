@@ -49,6 +49,12 @@ if [ $3 = "full" ]
     sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2 /opt/publik/scripts/migration-ts1/import-ts1-forms.py /opt/publik/scripts/migration-ts1/forms/only_full/
 fi
 
+# Puppet deploy search for : create_regie.py.erb
+if [ -f /var/lib/combo/create_regie.py ]
+    then
+sudo -u combo combo-manage tenant_command import_site -d $1-portail-agent.$2 /var/lib/combo/create_regie.py
+fi
+
 # Import combo site structure
 if [ $3 = "full" ]
     then
@@ -76,3 +82,4 @@ sed "s~commune~$1~g" hobo/recipe-commune-extra.json > /etc/hobo/recipe-$1-extra.
 test -e /etc/hobo/recipe-$1-extra.json && sudo -u hobo hobo-manage cook /etc/hobo/recipe-$1-extra.json
 
 cat /etc/combo/settings.py
+echo "Config mail : mailrelay.imio.be"
