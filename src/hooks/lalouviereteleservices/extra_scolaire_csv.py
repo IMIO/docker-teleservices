@@ -18,7 +18,6 @@ dicforms = {
 
 for formdef in FormDef.select(lambda x: x.name== dicforms[sys.argv[1]]):
     for formdata in formdef.data_class().select():
-        print [evolution.get_status().name for evolution in formdata.evolution]
         r = re.compile("Paiement effectu.*")
         if len(filter(r.match, [evolution.get_status().name for evolution in formdata.evolution])) > 0:
             columns = []
