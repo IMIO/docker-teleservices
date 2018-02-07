@@ -8,7 +8,6 @@ import re
 import sys
 from time import mktime
 from datetime import datetime
-from wcs import sql
 from wcs.formdef import FormDef
 
 dicforms = {
