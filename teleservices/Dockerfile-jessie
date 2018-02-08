@@ -9,7 +9,7 @@ RUN echo "APT::Install-Suggests \"false\";\nAPT::Install-Recommends \"false\";" 
 RUN echo "#!/bin/sh\nexit 101" > /usr/sbin/policy-rc.d
 RUN chmod +x /usr/sbin/policy-rc.d
 RUN sed -i "s%httpredir.debian.org%debian.mirrors.ovh.net%g" /etc/apt/sources.list
-RUN apt-get update && apt-get install -y nginx wget gnupg debian-archive-keyring rsyslog python-dns gettext vim.nox bash-completion libjs-jquery libreoffice cron
+RUN apt-get update && apt-get install -y nginx wget gnupg debian-archive-keyring rsyslog python-dns gettext vim.nox bash-completion libjs-jquery libreoffice cron ftp
 RUN wget -O - http://deb.entrouvert.org/entrouvert.gpg | apt-key add -
 RUN echo "deb http://http.debian.net/debian jessie-backports main"> /etc/apt/sources.list.d/backports.list
 RUN echo "deb http://deb.entrouvert.org/ jessie main\ndeb http://deb.entrouvert.org/ jessie-eobuilder main\ndeb http://deb.entrouvert.org/ jessie-testing main\n" > /etc/apt/sources.list.d/entrouvert.list
