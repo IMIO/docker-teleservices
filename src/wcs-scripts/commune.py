@@ -16,7 +16,6 @@ class Commune(town.Town):
         super(Commune, self).__init__(variables=globals())
 
     def test(self, test):
-        import ipdb;ipdb.set_trace()
         if test == 'essais':
             return True
         else:
