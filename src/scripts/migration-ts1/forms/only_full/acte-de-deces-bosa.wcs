@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="iso-8859-15"?>
+<formdef id="4">
+  <name>Acte de d&#233;c&#232;s (bosa)</name>
+  <url_name>acte-de-deces-bosa</url_name>
+  <description>Copie litt&#233;rale du Registre Communal</description>
+  <internal_identifier>acte-de-deces-bosa</internal_identifier>
+  <discussion>false</discussion>
+  <detailed_emails>true</detailed_emails>
+  <disabled>false</disabled>
+  <only_allow_one>false</only_allow_one>
+  <enable_tracking_codes>false</enable_tracking_codes>
+  <confirmation>true</confirmation>
+  <always_advertise>true</always_advertise>
+  <private_status_and_history>false</private_status_and_history>
+  <has_captcha>false</has_captcha>
+  <skip_from_360_view>false</skip_from_360_view>
+  <category category_id="103">Etat civil - Population (bosa)</category>
+  <workflow workflow_id="3">D&#233;partement Citoyen (avec redirection BOSA)</workflow>
+  <max_field_id>47</max_field_id>
+  <last_modification user_id="1">2018-02-12 11:03:24</last_modification>
+  <fields>
+    <field>
+      <label>Comment obtenir mon document</label>
+      <type>page</type>
+      <id>45</id>
+    </field><field>
+      <label>&lt;p&gt;Le certificat de nationalit&#233; peut vous &#234;tre d&#233;livr&#233; soit par la ville de {{commune_name}}, soit, directement, par le site du f&#233;d&#233;ral. Veuillez choisir la formule qui vous agr&#233;e.&lt;/p&gt;</label>
+      <type>comment</type>
+      <id>46</id>
+    </field><field>
+      <label>Mode de d&#233;livrance</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>mode_delivrance</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items />
+      <show_as_radio>True</show_as_radio>
+      <data_source>
+        <type>formula</type>
+        <value>script.namur("authentication_delivrance_items_visibility",{'datasource':data_source.mode_de_delivrance,'auth':session_user.verified_fields})</value>
+      </data_source><in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>True</display_disabled_items>
+      <id>47</id>
+    </field><field>
+      <label>Extrait d'acte de d&#233;c&#232;s</label>
+      <type>page</type>
+      <condition>form_var_mode_delivrance_raw == 'commune'</condition>
+      <id>1</id>
+    </field><field>
+      <label>Vos coordonn&#233;es</label>
+      <type>title</type>
+      <id>2</id>
+    </field><field>
+      <label>Nom</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>nom</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_last_name</value>
+      </prefill><id>3</id>
+    </field><field>
+      <label>Pr&#233;nom</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>prenom</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_first_name</value>
+      </prefill><id>4</id>
+    </field><field>
+      <label>Rue</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>rue</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-3</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_street</value>
+      </prefill><id>5</id>
+    </field><field>
+      <label>Num&#233;ro</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>numero_porte</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-3</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_num_house</value>
+      </prefill><validation>^[0-9]*</validation>
+      <id>6</id>
+    </field><field>
+      <label>Bo&#238;te</label>
+      <type>string</type>
+      <required>False</required>
+      <varname>boite</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-3</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_num_box</value>
+      </prefill><id>7</id>
+    </field><field>
+      <label>Code postal</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>code_postal</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_zipcode</value>
+      </prefill><validation>^[0-9]*</validation>
+      <id>8</id>
+    </field><field>
+      <label>Ville</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>ville</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_city</value>
+      </prefill><id>9</id>
+    </field><field>
+      <label>Num&#233;ro de t&#233;l&#233;phone</label>
+      <type>string</type>
+      <required>False</required>
+      <varname>telephone</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_phone</value>
+      </prefill><id>10</id>
+    </field><field>
+      <label>Num&#233;ro de GSM</label>
+      <type>string</type>
+      <required>False</required>
+      <varname>gsm</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_mobile</value>
+      </prefill><id>11</id>
+    </field><field>
+      <label>Adresse e-mail</label>
+      <type>email</type>
+      <required>False</required>
+      <varname>email</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>user</type>
+        <value>_email</value>
+      </prefill><id>12</id>
+    </field><field>
+      <label>&lt;p&gt;Si vos informations personnelles ont chang&amp;eacute;, vous devez changer votre siganl&amp;eacute;tique dans vos pr&amp;eacute;f&amp;eacute;rences personnelles (&lt;a href="[idp_account_url]edit/"&gt;page de profil&lt;/a&gt;) avant de r&amp;eacute;aliser votre demande. Merci.&lt;/p&gt;</label>
+      <type>comment</type>
+      <id>13</id>
+    </field><field>
+      <label>Qui &#234;tes-vous par rapport &#224; la personne d&#233;c&#233;d&#233;e ?</label>
+      <type>item</type>
+      <required>False</required>
+      <varname>lien_defunt</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>M&#232;re</item>
+        <item>P&#232;re</item>
+        <item>Tuteur</item>
+        <item>Epoux(se)</item>
+        <item>Repr&#233;sentant l&#233;gal</item>
+        <item>Fille/Fils</item>
+        <item>Autre : &#224; pr&#233;ciser</item>
+      </items><show_as_radio>False</show_as_radio>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>14</id>
+    </field><field>
+      <label>Autre lien avec le d&#233;funt</label>
+      <type>page</type>
+      <condition>form_var_mode_delivrance_raw == 'commune' and form_var_lien_defunt == 'Autre : &#224; pr&#233;ciser'</condition>
+      <id>15</id>
+    </field><field>
+      <label>Autre lien avec le d&#233;funt</label>
+      <type>title</type>
+      <id>16</id>
+    </field><field>
+      <label>Merci de pr&#233;ciser le lien avec la personne d&#233;c&#233;d&#233;e</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><id>17</id>
+    </field><field>
+      <label>Identification de la personne d&#233;c&#233;d&#233;e</label>
+      <type>page</type>
+      <condition>form_var_mode_delivrance_raw == 'commune'</condition>
+      <post_conditions>
+        <post_condition>
+          <condition>form_var_nn_defunt_raw is not None or form_var_birthday_defunt_raw is not None</condition>
+          <error_message>Veuillez pr&#233;ciser le num&#233;ro national ou la date de naissance du d&#233;funt.</error_message>
+        </post_condition><post_condition>
+          <condition>script.town("is_valid_belgian_nrn",{'nrn':form_var_nn,'can_be_none':'False'})</condition>
+          <error_message>Erreur : Veuillez v&#233;rifier votre date de naissance ou votre num&#233;ro national.</error_message>
+        </post_condition>
+      </post_conditions><id>18</id>
+    </field><field>
+      <label>Identification de la personne d&#233;c&#233;d&#233;e</label>
+      <type>title</type>
+      <id>19</id>
+    </field><field>
+      <label>Nom</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>nom_defunt</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>20</id>
+    </field><field>
+      <label>Pr&#233;nom</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>prenom_defunt</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>21</id>
+    </field><field>
+      <label>Date du d&#233;c&#232;s</label>
+      <type>date</type>
+      <required>True</required>
+      <varname>date_deces</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><minimum_is_future>False</minimum_is_future>
+      <date_in_the_past>False</date_in_the_past>
+      <date_can_be_today>False</date_can_be_today>
+      <id>22</id>
+    </field><field>
+      <label>&lt;p&gt;Sp&amp;eacute;cifier le num&amp;eacute;ro national de la personne d&amp;eacute;c&amp;eacute;d&amp;eacute;e OU sa date de naissance.&lt;/p&gt;</label>
+      <type>comment</type>
+      <extra_css_class>grid-1-1</extra_css_class>
+      <id>23</id>
+    </field><field>
+      <label>Num&#233;ro de registre national du d&#233;funt</label>
+      <type>string</type>
+      <required>False</required>
+      <varname>nn_defunt</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>24</id>
+    </field><field>
+      <label>Date de naissance du d&#233;funt</label>
+      <type>date</type>
+      <required>False</required>
+      <varname>birthday_defunt</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><minimum_is_future>False</minimum_is_future>
+      <date_in_the_past>False</date_in_the_past>
+      <date_can_be_today>False</date_can_be_today>
+      <id>25</id>
+    </field><field>
+      <label>Nom du conjoint</label>
+      <type>string</type>
+      <required>False</required>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>26</id>
+    </field><field>
+      <label>Pr&#233;nom du conjoint</label>
+      <type>string</type>
+      <required>False</required>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>27</id>
+    </field><field>
+      <label>Informations administratives</label>
+      <type>page</type>
+      <condition>form_var_mode_delivrance_raw == 'commune'</condition>
+      <id>28</id>
+    </field><field>
+      <label>Motifs</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>motif</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><show_as_radio>False</show_as_radio>
+      <data_source>
+        <type>formula</type>
+        <value>form_option_motifs_disponibles_structured</value>
+      </data_source><in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>29</id>
+    </field><field>
+      <label>Destination</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>destination</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><show_as_radio>False</show_as_radio>
+      <data_source>
+        <type>formula</type>
+        <value>form_option_destinations_structured</value>
+      </data_source><in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>30</id>
+    </field><field>
+      <label>Nombre d'exemplaire(s)</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>nb_exemplaire</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>string</type>
+        <value>1</value>
+      </prefill><validation>^[0-9]*</validation>
+      <id>31</id>
+    </field><field>
+      <label>Commentaire</label>
+      <type>text</type>
+      <required>False</required>
+      <varname>commentaire</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><cols>100</cols>
+      <rows>10</rows>
+      <pre>False</pre>
+      <id>32</id>
+    </field><field>
+      <label>Suivis par mail</label>
+      <type>bool</type>
+      <required>False</required>
+      <varname>followmail</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>hidden</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>33</id>
+    </field><field>
+      <label>Prix de la d&#233;marche</label>
+      <type>page</type>
+      <condition>form_var_mode_delivrance_raw == 'commune' and form_option_paiement_en_ligne != "Proposer"</condition>
+      <id>34</id>
+    </field><field>
+      <label>Ci-dessous, veuillez prendre connaissance du montant de votre demande.</label>
+      <type>comment</type>
+      <id>35</id>
+    </field><field>
+      <label>Montant</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>montant</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>readonly</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>str(((Decimal(form_option_cost) + Decimal(form_var_motif_price)) * int(form_var_nb_exemplaire)) + Decimal(form_var_destination_price))</value>
+      </prefill><id>36</id>
+    </field><field>
+      <label>Prix de la d&#233;marche</label>
+      <type>page</type>
+      <condition>form_var_mode_delivrance_raw == 'commune' and vars().get('form_option_paiement_en_ligne') is not None and form_option_paiement_en_ligne == "Proposer"</condition>
+      <id>37</id>
+    </field><field>
+      <label>&lt;p&gt;Ci-dessous, veuillez prendre connaissance du montant de votre demande.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Si vous cochez la case &amp;quot;paiement en ligne&amp;quot;, votre d&amp;eacute;marche sera automatiquement mise dans votre panier pour un paiement global de votre commande&lt;/li&gt;&lt;li&gt;Si vous ne cochez pas la case &amp;quot;paiement en ligne&amp;quot;, vous serez invit&amp;eacute; &amp;agrave; r&amp;eacute;aliser un virement sur un compte&lt;/li&gt;&lt;/ul&gt;</label>
+      <type>comment</type>
+      <id>38</id>
+    </field><field>
+      <label>Montant</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>montant2</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>readonly</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>str(((Decimal(form_option_cost) + Decimal(form_var_motif_price)) * int(form_var_nb_exemplaire)) + Decimal(form_var_destination_price))</value>
+      </prefill><id>39</id>
+    </field><field>
+      <label>Paiement en ligne</label>
+      <type>bool</type>
+      <required>False</required>
+      <varname>online_payment</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><id>40</id>
+    </field>
+  </fields><user-roles>
+    <role role_id="97e7a2ec3963492583f1e67a7cbd140d">Citoyen (test)</role>
+  </user-roles><roles>
+    <role role_id="e8158eb6f0cb49798416e192f8c4dde6" role_key="_receiver">Agents traitants - Population, etat civil</role>
+  </roles><options>
+    <option varname="paiement_en_ligne" />
+    <option varname="destinations_structured" />
+    <option varname="motifs_disponibles_structured" />
+    <option varname="cp_commune">4000</option>
+    <option varname="paiement_en_ligne_structured" />
+    <option varname="cost">0</option>
+    <option varname="iban">123-4567890-02</option>
+    <option varname="paiement_en_ligne_display" />
+    <option varname="motifs_disponibles" />
+    <option varname="motifs_disponibles_display">Pour mariage en Belgique : gratuit, R&#233;gion Wallonne : gratuit, Succession : co&#251;t 2&#8364;, Syndicat - ONEM : gratuit, Usage &#224; l'&#233;tranger : co&#251;t 2&#8364;</option>
+    <option varname="destinations_display">Envoi &#224; domicile : co&#251;t 1&#8364;</option>
+    <option varname="destinations" />
+  </options><geolocations />
+</formdef>
