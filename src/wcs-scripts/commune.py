@@ -13,7 +13,14 @@ import town
 class Commune(town.Town):
 
     def __init__(self):
-        super(Namur, self).__init__(variables=globals())
+        super(Commune, self).__init__(variables=globals())
+
+    def test(self, test):
+        import ipdb;ipdb.set_trace()
+        if test == 'essais':
+            return True
+        else:
+            return False
 
 current_commune = Commune()
 function = args[0]
