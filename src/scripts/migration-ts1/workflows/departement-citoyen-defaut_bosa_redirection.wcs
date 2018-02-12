@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <workflow id="3">
-  <name>D&#233;partement Citoyen (d&#233;faut) (redirection BOSA)</name>
+  <name>D&#233;partement Citoyen (avec redirection BOSA)</name>
   <roles>
     <role id="_receiver">Agent traitant</role>
-  </roles><last_modification user_id="1">2018-01-23 15:46:09</last_modification>
+  </roles><last_modification user_id="1">2018-02-12 10:29:59</last_modification>
   <possible_status>
     <status>
       <id>just_submitted</id>
@@ -18,7 +18,7 @@
               <value>=locals().get("form_var_nb_exemplaire")</value>
             </field><field>
               <field_id>bo3</field_id>
-              <value>=str((Decimal(form_option_cost) + Decimal(form_var_motif_price) + Decimal(form_var_destination_price)) * int(form_var_nb_exemplaire)) or '0'</value>
+              <value>=str(((Decimal(form_option_cost) + Decimal(form_var_motif_price)) * int(form_var_nb_exemplaire)) + Decimal(form_var_destination_price)) or '0.00'</value>
             </field><field>
               <field_id>bo6</field_id>
               <value>=locals().get("form_user_field_numero_national")</value>
@@ -27,15 +27,15 @@
               <value>=locals().get("form_var_nn_tiers")</value>
             </field>
           </fields>
-        </item><item id="4" type="jump">
+        </item><item id="2" type="jump">
           <status>20</status>
           <set_marker_on_status>False</set_marker_on_status>
           <condition>vars().get('form_option_lien_fedict') is not None and 'form_var_mode_delivrance_raw' in locals() and (form_var_mode_delivrance_raw == 'eid' or form_var_mode_delivrance_raw == 'pdf' or form_var_mode_delivrance_raw == 'print' )</condition>
-        </item><item id="2" type="jump">
+        </item><item id="3" type="jump">
           <status>13</status>
           <set_marker_on_status>False</set_marker_on_status>
           <condition>Decimal(form_var_wf_total_commande) == Decimal('0')</condition>
-        </item><item id="3" type="jump">
+        </item><item id="4" type="jump">
           <status>10</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -303,7 +303,7 @@ En cliquant sur valider, vous allez &#234;tre red&#233;rig&#233; vers le site du
             <item role_id="_submitter">_submitter</item>
           </to>
         </item><item id="2" type="redirect_to_url">
-          <url>[form_option_lien_fedict]</url>
+          <url>[form_option_lien_bosa]</url>
         </item>
       </items>
     </status>
@@ -317,7 +317,7 @@ En cliquant sur valider, vous allez &#234;tre red&#233;rig&#233; vers le site du
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items><triggers>
-        <trigger id="059cc927-625d-4bbe-ad02-26b5ec1987a5" type="manual">
+        <trigger id="b4dbb372-ea02-4a31-bf3b-cb605a7e7f1c" type="manual">
           <roles>
             <item role_id="_testeur">_testeur</item>
           </roles>
@@ -329,9 +329,9 @@ En cliquant sur valider, vous allez &#234;tre red&#233;rig&#233; vers le site du
       <items>
         <item id="1" type="remove" />
       </items><triggers>
-        <trigger id="50e7a3fc-bd54-4f7b-bbdf-f69b93ddfa8b" type="manual">
+        <trigger id="f6bb1913-d635-4f34-bceb-f50dc8ec3304" type="manual">
           <roles>
-            <item role_id="f5a9b18e982e426baa7dab49f2d08b29">Debug</item>
+            <item role_id="08b4ba67eb2d421ea88d4bb0256a9666">Debug</item>
           </roles>
         </trigger>
       </triggers>
@@ -370,8 +370,7 @@ ex : 4000,4020,4030,4031</hint>
           <in_listing>False</in_listing>
           <prefill>
             <type>none</type>
-          </prefill><items />
-          <max_choices>0</max_choices>
+          </prefill><max_choices>0</max_choices>
           <data_source>
             <type>passerelle_motifs</type>
           </data_source><anonymise>True</anonymise>
@@ -385,21 +384,17 @@ ex : 4000,4020,4030,4031</hint>
           <in_listing>False</in_listing>
           <prefill>
             <type>none</type>
-          </prefill><items />
-          <max_choices>0</max_choices>
+          </prefill><max_choices>0</max_choices>
           <data_source>
             <type>passerelle_destinations</type>
           </data_source><anonymise>True</anonymise>
           <display_disabled_items>False</display_disabled_items>
           <id>4</id>
         </field><field>
-          <label>Code postaux</label>
+          <label>Url du document sur le site du BOSA</label>
           <type>string</type>
           <required>True</required>
-          <hint>Lister les diff&#233;rents codes postaux relatifs &#224; votre commune.
-Coll&#233;s et s&#233;par&#233;s par une ","
-ex : 4000,4020,4030,4031</hint>
-          <varname>cp_commune</varname>
+          <varname>lien_bosa</varname>
           <in_listing>True</in_listing>
           <prefill>
             <type>none</type>
