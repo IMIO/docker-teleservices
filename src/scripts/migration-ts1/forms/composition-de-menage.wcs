@@ -339,7 +339,7 @@
     </field><field>
       <label>Prix de la d&#233;marche</label>
       <type>page</type>
-      <condition>str((Decimal(vars().get('form_option_cost') or '0') +  Decimal(vars().get('form_var_motif_price') or '0') +  Decimal(vars().get('form_var_destination_price') or '0')) *  int(vars().get('form_var_nb_exemplaire') or '1'))[:1] != '0'</condition>
+      <condition>str((Decimal(vars().get('form_option_cost') or '0') +  Decimal(vars().get('form_var_motif_price') or '0')) *  int(vars().get('form_var_nb_exemplaire') or '1') +  (Decimal(vars().get('form_var_destination_price') or '0')))[:1] != '0'</condition>
       <id>32</id>
     </field><field>
       <label>Ci-dessous, veuillez prendre connaissance du montant de votre demande.</label>

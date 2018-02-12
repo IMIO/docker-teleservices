@@ -223,7 +223,7 @@
       <extra_css_class>readonly</extra_css_class>
       <prefill>
         <type>formula</type>
-        <value>str((Decimal(form_option_cost) + Decimal(form_var_motif_price) + Decimal(form_var_destination_price)) * int(form_var_nb_exemplaire))</value>
+        <value>str(((Decimal(form_option_cost) + Decimal(form_var_motif_price)) * int(form_var_nb_exemplaire)) + Decimal(form_var_destination_price))</value>
       </prefill><id>21</id>
     </field><field>
       <label>Prix de la d&#233;marche</label>
@@ -243,7 +243,7 @@
       <extra_css_class>readonly</extra_css_class>
       <prefill>
         <type>formula</type>
-        <value>str((Decimal(form_option_cost) + Decimal(form_var_motif_price) + Decimal(form_var_destination_price)) * int(form_var_nb_exemplaire))</value>
+        <value>str(((Decimal(form_option_cost) + Decimal(form_var_motif_price)) * int(form_var_nb_exemplaire)) + Decimal(form_var_destination_price))</value>
       </prefill><id>24</id>
     </field><field>
       <label>Paiement en ligne</label>
