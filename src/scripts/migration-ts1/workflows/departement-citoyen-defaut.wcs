@@ -3,7 +3,7 @@
   <name>D&#233;partement Citoyen (d&#233;faut)</name>
   <roles>
     <role id="_receiver">Agent traitant</role>
-  </roles><last_modification user_id="1">2018-01-18 13:43:45</last_modification>
+  </roles><last_modification user_id="1">2018-02-15 14:03:42</last_modification>
   <possible_status>
     <status>
       <id>just_submitted</id>
@@ -103,11 +103,10 @@ Pour r&#233;f&#233;rence, voici le d&#233;tail du formulaire :
         <item id="1" type="sendmail">
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><subject>Administration de [[NOM_COMMUNE]] : D&#233;marche "[form_name]" trait&#233;e.</subject>
+          </to><subject>Administration de {{ commune_name }} : D&#233;marche "{{ form_name }}" trait&#233;e.</subject>
           <body>Bonjour,
-Votre d&#233;marche "[form_name]" a &#233;t&#233; trait&#233;e par nos services. 
-Lors de la compl&#233;tion de votre d&#233;marche, vous aviez sp&#233;cifi&#233; comme destination :  
-"[form_var_destination]".
+
+Votre d&#233;marche "{{ form_name }}" a &#233;t&#233; trait&#233;e par nos services. 
 
 Bien cordialement,</body>
         </item>
@@ -173,8 +172,12 @@ Bien cordialement,</body>
         </item><item id="2" type="sendmail">
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><subject>Document gratuit....</subject>
-          <body>...</body>
+          </to><subject>Administration de {{ commune_name }} : D&#233;marche "{{ form_name }}" (document gratuit).</subject>
+          <body>Bonjour,
+Votre d&#233;marche gratuite "{{ form_name }}" est en cours de traitement par nos services. 
+
+
+Bien cordialement,</body>
         </item>
       </items>
     </status><status>
@@ -186,7 +189,7 @@ Bien cordialement,</body>
         <item id="1" type="sendmail">
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><subject>Administration de [[NOM_COMMUNE]] : D&#233;marche "[form_name]" accept&#233;e.</subject>
+          </to><subject>Administration de {{ commune_name }} : D&#233;marche "{{ form_name }}" accept&#233;e.</subject>
           <body>Bonjour,
 
 Nous avons bien re&#231;u votre paiement. Votre demande va &#234;tre trait&#233;e dans les meilleurs d&#233;lais. 
@@ -264,7 +267,7 @@ Bien cordialement,
                 <in_listing>True</in_listing>
                 <prefill>
                   <type>string</type>
-                  <value>OLLN : Refus de votre d&#233;marche : [form_name]</value>
+                  <value>Administration de {{ commune_name }} : Refus : {{ form_name }}</value>
                 </prefill><id>1</id>
               </field><field>
                 <label>Corps du mail</label>
@@ -296,7 +299,7 @@ Bien cordialement,
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items><triggers>
-        <trigger id="fa8397f0-6f7c-4561-8fdc-9ee5f855d65d" type="manual">
+        <trigger id="5b99b152-0898-421d-aedd-124653308cf9" type="manual">
           <roles>
             <item role_id="_testeur">_testeur</item>
           </roles>
@@ -308,9 +311,9 @@ Bien cordialement,
       <items>
         <item id="1" type="remove" />
       </items><triggers>
-        <trigger id="2c949752-a344-4e18-ac01-99b0fe61d743" type="manual">
+        <trigger id="8904faa5-1454-477a-8f13-f2344c2f17f8" type="manual">
           <roles>
-            <item role_id="158ae02454294bd4a9e4c99af8782b02">Debug</item>
+            <item role_id="84cd740c58414536a8aab338a329fc21">Debug</item>
           </roles>
         </trigger>
       </triggers>
@@ -349,7 +352,8 @@ ex : 4000,4020,4030,4031</hint>
           <in_listing>False</in_listing>
           <prefill>
             <type>none</type>
-          </prefill><max_choices>0</max_choices>
+          </prefill><items />
+          <max_choices>0</max_choices>
           <data_source>
             <type>passerelle_motifs</type>
           </data_source><anonymise>True</anonymise>
@@ -363,7 +367,8 @@ ex : 4000,4020,4030,4031</hint>
           <in_listing>False</in_listing>
           <prefill>
             <type>none</type>
-          </prefill><max_choices>0</max_choices>
+          </prefill><items />
+          <max_choices>0</max_choices>
           <data_source>
             <type>passerelle_destinations</type>
           </data_source><anonymise>True</anonymise>

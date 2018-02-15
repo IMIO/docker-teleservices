@@ -4,7 +4,7 @@
   <roles>
     <role id="_receiver">Agent traitant</role>
     <role id="_validateur-pc-banking">Validateur pc banking</role>
-  </roles><last_modification user_id="1">2018-02-15 08:48:04</last_modification>
+  </roles><last_modification user_id="1">2018-02-15 14:03:44</last_modification>
   <possible_status>
     <status>
       <id>just_submitted</id>
@@ -28,7 +28,7 @@
               <value>=locals().get("form_var_nn_tiers")</value>
             </field><field>
               <field_id>bo9</field_id>
-              <value>=locals().get("form_var_online_payment_raw") or False</value>
+              <value>=True if form_option_paiement_en_ligne == 'Forcer' else locals().get("form_var_online_payment_raw") or False</value>
             </field>
           </fields>
         </item><item id="2" type="jump">
@@ -75,7 +75,7 @@
         <item id="1" type="sendmail">
           <to>
             <item role_id="_receiver">_receiver</item>
-          </to><subject>Nouveau formulaire en attente de traitement ([name])</subject>
+          </to><subject>Nouveau formulaire en attente de traitement ({{ form_name }})</subject>
           <body>Bonjour,
 
 Un nouveau formulaire a &#233;t&#233; compl&#233;t&#233;, vous pouvez le consulter
@@ -115,11 +115,10 @@ Pour r&#233;f&#233;rence, voici le d&#233;tail du formulaire :
         <item id="1" type="sendmail">
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><subject>Administration de [[NOM_COMMUNE]] : D&#233;marche "[form_name]" trait&#233;e.</subject>
+          </to><subject>Administration de {{ commune_name }} : D&#233;marche "{{ form_name }}" trait&#233;e.</subject>
           <body>Bonjour,
-Votre d&#233;marche "[form_name]" a &#233;t&#233; trait&#233;e par nos services. 
-Lors de la compl&#233;tion de votre d&#233;marche, vous aviez sp&#233;cifi&#233; comme destination :  
-"[form_var_destination]".
+
+Votre d&#233;marche "{{ form_name }}" a &#233;t&#233; trait&#233;e par nos services. 
 
 Bien cordialement,</body>
         </item>
@@ -185,8 +184,12 @@ Bien cordialement,</body>
         </item><item id="2" type="sendmail">
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><subject>Document gratuit....</subject>
-          <body>...</body>
+          </to><subject>Administration de {{ commune_name }} : D&#233;marche "{{ form_name }}" (document gratuit).</subject>
+          <body>Bonjour,
+Votre d&#233;marche gratuite "{{ form_name }}" est en cours de traitement par nos services. 
+
+
+Bien cordialement,</body>
         </item>
       </items>
     </status><status>
@@ -198,7 +201,7 @@ Bien cordialement,</body>
         <item id="1" type="sendmail">
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><subject>Administration de Fl&#233;ron : D&#233;marche "[form_name]" accept&#233;e.</subject>
+          </to><subject>Administration de {{ commune_name }} : D&#233;marche "{{ form_name }}" accept&#233;e.</subject>
           <body>Bonjour,
 
 Nous avons bien re&#231;u votre paiement. Votre demande va &#234;tre trait&#233;e dans les meilleurs d&#233;lais. 
@@ -276,7 +279,7 @@ Bien cordialement,
                 <in_listing>True</in_listing>
                 <prefill>
                   <type>string</type>
-                  <value>OLLN : Refus de votre d&#233;marche : [form_name]</value>
+                  <value>Administration de {{ commune_name }} : Refus : {{ form_name }}</value>
                 </prefill><id>1</id>
               </field><field>
                 <label>Corps du mail</label>
@@ -339,18 +342,45 @@ Votre commande a bien &#233;t&#233; enregistr&#233;e dans notre syst&#232;me.
 &lt;br&gt;&lt;br&gt;
 Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en mentionnant les instructions de paiement suivantes : 
 &lt;ul&gt;
-&lt;li&gt;B&#233;n&#233;ficiaire : &lt;b&gt;Ville de {{commune_name}} - {{commune_rue}} - {{commune_cp}}&lt;/b&gt;&lt;/li&gt;
-&lt;li&gt;Num&#233;ro de compte b&#233;n&#233;ficiaire (IBAN) : &lt;b&gt;[form_option_iban]&lt;/b&gt;&lt;/li&gt;
-&lt;li&gt;R&#233;f&#233;rence de la commande (communication libre) : &lt;b&gt;[form_number]&lt;/b&gt;&lt;/li&gt;
-&lt;li&gt;Montant de la commande : &lt;b&gt;[form_var_wf_total_commande]&lt;/b&gt;&lt;/li&gt;
+&lt;li&gt;B&#233;n&#233;ficiaire : &lt;b&gt;Ville de {{ commune_name }} - {{ commune_rue }} - {{ commune_cp }}&lt;/b&gt;&lt;/li&gt;
+&lt;li&gt;Num&#233;ro de compte b&#233;n&#233;ficiaire (IBAN) : &lt;b&gt;{{form_option_iban}}&lt;/b&gt;&lt;/li&gt;
+&lt;li&gt;R&#233;f&#233;rence de la commande (communication libre) : &lt;b&gt;{{ form_number }}&lt;/b&gt;&lt;/li&gt;
+&lt;li&gt;Montant de la commande : &lt;b&gt;{{ form_var_wf_total_commande }}&lt;/b&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;
-Veuillez bien &#224; "Signaler que votre paiement a &#233;t&#233; r&#233;alis&#233;" via le bouton ci-dessous cette page.&lt;br/&gt;
-Ceci aura pour effet d'avertir directement l'un de nos agents pour traiter au plus vite votre demande.  
-&lt;/p&gt;</message>
+</message>
           <to>
             <item role_id="_submitter">_submitter</item>
           </to>
+        </item><item id="3" type="sendmail">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>Administration de {{ commune_name }} : D&#233;marche "{{ form_name }}". En attente du virement.</subject>
+          <body>Madame, Monsieur,
+
+Votre commande a bien &#233;t&#233; enregistr&#233;e dans notre syst&#232;me.
+
+
+Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en mentionnant les instructions de paiement suivantes : 
+
+
+B&#233;n&#233;ficiaire : Ville de {{ commune_name }} - {{ commune_rue }} - {{ commune_cp }}
+
+
+Num&#233;ro de compte b&#233;n&#233;ficiaire (IBAN) : {{form_option_iban}}
+
+
+R&#233;f&#233;rence de la commande (communication libre) :{{ form_number }}
+
+
+Montant de la commande : {{ form_var_wf_total_commande }}
+
+
+Bien cordialement,
+
+
+
+
+</body>
         </item><item id="2" type="choice">
           <by>
             <item role_id="_validateur-pc-banking">_validateur-pc-banking</item>
