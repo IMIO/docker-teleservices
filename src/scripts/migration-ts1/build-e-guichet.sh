@@ -1,6 +1,7 @@
-# $1 : commune_id (test, local, huy, liege,...)
+# USAGE : 
+# $1 : commune_id (test, demo, local, huy, liege,...)
 # $2 : domain (guichet-citoyen.be, example.net, ...)
-# $3 : Type Instance light ou full (case sensitive)
+# $3 : Type Instance light or full (case sensitive)
 
 # Use postgresql with wcs
 sed -i '/[options] /a postgresql = true' /var/lib/wcs/$1-formulaires.$2/site-options.cfg
@@ -76,6 +77,10 @@ sed -i "s/DOMAINE/$2/g" combo-site/combo-portail-agent-structure.json
 sudo -u combo combo-manage tenant_command import_site -d $1-portail-agent.$2 /opt/publik/scripts/migration-ts1/combo-site/combo-portail-agent-structure.json
 sed -i "s/$1/COMMUNE/g" combo-site/combo-portail-agent-structure.json
 sed -i "s/$2/DOMAINE/g" combo-site/combo-portail-agent-structure.json
+
+# Create global hobo variables
+sudo -u hobo hobo-manage tenant_command runscript -d $1-hobo.$2 /opt/publik/scripts/migration-ts1/hobo_create_variables.py
+
 # Add hobo extra params
 sudo -u hobo hobo-manage cook /etc/hobo/recipe.json
 sed "s~commune~$1~g" hobo/recipe-commune-extra.json > /etc/hobo/recipe-$1-extra.json
