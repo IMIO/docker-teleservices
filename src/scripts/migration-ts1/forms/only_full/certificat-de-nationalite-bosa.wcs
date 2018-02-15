@@ -45,7 +45,7 @@
       <display_disabled_items>True</display_disabled_items>
       <id>32</id>
     </field><field>
-      <label>Certificat de composition de m&#233;nage</label>
+      <label>Certificat de nationalit&#233;</label>
       <type>page</type>
       <condition>form_var_mode_delivrance_raw == 'commune'</condition>
       <post_conditions>
