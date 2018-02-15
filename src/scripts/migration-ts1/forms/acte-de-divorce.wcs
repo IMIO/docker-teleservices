@@ -24,7 +24,7 @@
       <type>page</type>
       <post_conditions>
         <post_condition>
-          <condition>form_var_cp_mariage in form_option_cp_commune.split(',')</condition>
+          <condition>vars().get('form_option_cp_commune') is None or form_var_cp_mariage in form_option_cp_commune.split(',')</condition>
           <error_message>Le code postal de votre lieu de mariage ne fait pas partie des code postaux de notre commune. Nous ne pourrons faire suite &#224; votre demande.</error_message>
         </post_condition>
       </post_conditions><id>1</id>
