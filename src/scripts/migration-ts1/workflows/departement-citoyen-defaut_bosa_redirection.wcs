@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<workflow id="3">
+<workflow id="2">
   <name>D&#233;partement Citoyen (avec redirection BOSA)</name>
   <roles>
     <role id="_receiver">Agent traitant</role>
-  </roles><last_modification user_id="1">2018-02-12 10:29:59</last_modification>
+    <role id="_validateur-pc-banking">Validateur pc banking</role>
+  </roles><last_modification user_id="1">2018-02-15 08:48:04</last_modification>
   <possible_status>
     <status>
       <id>just_submitted</id>
@@ -25,6 +26,9 @@
             </field><field>
               <field_id>bo8</field_id>
               <value>=locals().get("form_var_nn_tiers")</value>
+            </field><field>
+              <field_id>bo9</field_id>
+              <value>=locals().get("form_var_online_payment_raw") or False</value>
             </field>
           </fields>
         </item><item id="2" type="jump">
@@ -35,6 +39,10 @@
           <status>13</status>
           <set_marker_on_status>False</set_marker_on_status>
           <condition>Decimal(form_var_wf_total_commande) == Decimal('0')</condition>
+        </item><item id="5" type="jump">
+          <status>21</status>
+          <set_marker_on_status>False</set_marker_on_status>
+          <condition>form_var_wf_paiement_en_ligne_raw is None or form_var_wf_paiement_en_ligne_raw is False</condition>
         </item><item id="4" type="jump">
           <status>10</status>
           <set_marker_on_status>False</set_marker_on_status>
@@ -306,6 +314,63 @@ En cliquant sur valider, vous allez &#234;tre red&#233;rig&#233; vers le site du
           <url>[form_option_lien_bosa]</url>
         </item>
       </items>
+    </status><status>
+      <id>21</id>
+      <name>PC Banking (virement)</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item id="2" type="jump">
+          <status>22</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>22</id>
+      <name>En attente du virement</name>
+      <colour>FFFF00</colour>
+      <visibility />
+      <items>
+        <item id="1" type="displaymsg">
+          <message>Madame,&lt;br&gt;
+Monsieur,&lt;br&gt;
+&lt;br&gt;
+Votre commande a bien &#233;t&#233; enregistr&#233;e dans notre syst&#232;me.
+&lt;br&gt;&lt;br&gt;
+Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en mentionnant les instructions de paiement suivantes : 
+&lt;ul&gt;
+&lt;li&gt;B&#233;n&#233;ficiaire : &lt;b&gt;Ville de {{commune_name}} - {{commune_rue}} - {{commune_cp}}&lt;/b&gt;&lt;/li&gt;
+&lt;li&gt;Num&#233;ro de compte b&#233;n&#233;ficiaire (IBAN) : &lt;b&gt;[form_option_iban]&lt;/b&gt;&lt;/li&gt;
+&lt;li&gt;R&#233;f&#233;rence de la commande (communication libre) : &lt;b&gt;[form_number]&lt;/b&gt;&lt;/li&gt;
+&lt;li&gt;Montant de la commande : &lt;b&gt;[form_var_wf_total_commande]&lt;/b&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+Veuillez bien &#224; "Signaler que votre paiement a &#233;t&#233; r&#233;alis&#233;" via le bouton ci-dessous cette page.&lt;br/&gt;
+Ceci aura pour effet d'avertir directement l'un de nos agents pour traiter au plus vite votre demande.  
+&lt;/p&gt;</message>
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to>
+        </item><item id="2" type="choice">
+          <by>
+            <item role_id="_validateur-pc-banking">_validateur-pc-banking</item>
+          </by><status>23</status>
+          <label>Le paiement par virement est valid&#233;.</label>
+          <require_confirmation>False</require_confirmation>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>23</id>
+      <name>Virement re&#231;u</name>
+      <colour>99FF66</colour>
+      <visibility />
+      <items>
+        <item id="1" type="jump">
+          <status>accepted</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
     </status>
   </possible_status><global_actions>
     <action>
@@ -317,9 +382,9 @@ En cliquant sur valider, vous allez &#234;tre red&#233;rig&#233; vers le site du
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items><triggers>
-        <trigger id="b4dbb372-ea02-4a31-bf3b-cb605a7e7f1c" type="manual">
+        <trigger id="13d7fa28-6425-4664-9036-c2e50c941776" type="manual">
           <roles>
-            <item role_id="_testeur">_testeur</item>
+            <item role_id="84cd740c58414536a8aab338a329fc21">Debug</item>
           </roles>
         </trigger>
       </triggers>
@@ -329,9 +394,9 @@ En cliquant sur valider, vous allez &#234;tre red&#233;rig&#233; vers le site du
       <items>
         <item id="1" type="remove" />
       </items><triggers>
-        <trigger id="f6bb1913-d635-4f34-bceb-f50dc8ec3304" type="manual">
+        <trigger id="888f7d38-c5d5-4cc3-9a99-b03f46be2896" type="manual">
           <roles>
-            <item role_id="08b4ba67eb2d421ea88d4bb0256a9666">Debug</item>
+            <item role_id="84cd740c58414536a8aab338a329fc21">Debug</item>
           </roles>
         </trigger>
       </triggers>
@@ -343,7 +408,7 @@ En cliquant sur valider, vous allez &#234;tre red&#233;rig&#233; vers le site du
         <field>
           <label>cout du document</label>
           <type>string</type>
-          <required>True</required>
+          <required>False</required>
           <varname>cost</varname>
           <in_listing>False</in_listing>
           <prefill>
@@ -353,7 +418,7 @@ En cliquant sur valider, vous allez &#234;tre red&#233;rig&#233; vers le site du
         </field><field>
           <label>Codes postaux (commune)</label>
           <type>string</type>
-          <required>True</required>
+          <required>False</required>
           <hint>Lister les diff&#233;rents codes postaux relatifs &#224; votre commune.
 Coll&#233;s et s&#233;par&#233;s par une ","
 ex : 4000,4020,4030,4031</hint>
@@ -370,7 +435,8 @@ ex : 4000,4020,4030,4031</hint>
           <in_listing>False</in_listing>
           <prefill>
             <type>none</type>
-          </prefill><max_choices>0</max_choices>
+          </prefill><items />
+          <max_choices>0</max_choices>
           <data_source>
             <type>passerelle_motifs</type>
           </data_source><anonymise>True</anonymise>
@@ -379,7 +445,7 @@ ex : 4000,4020,4030,4031</hint>
         </field><field>
           <label>Destinations</label>
           <type>items</type>
-          <required>True</required>
+          <required>False</required>
           <varname>destinations</varname>
           <in_listing>False</in_listing>
           <prefill>
@@ -393,12 +459,38 @@ ex : 4000,4020,4030,4031</hint>
         </field><field>
           <label>Url du document sur le site du BOSA</label>
           <type>string</type>
-          <required>True</required>
+          <required>False</required>
           <varname>lien_bosa</varname>
           <in_listing>True</in_listing>
           <prefill>
             <type>none</type>
           </prefill><id>7</id>
+        </field><field>
+          <label>Paiement en ligne (forcer/proposer/"retirer" dans le formulaire)</label>
+          <type>item</type>
+          <required>False</required>
+          <hint>---</hint>
+          <varname>paiement_en_ligne</varname>
+          <in_listing>True</in_listing>
+          <prefill>
+            <type>none</type>
+          </prefill><items>
+            <item>Forcer</item>
+            <item>Proposer</item>
+          </items><show_as_radio>False</show_as_radio>
+          <in_filters>False</in_filters>
+          <anonymise>False</anonymise>
+          <display_disabled_items>False</display_disabled_items>
+          <id>8</id>
+        </field><field>
+          <label>iban</label>
+          <type>string</type>
+          <required>False</required>
+          <varname>iban</varname>
+          <in_listing>True</in_listing>
+          <prefill>
+            <type>none</type>
+          </prefill><id>9</id>
         </field>
       </fields>
     </formdef>
@@ -434,6 +526,14 @@ ex : 4000,4020,4030,4031</hint>
           <varname>wf_total_commande</varname>
           <in_listing>True</in_listing>
           <id>bo3</id>
+        </field><field>
+          <label>Paiement en ligne</label>
+          <type>bool</type>
+          <required>False</required>
+          <hint>Est-ce que le citoyen a choisit un paiement en ligne oui/non?</hint>
+          <varname>wf_paiement_en_ligne</varname>
+          <in_listing>False</in_listing>
+          <id>bo9</id>
         </field>
       </fields>
     </formdef>
