@@ -1,0 +1,9 @@
+<datasources id="105">
+  <name>DS_Question_localite_demandeur</name>
+  <slug>ds_question_localite_demandeur</slug>
+  <description>On demande si le demandeur est bien domicilie dans la commune.</description>
+  <data_source>
+    <type>formula</type>
+    <value>[('{0}'.format(commune_slug), 'Je suis domicilié(e) à {0} (codes postaux : {1})'.format(commune_name, commune_cp)), ('pas_{0}'.format(commune_slug), 'Je ne suis pas domicilié(e) à {0}'.format(commune_name))]</value>
+  </data_source>
+</datasources>
