@@ -1,0 +1,727 @@
+<?xml version="1.0" encoding="iso-8859-15"?>
+<formdef id="14">
+  <name>Certificat de vie</name>
+  <url_name>certificat-de-vie</url_name>
+  <internal_identifier>certificat-de-vie</internal_identifier>
+  <discussion>false</discussion>
+  <detailed_emails>true</detailed_emails>
+  <disabled>false</disabled>
+  <only_allow_one>false</only_allow_one>
+  <enable_tracking_codes>false</enable_tracking_codes>
+  <confirmation>true</confirmation>
+  <always_advertise>true</always_advertise>
+  <private_status_and_history>false</private_status_and_history>
+  <has_captcha>false</has_captcha>
+  <skip_from_360_view>false</skip_from_360_view>
+  <category category_id="99">Etat civil - Population</category>
+  <workflow workflow_id="3">D&#233;partement Citoyen (default)</workflow>
+  <max_field_id>110</max_field_id>
+  <last_modification user_id="1">2018-02-20 11:45:59</last_modification>
+  <fields>
+    <field>
+      <label>Personne concern&#233;e par le document</label>
+      <type>page</type>
+      <id>59</id>
+    </field><field>
+      <label>&lt;p&gt;&lt;u&gt;Traitement :&lt;/u&gt;&lt;/p&gt;&lt;p&gt;&lt;em style="line-height: 20.7999992370605px;"&gt;&lt;strong&gt;Prix&amp;nbsp;de ce document : [form_option_cost] &amp;euro;/exemplaire&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;&lt;ol&gt;&lt;li&gt;Compl&amp;eacute;tez votre demande via le formulaire ci-dessous.&lt;/li&gt;&lt;li&gt;Proc&amp;eacute;dez au paiement &amp;eacute;lectronique via une carte de paiement de votre choix : &lt;span style="line-height: 20.7999992370605px;"&gt;Bancontact/MisterCash,&lt;/span&gt;&amp;nbsp;Visa ou MasterCard. Munissez-vous de votre digipass (appareil fourni par votre banque) pour confirmer votre paiement.&lt;/li&gt;&lt;li&gt;Vous recevrez un r&amp;eacute;capitulatif de votre demande sur l'adresse e-mail communiqu&amp;eacute;e dans le formulaire.&lt;/li&gt;&lt;li&gt;Si votre demande est valide, vous recevrez tr&amp;egrave;s prochainement votre document par voie postale. Si votre demande n'est pas valide, vous serez pr&amp;eacute;venu par e-mail et rembours&amp;eacute; de la somme per&amp;ccedil;ue dans les meilleurs d&amp;eacute;lais.&lt;/li&gt;&lt;/ol&gt;</label>
+      <type>comment</type>
+      <id>58</id>
+    </field><field>
+      <label>Le document demand&#233; : </label>
+      <type>item</type>
+      <required>True</required>
+      <varname>rb_concerne</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items />
+      <show_as_radio>True</show_as_radio>
+      <data_source>
+        <type>ds_personne_concernee</type>
+      </data_source><in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>16</id>
+    </field><field>
+      <label>Votre lieu de domicile</label>
+      <type>page</type>
+      <condition>form_var_rb_concerne_raw == 'moi'</condition>
+      <post_conditions>
+        <post_condition>
+          <condition>form_var_rb_domicile_raw == commune_slug</condition>
+          <error_message>Nous ne pouvons pas donner suite &#224; votre demande parce que vous n'&#234;tes pas domicili&#233;(e) dans notre commune. Vous devez vous adresser &#224; la commune o&#249; vous &#234;tes domicili&#233;(e).</error_message>
+        </post_condition>
+      </post_conditions><id>60</id>
+    </field><field>
+      <label>O&#249; &#234;tes-vous domicili&#233;(e)?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>rb_domicile</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><show_as_radio>True</show_as_radio>
+      <data_source>
+        <type>ds_question_localite_demandeur</type>
+      </data_source><in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>61</id>
+    </field><field>
+      <label>Lieu de domicile de la personne concern&#233;e</label>
+      <type>page</type>
+      <condition>form_var_rb_concerne_raw == 'tiers'</condition>
+      <post_conditions>
+        <post_condition>
+          <condition>form_var_rb_domicile_tiers_raw == commune_slug</condition>
+          <error_message>Nous ne pouvons pas donner suite &#224; votre demande parce que la personne concern&#233;e n'est pas domicili&#233;e dans notre commune. Vous devez vous adresser &#224; la commune o&#249; la personne concern&#233;e est domicili&#233;e.</error_message>
+        </post_condition>
+      </post_conditions><id>62</id>
+    </field><field>
+      <label>La personne pour laquelle je commande le document: </label>
+      <type>item</type>
+      <required>True</required>
+      <varname>rb_domicile_tiers</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><show_as_radio>True</show_as_radio>
+      <data_source>
+        <type>ds_question_localite_tiers</type>
+      </data_source><in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>63</id>
+    </field><field>
+      <label>Demande pour une autre personne</label>
+      <type>page</type>
+      <condition>form_var_rb_concerne_raw == 'tiers'</condition>
+      <id>17</id>
+    </field><field>
+      <label>Qui &#234;tes-vous par rapport &#224; la personne concern&#233;e ?</label>
+      <type>item</type>
+      <required>True</required>
+      <hint>---</hint>
+      <varname>rb_autre_prec</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>M&#232;re</item>
+        <item>P&#232;re</item>
+        <item>Tuteur</item>
+        <item>Epoux(se)</item>
+        <item>Repr&#233;sentant l&#233;gal</item>
+        <item>Fille/fils</item>
+        <item>Autre : &#224; pr&#233;ciser</item>
+      </items><show_as_radio>False</show_as_radio>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>19</id>
+    </field><field>
+      <label>Quel est le lien avec la personne concern&#233;e</label>
+      <type>page</type>
+      <condition>var_rb_autre_prec== "Autre : &#224; pr&#233;ciser"</condition>
+      <id>53</id>
+    </field><field>
+      <label>Merci de pr&#233;ciser le lien avec la personne concern&#233;e :</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><id>54</id>
+    </field><field>
+      <label>Donn&#233;es de la personne concern&#233;e</label>
+      <type>page</type>
+      <condition>form_var_rb_concerne_raw == "tiers"</condition>
+      <post_conditions>
+        <post_condition>
+          <condition>form_var_nn_tiers == None or ((97 - int(form_var_nn_tiers[:9]) % 97 == int(form_var_nn_tiers[-2:])) or (97 - int("2" + form_var_nn_tiers[:9]) % 97 == int(form_var_nn_tiers[-2:])))</condition>
+          <error_message>Num&#233;ro national incorrect ou incomplet. Ce champ ne peut contenir que des chiffres (pas de ., -, +, /,...).</error_message>
+        </post_condition><post_condition>
+          <condition>form_var_tel_tiers == None or (re.match("^(0|\\+|00)(\d{8,})$", form_var_tel_tiers))</condition>
+          <error_message>Num&#233;ro de t&#233;l&#233;phone : seuls les chiffres et le signe + sont accept&#233;s (pas de -, /, ...). Merci d'encoder minimum 9 chiffres pour le num&#233;ro de t&#233;l&#233;phone.</error_message>
+        </post_condition>
+      </post_conditions><id>55</id>
+    </field><field>
+      <label>&lt;div style="border: none; padding: 1.0pt 0cm 0cm 0cm;"&gt;&lt;p class="MsoNormal" style="margin-bottom: 0cm; line-height: normal; border: none; padding: 0cm;"&gt;&lt;strong&gt;&lt;span style="font-size: 10pt; font-family: Arial, sans-serif;"&gt;Veuillez encoder les donn&amp;eacute;es de la &lt;u&gt;PERSONNE CONCERN&amp;Eacute;E&lt;/u&gt; :&amp;nbsp;&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;&lt;/div&gt;</label>
+      <type>comment</type>
+      <id>78</id>
+    </field><field>
+      <label>&lt;p&gt;&lt;span style="line-height: 23.1111106872559px;"&gt;* = champ obligatoire&lt;/span&gt;&lt;/p&gt;</label>
+      <type>comment</type>
+      <id>95</id>
+    </field><field>
+      <label>Nom</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>nom_perscon</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>21</id>
+    </field><field>
+      <label>Pr&#233;nom</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>prenom_perscon</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>22</id>
+    </field><field>
+      <label>Num&#233;ro national</label>
+      <type>string</type>
+      <required>False</required>
+      <hint>Le n&#176; d'identification au Registre national se trouve sur la carte d'identit&#233;. Seuls les chiffres sont accept&#233;s, pas de ., -, +, /, ...</hint>
+      <varname>nn_tiers</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2 newline</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>5</id>
+    </field><field>
+      <label>Date de naissance (ex.: 01/01/1980)</label>
+      <type>date</type>
+      <required>True</required>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><minimum_is_future>False</minimum_is_future>
+      <date_in_the_past>True</date_in_the_past>
+      <date_can_be_today>False</date_can_be_today>
+      <id>24</id>
+    </field><field>
+      <label>&lt;u&gt;ADRESSE&lt;/u&gt; :</label>
+      <type>subtitle</type>
+      <id>7</id>
+    </field><field>
+      <label>Rue</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>rue_perscon</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2 newline</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>8</id>
+    </field><field>
+      <label>Num&#233;ro</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Ex.: 12, 145 et pas 1C ou 12/21 (compl&#233;ment &#224; indiquer dans le champ bo&#238;te)</hint>
+      <varname>numero_perscon</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-4</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><validation>[1-9][0-9-]*</validation>
+      <id>9</id>
+    </field><field>
+      <label>Bo&#238;te</label>
+      <type>string</type>
+      <required>False</required>
+      <varname>boite_perscon</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-4</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>10</id>
+    </field><field>
+      <label>Code postal</label>
+      <type>item</type>
+      <required>True</required>
+      <hint>---</hint>
+      <varname>codepostal_perscon</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2 newline</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>4000</item>
+        <item>4020</item>
+        <item>4030</item>
+        <item>4031</item>
+        <item>4032</item>
+      </items><show_as_radio>False</show_as_radio>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>100</id>
+    </field><field>
+      <label>Localit&#233;</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>localite_perscon</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2 readonly</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>{{ commune_name }}</value>
+      </prefill><id>101</id>
+    </field><field>
+      <label>Adresse e-mail</label>
+      <type>email</type>
+      <required>False</required>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2 newline</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>32</id>
+    </field><field>
+      <label>Num&#233;ro de t&#233;l&#233;phone</label>
+      <type>string</type>
+      <required>False</required>
+      <hint>Ex. : 0475123456 ou 0032475123456 ou +32475123456</hint>
+      <varname>tel_tiers</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>33</id>
+    </field><field>
+      <label>Donn&#233;es du demandeur</label>
+      <type>page</type>
+      <condition>form_var_rb_concerne_raw == 'tiers'</condition>
+      <post_conditions>
+        <post_condition>
+          <condition>((97 - int(form_var_nn[:9]) % 97 == int(form_var_nn[-2:])) or (97 - int(2 + form_var_nn[:9]) % 97 == int(form_var_nn[-2:])))</condition>
+          <error_message>Num&#233;ro national incorrect ou incomplet. Ce champ ne peut contenir que des chiffres (pas de ., -, +, /,...).</error_message>
+        </post_condition><post_condition>
+          <condition>re.match("^(0|\\+|00)(\d{8,})$", form_var_teldemandeur)</condition>
+          <error_message>Num&#233;ro de t&#233;l&#233;phone : seuls les chiffres et le signe + sont accept&#233;s (pas de -, /, ...). Merci d'encoder minimum 9 chiffres pour le num&#233;ro de t&#233;l&#233;phone.</error_message>
+        </post_condition>
+      </post_conditions><id>1</id>
+    </field><field>
+      <label>&lt;div style="border: none; padding: 1.0pt 0cm 0cm 0cm;"&gt;&lt;p class="MsoNormal" style="margin-bottom: 0cm; line-height: normal; border: none; padding: 0cm;"&gt;&lt;strong&gt;&lt;span style="font-size: 10pt; font-family: Arial, sans-serif;"&gt;Veuillez encoder&lt;/span&gt;&lt;/strong&gt;&lt;span class="apple-converted-space"&gt;&lt;b&gt;&lt;span style="font-size: 10pt; font-family: Arial, sans-serif;"&gt;&amp;nbsp;&lt;/span&gt;&lt;/b&gt;&lt;/span&gt;&lt;strong&gt;&lt;u&gt;&lt;span style="font-size: 10pt; font-family: Arial, sans-serif;"&gt;VOS DONN&amp;Eacute;ES&lt;/span&gt;&lt;/u&gt;&lt;/strong&gt;&lt;strong&gt;&lt;span style="font-size: 10pt; font-family: Arial, sans-serif;"&gt;&amp;nbsp;:&amp;nbsp;&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;&lt;/div&gt;</label>
+      <type>comment</type>
+      <id>77</id>
+    </field><field>
+      <label>&lt;p&gt;&lt;span style="line-height: 23.1111106872559px;"&gt;* = champ obligatoire&lt;/span&gt;&lt;/p&gt;</label>
+      <type>comment</type>
+      <id>97</id>
+    </field><field>
+      <label>Nom</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>nom_demandeur</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2 newline</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_last_name</value>
+      </prefill><id>3</id>
+    </field><field>
+      <label>Pr&#233;nom</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>prenom_demandeur</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_first_name</value>
+      </prefill><id>4</id>
+    </field><field>
+      <label>Num&#233;ro national</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Le n&#176; d'identification au Registre national se trouve sur la carte d'identit&#233;. Seuls les chiffres sont accept&#233;s, pas de ., -, +, /, ...</hint>
+      <varname>nn</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2 newline</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_niss</value>
+      </prefill><id>23</id>
+    </field><field>
+      <label>Date de naissance (ex.: 01/01/1980)</label>
+      <type>date</type>
+      <required>True</required>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_birthdate</value>
+      </prefill><minimum_is_future>False</minimum_is_future>
+      <date_in_the_past>True</date_in_the_past>
+      <date_can_be_today>False</date_can_be_today>
+      <id>6</id>
+    </field><field>
+      <label>&lt;u&gt;ADRESSE&lt;/u&gt; :</label>
+      <type>subtitle</type>
+      <id>25</id>
+    </field><field>
+      <label>Rue</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>rue_demandeur</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2 newline</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_street</value>
+      </prefill><id>26</id>
+    </field><field>
+      <label>Compl&#233;ment d'adresse</label>
+      <type>string</type>
+      <required>False</required>
+      <varname>complement_adresse_demandeur</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_address_supplement</value>
+      </prefill><id>79</id>
+    </field><field>
+      <label>Num&#233;ro</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Ex.: 12, 145 et pas 1C ou 12/21 (compl&#233;ment &#224; indiquer dans le champ bo&#238;te)</hint>
+      <varname>numero_demandeur</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2 newline</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_num_house</value>
+      </prefill><validation>[1-9][0-9-]*</validation>
+      <id>27</id>
+    </field><field>
+      <label>Bo&#238;te</label>
+      <type>string</type>
+      <required>False</required>
+      <varname>boite_demandeur</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_num_box</value>
+      </prefill><id>28</id>
+    </field><field>
+      <label>Code postal</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>codepostal_demandeur</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-4 newline</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_zipcode</value>
+      </prefill><id>29</id>
+    </field><field>
+      <label>Localit&#233;</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>localite_demandeur</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-4</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_city</value>
+      </prefill><id>30</id>
+    </field><field>
+      <label>Pays</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>pays_demandeur</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_country</value>
+      </prefill><items>
+        <item>---</item>
+      </items><show_as_radio>False</show_as_radio>
+      <data_source>
+        <type>pays</type>
+      </data_source><in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>75</id>
+    </field><field>
+      <label>Adresse e-mail</label>
+      <type>email</type>
+      <required>True</required>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2 newline</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_email</value>
+      </prefill><id>14</id>
+    </field><field>
+      <label>Num&#233;ro de t&#233;l&#233;phone</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Ex. : 0475123456 ou 0032475123456 ou +32475123456</hint>
+      <varname>teldemandeur</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_phone</value>
+      </prefill><id>15</id>
+    </field><field>
+      <label>Donn&#233;es du demandeur (li&#233;geois)</label>
+      <type>page</type>
+      <condition>form_var_rb_concerne_raw == 'moi'</condition>
+      <post_conditions>
+        <post_condition>
+          <condition>((97 - int(form_var_nn_lg[:9]) % 97 == int(form_var_nn_lg[-2:])) or (97 - int(2 + form_var_nn_lg[:9]) % 97 == int(form_var_nn_lg[-2:])))</condition>
+          <error_message>Num&#233;ro national incorrect ou incomplet. Ce champ ne peut contenir que des chiffres (pas de ., -, +, /,...).</error_message>
+        </post_condition><post_condition>
+          <condition>re.match("^(0|\\+|00)(\d{8,})$", form_var_tel_lg)</condition>
+          <error_message>Num&#233;ro de t&#233;l&#233;phone : seuls les chiffres et le signe + sont accept&#233;s (pas de -, /, ...). Merci d'encoder minimum 9 chiffres pour le num&#233;ro de t&#233;l&#233;phone.</error_message>
+        </post_condition>
+      </post_conditions><id>80</id>
+    </field><field>
+      <label>&lt;div style="border: none; padding: 1.0pt 0cm 0cm 0cm;"&gt;&lt;p class="MsoNormal" style="margin-bottom: 0cm; line-height: normal; border: none; padding: 0cm;"&gt;&lt;strong&gt;&lt;span style="font-size: 10pt; font-family: Arial, sans-serif;"&gt;Veuillez encoder&lt;/span&gt;&lt;/strong&gt;&lt;span class="apple-converted-space"&gt;&lt;b&gt;&lt;span style="font-size: 10pt; font-family: Arial, sans-serif;"&gt;&amp;nbsp;&lt;/span&gt;&lt;/b&gt;&lt;/span&gt;&lt;strong&gt;&lt;u&gt;&lt;span style="font-size: 10pt; font-family: Arial, sans-serif;"&gt;VOS DONN&amp;Eacute;ES&lt;/span&gt;&lt;/u&gt;&lt;/strong&gt;&lt;strong&gt;&lt;span style="font-size: 10pt; font-family: Arial, sans-serif;"&gt;&amp;nbsp;:&amp;nbsp;&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;&lt;/div&gt;</label>
+      <type>comment</type>
+      <id>81</id>
+    </field><field>
+      <label>&lt;p&gt;&lt;span style="line-height: 23.1111106872559px;"&gt;* = champ obligatoire&lt;/span&gt;&lt;/p&gt;</label>
+      <type>comment</type>
+      <id>96</id>
+    </field><field>
+      <label>Nom</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>nom_demandeur</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_last_name</value>
+      </prefill><id>82</id>
+    </field><field>
+      <label>Pr&#233;nom</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>prenom_demandeur</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_first_name</value>
+      </prefill><id>83</id>
+    </field><field>
+      <label>Num&#233;ro national</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Le n&#176; d'identification au Registre national se trouve sur la carte d'identit&#233;. Seuls les chiffres sont accept&#233;s, pas de ., -, +, /, ...</hint>
+      <varname>nn_lg</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2 newline</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_niss</value>
+      </prefill><id>84</id>
+    </field><field>
+      <label>Date de naissance (ex.: 01/01/1980)</label>
+      <type>date</type>
+      <required>True</required>
+      <varname>birthday_demandeur</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_birthdate</value>
+      </prefill><minimum_is_future>False</minimum_is_future>
+      <date_in_the_past>True</date_in_the_past>
+      <date_can_be_today>False</date_can_be_today>
+      <id>85</id>
+    </field><field>
+      <label>&lt;u&gt;ADRESSE&lt;/u&gt; :</label>
+      <type>subtitle</type>
+      <id>86</id>
+    </field><field>
+      <label>Rue</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>rue_demandeur</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2 newline</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_street</value>
+      </prefill><id>87</id>
+    </field><field>
+      <label>Num&#233;ro</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Ex.: 12, 145 et pas 1C ou 12/21 (compl&#233;ment &#224; indiquer dans le champ bo&#238;te)</hint>
+      <varname>numero_demandeur</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-4</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_num_house</value>
+      </prefill><validation>[1-9][0-9-]*</validation>
+      <id>88</id>
+    </field><field>
+      <label>Bo&#238;te</label>
+      <type>string</type>
+      <required>False</required>
+      <varname>boite_demandeur</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-4</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_num_box</value>
+      </prefill><id>90</id>
+    </field><field>
+      <label>Code postal</label>
+      <type>item</type>
+      <required>True</required>
+      <hint>---</hint>
+      <varname>codepostal_demandeur</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2 newline</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_zipcode</value>
+      </prefill><items>
+        <item>4000</item>
+        <item>4020</item>
+        <item>4030</item>
+        <item>4031</item>
+        <item>4032</item>
+      </items><show_as_radio>False</show_as_radio>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>98</id>
+    </field><field>
+      <label>Localit&#233;</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>localite_demandeur</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2 readonly</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>{{ commune_name }}</value>
+      </prefill><id>99</id>
+    </field><field>
+      <label>Adresse e-mail</label>
+      <type>email</type>
+      <required>True</required>
+      <varname>email_demandeur</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2 newline</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_email</value>
+      </prefill><id>93</id>
+    </field><field>
+      <label>Num&#233;ro de t&#233;l&#233;phone</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Ex. : 0475123456 ou 0032475123456 ou +32475123456</hint>
+      <varname>tel_lg</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_phone</value>
+      </prefill><id>94</id>
+    </field><field>
+      <label>Donn&#233;es du formulaire</label>
+      <type>page</type>
+      <id>34</id>
+    </field><field>
+      <label>Motifs</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>motif</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><show_as_radio>False</show_as_radio>
+      <data_source>
+        <type>passerelle_motifs</type>
+      </data_source><in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>102</id>
+    </field><field>
+      <label>Nombre de certificats demand&#233;s</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Maximum 20 exemplaires.</hint>
+      <varname>nb_exemplaire</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><validation>^[1-9]$|^[0-1][0-9]$|^20$</validation>
+      <id>37</id>
+    </field><field>
+      <label>Prix de la d&#233;marche</label>
+      <type>page</type>
+      <condition>form_option_paiement_en_ligne != "Proposer"</condition>
+      <id>104</id>
+    </field><field>
+      <label>Ci-dessous, veuillez prendre connaissance du montant de votre demande.</label>
+      <type>comment</type>
+      <id>105</id>
+    </field><field>
+      <label>Montant</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>montant</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>readonly</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>str((Decimal(form_option_cost) + Decimal(form_var_motif_price) + Decimal(form_var_destination_price)) * int(form_var_nb_exemplaire))</value>
+      </prefill><id>106</id>
+    </field><field>
+      <label>Prix de la d&#233;marche</label>
+      <type>page</type>
+      <condition>vars().get('form_option_paiement_en_ligne') is not None and form_option_paiement_en_ligne == "Proposer"</condition>
+      <id>107</id>
+    </field><field>
+      <label>&lt;p&gt;Ci-dessous, veuillez prendre connaissance du montant de votre demande.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Si vous cochez la case &amp;quot;paiement en ligne&amp;quot;, votre d&amp;eacute;marche sera automatiquement mise dans votre panier pour un paiement global de votre commande&lt;/li&gt;&lt;li&gt;Si vous ne cochez pas la case &amp;quot;paiement en ligne&amp;quot;, vous serez invit&amp;eacute; &amp;agrave; r&amp;eacute;aliser un virement sur un compte&lt;/li&gt;&lt;/ul&gt;</label>
+      <type>comment</type>
+      <id>108</id>
+    </field><field>
+      <label>Montant</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>montant2</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>readonly</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>str((Decimal(form_option_cost) + Decimal(form_var_motif_price) + Decimal(form_var_destination_price)) * int(form_var_nb_exemplaire))</value>
+      </prefill><id>109</id>
+    </field><field>
+      <label>Paiement en ligne</label>
+      <type>bool</type>
+      <required>False</required>
+      <varname>online_payment</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><id>110</id>
+    </field>
+  </fields><user-roles>
+    <role role_id="30b7ecea9d604ccdac50d0f443f4d993">Citoyen (test)</role>
+  </user-roles><roles>
+    <role role_id="8a6818797e2843cb8faa53278c2d4daa" role_key="_receiver">Agents traitants - Population, etat civil</role>
+  </roles><options>
+    <option varname="prof_ou_prive">Prive</option>
+    <option varname="cp_commune">6200</option>
+    <option varname="motifs_disponibles_structured" />
+    <option varname="destinations_structured" />
+    <option varname="cost">0</option>
+    <option varname="motifs_disponibles" />
+    <option varname="motifs_disponibles_display" />
+    <option varname="destinations_display">R&#233;cup&#233;rer le document &#224; la commune lorsqu'il est pr&#234;t</option>
+    <option varname="destinations" />
+  </options><geolocations />
+</formdef>

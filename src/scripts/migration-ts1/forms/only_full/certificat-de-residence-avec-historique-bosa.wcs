@@ -299,7 +299,7 @@
     <option varname="lien_bosa">https://mondossier.rrn.fgov.be/fr/certificate.do?tx=39&amp;language=FR</option>
     <option varname="cp_commune">4000</option>
     <option varname="paiement_en_ligne_structured" />
-    <option varname="cost">2</option>
+    <option varname="cost">0</option>
     <option varname="iban">1234-1212-1212-12</option>
     <option varname="paiement_en_ligne_display" />
     <option varname="motifs_disponibles" />
