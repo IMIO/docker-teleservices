@@ -329,7 +329,7 @@
     <option varname="destinations_structured" />
     <option varname="motifs_disponibles_structured" />
     <option varname="paiement_en_ligne_structured" />
-    <option varname="cost">5</option>
+    <option varname="cost">0</option>
     <option varname="iban" />
     <option varname="paiement_en_ligne_display" />
     <option varname="motifs_disponibles" />
