@@ -24,7 +24,7 @@
       <type>page</type>
       <id>1</id>
     </field><field>
-      <label>Je commande ce document pour :</label>
+      <label>Le document demand&#233; :</label>
       <type>item</type>
       <required>True</required>
       <varname>choix</varname>

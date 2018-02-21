@@ -348,7 +348,7 @@
     <option varname="code_postaux_commune" />
     <option varname="motifs_disponibles_structured" />
     <option varname="cp_commune">6200</option>
-    <option varname="cost">1</option>
+    <option varname="cost">0</option>
     <option varname="iban" />
     <option varname="code_postaux_commune_structured" />
     <option varname="motifs_disponibles" />

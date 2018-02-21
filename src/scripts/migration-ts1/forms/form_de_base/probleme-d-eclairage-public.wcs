@@ -1,75 +1,33 @@
 <?xml version="1.0" encoding="iso-8859-15"?>
 <formdef id="4">
-  <name>Acte de divorce</name>
-  <url_name>acte-de-divorce</url_name>
-  <description>Copie litt&#233;rale du Registre Communal</description>
-  <internal_identifier>acte-de-divorce</internal_identifier>
+  <name>Probl&#232;me d'&#233;clairage public</name>
+  <url_name>probleme-d-eclairage-public</url_name>
+  <description>Vous avez remarqu&#233; un eclairage d&#233;fectueux, merci de nous le faire savoir. &lt;br /&gt;Vous pouvez pr&#233;ciser dans le commentaire la nature du probl&#232;me : une lampe d&#233;fectueuse ou un poteau endommag&#233;.</description>
+  <internal_identifier>probleme-d-eclairage-public</internal_identifier>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
-  <disabled>false</disabled>
+  <disabled>true</disabled>
   <only_allow_one>false</only_allow_one>
   <enable_tracking_codes>false</enable_tracking_codes>
   <confirmation>true</confirmation>
-  <always_advertise>true</always_advertise>
+  <always_advertise>false</always_advertise>
   <private_status_and_history>false</private_status_and_history>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category category_id="99">Etat civil - Population</category>
-  <workflow workflow_id="3">D&#233;partement Citoyen (default)</workflow>
-  <max_field_id>40</max_field_id>
-  <last_modification user_id="1">2018-01-18 13:47:19</last_modification>
+  <category category_id="98">Travaux</category>
+  <workflow>Travaux (default)</workflow>
+  <max_field_id>28</max_field_id>
+  <last_modification user_id="5">2017-12-08 09:44:04</last_modification>
   <fields>
     <field>
-      <label>Extrait acte de divorce</label>
+      <label>Probl&#232;me d'&#233;clairage public</label>
       <type>page</type>
       <post_conditions>
         <post_condition>
           <condition>(form_var_email is not None and form_var_followmail == "True") or (form_var_email is None and form_var_followmail == "False") or (form_var_email is not None and form_var_followmail == "False")</condition>
           <error_message>Si vous souhaitez un suivis par mail, vous devez sp&#233;cifier une adresse e-mail. </error_message>
-        </post_condition><post_condition>
-          <condition>vars().get('form_option_cp_commune') is None or form_var_cp_mariage in form_option_cp_commune.split(',')</condition>
-          <error_message>Le code postal de votre lieu de mariage ne fait pas partie des code postaux de notre commune. Nous ne pourrons faire suite &#224; votre demande.</error_message>
         </post_condition>
       </post_conditions><id>1</id>
-    </field><field>
-      <label>L'acte de divorce ne vous sera d&#233;livr&#233; UNIQUEMENT si votre mariage a eu lieu dans notre commune.</label>
-      <type>comment</type>
-      <id>2</id>
-    </field><field>
-      <label>Lieu du mariage</label>
-      <type>string</type>
-      <required>True</required>
-      <in_listing>True</in_listing>
-      <extra_css_class>grid-1-2</extra_css_class>
-      <prefill>
-        <type>none</type>
-      </prefill><id>3</id>
-    </field><field>
-      <label>Code postal (mariage)</label>
-      <type>string</type>
-      <required>True</required>
-      <varname>cp_mariage</varname>
-      <in_listing>True</in_listing>
-      <extra_css_class>grid-1-2</extra_css_class>
-      <prefill>
-        <type>none</type>
-      </prefill><validation>^[0-9]*</validation>
-      <id>4</id>
-    </field><field>
-      <label>Date du mariage</label>
-      <type>date</type>
-      <required>True</required>
-      <in_listing>True</in_listing>
-      <prefill>
-        <type>none</type>
-      </prefill><minimum_is_future>False</minimum_is_future>
-      <date_in_the_past>True</date_in_the_past>
-      <date_can_be_today>False</date_can_be_today>
-      <id>5</id>
-    </field><field>
-      <label>Mes coordonn&#233;es</label>
-      <type>title</type>
-      <id>6</id>
     </field><field>
       <label>Nom</label>
       <type>string</type>
@@ -80,7 +38,7 @@
       <prefill>
         <type>user</type>
         <value>_last_name</value>
-      </prefill><id>7</id>
+      </prefill><id>2</id>
     </field><field>
       <label>Pr&#233;nom</label>
       <type>string</type>
@@ -91,7 +49,7 @@
       <prefill>
         <type>user</type>
         <value>_first_name</value>
-      </prefill><id>8</id>
+      </prefill><id>3</id>
     </field><field>
       <label>Rue</label>
       <type>string</type>
@@ -102,7 +60,7 @@
       <prefill>
         <type>user</type>
         <value>_street</value>
-      </prefill><id>9</id>
+      </prefill><id>4</id>
     </field><field>
       <label>Num&#233;ro</label>
       <type>string</type>
@@ -114,7 +72,7 @@
         <type>user</type>
         <value>_num_house</value>
       </prefill><validation>^[0-9]*</validation>
-      <id>10</id>
+      <id>5</id>
     </field><field>
       <label>Bo&#238;te</label>
       <type>string</type>
@@ -125,7 +83,7 @@
       <prefill>
         <type>user</type>
         <value>_num_box</value>
-      </prefill><id>11</id>
+      </prefill><id>6</id>
     </field><field>
       <label>Code postal</label>
       <type>string</type>
@@ -137,7 +95,7 @@
         <type>user</type>
         <value>_zipcode</value>
       </prefill><validation>^[0-9]*</validation>
-      <id>12</id>
+      <id>7</id>
     </field><field>
       <label>Ville</label>
       <type>string</type>
@@ -148,7 +106,7 @@
       <prefill>
         <type>user</type>
         <value>_city</value>
-      </prefill><id>13</id>
+      </prefill><id>8</id>
     </field><field>
       <label>Num&#233;ro de t&#233;l&#233;phone</label>
       <type>string</type>
@@ -159,7 +117,7 @@
       <prefill>
         <type>user</type>
         <value>_phone</value>
-      </prefill><id>14</id>
+      </prefill><id>9</id>
     </field><field>
       <label>Num&#233;ro de GSM</label>
       <type>string</type>
@@ -170,7 +128,7 @@
       <prefill>
         <type>user</type>
         <value>_mobile</value>
-      </prefill><id>15</id>
+      </prefill><id>10</id>
     </field><field>
       <label>Adresse e-mail</label>
       <type>email</type>
@@ -180,11 +138,11 @@
       <prefill>
         <type>user</type>
         <value>_email</value>
-      </prefill><id>16</id>
+      </prefill><id>11</id>
     </field><field>
-      <label>&lt;p&gt;Si vos informations personnelles ont chang&amp;eacute;, vous devez changer votre siganl&amp;eacute;tique dans vos pr&amp;eacute;f&amp;eacute;rences personnelles (&lt;a href="[idp_account_url]edit/"&gt;page de profil&lt;/a&gt;) avant de r&amp;eacute;aliser votre demande. Merci.&lt;/p&gt;</label>
+      <label>&lt;p&gt;Si vos informations personnelles ont chang&amp;eacute;, vous devez changer votre siganl&amp;eacute;tique dans vos pr&amp;eacute;f&amp;eacute;rences personnelles (&lt;a href="https://demo-auth.guichet-citoyen.be/accounts/edit/"&gt;page de profil&lt;/a&gt;) avant de r&amp;eacute;aliser votre demande. Merci.&lt;/p&gt;</label>
       <type>comment</type>
-      <id>17</id>
+      <id>12</id>
     </field><field>
       <label>Commentaire</label>
       <type>text</type>
@@ -196,7 +154,7 @@
       </prefill><cols>100</cols>
       <rows>10</rows>
       <pre>False</pre>
-      <id>18</id>
+      <id>13</id>
     </field><field>
       <label>Motifs</label>
       <type>item</type>
@@ -213,7 +171,7 @@
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
-      <id>19</id>
+      <id>14</id>
     </field><field>
       <label>Destination</label>
       <type>item</type>
@@ -230,7 +188,7 @@
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
-      <id>20</id>
+      <id>15</id>
     </field><field>
       <label>Nombre d'exemplaire(s)</label>
       <type>string</type>
@@ -241,75 +199,25 @@
         <type>string</type>
         <value>1</value>
       </prefill><validation>^[0-9]*</validation>
-      <id>21</id>
+      <id>16</id>
     </field><field>
       <label>Suivis par mail</label>
       <type>bool</type>
       <required>False</required>
       <varname>followmail</varname>
       <in_listing>False</in_listing>
-      <extra_css_class>hidden</extra_css_class>
       <prefill>
         <type>none</type>
-      </prefill><id>22</id>
-    </field><field>
-      <label>Informations compl&#233;mentaires</label>
-      <type>page</type>
-      <id>23</id>
-    </field><field>
-      <label>Nom du conjoint</label>
-      <type>string</type>
-      <required>True</required>
-      <in_listing>False</in_listing>
-      <extra_css_class>grid-1-2</extra_css_class>
-      <prefill>
-        <type>none</type>
-      </prefill><id>24</id>
-    </field><field>
-      <label>Pr&#233;nom</label>
-      <type>string</type>
-      <required>True</required>
-      <in_listing>False</in_listing>
-      <extra_css_class>grid-1-2</extra_css_class>
-      <prefill>
-        <type>none</type>
-      </prefill><id>25</id>
-    </field><field>
-      <label>Rue et num&#233;ro</label>
-      <type>string</type>
-      <required>True</required>
-      <in_listing>False</in_listing>
-      <extra_css_class>grid-1-1</extra_css_class>
-      <prefill>
-        <type>none</type>
-      </prefill><id>26</id>
-    </field><field>
-      <label>Code postal</label>
-      <type>string</type>
-      <required>True</required>
-      <in_listing>False</in_listing>
-      <extra_css_class>grid-1-2</extra_css_class>
-      <prefill>
-        <type>none</type>
-      </prefill><id>27</id>
-    </field><field>
-      <label>Localit&#233;</label>
-      <type>string</type>
-      <required>True</required>
-      <in_listing>False</in_listing>
-      <extra_css_class>grid-1-2</extra_css_class>
-      <prefill>
-        <type>none</type>
-      </prefill><id>28</id>
+      </prefill><id>17</id>
     </field><field>
       <label>Prix de la d&#233;marche</label>
       <type>page</type>
       <condition>form_option_paiement_en_ligne != "Proposer"</condition>
-      <id>29</id>
+      <id>18</id>
     </field><field>
       <label>Ci-dessous, veuillez prendre connaissance du montant de votre demande.</label>
       <type>comment</type>
-      <id>30</id>
+      <id>19</id>
     </field><field>
       <label>Montant</label>
       <type>string</type>
@@ -319,28 +227,28 @@
       <extra_css_class>readonly</extra_css_class>
       <prefill>
         <type>formula</type>
-        <value>str(((Decimal(form_option_cost) + Decimal(form_var_motif_price)) * int(form_var_nb_exemplaire)) + Decimal(form_var_destination_price)))</value>
-      </prefill><id>31</id>
+        <value>str((Decimal(form_option_cost) + Decimal(form_var_motif_price) + Decimal(form_var_destination_price)) * int(form_var_nb_exemplaire))</value>
+      </prefill><id>20</id>
     </field><field>
       <label>Prix de la d&#233;marche</label>
       <type>page</type>
-      <condition>vars().get('form_option_paiement_en_ligne') is not None and form_option_paiement_en_ligne == "Proposer"</condition>
-      <id>32</id>
+      <condition>form_option_paiement_en_ligne == "Proposer"</condition>
+      <id>21</id>
     </field><field>
       <label>&lt;p&gt;Ci-dessous, veuillez prendre connaissance du montant de votre demande.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Si vous cochez la case &amp;quot;paiement en ligne&amp;quot;, votre d&amp;eacute;marche sera automatiquement mise dans votre panier pour un paiement global de votre commande&lt;/li&gt;&lt;li&gt;Si vous ne cochez pas la case &amp;quot;paiement en ligne&amp;quot;, vous serez invit&amp;eacute; &amp;agrave; r&amp;eacute;aliser un virement sur un compte&lt;/li&gt;&lt;/ul&gt;</label>
       <type>comment</type>
-      <id>33</id>
+      <id>22</id>
     </field><field>
       <label>Montant</label>
       <type>string</type>
       <required>True</required>
-      <varname>montant2</varname>
+      <varname>montant</varname>
       <in_listing>True</in_listing>
       <extra_css_class>readonly</extra_css_class>
       <prefill>
         <type>formula</type>
         <value>str((Decimal(form_option_cost) + Decimal(form_var_motif_price) + Decimal(form_var_destination_price)) * int(form_var_nb_exemplaire))</value>
-      </prefill><id>34</id>
+      </prefill><id>23</id>
     </field><field>
       <label>Paiement en ligne</label>
       <type>bool</type>
@@ -349,25 +257,20 @@
       <in_listing>False</in_listing>
       <prefill>
         <type>none</type>
-      </prefill><id>35</id>
+      </prefill><id>24</id>
     </field>
   </fields><user-roles>
-    <role role_id="30b7ecea9d604ccdac50d0f443f4d993">Citoyen (test)</role>
+    <role role_id="logged-users">logged-users</role>
   </user-roles><roles>
-    <role role_id="8a6818797e2843cb8faa53278c2d4daa" role_key="_receiver">Agents traitants - Population, etat civil</role>
+    <role role_id="05df519c698b48f78f1838873513113b" role_key="_receiver">Agents traitants - Travaux</role>
   </roles><options>
     <option varname="destinations_structured" />
-    <option varname="code_postaux_commune" />
     <option varname="motifs_disponibles_structured" />
-    <option varname="cp_commune">6200</option>
     <option varname="cost">0</option>
     <option varname="iban" />
-    <option varname="code_postaux_commune_structured" />
     <option varname="motifs_disponibles" />
-    <option varname="motifs_disponibles_display">Allocations familiales : gratuit, Assurance : co&#251;t 2&#8364;, Autre : indiquer la raison dans le commentaire</option>
-    <option varname="cp">4000</option>
-    <option varname="destinations_display">Envoi &#224; domicile : co&#251;t 1&#8364;, Envoi &#224; domicile par recommand&#233;: co&#251;t 6&#8364;, R&#233;cup&#233;rer le document &#224; la commune lorsqu'il est pr&#234;t</option>
-    <option varname="code_postaux_commune_display">1, 2, 3, 4</option>
+    <option varname="motifs_disponibles_display" />
+    <option varname="destinations_display" />
     <option varname="destinations" />
   </options><geolocations />
 </formdef>
