@@ -230,25 +230,14 @@
       </prefill><id>10</id>
     </field><field>
       <label>Code postal</label>
-      <type>item</type>
+      <type>string</type>
       <required>True</required>
-      <hint>---</hint>
       <varname>codepostal_perscon</varname>
       <in_listing>False</in_listing>
       <extra_css_class>grid-1-2 newline</extra_css_class>
       <prefill>
         <type>none</type>
-      </prefill><items>
-        <item>4000</item>
-        <item>4020</item>
-        <item>4030</item>
-        <item>4031</item>
-        <item>4032</item>
-      </items><show_as_radio>False</show_as_radio>
-      <in_filters>False</in_filters>
-      <anonymise>False</anonymise>
-      <display_disabled_items>False</display_disabled_items>
-      <id>100</id>
+      </prefill><id>100</id>
     </field><field>
       <label>Localit&#233;</label>
       <type>string</type>
@@ -571,26 +560,14 @@
       </prefill><id>90</id>
     </field><field>
       <label>Code postal</label>
-      <type>item</type>
+      <type>string</type>
       <required>True</required>
-      <hint>---</hint>
       <varname>codepostal_demandeur</varname>
       <in_listing>False</in_listing>
       <extra_css_class>grid-1-2 newline</extra_css_class>
       <prefill>
-        <type>user</type>
-        <value>_zipcode</value>
-      </prefill><items>
-        <item>4000</item>
-        <item>4020</item>
-        <item>4030</item>
-        <item>4031</item>
-        <item>4032</item>
-      </items><show_as_radio>False</show_as_radio>
-      <in_filters>False</in_filters>
-      <anonymise>False</anonymise>
-      <display_disabled_items>False</display_disabled_items>
-      <id>98</id>
+        <type>none</type>
+      </prefill><id>98</id>
     </field><field>
       <label>Localit&#233;</label>
       <type>string</type>
@@ -681,7 +658,7 @@
     <role role_id="8a6818797e2843cb8faa53278c2d4daa" role_key="_receiver">Agents traitants - Population, etat civil</role>
   </roles><options>
     <option varname="prof_ou_prive">Prive</option>
-    <option varname="cp_commune">6200</option>
+    <option varname="cp_commune">0</option>
     <option varname="motifs_disponibles_structured" />
     <option varname="destinations_structured" />
     <option varname="cost">0</option>
