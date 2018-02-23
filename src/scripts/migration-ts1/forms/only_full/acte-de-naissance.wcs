@@ -274,7 +274,6 @@
     <field>
       <label>Prix de la d&#233;marche</label>
       <type>page</type>
-      <condition>form_option_paiement_en_ligne != "Proposer"</condition>
       <id>28</id>
     </field><field>
       <label>Ci-dessous, veuillez prendre connaissance du montant de votre demande.</label>
@@ -289,37 +288,8 @@
       <extra_css_class>readonly</extra_css_class>
       <prefill>
         <type>formula</type>
-        <value>str(((Decimal(form_option_cost) + Decimal(form_var_motif_price)) * int(form_var_nb_exemplaire)) + Decimal(form_var_destination_price))</value>
+        <value>str((Decimal(form_option_cost) + Decimal(form_var_motif_price)) * int(form_var_nb_exemplaire))</value>
       </prefill><id>30</id>
-    </field><field>
-      <label>Prix de la d&#233;marche</label>
-      <type>page</type>
-      <condition>vars().get('form_option_paiement_en_ligne') is not None and form_option_paiement_en_ligne == "Proposer"</condition>
-      <id>31</id>
-    </field><field>
-      <label>&lt;p&gt;Ci-dessous, veuillez prendre connaissance du montant de votre demande.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Si vous cochez la case &amp;quot;paiement en ligne&amp;quot;, votre d&amp;eacute;marche sera automatiquement mise dans votre panier pour un paiement global de votre commande&lt;/li&gt;&lt;li&gt;Si vous ne cochez pas la case &amp;quot;paiement en ligne&amp;quot;, vous serez invit&amp;eacute; &amp;agrave; r&amp;eacute;aliser un virement sur un compte&lt;/li&gt;&lt;/ul&gt;</label>
-      <type>comment</type>
-      <id>32</id>
-    </field><field>
-      <label>Montant</label>
-      <type>string</type>
-      <required>True</required>
-      <varname>montant2</varname>
-      <in_listing>True</in_listing>
-      <extra_css_class>readonly</extra_css_class>
-      <prefill>
-        <type>formula</type>
-        <value>str(((Decimal(form_option_cost) + Decimal(form_var_motif_price)) * int(form_var_nb_exemplaire)) + Decimal(form_var_destination_price))</value>
-      </prefill><id>33</id>
-    </field><field>
-      <label>Paiement en ligne</label>
-      <type>bool</type>
-      <required>False</required>
-      <varname>online_payment</varname>
-      <in_listing>False</in_listing>
-      <prefill>
-        <type>none</type>
-      </prefill><id>34</id>
     </field>
   </fields><user-roles>
     <role role_id="30b7ecea9d604ccdac50d0f443f4d993">Citoyen (test)</role>
