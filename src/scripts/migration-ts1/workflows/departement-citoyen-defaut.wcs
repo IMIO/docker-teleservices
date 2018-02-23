@@ -3,7 +3,7 @@
   <name>D&#233;partement Citoyen (d&#233;faut)</name>
   <roles>
     <role id="_receiver">Agent traitant</role>
-  </roles><last_modification user_id="1">2018-02-15 14:03:42</last_modification>
+  </roles><last_modification user_id="1">2018-02-23 13:41:25</last_modification>
   <possible_status>
     <status>
       <id>just_submitted</id>
@@ -18,7 +18,7 @@
               <value>=locals().get("form_var_nb_exemplaire")</value>
             </field><field>
               <field_id>bo3</field_id>
-              <value>=str(((Decimal(form_option_cost) + Decimal(form_var_motif_price)) * int(form_var_nb_exemplaire)) + Decimal(form_var_destination_price)) or '0.00'</value>
+              <value>=str((Decimal(form_option_cost) + Decimal(form_var_motif_price)) * int(form_var_nb_exemplaire)) or '0.00'</value>
             </field><field>
               <field_id>bo6</field_id>
               <value>=locals().get("form_user_field_numero_national")</value>
@@ -299,7 +299,7 @@ Bien cordialement,
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items><triggers>
-        <trigger id="5b99b152-0898-421d-aedd-124653308cf9" type="manual">
+        <trigger id="636b5d49-8978-48db-aed9-e3ecb3dcd549" type="manual">
           <roles>
             <item role_id="_testeur">_testeur</item>
           </roles>
@@ -311,9 +311,9 @@ Bien cordialement,
       <items>
         <item id="1" type="remove" />
       </items><triggers>
-        <trigger id="8904faa5-1454-477a-8f13-f2344c2f17f8" type="manual">
+        <trigger id="fd8ab18a-a45e-423c-8514-cad4c1a0794c" type="manual">
           <roles>
-            <item role_id="84cd740c58414536a8aab338a329fc21">Debug</item>
+            <item role_id="ea3c7b7f1a23494984a23d00ce87c42a">Debug</item>
           </roles>
         </trigger>
       </triggers>
@@ -325,7 +325,7 @@ Bien cordialement,
         <field>
           <label>cout du document</label>
           <type>string</type>
-          <required>True</required>
+          <required>False</required>
           <varname>cost</varname>
           <in_listing>False</in_listing>
           <prefill>
@@ -335,14 +335,15 @@ Bien cordialement,
         </field><field>
           <label>Codes postaux (commune)</label>
           <type>string</type>
-          <required>True</required>
+          <required>False</required>
           <hint>Lister les diff&#233;rents codes postaux relatifs &#224; votre commune.
 Coll&#233;s et s&#233;par&#233;s par une ","
 ex : 4000,4020,4030,4031</hint>
           <varname>cp_commune</varname>
           <in_listing>True</in_listing>
           <prefill>
-            <type>none</type>
+            <type>formula</type>
+            <value>commune_cp</value>
           </prefill><id>6</id>
         </field><field>
           <label>Motifs disponibles</label>
@@ -352,28 +353,12 @@ ex : 4000,4020,4030,4031</hint>
           <in_listing>False</in_listing>
           <prefill>
             <type>none</type>
-          </prefill><items />
-          <max_choices>0</max_choices>
+          </prefill><max_choices>0</max_choices>
           <data_source>
             <type>passerelle_motifs</type>
           </data_source><anonymise>True</anonymise>
           <display_disabled_items>False</display_disabled_items>
           <id>3</id>
-        </field><field>
-          <label>Destinations</label>
-          <type>items</type>
-          <required>True</required>
-          <varname>destinations</varname>
-          <in_listing>False</in_listing>
-          <prefill>
-            <type>none</type>
-          </prefill><items />
-          <max_choices>0</max_choices>
-          <data_source>
-            <type>passerelle_destinations</type>
-          </data_source><anonymise>True</anonymise>
-          <display_disabled_items>False</display_disabled_items>
-          <id>4</id>
         </field>
       </fields>
     </formdef>
