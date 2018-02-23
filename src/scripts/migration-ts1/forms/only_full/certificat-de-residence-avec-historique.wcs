@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-15"?>
-<formdef id="9">
+<formdef id="19">
   <name>Certificat de r&#233;sidence avec historique</name>
   <url_name>certificat-de-residence-avec-historique</url_name>
   <description>Il faut r&#233;sider obligatoirement dans la commune</description>
@@ -15,9 +15,9 @@
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
   <category category_id="99">Etat civil - Population</category>
-  <workflow workflow_id="3">D&#233;partement Citoyen (default)</workflow>
+  <workflow workflow_id="3">D&#233;partement Citoyen (d&#233;faut)</workflow>
   <max_field_id>29</max_field_id>
-  <last_modification user_id="1">2018-01-18 14:03:44</last_modification>
+  <last_modification user_id="1">2018-02-23 13:49:32</last_modification>
   <fields>
     <field>
       <label>Certificat de r&#233;sidence avec historique</label>
@@ -167,8 +167,7 @@
       <in_listing>False</in_listing>
       <prefill>
         <type>none</type>
-      </prefill><items />
-      <show_as_radio>False</show_as_radio>
+      </prefill><show_as_radio>False</show_as_radio>
       <data_source>
         <type>formula</type>
         <value>form_option_motifs_disponibles_structured</value>
@@ -176,23 +175,6 @@
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
       <id>15</id>
-    </field><field>
-      <label>Destination</label>
-      <type>item</type>
-      <required>True</required>
-      <varname>destination</varname>
-      <in_listing>False</in_listing>
-      <prefill>
-        <type>none</type>
-      </prefill><items />
-      <show_as_radio>False</show_as_radio>
-      <data_source>
-        <type>formula</type>
-        <value>form_option_destinations_structured</value>
-      </data_source><in_filters>False</in_filters>
-      <anonymise>False</anonymise>
-      <display_disabled_items>False</display_disabled_items>
-      <id>16</id>
     </field><field>
       <label>Nombre d'exemplaire(s)</label>
       <type>string</type>
@@ -204,8 +186,7 @@
         <value>1</value>
       </prefill><validation>^[0-9]*</validation>
       <id>17</id>
-    </field>
-    <field>
+    </field><field>
       <label>Prix de la d&#233;marche</label>
       <type>page</type>
       <id>19</id>
@@ -226,9 +207,9 @@
       </prefill><id>21</id>
     </field>
   </fields><user-roles>
-    <role role_id="30b7ecea9d604ccdac50d0f443f4d993">Citoyen (test)</role>
+    <role role_id="07273b1154054ac3bcea88831428a7d0">Citoyen (test)</role>
   </user-roles><roles>
-    <role role_id="8a6818797e2843cb8faa53278c2d4daa" role_key="_receiver">Agents traitants - Population, etat civil</role>
+    <role role_id="8dd5fab6656d49149b9b570776b675ee" role_key="_receiver">Agents traitants - Population, etat civil</role>
   </roles><options>
     <option varname="destinations_structured" />
     <option varname="motifs_disponibles_structured" />
