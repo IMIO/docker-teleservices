@@ -53,6 +53,8 @@ else
     sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2 /opt/publik/scripts/migration-ts1/import-ts1-forms.py /opt/publik/scripts/migration-ts1/forms/only_light/
 fi
 
+# Create regie
+sudo -u combo combo-manage tenant_command runscript -d $1.$2 lingo_create_regie.py
 # Puppet deploy search for : create_regie.py.erb
 if [ -f /var/lib/combo/create_regie.py ]
     then
