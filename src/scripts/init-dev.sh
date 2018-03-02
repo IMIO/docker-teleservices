@@ -39,6 +39,18 @@ then
 	(cd /opt/publik/passerelle-imio-tax-compute && python setup.py develop --no-deps)
 fi
 
+# passerelle-imio-extra-fees
+if [ -d /opt/publik/passerelle-imio-extra-fees ]
+then
+	(cd /opt/publik/passerelle-imio-extra-fees && python setup.py develop --no-deps)
+fi
+
+# passerelle-imio-liege-lisrue
+if [ -d /opt/publik/passerelle-imio-liege-lisrue ]
+    then
+        (cd /opt/publik/passerelle-imio-liege-lisrue && python setup.py develop --no-deps)
+fi
+
 # authentic2-auth-fedict
 if [ -d /opt/publik/authentic2-auth-fedict ]
 then
