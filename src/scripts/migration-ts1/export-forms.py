@@ -4,9 +4,12 @@ import os
 import sys
 import xml.etree.ElementTree as ET
 from wcs.formdef import FormDef
+from qommon import misc
 
 for formdef in FormDef.select():
-    xml_str = ET.tostring(formdef.export_to_xml(include_id=True))
+    xml = formdef.export_to_xml(include_id=True)
+    misc.indent_xml(xml)
+    xml_str = ET.tostring(xml)
     folder_store_forms = "/var/lib/wcs/xml_forms_{}".format(sys.argv[1])
     if not os.path.exists(folder_store_forms):
         os.mkdir(folder_store_forms)
