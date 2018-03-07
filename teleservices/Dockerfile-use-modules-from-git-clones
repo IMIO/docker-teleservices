@@ -30,6 +30,10 @@ RUN chown -R www-data:www-data /var/lib/authentic2-multitenant/static
 
 RUN apt-get install -y screen git vim less ruby-sass
 
+# passerelle plugins tests
+RUN apt install python-pip python-pytest-django
+RUN pip install django-webtest
+
 #cleanup
 RUN rm -f /etc/default/authentic2-multitenant
 RUN mkdir -p /var/lib/authentic2/locale/fr/LC_MESSAGES
