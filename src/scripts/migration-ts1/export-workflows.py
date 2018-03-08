@@ -10,9 +10,17 @@ from qommon import misc
 for wf in Workflow.select():
     xml = wf.export_to_xml(include_id=True)
     misc.indent_xml(xml)
-    xml_str = ET.tostring(xml)
+    xml_str = ""
+    try:
+        xml_str = ET.tostring(xml)
+    except UnicodeDecodeError:
+        import sys
+        reload(sys)
+        sys.setdefaultencoding('utf8')
+        xml_str = ET.tostring(xml)
     folder_store_wf = "/var/lib/wcs/xml_wf_{}".format(sys.argv[1])
     if not os.path.exists(folder_store_wf):
         os.mkdir(folder_store_wf)
-    with open ("{}/{}.wcs".format(folder_store_wf, slugify(wf.name,allow_unicode=True)), 'w+') as myfile:
+    with open ("{}/{}.wcs".format(folder_store_wf, slugify(wf.name)), 'w+') as myfile:
         myfile.write(xml_str)
+
