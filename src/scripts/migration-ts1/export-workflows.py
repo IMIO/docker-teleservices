@@ -3,6 +3,7 @@
 import os
 import sys
 import xml.etree.ElementTree as ET
+from django.template.defaultfilters import slugify
 from wcs.workflows import Workflow
 from qommon import misc
 
@@ -13,5 +14,5 @@ for wf in Workflow.select():
     folder_store_wf = "/var/lib/wcs/xml_wf_{}".format(sys.argv[1])
     if not os.path.exists(folder_store_wf):
         os.mkdir(folder_store_wf)
-    with open ("{}/{}.wcs".format(folder_store_wf, formdef.internal_identifier), 'w+') as myfile:
+    with open ("{}/{}.wcs".format(folder_store_wf, slugify(wf.name)), 'w+') as myfile:
         myfile.write(xml_str)
