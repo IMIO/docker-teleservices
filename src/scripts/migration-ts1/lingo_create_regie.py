@@ -1,5 +1,6 @@
 # sudo -u combo combo-manage tenant_command runscript -d local.example.net lingo_create_regie.py
 import eopayment
+import sys
 from combo.apps.lingo.models import Regie
 
 service_opt = '''
