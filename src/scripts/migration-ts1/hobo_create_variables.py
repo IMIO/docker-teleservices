@@ -5,4 +5,3 @@ Variable(name='commune_slug', label='Nom de la commune sans accent, sans espace 
 Variable(name='commune_cp', label='Code postal de la commune', value='1111').save()
 Variable(name='commune_rue', label='Rue et n° de la commune', value='1, Rue de ma Commune').save()
 Variable(name='commune_site', label='Site Internet de la commune', value='1, Rue de ma Commune').save()
-Variable(name='frais_port', label='Frais de port', value='0').save()
