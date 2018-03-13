@@ -15,5 +15,5 @@ Regie(label='Atos test',
       service_options=service_opt,
       text_on_success="Votre paiement a été pris en compte. Si votre demande est validée par nos services, vous recevrez très prochainement votre document par voie postale. Si votre demande n'est pas valide, vous serez prévenu par e-mail et remboursé de la somme perçue dans les meilleurs délais",
       service=eopayment.SIPS2,
-      extra_fees_ws_url="https://{}-passerelle.{}/extra-fees/calcul-des-frais-de-port/compute".format(sys.argv[1],sys.argv[2])
+      extra_fees_ws_url="https://{}-passerelle.{}/extra-fees/calcul-des-frais-de-port/compute".format(sys.argv[1],sys.argv[2]),
       is_default=True).save()
