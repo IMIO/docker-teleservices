@@ -4,6 +4,6 @@
   <description>On demande si la personne concernee est bien domiciliee dans la commune.</description>
   <data_source>
     <type>formula</type>
-    <value>[('{0}'.format(commune_slug), 'Est domicilié(e) à {0} (codes postaux : {1})'.format(commune_name, commune_cp)), ('pas_{0}'.format(commune_slug), 'N\'est PAS domicilié(e) à {0}'.format(commune_name))]</value>
+    <value>[('{0}'.format(commune_slug), 'Est domicilié(e) à {0} (codes postaux : {1})'.format(commune_nom, commune_cp)), ('pas_{0}'.format(commune_slug), 'N\'est PAS domicilié(e) à {0}'.format(commune_nom))]</value>
   </data_source>
 </datasources>
