@@ -334,17 +334,8 @@
         <value>1</value>
       </prefill><validation>^[0-9]*</validation>
       <id>30</id>
-    </field><field>
-      <label>Suivis par mail</label>
-      <type>bool</type>
-      <required>False</required>
-      <varname>followmail</varname>
-      <in_listing>False</in_listing>
-      <extra_css_class>hidden</extra_css_class>
-      <prefill>
-        <type>none</type>
-      </prefill><id>31</id>
-    </field><field>
+    </field>
+    <field>
       <label>Prix de la d&#233;marche</label>
       <type>page</type>
       <condition>form_var_mode_delivrance_raw == 'commune' and form_option_paiement_en_ligne != "Proposer"</condition>

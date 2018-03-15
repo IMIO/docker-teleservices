@@ -156,7 +156,7 @@
       <type>page</type>
       <post_conditions>
         <post_condition>
-          <condition>script.namur('validate_dynamic_tab_cells',{'table_var':form_var_tab_enfants_concernes, 'id_colonne':'2','regex_pattern':'is_date'})</condition>
+          <condition>script.commune('validate_dynamic_tab_cells',{'table_var':form_var_tab_enfants_concernes, 'id_colonne':'2','regex_pattern':'is_date'})</condition>
           <error_message>Une date de naissance entr&#233;e est dans un format non valide. ( Fomat valide : jj/mm/aaaa )</error_message>
         </post_condition>
       </post_conditions><id>17</id>
