@@ -13,7 +13,7 @@
   <private_status_and_history>false</private_status_and_history>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category category_id="101">Population</category>
+  <category category_id="99">Etat civil - Population</category>
   <workflow workflow_id="3">D&#233;partement Citoyen (d&#233;faut)</workflow>
   <max_field_id>112</max_field_id>
   <last_modification user_id="1">2018-02-20 12:08:26</last_modification>
