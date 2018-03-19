@@ -4,7 +4,7 @@
   <roles>
     <role id="_receiver">Agent traitant</role>
     <role id="_validateur-pc-banking">Validateur pc banking</role>
-  </roles><last_modification user_id="1">2018-02-15 14:03:44</last_modification>
+  </roles><last_modification user_id="1">2018-03-19 12:05:23</last_modification>
   <possible_status>
     <status>
       <id>just_submitted</id>
@@ -28,7 +28,7 @@
               <value>=locals().get("form_var_nn_tiers")</value>
             </field><field>
               <field_id>bo9</field_id>
-              <value>=True if form_option_paiement_en_ligne == 'Forcer' else locals().get("form_var_online_payment_raw") or False</value>
+              <value>=False</value>
             </field>
           </fields>
         </item><item id="2" type="jump">
@@ -39,11 +39,11 @@
           <status>13</status>
           <set_marker_on_status>False</set_marker_on_status>
           <condition>Decimal(form_var_wf_total_commande) == Decimal('0')</condition>
-        </item><item id="5" type="jump">
+        </item><item id="4" type="jump">
           <status>21</status>
           <set_marker_on_status>False</set_marker_on_status>
-          <condition>form_var_wf_paiement_en_ligne_raw is None or form_var_wf_paiement_en_ligne_raw is False</condition>
-        </item><item id="4" type="jump">
+          <condition>form_var_wf_paiement_en_ligne_raw is False</condition>
+        </item><item id="5" type="jump">
           <status>10</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -310,6 +310,7 @@ Bien cordialement,
           <message>Vous avez choisis d'obtenir un fichier .pdf sign&#233; num&#233;riquement par le f&#233;d&#233;ral ou vous avez d&#233;sir&#233; l'imprimer vous-m&#234;me.
 
 En cliquant sur valider, vous allez &#234;tre red&#233;rig&#233; vers le site du f&#233;d&#233;ral. </message>
+          <position>top</position>
           <to>
             <item role_id="_submitter">_submitter</item>
           </to>
@@ -323,7 +324,7 @@ En cliquant sur valider, vous allez &#234;tre red&#233;rig&#233; vers le site du
       <colour>FFFFFF</colour>
       <visibility />
       <items>
-        <item id="2" type="jump">
+        <item id="1" type="jump">
           <status>22</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -348,10 +349,11 @@ Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en me
 &lt;li&gt;Montant de la commande : &lt;b&gt;{{ form_var_wf_total_commande }}&lt;/b&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </message>
+          <position>top</position>
           <to>
             <item role_id="_submitter">_submitter</item>
           </to>
-        </item><item id="3" type="sendmail">
+        </item><item id="2" type="sendmail">
           <to>
             <item role_id="_submitter">_submitter</item>
           </to><subject>Administration de {{ commune_name }} : D&#233;marche "{{ form_name }}". En attente du virement.</subject>
@@ -381,7 +383,7 @@ Bien cordialement,
 
 
 </body>
-        </item><item id="2" type="choice">
+        </item><item id="3" type="choice">
           <by>
             <item role_id="_validateur-pc-banking">_validateur-pc-banking</item>
           </by><status>23</status>
@@ -412,9 +414,9 @@ Bien cordialement,
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items><triggers>
-        <trigger id="13d7fa28-6425-4664-9036-c2e50c941776" type="manual">
+        <trigger id="e9ab1a61-dacb-4673-aba8-854379ffc950" type="manual">
           <roles>
-            <item role_id="84cd740c58414536a8aab338a329fc21">Debug</item>
+            <item role_id="7878a6d0924e407eb0060847b8f8bdd1">Debug</item>
           </roles>
         </trigger>
       </triggers>
@@ -424,9 +426,9 @@ Bien cordialement,
       <items>
         <item id="1" type="remove" />
       </items><triggers>
-        <trigger id="888f7d38-c5d5-4cc3-9a99-b03f46be2896" type="manual">
+        <trigger id="e9d2780e-2fb1-4fc8-8913-1e24cd5f8008" type="manual">
           <roles>
-            <item role_id="84cd740c58414536a8aab338a329fc21">Debug</item>
+            <item role_id="7878a6d0924e407eb0060847b8f8bdd1">Debug</item>
           </roles>
         </trigger>
       </triggers>
@@ -465,8 +467,7 @@ ex : 4000,4020,4030,4031</hint>
           <in_listing>False</in_listing>
           <prefill>
             <type>none</type>
-          </prefill><items />
-          <max_choices>0</max_choices>
+          </prefill><max_choices>0</max_choices>
           <data_source>
             <type>passerelle_motifs</type>
           </data_source><anonymise>True</anonymise>
@@ -480,7 +481,8 @@ ex : 4000,4020,4030,4031</hint>
           <in_listing>False</in_listing>
           <prefill>
             <type>none</type>
-          </prefill><max_choices>0</max_choices>
+          </prefill><items />
+          <max_choices>0</max_choices>
           <data_source>
             <type>passerelle_destinations</type>
           </data_source><anonymise>True</anonymise>
@@ -495,23 +497,6 @@ ex : 4000,4020,4030,4031</hint>
           <prefill>
             <type>none</type>
           </prefill><id>7</id>
-        </field><field>
-          <label>Paiement en ligne (forcer/proposer/"retirer" dans le formulaire)</label>
-          <type>item</type>
-          <required>False</required>
-          <hint>---</hint>
-          <varname>paiement_en_ligne</varname>
-          <in_listing>True</in_listing>
-          <prefill>
-            <type>none</type>
-          </prefill><items>
-            <item>Forcer</item>
-            <item>Proposer</item>
-          </items><show_as_radio>False</show_as_radio>
-          <in_filters>False</in_filters>
-          <anonymise>False</anonymise>
-          <display_disabled_items>False</display_disabled_items>
-          <id>8</id>
         </field><field>
           <label>iban</label>
           <type>string</type>
