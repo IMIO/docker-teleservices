@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-15"?>
-<formdef id="15">
+<formdef id="3">
   <name>Mod&#232;le - Calcul du total epaid / virement</name>
   <url_name>modele-calcul-du-total-epaid-virement</url_name>
   <description>Il faut r&#233;sider obligatoirement dans la commune</description>
@@ -14,10 +14,10 @@
   <private_status_and_history>false</private_status_and_history>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category category_id="100">Mod&#232;les</category>
-  <workflow workflow_id="_default">Par d&#233;faut</workflow>
+  <category category_id="96">Mod&#232;les</category>
+  <workflow workflow_id="5">D&#233;partement Citoyen (avec redirection BOSA)</workflow>
   <max_field_id>29</max_field_id>
-  <last_modification user_id="1">2018-02-20 11:25:56</last_modification>
+  <last_modification user_id="1">2018-03-22 08:27:46</last_modification>
   <fields>
     <field>
       <label>Prix de la d&#233;marche</label>

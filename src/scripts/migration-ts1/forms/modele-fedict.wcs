@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-15"?>
-<formdef id="122">
+<formdef id="1">
   <name>Mod&#232;le - fedict</name>
   <url_name>modele-fedict</url_name>
   <keywords>modele</keywords>
   <internal_identifier>modele-fedict</internal_identifier>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
-  <disabled>false</disabled>
+  <disabled>true</disabled>
   <only_allow_one>false</only_allow_one>
   <enable_tracking_codes>true</enable_tracking_codes>
   <confirmation>true</confirmation>
@@ -14,9 +14,10 @@
   <private_status_and_history>false</private_status_and_history>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category>Mod&#232;les</category>
+  <category category_id="96">Mod&#232;les</category>
   <workflow workflow_id="_default">Par d&#233;faut</workflow>
-  <last_modification user_id="2">2017-11-06 15:55:09</last_modification>
+  <max_field_id>167</max_field_id>
+  <last_modification user_id="1">2018-03-22 08:25:21</last_modification>
   <fields>
     <field>
       <label>Comment obtenir mon document</label>
@@ -37,20 +38,14 @@
       </prefill><show_as_radio>True</show_as_radio>
       <data_source>
         <type>formula</type>
-        <value>script.namur("authentication_delivrance_items_visibility",{'datasource':data_source.mode_de_delivrance,'auth':session_user.verified_fields})</value>
+        <value>script.commune("authentication_delivrance_items_visibility",{'datasource':data_source.mode_de_delivrance,'auth':session_user.verified_fields})</value>
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>True</display_disabled_items>
       <id>167</id>
     </field>
-  </fields><user-roles>
-    <role>Debug</role>
-  </user-roles><backoffice-submission-roles>
-    <role>Debug</role>
-  </backoffice-submission-roles><roles>
-    <role role_id="00dfd6a44df84fa1bddd317bd60992e2" role_key="_agent-traitant-courrier">Agents ayant acc&#232;s aux fabriques</role>
-    <role role_id="dc7a8b65f8a6490da69c32316640c12b" role_key="_receiver">Agent Namur</role>
-  </roles><options>
-  <option varname="lien_fedict">https://mondossier.rrn.fgov.be/fr/certificate.do?tx=38&amp;language=FR</option>
-  </options>
+  </fields><roles />
+  <options>
+    <option varname="lien_fedict">https://mondossier.rrn.fgov.be/fr/certificate.do?tx=38&amp;language=FR</option>
+  </options><geolocations />
 </formdef>
