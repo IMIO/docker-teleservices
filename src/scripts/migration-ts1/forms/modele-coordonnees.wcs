@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-15"?>
-<formdef id="11">
+<formdef id="2">
   <name>Mod&#232;le - Coordonn&#233;es</name>
   <url_name>modele-coordonnees</url_name>
   <description>Il faut r&#233;sider obligatoirement dans la commune</description>
@@ -17,7 +17,7 @@
   <category category_id="96">Mod&#232;les</category>
   <workflow workflow_id="_default">Par d&#233;faut</workflow>
   <max_field_id>29</max_field_id>
-  <last_modification user_id="1">2018-01-18 10:16:25</last_modification>
+  <last_modification user_id="1">2018-03-22 08:24:32</last_modification>
   <fields>
     <field>
       <label>Nom</label>
@@ -135,11 +135,8 @@
       <type>comment</type>
       <id>13</id>
     </field>
-  </fields><user-roles>
-    <role role_id="30b7ecea9d604ccdac50d0f443f4d993">Citoyen (test)</role>
-  </user-roles><roles>
-    <role role_id="8a6818797e2843cb8faa53278c2d4daa" role_key="_receiver">Agents traitants - Population, etat civil</role>
-  </roles><options>
+  </fields><roles />
+  <options>
     <option varname="destinations_structured" />
     <option varname="motifs_disponibles_structured" />
     <option varname="cost">0</option>
