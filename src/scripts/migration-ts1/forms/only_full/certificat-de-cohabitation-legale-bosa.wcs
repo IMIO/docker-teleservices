@@ -257,7 +257,7 @@
   </roles><options>
     <option varname="paiement_en_ligne" />
     <option varname="paiement_en_ligne_structured" />
-    <option varname="cp_commune">4000</option>
+    <option varname="cp_commune" />
     <option varname="motifs_disponibles_structured" />
     <option varname="lien_bosa">https://mondossier.rrn.fgov.be/fr/certificate.do?tx=46</option>
     <option varname="destinations_structured" />
