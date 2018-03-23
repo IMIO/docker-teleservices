@@ -1,0 +1,2033 @@
+<?xml version="1.0" encoding="iso-8859-15"?>
+<formdef id="22">
+  <name>D&#233;claration de changement d'adresse</name>
+  <url_name>declaration-changement-d-adresse</url_name>
+  <description>&lt;p&gt;&lt;a href="description-changement-adresse"&gt;?&lt;/a&gt;&lt;/p&gt;</description>
+  <internal_identifier>declaration-de-changement-d-adresse-2</internal_identifier>
+  <discussion>false</discussion>
+  <detailed_emails>true</detailed_emails>
+  <disabled>false</disabled>
+  <only_allow_one>false</only_allow_one>
+  <enable_tracking_codes>false</enable_tracking_codes>
+  <confirmation>false</confirmation>
+  <always_advertise>true</always_advertise>
+  <private_status_and_history>false</private_status_and_history>
+  <has_captcha>false</has_captcha>
+  <skip_from_360_view>false</skip_from_360_view>
+  <category category_id="2">D&#233;partement citoyen</category>
+  <workflow workflow_id="8">Demande de documents</workflow>
+  <max_field_id>686</max_field_id>
+  <last_modification user_id="37">2018-02-23 15:11:19</last_modification>
+  <fields>
+    <field>
+      <label>Comment obtenir mon document</label>
+      <type>page</type>
+      <id>1</id>
+    </field><field>
+      <label>&lt;p&gt;La d&amp;eacute;claration de changement d'adresse peut vous &amp;ecirc;tre d&amp;eacute;livr&amp;eacute; soit par la ville de La Louvi&amp;egrave;re, soit, directement, par le site du f&amp;eacute;d&amp;eacute;ral. Veuillez choisir la formule qui vous agr&amp;eacute;e.&lt;/p&gt;&lt;p&gt;Elle doit &amp;ecirc;tre effectu&amp;eacute;e dans les 8 jours du d&amp;eacute;m&amp;eacute;nagement.&lt;/p&gt;</label>
+      <type>comment</type>
+      <id>2</id>
+    </field><field>
+      <label>Comment souhaitez-vous r&#233;aliser votre d&#233;claration de changement d'adresse.</label>
+      <type>item</type>
+      <required>True</required>
+      <hint>L'article 15, &#167;2 de l'arr&#234;t&#233; royal du 20 juillet 2001 relatif &#224; l'immatriculation de v&#233;hicules, qui pr&#233;voyait de noter le changement d'adresse sur le certificat d'immatriculation, a &#233;t&#233; modifi&#233; par l'arr&#234;t&#233; royal du 18 janvier 2018 (M.B. 09/02/2018).
+
+A partir du 19/02/2018, les administrations communales ne devront plus modifier l'adresse sur le certificat d'immatriculation lors d'un changement d'adresse.
+
+D&#233;sormais, l'adresse est adapt&#233;e automatiquement dans la banque de donn&#233;es de la Direction Immatriculation des V&#233;hicules (DIV) du SPF Mobilit&#233; &amp; Transports. L'ancienne adresse reste simplement sur le certificat d'immatriculation. Les services de contr&#244;le savent qu'ils doivent consulter la banque de donn&#233;es pour obtenir l'adresse correcte.</hint>
+      <varname>mode_delivrance</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><show_as_radio>True</show_as_radio>
+      <data_source>
+        <type>bosa_commune_mode_de_delivrance2</type>
+      </data_source><in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>3</id>
+    </field><field>
+      <label>Choisissez parmi les options suivantes</label>
+      <type>page</type>
+      <condition>form_var_mode_delivrance_raw != 'eid' and form_var_mode_delivrance_raw != 'etranger'</condition>
+      <post_conditions>
+        <post_condition>
+          <condition>var_rb_lst_choice != "Je quitte La Louvi&#232;re pour une autre commune."</condition>
+          <error_message>Dans ce cas, c'est &#224; votre nouvelle commune qu'il faut vous adresser pour les formalit&#233;s d'inscription.</error_message>
+        </post_condition>
+      </post_conditions><id>4</id>
+    </field><field>
+      <label>&lt;p&gt;&lt;u&gt;Traitement :&lt;/u&gt;&lt;/p&gt;&lt;ol&gt;&lt;li&gt;Compl&amp;eacute;tez votre demande via le formulaire ci-dessous.&lt;/li&gt;&lt;li&gt;Vous recevrez un r&amp;eacute;capitulatif de votre demande sur l'adresse e-mail communiqu&amp;eacute;e dans le formulaire.&lt;/li&gt;&lt;/ol&gt;</label>
+      <type>comment</type>
+      <id>5</id>
+    </field><field>
+      <label>Choisissez parmi les options suivantes</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>rb_lst_choice</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><show_as_radio>True</show_as_radio>
+      <data_source>
+        <type>ll_py_changement_adresse</type>
+      </data_source><in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>6</id>
+    </field><field>
+      <label>Je change de domicile de La Louvi&#232;re &#224; La Louvi&#232;re.</label>
+      <type>page</type>
+      <condition>var_rb_lst_choice_raw == "lalouviere_a_lalouviere"</condition>
+      <post_conditions>
+        <post_condition>
+          <condition>script.lalouviere("is_valid_belgian_nrn",{'nrn':form_var_nn_lg_lg,'can_be_none':'False'})</condition>
+          <error_message>Num&#233;ro national incorrect. Ce champ ne peut contenir que des chiffres (pas de ., -, +, -, ...).</error_message>
+        </post_condition><post_condition>
+          <condition>re.match("^(0|\\+|00)(\d{8,})$", form_var_tel_lg_lg)</condition>
+          <error_message>Num&#233;ro de t&#233;l&#233;phone : seuls les chiffres et le signe + sont accept&#233;s (pas de -, /, ...). Merci d'encoder minimum 9 chiffres pour le num&#233;ro de t&#233;l&#233;phone.</error_message>
+        </post_condition><post_condition>
+          <condition>script.lalouviere("check_birthday_in_nn",{'birthday':form_var_birthday,'nn':form_var_nn_lg_lg})</condition>
+          <error_message>Erreur : Veuillez v&#233;rifier votre date de naissance ou votre num&#233;ro national.</error_message>
+        </post_condition>
+      </post_conditions><id>7</id>
+    </field><field>
+      <label>&lt;p&gt;&lt;span style="line-height: 23.1111106872559px;"&gt;* = champ obligatoire&lt;/span&gt;&lt;/p&gt;</label>
+      <type>comment</type>
+      <id>8</id>
+    </field><field>
+      <label>Je change de domicile de La Louvi&#232;re &#224; La Louvi&#232;re : </label>
+      <type>title</type>
+      <id>9</id>
+    </field><field>
+      <label>Donn&#233;es du demandeur</label>
+      <type>title</type>
+      <id>10</id>
+    </field><field>
+      <label>Nom</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>nom_demandeur</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid 1-2 newline</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_last_name</value>
+      </prefill><id>11</id>
+    </field><field>
+      <label>Pr&#233;nom</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>prenom_demandeur</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid 1-2</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_first_name</value>
+      </prefill><id>12</id>
+    </field><field>
+      <label>Num&#233;ro national</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Le n&#176; d'identification au Registre national se trouve sur la carte d'identit&#233;.</hint>
+      <varname>nn_lg_lg</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2 newline</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_niss</value>
+      </prefill><validation>[0-9]*</validation>
+      <id>13</id>
+    </field><field>
+      <label>Date de naissance (ex.: 01/01/1980)</label>
+      <type>date</type>
+      <required>True</required>
+      <varname>birthday</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid 1-2</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_birthdate</value>
+      </prefill><minimum_is_future>False</minimum_is_future>
+      <date_in_the_past>True</date_in_the_past>
+      <date_can_be_today>False</date_can_be_today>
+      <id>14</id>
+    </field><field>
+      <label>&lt;u&gt;ANCIENNE ADRESSE &#192; LALOUVI&#200;RE &lt;/u&gt; :</label>
+      <type>subtitle</type>
+      <id>15</id>
+    </field><field>
+      <label>Rue</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2 newline</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_street</value>
+      </prefill><data_source>
+        <type>ll_lisrues_lalouviere</type>
+      </data_source><id>16</id>
+    </field><field>
+      <label>Num&#233;ro</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Ex.: 12, 145 et pas 1C ou 12/21 (compl&#233;ment &#224; indiquer dans le champ bo&#238;te)</hint>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-4</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_num_house</value>
+      </prefill><validation>[1-9][0-9]*</validation>
+      <id>17</id>
+    </field><field>
+      <label>Bo&#238;te</label>
+      <type>string</type>
+      <required>False</required>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-4</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_num_box</value>
+      </prefill><id>18</id>
+    </field><field>
+      <label>Code postal</label>
+      <type>item</type>
+      <required>True</required>
+      <hint>---</hint>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2 newline</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_zipcode</value>
+      </prefill><items>
+        <item>7100</item>
+      </items><show_as_radio>False</show_as_radio>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>19</id>
+    </field><field>
+      <label>Localit&#233;</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2 readonly</extra_css_class>
+      <prefill>
+        <type>string</type>
+        <value>LALOUVI&#200;RE</value>
+      </prefill><id>20</id>
+    </field><field>
+      <label>Adresse e-mail</label>
+      <type>email</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2 newline</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_email</value>
+      </prefill><id>21</id>
+    </field><field>
+      <label>T&#233;l&#233;phone ou GSM</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Ex. : 0475123456 ou 0032475123456 ou +32475123456</hint>
+      <varname>tel_lg_lg</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid 1-2</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_phone</value>
+      </prefill><id>22</id>
+    </field><field>
+      <label>Je m'installe &#224; La Louvi&#232;re et je viens d'une autre commune.</label>
+      <type>page</type>
+      <condition>var_rb_lst_choice_raw == "commune_a_lalouviere"</condition>
+      <post_conditions>
+        <post_condition>
+          <condition>((97 - int(form_var_nn_lg[:9]) % 97 == int(form_var_nn_lg[-2:])) or (97 - int(2 + form_var_nn_lg[:9]) % 97 == int(form_var_nn_lg[-2:])))</condition>
+          <error_message>Num&#233;ro national incorrect. Ce champ ne peut contenir que des chiffres (pas de ., -, +, -, ...).</error_message>
+        </post_condition><post_condition>
+          <condition>re.match("^(0|\\+|00)(\d{8,})$", form_var_tel_lg)</condition>
+          <error_message>Num&#233;ro de t&#233;l&#233;phone : seuls les chiffres et le signe + sont accept&#233;s (pas de -, /, ...). Merci d'encoder minimum 9 chiffres pour le num&#233;ro de t&#233;l&#233;phone.</error_message>
+        </post_condition>
+      </post_conditions><id>23</id>
+    </field><field>
+      <label>&lt;p&gt;&lt;span style="line-height: 23.1111106872559px;"&gt;* = champ obligatoire&lt;/span&gt;&lt;/p&gt;</label>
+      <type>comment</type>
+      <id>24</id>
+    </field><field>
+      <label>Je m'installe &#224; La Louvi&#232;re et je viens d'une autre commune :</label>
+      <type>title</type>
+      <id>25</id>
+    </field><field>
+      <label>Donn&#233;es du demandeur</label>
+      <type>title</type>
+      <id>26</id>
+    </field><field>
+      <label>Nom</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>nom_demandeur_new_lg_belgique</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2 newline</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_last_name</value>
+      </prefill><id>27</id>
+    </field><field>
+      <label>Pr&#233;nom</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>prenom_demandeur_new_lg_belgique</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_first_name</value>
+      </prefill><id>28</id>
+    </field><field>
+      <label>Num&#233;ro national</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Le n&#176; d'identification au Registre national se trouve sur la carte d'identit&#233;.</hint>
+      <varname>nn_lg</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2 newline</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_niss</value>
+      </prefill><validation>[0-9]*</validation>
+      <id>29</id>
+    </field><field>
+      <label>Date de naissance (ex.: 01/01/1980)</label>
+      <type>date</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_birthdate</value>
+      </prefill><minimum_is_future>False</minimum_is_future>
+      <date_in_the_past>True</date_in_the_past>
+      <date_can_be_today>False</date_can_be_today>
+      <id>30</id>
+    </field><field>
+      <label>&lt;u&gt;ANCIENNE ADRESSE&lt;/u&gt; :</label>
+      <type>subtitle</type>
+      <id>31</id>
+    </field><field>
+      <label>Rue</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2 newline</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><data_source>
+        <type>ll_lisrues</type>
+      </data_source><id>32</id>
+    </field><field>
+      <label>Num&#233;ro</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Ex.: 12, 145 et pas 1C ou 12/21 (compl&#233;ment &#224; indiquer dans le champ bo&#238;te)</hint>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-4</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><validation>[1-9][0-9]*</validation>
+      <id>33</id>
+    </field><field>
+      <label>Bo&#238;te</label>
+      <type>string</type>
+      <required>False</required>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-4</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>34</id>
+    </field><field>
+      <label>Code postal</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2 newline</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><validation>[0-9]*</validation>
+      <id>35</id>
+    </field><field>
+      <label>Localit&#233;</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>36</id>
+    </field><field>
+      <label>Adresse e-mail</label>
+      <type>email</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2 newline</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_email</value>
+      </prefill><id>37</id>
+    </field><field>
+      <label>T&#233;l&#233;phone ou GSM</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Ex. : 0475123456 ou 0032475123456 ou +32475123456</hint>
+      <varname>tel_lg</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>38</id>
+    </field><field>
+      <label>Je suis Belge et je m'installe &#224; La Louvi&#232;re, venant de l'&#233;tranger.</label>
+      <type>page</type>
+      <condition>var_rb_lst_choice_raw == "etranger_a_lalouviere"</condition>
+      <post_conditions>
+        <post_condition>
+          <condition>((97 - int(form_var_nn_lg_etr[:9]) % 97 == int(form_var_nn_lg_etr[-2:])) or (97 - int(2 + form_var_nn_lg_etr[:9]) % 97 == int(form_var_nn_lg_etr[-2:])))</condition>
+          <error_message>Num&#233;ro national incorrect. Ce champ ne peut contenir que des chiffres (pas de ., -, +, -, ...).</error_message>
+        </post_condition><post_condition>
+          <condition>re.match("^(0|\\+|00)(\d{8,})$", form_var_tel_lg_etr)</condition>
+          <error_message>Num&#233;ro de t&#233;l&#233;phone : seuls les chiffres et le signe + sont accept&#233;s (pas de -, /, ...). Merci d'encoder minimum 9 chiffres pour le num&#233;ro de t&#233;l&#233;phone.</error_message>
+        </post_condition>
+      </post_conditions><id>39</id>
+    </field><field>
+      <label>&lt;p&gt;&lt;span style="line-height: 23.1111106872559px;"&gt;* = champ obligatoire&lt;/span&gt;&lt;/p&gt;</label>
+      <type>comment</type>
+      <id>40</id>
+    </field><field>
+      <label>Je suis Belge et je m'installe &#224; La Louvi&#232;re, venant de l'&#233;tranger :</label>
+      <type>title</type>
+      <id>41</id>
+    </field><field>
+      <label>Donn&#233;es du demandeur</label>
+      <type>title</type>
+      <id>42</id>
+    </field><field>
+      <label>Nom</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>nom_demandeur_new_lg_etranger</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2 newline</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_last_name</value>
+      </prefill><id>43</id>
+    </field><field>
+      <label>Pr&#233;nom</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>prenom_demandeur_new_lg_etranger</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_first_name</value>
+      </prefill><id>44</id>
+    </field><field>
+      <label>Num&#233;ro national</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Le n&#176; d'identification au Registre national se trouve sur la carte d'identit&#233;.</hint>
+      <varname>nn_lg_etr</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2 newline</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_niss</value>
+      </prefill><validation>[0-9]*</validation>
+      <id>45</id>
+    </field><field>
+      <label>Date de naissance (ex.: 01/01/1980)</label>
+      <type>date</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_birthdate</value>
+      </prefill><minimum_is_future>False</minimum_is_future>
+      <date_in_the_past>True</date_in_the_past>
+      <date_can_be_today>False</date_can_be_today>
+      <id>46</id>
+    </field><field>
+      <label>&lt;u&gt;ANCIENNE ADRESSE&lt;/u&gt; :</label>
+      <type>subtitle</type>
+      <id>47</id>
+    </field><field>
+      <label>Rue</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2 newline</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><data_source>
+        <type>ll_lisrues</type>
+      </data_source><id>48</id>
+    </field><field>
+      <label>Compl&#233;ment d'adresse</label>
+      <type>string</type>
+      <required>False</required>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>49</id>
+    </field><field>
+      <label>Num&#233;ro</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Ex.: 12, 145 et pas 1C ou 12/21 (compl&#233;ment &#224; indiquer dans le champ bo&#238;te)</hint>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2 newline</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><validation>[0-9]*</validation>
+      <id>50</id>
+    </field><field>
+      <label>Bo&#238;te</label>
+      <type>string</type>
+      <required>False</required>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>51</id>
+    </field><field>
+      <label>Code postal</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-4 newline</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>52</id>
+    </field><field>
+      <label>Localit&#233;</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-4</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>53</id>
+    </field><field>
+      <label>Pays</label>
+      <type>item</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>---</item>
+      </items><show_as_radio>False</show_as_radio>
+      <data_source>
+        <type>ll_pays</type>
+      </data_source><in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>54</id>
+    </field><field>
+      <label>Adresse e-mail</label>
+      <type>email</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2 newline</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_email</value>
+      </prefill><id>55</id>
+    </field><field>
+      <label>T&#233;l&#233;phone ou GSM</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Ex. : 0475123456 ou 0032475123456 ou +32475123456</hint>
+      <varname>tel_lg_etr</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_phone</value>
+      </prefill><id>56</id>
+    </field><field>
+      <label>Je quitte La Louvi&#232;re pour un autre pays.</label>
+      <type>page</type>
+      <condition>form_var_mode_delivrance_raw == 'etranger' </condition>
+      <post_conditions>
+        <post_condition>
+          <condition>((97 - int(form_var_nn_lg_out[:9]) % 97 == int(form_var_nn_lg_out[-2:])) or (97 - int("2" + form_var_nn_lg_out[:9]) % 97 == int(form_var_nn_lg_out[-2:])))</condition>
+          <error_message>Num&#233;ro national incorrect. Ce champ ne peut contenir que des chiffres (pas de ., -, +, -, ...).</error_message>
+        </post_condition><post_condition>
+          <condition>re.match("^(0|\\+|00)(\d{8,})$", form_var_tel_lg_out)</condition>
+          <error_message>Num&#233;ro de t&#233;l&#233;phone : seuls les chiffres et le signe + sont accept&#233;s (pas de -, /, ...). Merci d'encoder minimum 9 chiffres pour le num&#233;ro de t&#233;l&#233;phone.</error_message>
+        </post_condition>
+      </post_conditions><id>57</id>
+    </field><field>
+      <label>&lt;p&gt;&lt;span style="line-height: 23.1111106872559px;"&gt;* = champ obligatoire&lt;/span&gt;&lt;/p&gt;</label>
+      <type>comment</type>
+      <id>58</id>
+    </field><field>
+      <label>Je quitte La Louvi&#232;re pour un autre pays :</label>
+      <type>title</type>
+      <id>59</id>
+    </field><field>
+      <label>Donn&#233;es du demandeur</label>
+      <type>title</type>
+      <id>60</id>
+    </field><field>
+      <label>Nom</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>nom_demandeur_rad</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2 newline</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_last_name</value>
+      </prefill><id>61</id>
+    </field><field>
+      <label>Pr&#233;nom</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>prenom_demandeur_rad</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_first_name</value>
+      </prefill><id>62</id>
+    </field><field>
+      <label>Num&#233;ro national</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Le n&#176; d'identification au Registre national se trouve sur la carte d'identit&#233;.</hint>
+      <varname>nn_lg_out</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2 newline</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_niss</value>
+      </prefill><validation>[0-9]*</validation>
+      <id>63</id>
+    </field><field>
+      <label>Date de naissance (ex.: 01/01/1980)</label>
+      <type>date</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_birthdate</value>
+      </prefill><minimum_is_future>False</minimum_is_future>
+      <date_in_the_past>True</date_in_the_past>
+      <date_can_be_today>False</date_can_be_today>
+      <id>64</id>
+    </field><field>
+      <label>&lt;u&gt;DERNI&#200;RE ADRESSE &#192; LALOUVI&#200;RE&lt;/u&gt; :</label>
+      <type>subtitle</type>
+      <id>65</id>
+    </field><field>
+      <label>Rue</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2 newline</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_street</value>
+      </prefill><data_source>
+        <type>ll_lisrues_lalouviere</type>
+      </data_source><id>66</id>
+    </field><field>
+      <label>Num&#233;ro</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Ex.: 12, 145 et pas 1C ou 12/21 (compl&#233;ment &#224; indiquer dans le champ bo&#238;te)</hint>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-4</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_num_house</value>
+      </prefill><validation>[1-9][0-9]*</validation>
+      <id>67</id>
+    </field><field>
+      <label>Bo&#238;te</label>
+      <type>string</type>
+      <required>False</required>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-4</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_num_box</value>
+      </prefill><id>68</id>
+    </field><field>
+      <label>Code postal</label>
+      <type>item</type>
+      <required>True</required>
+      <hint>---</hint>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2 newline</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_zipcode</value>
+      </prefill><items>
+        <item>7100</item>
+      </items><show_as_radio>False</show_as_radio>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>69</id>
+    </field><field>
+      <label>Localit&#233;</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2 readonly</extra_css_class>
+      <prefill>
+        <type>string</type>
+        <value>LALOUVI&#200;RE</value>
+      </prefill><id>70</id>
+    </field><field>
+      <label>Adresse e-mail</label>
+      <type>email</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2 newline</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_email</value>
+      </prefill><id>71</id>
+    </field><field>
+      <label>T&#233;l&#233;phone ou GSM</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Ex. : 0475123456 ou 0032475123456 ou +32475123456</hint>
+      <varname>tel_lg_out</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_phone</value>
+      </prefill><id>72</id>
+    </field><field>
+      <label>Nouvelle adresse &#224; La Louvi&#232;re</label>
+      <type>page</type>
+      <condition>var_rb_lst_choice_raw in ["lalouviere_a_lalouviere","etranger_a_lalouviere","commune_a_lalouviere"]</condition>
+      <id>73</id>
+    </field><field>
+      <label>&lt;u&gt;NOUVELLE ADRESSE &#192; LA LOUVI&#200;RE&lt;/u&gt; :</label>
+      <type>title</type>
+      <id>74</id>
+    </field><field>
+      <label>Rue</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>rue_demandeur</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2 newline</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>75</id>
+    </field><field>
+      <label>Num&#233;ro</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Ex.: 12, 145 et pas 1C ou 12/21 (compl&#233;ment &#224; indiquer dans le champ bo&#238;te)</hint>
+      <varname>numero_demandeur</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><validation>[0-9]*</validation>
+      <id>76</id>
+    </field><field>
+      <label>Bo&#238;te</label>
+      <type>string</type>
+      <required>False</required>
+      <varname>boite_demandeur</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-3 newline</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>77</id>
+    </field><field>
+      <label>Etage</label>
+      <type>string</type>
+      <required>False</required>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-3</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>78</id>
+    </field><field>
+      <label>Localit&#233;</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>localite_demandeur</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-3</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><show_as_radio>False</show_as_radio>
+      <data_source>
+        <type>listes_des_communes_et_codes_postaux</type>
+      </data_source><in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>80</id>
+    </field><field>
+      <label>S'agit-il d'une nouvelle construction :</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>is_nouvelle_construction</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Non</item>
+        <item>Oui</item>
+      </items><show_as_radio>False</show_as_radio>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>81</id>
+    </field><field>
+      <label>Je d&#233;clare : </label>
+      <type>item</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>&#202;tre seul &#224; cette nouvelle adresse</item>
+        <item>Rejoindre la personne actuellement inscrite &#224; cette nouvelle adresse</item>
+        <item>Rejoindre une personne en demande de changement pour cette nouvelle adresse</item>
+      </items><show_as_radio>False</show_as_radio>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>82</id>
+    </field><field>
+      <label>D'autres personnes, habitant &#224; mon ancienne adresse, d&#233;m&#233;nagent-elles aussi avec vous?</label>
+      <type>item</type>
+      <required>True</required>
+      <hint>Attention, si une personne habite &#224; une autre adresse et que vous souhaitez emm&#233;nager ensemble, vous devez introduire une demande s&#233;par&#233;e.</hint>
+      <varname>rb_oui_1</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><show_as_radio>True</show_as_radio>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>83</id>
+    </field><field>
+      <label>Informations sur le 1er membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>page</type>
+      <condition>var_rb_oui_1== "Oui"</condition>
+      <post_conditions>
+        <post_condition>
+          <condition>((97 - int(form_var_nn_me_1[:9]) % 97 == int(form_var_nn_me_1[-2:])) or (97 - int("2" + form_var_nn_me_1[:9]) % 97 == int(form_var_nn_me_1[-2:])))</condition>
+          <error_message>Num&#233;ro national incorrect. Ce champ ne peut contenir que des chiffres (pas de ., -, +, -, ...).</error_message>
+        </post_condition>
+      </post_conditions><id>87</id>
+    </field><field>
+      <label>Coordonn&#233;es du 1er membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>title</type>
+      <id>88</id>
+    </field><field>
+      <label>Nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <id>89</id>
+    </field><field>
+      <label>Pr&#233;nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <id>90</id>
+    </field><field>
+      <label>Num&#233;ro national</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Le n&#176; d'identification au Registre national se trouve sur la carte d'identit&#233;.</hint>
+      <varname>nn_me_1</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><validation>[0-9]*</validation>
+      <id>91</id>
+    </field><field>
+      <label>Voulez-vous ajouter un autre membre de votre m&#233;nage pour le changement d'adresse?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>rb_oui_2</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><show_as_radio>True</show_as_radio>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>92</id>
+    </field><field>
+      <label>Informations sur le 2&#232;me membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>page</type>
+      <condition>var_rb_oui_2== "Oui"</condition>
+      <post_conditions>
+        <post_condition>
+          <condition>((97 - int(form_var_nn_me_2[:9]) % 97 == int(form_var_nn_me_2[-2:])) or (97 - int("2" + form_var_nn_me_2[:9]) % 97 == int(form_var_nn_me_2[-2:])))</condition>
+          <error_message>Num&#233;ro national incorrect. Ce champ ne peut contenir que des chiffres (pas de ., -, +, -, ...).</error_message>
+        </post_condition>
+      </post_conditions><id>93</id>
+    </field><field>
+      <label>Coordonn&#233;es du 2&#232;me membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>title</type>
+      <id>94</id>
+    </field><field>
+      <label>Nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <id>95</id>
+    </field><field>
+      <label>Pr&#233;nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <id>96</id>
+    </field><field>
+      <label>Num&#233;ro national</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Le n&#176; d'identification au Registre national se trouve sur la carte d'identit&#233;.</hint>
+      <varname>nn_me_2</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><validation>[0-9]*</validation>
+      <id>97</id>
+    </field><field>
+      <label>Voulez-vous ajouter un autre membre de votre m&#233;nage pour le changement d'adresse?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>rb_oui_3</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><show_as_radio>True</show_as_radio>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>98</id>
+    </field><field>
+      <label>Informations sur le 3&#232;me membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>page</type>
+      <condition>var_rb_oui_3== "Oui"</condition>
+      <post_conditions>
+        <post_condition>
+          <condition>((97 - int(form_var_nn_me_3[:9]) % 97 == int(form_var_nn_me_3[-2:])) or (97 - int("2" + form_var_nn_me_3[:9]) % 97 == int(form_var_nn_me_3[-2:])))</condition>
+          <error_message>Num&#233;ro national incorrect. Ce champ ne peut contenir que des chiffres (pas de ., -, +, -, ...).</error_message>
+        </post_condition>
+      </post_conditions><id>99</id>
+    </field><field>
+      <label>Coordonn&#233;es du 3&#232;me membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>title</type>
+      <id>100</id>
+    </field><field>
+      <label>Nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <id>101</id>
+    </field><field>
+      <label>Pr&#233;nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <id>102</id>
+    </field><field>
+      <label>Num&#233;ro national</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Le n&#176; d'identification au Registre national se trouve sur la carte d'identit&#233;.</hint>
+      <varname>nn_me_3</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><validation>[0-9]*</validation>
+      <id>103</id>
+    </field><field>
+      <label>Voulez-vous ajouter un autre membre de votre m&#233;nage pour le changement d'adresse?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>rb_oui_4</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><show_as_radio>True</show_as_radio>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>104</id>
+    </field><field>
+      <label>Informations sur le 4&#232;me membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>page</type>
+      <condition>var_rb_oui_4== "Oui"</condition>
+      <post_conditions>
+        <post_condition>
+          <condition>((97 - int(form_var_nn_me_4[:9]) % 97 == int(form_var_nn_me_4[-2:])) or (97 - int("2" + form_var_nn_me_4[:9]) % 97 == int(form_var_nn_me_4[-2:])))</condition>
+          <error_message>Num&#233;ro national incorrect. Ce champ ne peut contenir que des chiffres (pas de ., -, +, -, ...).</error_message>
+        </post_condition>
+      </post_conditions><id>105</id>
+    </field><field>
+      <label>Coordonn&#233;es du 4&#232;me membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>title</type>
+      <id>106</id>
+    </field><field>
+      <label>Nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><id>107</id>
+    </field><field>
+      <label>Pr&#233;nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><id>108</id>
+    </field><field>
+      <label>Num&#233;ro national</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Le n&#176; d'identification au Registre national se trouve sur la carte d'identit&#233;.</hint>
+      <varname>nn_me_4</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><validation>[0-9]*</validation>
+      <id>109</id>
+    </field><field>
+      <label>Voulez-vous ajouter un autre membre de votre m&#233;nage pour le changement d'adresse?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>rb_oui_5</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><show_as_radio>True</show_as_radio>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>110</id>
+    </field><field>
+      <label>Informations sur le 5&#232;me membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>page</type>
+      <condition>var_rb_oui_5== "Oui"</condition>
+      <post_conditions>
+        <post_condition>
+          <condition>((97 - int(form_var_nn_me_5[:9]) % 97 == int(form_var_nn_me_5[-2:])) or (97 - int("2" + form_var_nn_me_5[:9]) % 97 == int(form_var_nn_me_5[-2:])))</condition>
+          <error_message>Num&#233;ro national incorrect. Ce champ ne peut contenir que des chiffres (pas de ., -, +, -, ...).</error_message>
+        </post_condition>
+      </post_conditions><id>111</id>
+    </field><field>
+      <label>Coordonn&#233;es du 5&#232;me membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>title</type>
+      <id>112</id>
+    </field><field>
+      <label>Nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><id>113</id>
+    </field><field>
+      <label>Pr&#233;nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><id>114</id>
+    </field><field>
+      <label>Num&#233;ro national</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Le n&#176; d'identification au Registre national se trouve sur la carte d'identit&#233;.</hint>
+      <varname>nn_me_5</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><validation>[0-9]*</validation>
+      <id>115</id>
+    </field><field>
+      <label>Voulez-vous ajouter un autre membre de votre m&#233;nage pour le changement d'adresse?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>rb_oui_6</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><show_as_radio>True</show_as_radio>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>116</id>
+    </field><field>
+      <label>Informations sur le 6&#232;me membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>page</type>
+      <condition>var_rb_oui_6== "Oui"</condition>
+      <post_conditions>
+        <post_condition>
+          <condition>((97 - int(form_var_nn_me_6[:9]) % 97 == int(form_var_nn_me_6[-2:])) or (97 - int("2" + form_var_nn_me_6[:9]) % 97 == int(form_var_nn_me_6[-2:])))</condition>
+          <error_message>Num&#233;ro national incorrect. Ce champ ne peut contenir que des chiffres (pas de ., -, +, -, ...).</error_message>
+        </post_condition>
+      </post_conditions><id>117</id>
+    </field><field>
+      <label>Coordonn&#233;es du 6&#232;me membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>title</type>
+      <id>118</id>
+    </field><field>
+      <label>Nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><id>119</id>
+    </field><field>
+      <label>Pr&#233;nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><id>120</id>
+    </field><field>
+      <label>Num&#233;ro national</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Le n&#176; d'identification au Registre national se trouve sur la carte d'identit&#233;.</hint>
+      <varname>nn_me_6</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><validation>[0-9]*</validation>
+      <id>121</id>
+    </field><field>
+      <label>Voulez-vous ajouter un autre membre de votre m&#233;nage pour le changement d'adresse?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>rb_oui_7</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><show_as_radio>True</show_as_radio>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>122</id>
+    </field><field>
+      <label>Informations sur le 7&#232;me membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>page</type>
+      <condition>var_rb_oui_7== "Oui"</condition>
+      <post_conditions>
+        <post_condition>
+          <condition>((97 - int(form_var_nn_me_7[:9]) % 97 == int(form_var_nn_me_7[-2:])) or (97 - int("2" + form_var_nn_me_7[:9]) % 97 == int(form_var_nn_me_7[-2:])))</condition>
+          <error_message>Num&#233;ro national incorrect. Ce champ ne peut contenir que des chiffres (pas de ., -, +, -, ...).</error_message>
+        </post_condition>
+      </post_conditions><id>123</id>
+    </field><field>
+      <label>Coordonn&#233;es du 7&#232;me membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>title</type>
+      <id>124</id>
+    </field><field>
+      <label>Nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><id>125</id>
+    </field><field>
+      <label>Pr&#233;nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><id>126</id>
+    </field><field>
+      <label>Num&#233;ro national</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Le n&#176; d'identification au Registre national se trouve sur la carte d'identit&#233;.</hint>
+      <varname>nn_me_7</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><validation>[0-9]*</validation>
+      <id>127</id>
+    </field><field>
+      <label>Voulez-vous ajouter un autre membre de votre m&#233;nage pour le changement d'adresse?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>rb_oui_8</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><show_as_radio>True</show_as_radio>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>128</id>
+    </field><field>
+      <label>Informations sur le 8&#232;me membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>page</type>
+      <condition>var_rb_oui_8== "Oui"</condition>
+      <post_conditions>
+        <post_condition>
+          <condition>((97 - int(form_var_nn_me_8[:9]) % 97 == int(form_var_nn_me_8[-2:])) or (97 - int("2" + form_var_nn_me_8[:9]) % 97 == int(form_var_nn_me_8[-2:])))</condition>
+          <error_message>Num&#233;ro national incorrect. Ce champ ne peut contenir que des chiffres (pas de ., -, +, -, ...).</error_message>
+        </post_condition>
+      </post_conditions><id>129</id>
+    </field><field>
+      <label>Coordonn&#233;es du 8&#232;me membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>title</type>
+      <id>130</id>
+    </field><field>
+      <label>Nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><id>131</id>
+    </field><field>
+      <label>Pr&#233;nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><id>132</id>
+    </field><field>
+      <label>Num&#233;ro national</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Le n&#176; d'identification au Registre national se trouve sur la carte d'identit&#233;.</hint>
+      <varname>nn_me_8</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><validation>[0-9]*</validation>
+      <id>133</id>
+    </field><field>
+      <label>Voulez-vous ajouter un autre membre de votre m&#233;nage pour le changement d'adresse?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>rb_oui_9</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><show_as_radio>True</show_as_radio>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>134</id>
+    </field><field>
+      <label>Informations sur le 9&#232;me membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>page</type>
+      <condition>var_rb_oui_9== "Oui"</condition>
+      <post_conditions>
+        <post_condition>
+          <condition>((97 - int(form_var_nn_me_9[:9]) % 97 == int(form_var_nn_me_9[-2:])) or (97 - int("2" + form_var_nn_me_9[:9]) % 97 == int(form_var_nn_me_9[-2:])))</condition>
+          <error_message>Num&#233;ro national incorrect. Ce champ ne peut contenir que des chiffres (pas de ., -, +, -, ...).</error_message>
+        </post_condition>
+      </post_conditions><id>135</id>
+    </field><field>
+      <label>Coordonn&#233;es du 9&#232;me membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>title</type>
+      <id>136</id>
+    </field><field>
+      <label>Nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><id>137</id>
+    </field><field>
+      <label>Pr&#233;nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><id>138</id>
+    </field><field>
+      <label>Num&#233;ro national</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Le n&#176; d'identification au Registre national se trouve sur la carte d'identit&#233;.</hint>
+      <varname>nn_me_9</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><validation>[0-9]*</validation>
+      <id>139</id>
+    </field><field>
+      <label>Voulez-vous ajouter un autre membre de votre m&#233;nage pour le changement d'adresse?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>rb_oui_10</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><show_as_radio>True</show_as_radio>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>140</id>
+    </field><field>
+      <label>Informations sur le 10&#232;me membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>page</type>
+      <condition>var_rb_oui_10== "Oui"</condition>
+      <post_conditions>
+        <post_condition>
+          <condition>((97 - int(form_var_nn_me_10[:9]) % 97 == int(form_var_nn_me_10[-2:])) or (97 - int("2" + form_var_nn_me_10[:9]) % 97 == int(form_var_nn_me_10[-2:])))</condition>
+          <error_message>Num&#233;ro national incorrect. Ce champ ne peut contenir que des chiffres (pas de ., -, +, -, ...).</error_message>
+        </post_condition>
+      </post_conditions><id>141</id>
+    </field><field>
+      <label>Coordonn&#233;es du 10&#232;me membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>title</type>
+      <id>142</id>
+    </field><field>
+      <label>Nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><id>143</id>
+    </field><field>
+      <label>Pr&#233;nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><id>144</id>
+    </field><field>
+      <label>Num&#233;ro national</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Le n&#176; d'identification au Registre national se trouve sur la carte d'identit&#233;.</hint>
+      <varname>nn_me_10</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><validation>[0-9]*</validation>
+      <id>145</id>
+    </field><field>
+      <label>Nouvelle adresse &#224; l'&#233;tranger</label>
+      <type>page</type>
+      <condition>form_var_mode_delivrance_raw == 'etranger' </condition>
+      <id>146</id>
+    </field><field>
+      <label>&lt;u&gt;NOUVELLE ADRESSE &#192; L'&#201;TRANGER&lt;/u&gt; :</label>
+      <type>title</type>
+      <id>147</id>
+    </field><field>
+      <label>Rue</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>rue_demandeur_rad</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2 newline</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><data_source>
+        <type>ll_lisrues</type>
+      </data_source><id>148</id>
+    </field><field>
+      <label>Compl&#233;ment d'adresse</label>
+      <type>string</type>
+      <required>False</required>
+      <varname>complement_adresse_demandeur_rad</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>149</id>
+    </field><field>
+      <label>Num&#233;ro</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Ex.: 12, 145 et pas 1C ou 12/21 (compl&#233;ment &#224; indiquer dans le champ bo&#238;te)</hint>
+      <varname>numero_demandeur_rad</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2 newline</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><validation>[0-9]*</validation>
+      <id>150</id>
+    </field><field>
+      <label>Bo&#238;te</label>
+      <type>string</type>
+      <required>False</required>
+      <varname>boite_demandeur_rad</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-4</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>151</id>
+    </field><field>
+      <label>Code postal</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>codepostal_demandeur_rad</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-4 newline</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>152</id>
+    </field><field>
+      <label>Localit&#233;</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>localite_demandeur_rad</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-4</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>153</id>
+    </field><field>
+      <label>Pays</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>pays_demandeur_rad</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>---</item>
+      </items><show_as_radio>False</show_as_radio>
+      <data_source>
+        <type>ll_pays</type>
+      </data_source><in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>154</id>
+    </field><field>
+      <label>D'autres personnes, de votre m&#233;nage actuel, d&#233;m&#233;nagent-elles aussi avec vous?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>rb_oui_rad_1</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><show_as_radio>True</show_as_radio>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>155</id>
+    </field><field>
+      <label>Informations sur le 1er membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>page</type>
+      <condition>var_rb_oui_rad_1== "Oui"</condition>
+      <post_conditions>
+        <post_condition>
+          <condition>((97 - int(form_var_nn_me_1_rad[:9]) % 97 == int(form_var_nn_me_1_rad[-2:])) or (97 - int("2" + form_var_nn_me_1_rad[:9]) % 97 == int(form_var_nn_me_1_rad[-2:])))</condition>
+          <error_message>Num&#233;ro national incorrect. Ce champ ne peut contenir que des chiffres (pas de ., -, +, -, ...).</error_message>
+        </post_condition>
+      </post_conditions><id>156</id>
+    </field><field>
+      <label>Coordonn&#233;es du 1er membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>title</type>
+      <id>157</id>
+    </field><field>
+      <label>Nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <id>158</id>
+    </field><field>
+      <label>Pr&#233;nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <id>159</id>
+    </field><field>
+      <label>Num&#233;ro national</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Le n&#176; d'identification au Registre national se trouve sur la carte d'identit&#233;.</hint>
+      <varname>nn_me_1_rad</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><validation>[0-9]*</validation>
+      <id>160</id>
+    </field><field>
+      <label>Voulez-vous ajouter un autre membre de votre m&#233;nage pour la changement d'adresse?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>rb_oui_rad_2</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><show_as_radio>True</show_as_radio>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>161</id>
+    </field><field>
+      <label>Informations sur le 2&#232;me membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>page</type>
+      <condition>var_rb_oui_rad_2== "Oui"</condition>
+      <post_conditions>
+        <post_condition>
+          <condition>((97 - int(form_var_nn_me_2_rad[:9]) % 97 == int(form_var_nn_me_2_rad[-2:])) or (97 - int("2" + form_var_nn_me_2_rad[:9]) % 97 == int(form_var_nn_me_2_rad[-2:])))</condition>
+          <error_message>Num&#233;ro national incorrect. Ce champ ne peut contenir que des chiffres (pas de ., -, +, -, ...).</error_message>
+        </post_condition>
+      </post_conditions><id>162</id>
+    </field><field>
+      <label>Coordonn&#233;es du 2&#232;me membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>title</type>
+      <id>163</id>
+    </field><field>
+      <label>Nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <id>164</id>
+    </field><field>
+      <label>Pr&#233;nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <id>165</id>
+    </field><field>
+      <label>Num&#233;ro national</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Le n&#176; d'identification au Registre national se trouve sur la carte d'identit&#233;.</hint>
+      <varname>nn_me_2_rad</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><validation>[0-9]*</validation>
+      <id>166</id>
+    </field><field>
+      <label>Voulez-vous ajouter un autre membre de votre m&#233;nage pour la changement d'adresse?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>rb_oui_rad_3</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><show_as_radio>True</show_as_radio>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>167</id>
+    </field><field>
+      <label>Informations sur le 3&#232;me membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>page</type>
+      <condition>var_rb_oui_rad_3== "Oui"</condition>
+      <post_conditions>
+        <post_condition>
+          <condition>((97 - int(form_var_nn_me_3_rad[:9]) % 97 == int(form_var_nn_me_3_rad[-2:])) or (97 - int("2" + form_var_nn_me_3_rad[:9]) % 97 == int(form_var_nn_me_3_rad[-2:])))</condition>
+          <error_message>Num&#233;ro national incorrect. Ce champ ne peut contenir que des chiffres (pas de ., -, +, -, ...).</error_message>
+        </post_condition>
+      </post_conditions><id>168</id>
+    </field><field>
+      <label>Coordonn&#233;es du 3&#232;me membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>title</type>
+      <id>169</id>
+    </field><field>
+      <label>Nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <id>170</id>
+    </field><field>
+      <label>Pr&#233;nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <id>171</id>
+    </field><field>
+      <label>Num&#233;ro national</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Le n&#176; d'identification au Registre national se trouve sur la carte d'identit&#233;.</hint>
+      <varname>nn_me_3_rad</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><validation>[0-9]*</validation>
+      <id>172</id>
+    </field><field>
+      <label>Voulez-vous ajouter un autre membre de votre m&#233;nage pour la changement d'adresse?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>rb_oui_rad_4</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><show_as_radio>True</show_as_radio>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>173</id>
+    </field><field>
+      <label>Informations sur le 4&#232;me membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>page</type>
+      <condition>var_rb_oui_rad_4== "Oui"</condition>
+      <post_conditions>
+        <post_condition>
+          <condition>((97 - int(form_var_nn_me_4_rad[:9]) % 97 == int(form_var_nn_me_4_rad[-2:])) or (97 - int("2" + form_var_nn_me_4_rad[:9]) % 97 == int(form_var_nn_me_4_rad[-2:])))</condition>
+          <error_message>Num&#233;ro national incorrect. Ce champ ne peut contenir que des chiffres (pas de ., -, +, -, ...).</error_message>
+        </post_condition>
+      </post_conditions><id>174</id>
+    </field><field>
+      <label>Coordonn&#233;es du 4&#232;me membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>title</type>
+      <id>175</id>
+    </field><field>
+      <label>Nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <id>176</id>
+    </field><field>
+      <label>Pr&#233;nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <id>177</id>
+    </field><field>
+      <label>Num&#233;ro national</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Le n&#176; d'identification au Registre national se trouve sur la carte d'identit&#233;.</hint>
+      <varname>nn_me_4_rad</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><validation>[0-9]*</validation>
+      <id>178</id>
+    </field><field>
+      <label>Voulez-vous ajouter un autre membre de votre m&#233;nage pour la changement d'adresse?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>rb_oui_rad_5</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><show_as_radio>True</show_as_radio>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>179</id>
+    </field><field>
+      <label>Informations sur le 5&#232;me membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>page</type>
+      <condition>var_rb_oui_rad_5== "Oui"</condition>
+      <post_conditions>
+        <post_condition>
+          <condition>((97 - int(form_var_nn_me_5_rad[:9]) % 97 == int(form_var_nn_me_5_rad[-2:])) or (97 - int("2" + form_var_nn_me_5_rad[:9]) % 97 == int(form_var_nn_me_5_rad[-2:])))</condition>
+          <error_message>Num&#233;ro national incorrect. Ce champ ne peut contenir que des chiffres (pas de ., -, +, -, ...).</error_message>
+        </post_condition>
+      </post_conditions><id>180</id>
+    </field><field>
+      <label>Coordonn&#233;es du 5&#232;me membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>title</type>
+      <id>181</id>
+    </field><field>
+      <label>Nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <id>182</id>
+    </field><field>
+      <label>Pr&#233;nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <id>183</id>
+    </field><field>
+      <label>Num&#233;ro national</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Le n&#176; d'identification au Registre national se trouve sur la carte d'identit&#233;.</hint>
+      <varname>nn_me_5_rad</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><validation>[0-9]*</validation>
+      <id>184</id>
+    </field><field>
+      <label>Voulez-vous ajouter un autre membre de votre m&#233;nage pour la changement d'adresse?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>rb_oui_rad_6</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><show_as_radio>True</show_as_radio>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>185</id>
+    </field><field>
+      <label>Informations sur le 6&#232;me membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>page</type>
+      <condition>var_rb_oui_rad_6== "Oui"</condition>
+      <post_conditions>
+        <post_condition>
+          <condition>((97 - int(form_var_nn_me_6_rad[:9]) % 97 == int(form_var_nn_me_6_rad[-2:])) or (97 - int("2" + form_var_nn_me_6_rad[:9]) % 97 == int(form_var_nn_me_6_rad[-2:])))</condition>
+          <error_message>Num&#233;ro national incorrect. Ce champ ne peut contenir que des chiffres (pas de ., -, +, -, ...).</error_message>
+        </post_condition>
+      </post_conditions><id>186</id>
+    </field><field>
+      <label>Coordonn&#233;es du 6&#232;me membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>title</type>
+      <id>187</id>
+    </field><field>
+      <label>Nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <id>188</id>
+    </field><field>
+      <label>Pr&#233;nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <id>189</id>
+    </field><field>
+      <label>Num&#233;ro national</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Le n&#176; d'identification au Registre national se trouve sur la carte d'identit&#233;.</hint>
+      <varname>nn_me_6_rad</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><validation>[0-9]*</validation>
+      <id>190</id>
+    </field><field>
+      <label>Voulez-vous ajouter un autre membre de votre m&#233;nage pour la changement d'adresse?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>rb_oui_rad_7</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><show_as_radio>True</show_as_radio>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>191</id>
+    </field><field>
+      <label>Informations sur le 7&#232;me membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>page</type>
+      <condition>var_rb_oui_rad_7== "Oui"</condition>
+      <post_conditions>
+        <post_condition>
+          <condition>((97 - int(form_var_nn_me_7_rad[:9]) % 97 == int(form_var_nn_me_7_rad[-2:])) or (97 - int("2" + form_var_nn_me_7_rad[:9]) % 97 == int(form_var_nn_me_7_rad[-2:])))</condition>
+          <error_message>Num&#233;ro national incorrect. Ce champ ne peut contenir que des chiffres (pas de ., -, +, -, ...).</error_message>
+        </post_condition>
+      </post_conditions><id>192</id>
+    </field><field>
+      <label>Coordonn&#233;es du 7&#232;me membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>title</type>
+      <id>193</id>
+    </field><field>
+      <label>Nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <id>194</id>
+    </field><field>
+      <label>Pr&#233;nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <id>195</id>
+    </field><field>
+      <label>Num&#233;ro national</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Le n&#176; d'identification au Registre national se trouve sur la carte d'identit&#233;.</hint>
+      <varname>nn_me_7_rad</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><validation>[0-9]*</validation>
+      <id>196</id>
+    </field><field>
+      <label>Voulez-vous ajouter un autre membre de votre m&#233;nage pour la changement d'adresse?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>rb_oui_rad_8</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><show_as_radio>True</show_as_radio>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>197</id>
+    </field><field>
+      <label>Informations sur le 8&#232;me membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>page</type>
+      <condition>var_rb_oui_rad_8== "Oui"</condition>
+      <post_conditions>
+        <post_condition>
+          <condition>((97 - int(form_var_nn_me_8_rad[:9]) % 97 == int(form_var_nn_me_8_rad[-2:])) or (97 - int("2" + form_var_nn_me_8_rad[:9]) % 97 == int(form_var_nn_me_8_rad[-2:])))</condition>
+          <error_message>Num&#233;ro national incorrect. Ce champ ne peut contenir que des chiffres (pas de ., -, +, -, ...).</error_message>
+        </post_condition>
+      </post_conditions><id>198</id>
+    </field><field>
+      <label>Coordonn&#233;es du 8&#232;me membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>title</type>
+      <id>199</id>
+    </field><field>
+      <label>Nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <id>200</id>
+    </field><field>
+      <label>Pr&#233;nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <id>201</id>
+    </field><field>
+      <label>Num&#233;ro national</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Le n&#176; d'identification au Registre national se trouve sur la carte d'identit&#233;.</hint>
+      <varname>nn_me_8_rad</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><validation>[0-9]*</validation>
+      <id>202</id>
+    </field><field>
+      <label>Voulez-vous ajouter un autre membre de votre m&#233;nage pour la changement d'adresse?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>rb_oui_rad_9</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><show_as_radio>True</show_as_radio>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>203</id>
+    </field><field>
+      <label>Informations sur le 9&#232;me membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>page</type>
+      <condition>var_rb_oui_rad_9== "Oui"</condition>
+      <post_conditions>
+        <post_condition>
+          <condition>((97 - int(form_var_nn_me_9_rad[:9]) % 97 == int(form_var_nn_me_9_rad[-2:])) or (97 - int("2" + form_var_nn_me_9_rad[:9]) % 97 == int(form_var_nn_me_9_rad[-2:])))</condition>
+          <error_message>Num&#233;ro national incorrect. Ce champ ne peut contenir que des chiffres (pas de ., -, +, -, ...).</error_message>
+        </post_condition>
+      </post_conditions><id>204</id>
+    </field><field>
+      <label>Coordonn&#233;es du 9&#232;me membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>title</type>
+      <id>205</id>
+    </field><field>
+      <label>Nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <id>206</id>
+    </field><field>
+      <label>Pr&#233;nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <id>207</id>
+    </field><field>
+      <label>Num&#233;ro national</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Le n&#176; d'identification au Registre national se trouve sur la carte d'identit&#233;.</hint>
+      <varname>nn_me_9_rad</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><validation>[0-9]*</validation>
+      <id>208</id>
+    </field><field>
+      <label>Voulez-vous ajouter un autre membre de votre m&#233;nage pour la changement d'adresse?</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>rb_oui_rad_10</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><items>
+        <item>Oui</item>
+        <item>Non</item>
+      </items><show_as_radio>True</show_as_radio>
+      <in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>209</id>
+    </field><field>
+      <label>Informations sur le 10&#232;me membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>page</type>
+      <condition>var_rb_oui_rad_10== "Oui"</condition>
+      <post_conditions>
+        <post_condition>
+          <condition>((97 - int(form_var_nn_me_10_rad[:9]) % 97 == int(form_var_nn_me_10_rad[-2:])) or (97 - int("2" + form_var_nn_me_10_rad[:9]) % 97 == int(form_var_nn_me_10_rad[-2:])))</condition>
+          <error_message>Num&#233;ro national incorrect. Ce champ ne peut contenir que des chiffres (pas de ., -, +, -, ...).</error_message>
+        </post_condition>
+      </post_conditions><id>210</id>
+    </field><field>
+      <label>Coordonn&#233;es du 10&#232;me membre du m&#233;nage suppl&#233;mentaire</label>
+      <type>title</type>
+      <id>211</id>
+    </field><field>
+      <label>Nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <id>212</id>
+    </field><field>
+      <label>Pr&#233;nom</label>
+      <type>string</type>
+      <required>True</required>
+      <in_listing>True</in_listing>
+      <id>213</id>
+    </field><field>
+      <label>Num&#233;ro national</label>
+      <type>string</type>
+      <required>True</required>
+      <hint>Le n&#176; d'identification au Registre national se trouve sur la carte d'identit&#233;.</hint>
+      <varname>nn_me_10_rad</varname>
+      <in_listing>True</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><validation>[0-9]*</validation>
+      <id>214</id>
+    </field><field>
+      <label>Informations compl&#233;mentaires (autre pays)</label>
+      <type>page</type>
+      <condition>form_var_rb_lst_choice == "Je quitte La Louvi&#232;re pour un autre pays."</condition>
+      <id>215</id>
+    </field><field>
+      <label>&lt;p&gt;&lt;strong&gt;Les documents n&amp;eacute;cessaires &amp;agrave; l'ambassade de Belgique vous seront envoy&amp;eacute;s dans les 5 jours ouvrables.&lt;/strong&gt;&lt;/p&gt;</label>
+      <type>comment</type>
+      <id>216</id>
+    </field><field>
+      <label>Informations compl&#233;mentaires (La Louvi&#232;re)</label>
+      <type>page</type>
+      <condition>form_var_rb_lst_choice_raw in ("lalouviere_a_lalouviere", "commune_a_lalouviere", "etranger_a_lalouviere")</condition>
+      <id>217</id>
+    </field><field>
+      <label>&lt;p&gt;L'agent de quartier va proc&amp;eacute;der au constat de votre domicile dans les 20 jours.&lt;/p&gt;&lt;p&gt;Une convocation vous sera adress&amp;eacute;e par le D&amp;eacute;partement Citoyen d&amp;egrave;s que votre changement sera effectif, afin de modifier l'adresse sur les cartes d'identit&amp;eacute;s et &amp;eacute;ventuellement sur le certificat d'immatriculation.&lt;/p&gt;</label>
+      <type>comment</type>
+      <id>218</id>
+    </field>
+  </fields><user-roles>
+    <role role_id="logged-users">logged-users</role>
+  </user-roles><roles>
+    <role role_id="4a8933e4f4574d18bbfbaf4c29749b37" role_key="_receiver">Agents - D&#233;partement citoyen</role>
+    <role role_id="c8707597fa26469a9ffc78c1cff6e1f2" role_key="_agent-backoffice">Agent ayant acces aux fabriques</role>
+  </roles><options>
+    <option varname="duree_de_traitement_par_defaut">5</option>
+    <option varname="cost">5</option>
+    <option varname="cout_du_document_par_defaut">0</option>
+    <option varname="lien_fedict">https://mondossier.rrn.fgov.be/fr/DCAList.do?language=FR</option>
+  </options><geolocations />
+</formdef>
