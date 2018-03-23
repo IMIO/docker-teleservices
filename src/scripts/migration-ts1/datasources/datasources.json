@@ -3,13 +3,13 @@
     {
       "motivations": [
         {
-          "text": "Allocations familiales : gratuit",
+          "text": "Allocations familiales",
           "price": "0.0",
           "slug": "allocations-familiales",
           "description": "Allocations familiales"
         },
         {
-          "text": "Assurance : co\u00fbt 2\u20ac",
+          "text": "Assurance",
           "price": "2.0",
           "slug": "assurance",
           "description": "Assurance"
@@ -21,85 +21,85 @@
           "description": "Autre"
         },
         {
-          "text": "Avocat : co\u00fbt 2\u20ac",
+          "text": "Avocat",
           "price": "2.0",
           "slug": "avocat",
           "description": "Avocat"
         },
         {
-          "text": "Banque : co\u00fbt 2\u20ac",
+          "text": "Banque",
           "price": "2.0",
           "slug": "banque",
           "description": "Banque"
         },
         {
-          "text": "Bourse d'\u00e9tudes : gratuit",
+          "text": "Bourse d'\u00e9tudes",
           "price": "0.0",
           "slug": "bourse-d-etudes",
           "description": "Bourse d'\u00e9tudes"
         },
         {
-          "text": "Consulat : co\u00fbt 2\u20ac",
+          "text": "Consulat",
           "price": "2.0",
           "slug": "consulat",
           "description": "Consulat"
         },
         {
-          "text": "Cr\u00e8che : gratuit",
+          "text": "Cr\u00e8che",
           "price": "0.0",
           "slug": "creche",
           "description": "Cr\u00e8che"
         },
         {
-          "text": "Demande d'emploi : gratuit",
+          "text": "Demande d'emploi",
           "price": "0.0",
           "slug": "demande-d-emploi",
           "description": "Demande d'emploi"
         },
         {
-          "text": "Ecole : gratuit",
+          "text": "Ecole",
           "price": "0.0",
           "slug": "ecole",
           "description": "Ecole"
         },
         {
-          "text": "Huissier : co\u00fbt 2\u20ac",
+          "text": "Huissier",
           "price": "2.0",
           "slug": "huissier",
           "description": "Huissier"
         },
         {
-          "text": "Logement social : gratuit",
+          "text": "Logement social",
           "price": "0.0",
           "slug": "logement-social",
           "description": "Logement social"
         },
         {
-          "text": "Mutuelle : gratuit",
+          "text": "Mutuelle",
           "price": "0.0",
           "slug": "mutuelle",
           "description": "Mutuelle"
         },
         {
-          "text": "Notaire : co\u00fbt 2\u20ac",
+          "text": "Notaire",
           "price": "2.0",
           "slug": "notaire",
           "description": "Notaire"
         },
         {
-          "text": "Pension : gratuit",
+          "text": "Pension",
           "price": "0.0",
           "slug": "pension",
           "description": "Pension"
         },
         {
-          "text": "Pour mariage en Belgique : gratuit",
+          "text": "Pour mariage en Belgique",
           "price": "0.0",
           "slug": "pour-mariage-belgique",
           "description": "Pour mariage en Belgique"
         },
         {
-          "text": "R\u00e9gion Wallonne : gratuit",
+          "text": "R\u00e9gion Wallonne",
           "price": "0.0",
           "slug": "region-wallonne",
           "description": "R\u00e9gion Wallonne"
