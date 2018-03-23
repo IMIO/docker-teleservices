@@ -62,7 +62,7 @@
       <required>True</required>
       <varname>cp_naissance</varname>
       <in_listing>True</in_listing>
-      <extra_css_class>grid-1-2</extra_css_class>
+      <extra_css_class>newline grid-1-2</extra_css_class>
       <prefill>
         <type>none</type>
       </prefill><validation>^[0-9]*</validation>
