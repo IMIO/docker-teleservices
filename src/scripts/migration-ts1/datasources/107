@@ -1,0 +1,9 @@
+<datasources id="107">
+  <name>BOSA/Commune Texte d'introduction</name>
+  <slug>bosa_commune_texte</slug>
+  <description>Texte d'introduction pour les formulaires qui proposent de récupérer le formulaire via le bosa ou via la commune.</description>
+  <data_source>
+    <type>formula</type>
+    <value>["<p>Vous pouvez commander ce document via le site du fédéral (BOSA) ou via votre commune.</p> <br> <p>Via le bosa, vous devez <b>ABSOLUMENT</b> vous connecter avec votre carte d'identité électronique <b>AU PREALABLE</b>.</p> <p> Votre document sera gratuit. Vous serez amené à télécharger un fichier .pdf signé électroniquement.</p> <p> Si vous imprimez ce document, sachez qu'il risque de perdre sa valeur légale dans certaines institutions ou à l'étranger. Par contre, transmis par mail il conserve toute sa valeur légale.</p> <p> Via la commune, le prix de votre document dépendra du motif sélectionné (mutuelle, pension, avocat,...).</p> <p> Le document vous sera envoyé par la poste ou sera disponible au guichet de votre administration communale. </p> <p> Ce document papier aura une valeur légale aussi bien en Belgique qu'à l'étranger.</p><br />"]</value>
+  </data_source>
+</datasources>

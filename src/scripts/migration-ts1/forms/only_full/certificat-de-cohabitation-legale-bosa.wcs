@@ -24,7 +24,7 @@
       <type>page</type>
       <id>30</id>
     </field><field>
-      <label>&lt;p&gt;Le certificat de nationalit&#233; peut vous &#234;tre d&#233;livr&#233; soit par la ville de {{commune_name}}, soit, directement, par le site du f&#233;d&#233;ral. Veuillez choisir la formule qui vous agr&#233;e.&lt;/p&gt;</label>
+      <label>&lt;p&gt;{{data_source.bosa_commune_texte.0.text|safe}}&lt;/p&gt;</label>
       <type>comment</type>
       <id>31</id>
     </field><field>
