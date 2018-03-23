@@ -161,7 +161,7 @@ class Town(object):
             return True
         else:
             try:
-                if nrn is None:
+                if nrn is None or nrn == "None":
                     nrn = "0"
                 return ((97 - int(nrn[:9]) % 97 == int(nrn[-2:])) or (97 - int("2" + nrn[:9]) % 97 == int(nrn[-2:])))
             except ValueError:
