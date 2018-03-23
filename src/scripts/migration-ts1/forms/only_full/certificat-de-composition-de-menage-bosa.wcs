@@ -39,7 +39,7 @@
       <show_as_radio>True</show_as_radio>
       <data_source>
         <type>formula</type>
-        <value>script.commune("authentication_delivrance_items_visibility",{'datasource':data_source.mode_de_delivrance,'auth':session_user.verified_fields})</value>
+        <value>script.commune("authentication_delivrance_items_visibility",{'datasource':data_source.bosa_commune_mode_de_delivrance,'auth':session_user.verified_fields})</value>
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>True</display_disabled_items>
