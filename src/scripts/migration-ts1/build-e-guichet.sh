@@ -6,6 +6,9 @@
 # Use postgresql with wcs
 sed -i '/[options] /a postgresql = true' /var/lib/wcs/$1-formulaires.$2/site-options.cfg
 
+# Add resubmit action in workflows
+sed -i '/[options] /a workflow-resubmit-action = true' /var/lib/wcs/$1-formulaires.$2/site-options.cfg
+
 # Create categories
 sh copy_categories.sh $1 $2
 
