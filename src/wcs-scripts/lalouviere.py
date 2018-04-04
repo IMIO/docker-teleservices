@@ -156,16 +156,16 @@ class Lalouviere(town.Town):
 
 
 
-#current_commune = Lalouviere()
-#function = args[0]
+current_commune = Lalouviere()
+function = args[0]
 
-#functionList = {function: getattr(current_commune,function)}
-#if args[1] is not None:
-#    parameters = args[1]
-#    if isinstance(parameters, dict):
-#        result = functionList[function](**parameters)
-#    else:
-#        params = args[1:]
-#        result = functionList[function](*params)
-#else:
-#    result = functionList[function]()
+functionList = {function: getattr(current_commune,function)}
+if args[1] is not None:
+    parameters = args[1]
+    if isinstance(parameters, dict):
+        result = functionList[function](**parameters)
+    else:
+        params = args[1:]
+        result = functionList[function](*params)
+else:
+    result = functionList[function]()
