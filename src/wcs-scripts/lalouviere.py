@@ -105,7 +105,7 @@ class Lalouviere(town.Town):
     # delta_option = 0 : timedelta between date1 and date2
     # delta_option = 1 : timedelta between date1 and date2 and sum w.e.
     # delta_option = 2 : timedelta between date1 and date2 and sum w.e. and sum legal holydays.
-    def diff_dates_occupation_voie_publique(self, date1, date2, delta_option=0):
+    def diff_dates_occupation_voie_publique(self, date1, date2, deadline=7, delta_option=2):
         try:
             legal_holidays = globals().get("form_option_legal_holidays")
             result = "False"
@@ -123,12 +123,9 @@ class Lalouviere(town.Town):
                     d = datetime.strptime(day[0], '%d/%m/%Y')
                     # 5 is saturday, 6 is sunday.
                     if d1 < d < d2 and d.weekday() not in [5,6]:
+                        # calcul les jours non ouvrable dans la periode entre date1 et date2
                         nb_extra_days = nb_extra_days + 1
-            if total_duree_occupation >= 15:
-                if int(self.diff_dates(today, date1)) >= (20 + nb_extra_days):
-                    result = "True"
-            else:
-                if int(self.diff_dates(today, date1)) >= (7 + nb_extra_days):
+            if int(self.diff_dates(today, date1)) >= (deadline + nb_extra_days):
                     result = "True"
             return result
         except:
