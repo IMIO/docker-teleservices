@@ -107,7 +107,6 @@ class Lalouviere(town.Town):
     # delta_option = 2 : timedelta between date1 and date2 and sum w.e. and sum legal holydays.
     def diff_dates_occupation_voie_publique(self, date1, date2, deadline=7, delta_option=2):
         try:
-            import ipdb;ipdb.set_trace()
             legal_holidays = globals().get("form_option_legal_holidays")
             result = "False"
             today = datetime.today().strftime("%d/%m/%Y")
