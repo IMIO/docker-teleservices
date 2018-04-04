@@ -107,6 +107,7 @@ class Lalouviere(town.Town):
     # delta_option = 2 : timedelta between date1 and date2 and sum w.e. and sum legal holydays.
     def diff_dates_occupation_voie_publique(self, date1, date2, deadline=7, delta_option=2):
         try:
+            import ipdb;ipdb.set_trace()
             legal_holidays = globals().get("form_option_legal_holidays")
             result = "False"
             today = datetime.today().strftime("%d/%m/%Y")
@@ -125,7 +126,7 @@ class Lalouviere(town.Town):
                     if d1 < d < d2 and d.weekday() not in [5,6]:
                         # calcul les jours non ouvrable dans la periode entre date1 et date2
                         nb_extra_days = nb_extra_days + 1
-            if int(self.diff_dates(today, date1)) >= (deadline + nb_extra_days):
+            if int(self.diff_dates(today, date1)) > (deadline + nb_extra_days):
                     result = "True"
             return result
         except:
@@ -155,16 +156,16 @@ class Lalouviere(town.Town):
 
 
 
-current_commune = Lalouviere()
-function = args[0]
+#current_commune = Lalouviere()
+#function = args[0]
 
-functionList = {function: getattr(current_commune,function)}
-if args[1] is not None:
-    parameters = args[1]
-    if isinstance(parameters, dict):
-        result = functionList[function](**parameters)
-    else:
-        params = args[1:]
-        result = functionList[function](*params)
-else:
-    result = functionList[function]()
+#functionList = {function: getattr(current_commune,function)}
+#if args[1] is not None:
+#    parameters = args[1]
+#    if isinstance(parameters, dict):
+#        result = functionList[function](**parameters)
+#    else:
+#        params = args[1:]
+#        result = functionList[function](*params)
+#else:
+#    result = functionList[function]()
