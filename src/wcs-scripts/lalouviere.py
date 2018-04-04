@@ -105,31 +105,33 @@ class Lalouviere(town.Town):
     # delta_option = 0 : timedelta between date1 and date2
     # delta_option = 1 : timedelta between date1 and date2 and sum w.e.
     # delta_option = 2 : timedelta between date1 and date2 and sum w.e. and sum legal holydays.
-    def diff_dates_occupation_voie_publique(self, date1, date2, deadline=7, delta_option=2):
+    # legal_holidays = globals().get("form_option_legal_holidays")
+    def is_deadline_ok(self, date_debut, date_fin, deadline=5, delta_option=2, legal_holidays=None):
         try:
-            legal_holidays = globals().get("form_option_legal_holidays")
+            we = {'saturday':5, 'sunday':6}
             result = "False"
-            today = datetime.today().strftime("%d/%m/%Y")
-            total_duree_occupation = int(self.diff_dates(date1, date2))
             nb_extra_days = 0
-            d1 = datetime.strptime(date1, '%d/%m/%Y')
-            d2 = datetime.strptime(date2, '%d/%m/%Y')
+            d_begin = datetime.strptime(date_debut, '%d/%m/%Y')
+            # d_end = datetime.strptime(date_fin, '%d/%m/%Y')
+            str_today = date.today().strftime("%d/%m/%Y")
+            d_today = datetime.strptime(str_today, '%d/%m/%Y')
+            nb_days_between_today_and_deb = int(self.diff_dates(str_today, date_debut))
             if delta_option in [1,2]:
-                for single_date in (d1 + timedelta(n) for n in range(total_duree_occupation)):
-                    if single_date.weekday() in [5,6]:
+                for single_date in (d_today + timedelta(n) for n in range(nb_days_between_today_and_deb)):
+                    # 5 is saturday, 6 is sunday.
+                    if single_date.weekday() in [we.get('saturday'), we.get('sunday')]:
                         nb_extra_days = nb_extra_days + 1
             if delta_option == 2:
                 for day in legal_holidays:
-                    d = datetime.strptime(day[0], '%d/%m/%Y')
-                    # 5 is saturday, 6 is sunday.
-                    if d1 < d < d2 and d.weekday() not in [5,6]:
-                        # calcul les jours non ouvrable dans la periode entre date1 et date2
+                    d_day = datetime.strptime(day[0], '%d/%m/%Y')
+                    if d_today < d_day < d_begin and d_day.weekday() not in [we.get('saturday'), we.get('sunday')]:
+                        # calcul les jours non ouvrable dans la periode entre date_debut et date_fin
                         nb_extra_days = nb_extra_days + 1
-            if int(self.diff_dates(today, date1)) > (deadline + nb_extra_days):
+            if (nb_days_between_today_and_deb - nb_extra_days) > deadline:
                     result = "True"
             return result
         except:
-            return "diff_dates_occupation_error"
+            return "is_deadline_error"
 
     # filtrage de mails pour une liste de dictionnaire telle que :
     #[{'id':'police','mail':'christophe.boulanger+1@imio.be','text':'la Police'},...]
@@ -154,17 +156,21 @@ class Lalouviere(town.Town):
         return str_mails_to_send
 
 
-
-current_commune = Lalouviere()
-function = args[0]
-
-functionList = {function: getattr(current_commune,function)}
-if args[1] is not None:
-    parameters = args[1]
-    if isinstance(parameters, dict):
-        result = functionList[function](**parameters)
-    else:
-        params = args[1:]
-        result = functionList[function](*params)
+if vars().get('args') is None:
+    # test
+    ll = Lalouviere()
+    print str(ll.is_deadline_ok('4/5/2018','8/5/2018',legal_holidays=[['30/4/2018'],['1/5/2018']]))
 else:
-    result = functionList[function]()
+    current_commune = Lalouviere()
+    function = args[0]
+
+    functionList = {function: getattr(current_commune,function)}
+    if args[1] is not None:
+        parameters = args[1]
+        if isinstance(parameters, dict):
+            result = functionList[function](**parameters)
+        else:
+            params = args[1:]
+            result = functionList[function](*params)
+    else:
+        result = functionList[function]()
