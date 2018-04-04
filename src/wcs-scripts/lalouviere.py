@@ -127,7 +127,7 @@ class Lalouviere(town.Town):
                     if d_today < d_day < d_begin and d_day.weekday() not in [we.get('saturday'), we.get('sunday')]:
                         # calcul les jours non ouvrable dans la periode entre date_debut et date_fin
                         nb_extra_days = nb_extra_days + 1
-            if (nb_days_between_today_and_deb - nb_extra_days) > deadline:
+            if (nb_days_between_today_and_deb - nb_extra_days) >= deadline:
                     result = "True"
             return result
         except:
