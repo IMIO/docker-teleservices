@@ -28,21 +28,26 @@ class Demo(town.Town):
     # dic_extra_fields = un dictionnaire de varname du formulaire et la valeur attendue
     #    sample : dic_extra_fields = {'rue':'du calvaire', 'cp':'4000'}
     #    retournera les formulaires qui ont une variable rue et une variable cp dont les valeurs sont specifies.
-    def get_user_forms_with_params(self, form_slug, user_name_identifier_0, dic_params, dic_extra_fields=None):
-    cpt = 0
-    s = "lambda field: field.get_user().name_identifiers[0] == '{0}'".format(user_name_identifier_0)
-    if 'year' in dic_params:
-        s += " and field.receipt_time.tm_year == {0}".format(dic_params['year'])
-    if 'month' in dic_params:
-        s += " and field.receipt_time.tm_mon == {0}".format(dic_params['month'])
-    f = eval(s)
-    for formdef in FormDef.select(lambda form: form.internal_identifier== form_slug):
-        for formdata in formdef.data_class().select(f):
+    def get_user_forms_with_params(self, form_slug, user_name_identifier_0=None, dic_params=None, dic_extra_fields=None):
+        cpt = 0
+        operator = ""
+        s = ""
+        if user_name_identifier_0 is not None:
+            s = "lambda field: field.get_user().name_identifiers[0] == '{}'".format(user_name_identifier_0)
+        if dic_params is not None and 'year' in dic_params:
+            operator = "and" if len(s) > 1 else ""
+            s += " {} field.receipt_time.tm_year == {}".format(operator, dic_params['year'])
+        if dic_params is not None and 'month' in dic_params:
+            operator = "and" if len(s) > 1 else ""
+            s += " {} field.receipt_time.tm_mon == {}".format(operator, dic_params['month'])
+        f = eval(s)
+        for formdef in FormDef.select(lambda form: form.internal_identifier== form_slug):
+            for formdata in formdef.data_class().select(f):
                 # (field for field in formdef.get_all_fields() if field.varname is not None and field.varname in lst_extra_fields)
                 if dic_extra_fields is not None:
                     for field in formdef.get_all_fields():
                         if field.varname is not None and field.varname in dic_extra_fields and formdata.get_field_view_value(field) == dic_extra_fields[field.varname]:
-                        cpt = cpt + 1
+                            cpt = cpt + 1
                 else:
                     cpt = cpt + 1
         return str(cpt)
