@@ -34,7 +34,7 @@
         </item><item id="2" type="jump">
           <status>20</status>
           <set_marker_on_status>False</set_marker_on_status>
-          <condition>vars().get('form_option_lien_fedict') is not None and 'form_var_mode_delivrance_raw' in locals() and (form_var_mode_delivrance_raw == 'eid' or form_var_mode_delivrance_raw == 'pdf' or form_var_mode_delivrance_raw == 'print' )</condition>
+          <condition>vars().get('form_option_lien_fedict') is not None and 'form_var_mode_delivrance_raw' in locals() and (form_var_mode_delivrance_raw != 'commune')</condition>
         </item><item id="3" type="jump">
           <status>13</status>
           <set_marker_on_status>False</set_marker_on_status>
