@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import datetime
 import re
+
+from datetime import date, datetime, timedelta
 from decimal import Decimal
 
 class Town(object):
@@ -24,6 +26,9 @@ class Town(object):
 
     def get_form_name(self):
         return self.form_name
+
+    def dt_to_date(self, dt, format_date='%Y-%m-%d', format_time='%H:%M:%S'):
+        return datetime.strptime(dt, '{0} {1}'.format(format_date, format_time)).date()
 
     # Méthode qui ser à retourner un texte accompaggé d'un résultat.
     # valeur : Un nombre
@@ -215,7 +220,7 @@ class Town(object):
     def authentication_delivrance_items_visibility(self, datasource, auth=None):
         if len(auth) > 0:
             for elm in datasource:
-                if 'pdf' in elm['id'] or 'print' in elm['id']:
+                if 'commune' not in elm['id'] :
                     elm['disabled'] = False
         return datasource
 
