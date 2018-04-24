@@ -1,0 +1,9 @@
+<datasources id="109">
+  <name>py_naissance</name>
+  <slug>py_naissance</slug>
+  <description>Acte de naissance</description>
+  <data_source>
+    <type>formula</type>
+    <value>[('{0}'.format(commune_slug), 'Je suis n&#233;(e) &#224; {0}'.format(commune_name)), ('Pas {0}'.format(commune_slug), 'Je ne suis pas n&#233;(e) &#224; {0}'.format(commune_name'))]</value>
+  </data_source>
+</datasources>
