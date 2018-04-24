@@ -24,7 +24,7 @@
       <type>page</type>
       <id>165</id>
     </field><field>
-      <label>&lt;p&gt;Le certificat de nationalit&amp;eacute; peut vous &amp;ecirc;tre d&amp;eacute;livr&amp;eacute; soit par la ville de Namur, soit, directement, par le site du f&amp;eacute;d&amp;eacute;ral. Veuillez choisir la formule qui vous agr&amp;eacute;e.&lt;/p&gt;</label>
+      <label>&lt;p&gt;Le certificat de nationalit&amp;eacute; peut vous &amp;ecirc;tre d&amp;eacute;livr&amp;eacute; soit par la ville de {{commune_name}}, soit, directement, par le site du f&amp;eacute;d&amp;eacute;ral. Veuillez choisir la formule qui vous agr&amp;eacute;e.&lt;/p&gt;</label>
       <type>comment</type>
       <id>166</id>
     </field><field>
