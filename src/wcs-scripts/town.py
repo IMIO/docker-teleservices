@@ -58,8 +58,8 @@ class Town(object):
     # return = Number of day between date2 and date1
     def diff_dates(self, date1, date2):
         try:
-            d1 = datetime.datetime.strptime(date1, '%d/%m/%Y')
-            d2 = datetime.datetime.strptime(date2, '%d/%m/%Y')
+            d1 = datetime.strptime(date1, '%d/%m/%Y')
+            d2 = datetime.strptime(date2, '%d/%m/%Y')
             diff = (d2 - d1).days
             return str(diff)
         except:
