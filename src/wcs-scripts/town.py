@@ -138,7 +138,7 @@ class Town(object):
                     annee = value.split(separators[0])[2]
                     mois = value.split(separators[0])[1]
                     jour = value.split(separators[0])[0]
-                    newDate = datetime.datetime(int(annee), int(mois), int(jour))
+                    newDate = datetime(int(annee), int(mois), int(jour))
                     retour = True
                 except ValueError:
                     retour = False
