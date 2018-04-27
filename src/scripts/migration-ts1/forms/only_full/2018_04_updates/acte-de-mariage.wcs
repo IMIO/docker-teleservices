@@ -404,7 +404,8 @@
       <in_listing>True</in_listing>
       <extra_css_class>grid-1-4 newline</extra_css_class>
       <prefill>
-        <type>none</type>
+        <type>user</type>
+        <value>_zipcode</value>
       </prefill><id>69</id>
     </field><field>
       <label>Adresse e-mail</label>

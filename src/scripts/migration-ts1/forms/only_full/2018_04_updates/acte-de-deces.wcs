@@ -97,22 +97,14 @@
       <required>True</required>
       <varname>nom_perscon</varname>
       <in_listing>True</in_listing>
-      <extra_css_class>grid-1-2</extra_css_class>
-      <prefill>
-        <type>user</type>
-        <value>_last_name</value>
-      </prefill><id>17</id>
+      <extra_css_class>grid-1-2</extra_css_class><id>17</id>
     </field><field>
       <label>Pr&#233;nom</label>
       <type>string</type>
       <required>True</required>
       <varname>prenom_perscon</varname>
       <in_listing>True</in_listing>
-      <extra_css_class>grid-1-2</extra_css_class>
-      <prefill>
-        <type>user</type>
-        <value>_first_name</value>
-      </prefill><id>18</id>
+      <extra_css_class>grid-1-2</extra_css_class><id>18</id>
     </field><field>
       <label>Num&#233;ro national</label>
       <type>string</type>
@@ -120,11 +112,7 @@
       <hint>Le n&#176; d'identification au Registre national se trouve sur la carte d'identit&#233;.</hint>
       <varname>nn_perscon</varname>
       <in_listing>False</in_listing>
-      <extra_css_class>grid-1-2 newline</extra_css_class>
-      <prefill>
-        <type>user</type>
-        <value>_niss</value>
-      </prefill><id>19</id>
+      <extra_css_class>grid-1-2 newline</extra_css_class><id>19</id>
     </field><field>
       <label>Date de naissance</label>
       <type>date</type>
@@ -132,11 +120,7 @@
       <hint>Format de la date : 01/01/2016</hint>
       <varname>birthday_perscon</varname>
       <in_listing>False</in_listing>
-      <extra_css_class>grid-1-2</extra_css_class>
-      <prefill>
-        <type>user</type>
-        <value>_birthdate</value>
-      </prefill><minimum_is_future>False</minimum_is_future>
+      <extra_css_class>grid-1-2</extra_css_class><minimum_is_future>False</minimum_is_future>
       <date_in_the_past>True</date_in_the_past>
       <date_can_be_today>False</date_can_be_today>
       <id>20</id>
@@ -150,11 +134,7 @@
       <required>True</required>
       <varname>rue_perscon</varname>
       <in_listing>False</in_listing>
-      <extra_css_class>grid-1-2 newline</extra_css_class>
-      <prefill>
-        <type>user</type>
-        <value>_street</value>
-      </prefill><id>22</id>
+      <extra_css_class>grid-1-2 newline</extra_css_class><id>22</id>
     </field><field>
       <label>Num&#233;ro</label>
       <type>string</type>
@@ -162,11 +142,7 @@
       <hint>Ex de num&#233;ro: 12, 145 et pas 1C ou 12/21 &#224; indiquer dans le champ bo&#238;te.</hint>
       <varname>numero_perscon</varname>
       <in_listing>True</in_listing>
-      <extra_css_class>grid-1-4</extra_css_class>
-      <prefill>
-        <type>user</type>
-        <value>_num_house</value>
-      </prefill><validation>[1-9][0-9]*</validation>
+      <extra_css_class>grid-1-4</extra_css_class><validation>[1-9][0-9]*</validation>
       <id>23</id>
     </field><field>
       <label>Bo&#238;te</label>
@@ -174,11 +150,7 @@
       <required>False</required>
       <varname>boite_perscon</varname>
       <in_listing>False</in_listing>
-      <extra_css_class>grid-1-4</extra_css_class>
-      <prefill>
-        <type>user</type>
-        <value>_num_box</value>
-      </prefill><id>24</id>
+      <extra_css_class>grid-1-4</extra_css_class><id>24</id>
     </field><field>
       <label>Code postal</label>
       <type>string</type>
@@ -222,7 +194,8 @@
       <in_listing>True</in_listing>
       <extra_css_class>grid-1-2</extra_css_class>
       <prefill>
-        <type>none</type>
+        <type>user</type>
+        <value>_last_name</value>
       </prefill><id>37</id>
     </field><field>
       <label>Pr&#233;nom</label>
@@ -232,7 +205,8 @@
       <in_listing>True</in_listing>
       <extra_css_class>grid-1-2</extra_css_class>
       <prefill>
-        <type>none</type>
+        <type>user</type>
+        <value>_first_name</value>
       </prefill><id>38</id>
     </field><field>
       <label>Num&#233;ro national</label>
@@ -243,7 +217,8 @@
       <in_listing>True</in_listing>
       <extra_css_class>grid-1-2 newline</extra_css_class>
       <prefill>
-        <type>none</type>
+        <type>user</type>
+        <value>_niss</value>
       </prefill><id>39</id>
     </field><field>
       <label>Date de naissance</label>
@@ -253,7 +228,8 @@
       <in_listing>True</in_listing>
       <extra_css_class>grid-1-2</extra_css_class>
       <prefill>
-        <type>none</type>
+        <type>user</type>
+        <value>_birthdate</value>
       </prefill><minimum_is_future>False</minimum_is_future>
       <date_in_the_past>True</date_in_the_past>
       <date_can_be_today>False</date_can_be_today>
@@ -270,7 +246,8 @@
       <in_listing>True</in_listing>
       <extra_css_class>grid-1-2 newline</extra_css_class>
       <prefill>
-        <type>none</type>
+        <type>user</type>
+        <value>_street</value>
       </prefill><id>43</id>
     </field><field>
       <label>Num&#233;ro</label>
@@ -281,7 +258,8 @@
       <in_listing>True</in_listing>
       <extra_css_class>grid-1-4</extra_css_class>
       <prefill>
-        <type>none</type>
+        <type>user</type>
+        <value>_num_house</value>
       </prefill><validation>[1-9][0-9]*</validation>
       <id>44</id>
     </field><field>
@@ -292,7 +270,8 @@
       <in_listing>True</in_listing>
       <extra_css_class>grid-1-4</extra_css_class>
       <prefill>
-        <type>none</type>
+        <type>user</type>
+        <value>_num_box</value>
       </prefill><id>45</id>
     </field><field>
       <label>Code postal</label>
@@ -302,7 +281,8 @@
       <in_listing>True</in_listing>
       <extra_css_class>grid-1-4 newline</extra_css_class>
       <prefill>
-        <type>none</type>
+        <type>user</type>
+        <value>_zipcode</value>
       </prefill><id>60</id>
     </field><field>
       <label>Localit&#233;</label>

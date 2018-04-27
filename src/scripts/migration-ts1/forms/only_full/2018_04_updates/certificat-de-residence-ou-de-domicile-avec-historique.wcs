@@ -70,19 +70,35 @@
       <condition>
         <type>python</type>
         <value>form_var_concerne_qui_raw == "tiers"</value>
-      </condition>
-      <id>45</id>
+      </condition><post_conditions>
+        <post_condition>
+          <condition>
+            <type>python</type>
+            <value>((97 - int(form_var_nn_perscon[:9]) % 97 == int(form_var_nn_perscon[-2:])) or (97 - int("2" + form_var_nn_perscon[:9]) % 97 == int(form_var_nn_perscon[-2:])))</value>
+          </condition><error_message>Veuillez entrer un num&#233;ro national valide.</error_message>
+        </post_condition>
+      </post_conditions><id>45</id>
     </field><field>
       <label>Coordonn&#233;es de la personne concern&#233;e par le document</label>
       <type>title</type>
       <id>46</id>
+    </field><field>
+      <label>Num&#233;ro national</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>nn_perscon</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><id>50</id>
     </field><field>
       <label>Nom</label>
       <type>string</type>
       <required>True</required>
       <varname>nom_perscon</varname>
       <in_listing>True</in_listing>
-      <extra_css_class>grid-1-2</extra_css_class>
+      <extra_css_class>newline grid-1-2</extra_css_class>
       <prefill>
         <type>none</type>
       </prefill><id>35</id>
@@ -306,7 +322,8 @@
       <in_listing>False</in_listing>
       <extra_css_class>grid-1-2</extra_css_class>
       <prefill>
-        <type>none</type>
+        <type>user</type>
+        <value>_zipcode</value>
       </prefill><validation>^[0-9]*</validation>
       <id>49</id>
     </field><field>
