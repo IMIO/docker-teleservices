@@ -132,7 +132,7 @@
       <required>True</required>
       <varname>nom_perscon</varname>
       <in_listing>True</in_listing>
-      <extra_css_class>grid-1-2</extra_css_class>
+      <extra_css_class>newline grid-1-2</extra_css_class>
       <prefill>
         <type>none</type>
       </prefill><id>35</id>
@@ -359,7 +359,8 @@
       <in_listing>False</in_listing>
       <extra_css_class>grid-1-2</extra_css_class>
       <prefill>
-        <type>none</type>
+        <type>user</type>
+        <value>_zipcode</value>
       </prefill><validation>^[0-9]*</validation>
       <id>49</id>
     </field><field>
