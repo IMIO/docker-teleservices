@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <workflow id="23">
-  <name>D&#233;partement Citoyen (avec redirection BOSA)</name>
+  <name>D&#233;partement Citoyen (avec redirection MONDOSSIER)</name>
   <roles>
     <role id="_receiver">Agent traitant</role>
     <role id="_validateur-pc-banking">Validateur pc banking</role>
@@ -149,7 +149,9 @@ Bien cordialement,</body>
           <method>POST</method>
           <response_type>json</response_type>
         </item><item id="5" type="register-comment">
-          <comment>&lt;P&gt;N'oubliez pas de r&#233;gler votre &lt;a href="{{portal_user_url}}panier/"&gt;panier.&lt;/a&gt;&lt;/P&gt;</comment>
+          <comment>&lt;p&gt;L'article se trouve dans votre panier.
+Veuillez r&#233;gler &lt;a href="{{combo_url}}panier"&gt;votre panier&lt;/a&gt;.
+&lt;p&gt;</comment>
         </item><item id="2" type="jump">
           <status>12</status>
           <set_marker_on_status>False</set_marker_on_status>
@@ -297,8 +299,9 @@ Bien cordialement,
       </items>
     </status><status>
       <id>20</id>
-      <name>BOSA REDIRECTION</name>
+      <name>REDIRECTION MONDOSSIER</name>
       <colour>FFFFFF</colour>
+      <forced_endpoint>true</forced_endpoint>
       <visibility />
       <items>
         <item id="1" type="displaymsg">
@@ -484,7 +487,7 @@ ex : 4000,4020,4030,4031</hint>
           <display_disabled_items>False</display_disabled_items>
           <id>4</id>
         </field><field>
-          <label>Url du document sur le site du BOSA</label>
+          <label>Url du document sur le site de Mon Dossier</label>
           <type>string</type>
           <required>False</required>
           <varname>lien_bosa</varname>
