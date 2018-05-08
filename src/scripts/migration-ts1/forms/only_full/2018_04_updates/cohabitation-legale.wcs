@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="iso-8859-15"?>
-<formdef id="63">
+<formdef id="2">
   <name>Cohabitation L&#233;gale</name>
   <url_name>cohabitation-legale</url_name>
   <description>&lt;p class="accroche"&gt;&lt;em&gt;Document attestant qu'une d&amp;eacute;claration de cohabitation l&amp;eacute;gale a bien &amp;eacute;t&amp;eacute; enregistr&amp;eacute;e.&lt;/em&gt;&lt;/p&gt;</description>
-  <internal_identifier>cohabitation-legale</internal_identifier>
+  <internal_identifier>cohabitation-legale-1</internal_identifier>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
   <disabled>false</disabled>
@@ -15,9 +15,9 @@
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
   <category category_id="1">Population</category>
-  <workflow workflow_id="4">D&#233;partement Citoyen (avec redirection MONDOSSIER)</workflow>
+  <workflow workflow_id="2">D&#233;partement Citoyen (avec redirection MONDOSSIER)</workflow>
   <max_field_id>36</max_field_id>
-  <last_modification user_id="4">2018-05-08 11:01:55</last_modification>
+  <last_modification user_id="1">2018-05-08 12:54:19</last_modification>
   <fields>
     <field>
       <label>Attestation de Cohabitation L&#233;gale</label>
@@ -196,7 +196,8 @@
       <extra_css_class>newline grid-1-2</extra_css_class>
       <prefill>
         <type>none</type>
-      </prefill><show_as_radio>False</show_as_radio>
+      </prefill><items />
+      <show_as_radio>False</show_as_radio>
       <data_source>
         <type>passerelle_motifs</type>
       </data_source><in_filters>False</in_filters>
@@ -221,7 +222,8 @@
       <extra_css_class>newline grid-1-2</extra_css_class>
       <prefill>
         <type>none</type>
-      </prefill><show_as_radio>False</show_as_radio>
+      </prefill><items />
+      <show_as_radio>False</show_as_radio>
       <data_source>
         <type>formula</type>
         <value>form_option_mode_recup_disponibles_structured</value>
@@ -262,9 +264,9 @@
       </prefill><id>34</id>
     </field>
   </fields><user-roles>
-    <role role_id="bbde7b72b5fd46049d44f16bc42974f6">Citoyen (test)</role>
+    <role role_id="41ce91063d834a5bba804ccfcaf24530">Citoyen (test)</role>
   </user-roles><roles>
-    <role role_id="80aaf4ca883a4178a106b0e992f54e3d" role_key="_receiver">Agents traitants - Population, etat civil</role>
+    <role role_id="ce08d89514b34f4babb920266a66f215" role_key="_receiver">Agents traitants - Population, etat civil</role>
   </roles><options>
     <option varname="mode_recup_disponibles_display">Envoi &#224; domicile (Belgique), R&#233;cup&#233;rer le document &#224; la commune lorsqu'il est pr&#234;t</option>
     <option varname="cp_commune">4500</option>
