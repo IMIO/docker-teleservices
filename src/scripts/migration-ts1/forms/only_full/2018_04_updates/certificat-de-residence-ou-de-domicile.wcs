@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-15"?>
-<formdef id="48">
+<formdef id="60">
   <name>Certificat de R&#233;sidence ou de Domicile</name>
   <url_name>certificat-de-residence-ou-de-domicile</url_name>
   <description>&lt;p&gt;&lt;em&gt;Le certificat de r&#233;sidence reprend l&#8217;adresse du domicile. Le certificat de r&#233;sidence est destin&#233; &#224; prouver votre lieu de r&#233;sidence actuel.&lt;/em&gt;&lt;/p&gt;</description>
@@ -14,17 +14,17 @@
   <private_status_and_history>false</private_status_and_history>
   <has_captcha>false</has_captcha>
   <skip_from_360_view>false</skip_from_360_view>
-  <category category_id="2">Population</category>
-  <workflow workflow_id="2">D&#233;partement Citoyen (avec redirection BOSA)</workflow>
-  <max_field_id>52</max_field_id>
-  <last_modification user_id="1">2018-04-27 07:56:28</last_modification>
+  <category category_id="1">Population</category>
+  <workflow workflow_id="4">D&#233;partement Citoyen (avec redirection MONDOSSIER)</workflow>
+  <max_field_id>53</max_field_id>
+  <last_modification user_id="4">2018-05-08 10:56:26</last_modification>
   <fields>
     <field>
       <label>Comment obtenir mon document</label>
       <type>page</type>
       <id>50</id>
     </field><field>
-    <label>&lt;p&gt;Le certificat de r&#233;sidence/domicile peut vous &#234;tre d&#233;livr&#233; soit par la ville de {{commune_name}}, soit, directement, par le site du f&#233;d&#233;ral. Veuillez choisir la formule qui vous agr&#233;e.&lt;/p&gt;</label>
+      <label>&lt;p&gt;Le certificat de r&#233;sidence/domicile peut vous &#234;tre d&#233;livr&#233; soit par la ville de {{commune_name}}, soit, directement, par le site du f&#233;d&#233;ral. Veuillez choisir la formule qui vous agr&#233;e.&lt;/p&gt;</label>
       <type>comment</type>
       <id>51</id>
     </field><field>
@@ -35,8 +35,7 @@
       <in_listing>False</in_listing>
       <prefill>
         <type>none</type>
-      </prefill><items />
-      <show_as_radio>True</show_as_radio>
+      </prefill><show_as_radio>True</show_as_radio>
       <data_source>
         <type>formula</type>
         <value>script.commune("authentication_delivrance_items_visibility",{'datasource':data_source.mode_de_delivrance,'auth':session_user.verified_fields})</value>
@@ -70,7 +69,8 @@
       <in_listing>True</in_listing>
       <prefill>
         <type>none</type>
-      </prefill><show_as_radio>True</show_as_radio>
+      </prefill><items />
+      <show_as_radio>True</show_as_radio>
       <data_source>
         <type>ds_personne_concernee</type>
       </data_source><in_filters>False</in_filters>
@@ -85,7 +85,8 @@
       <in_listing>False</in_listing>
       <prefill>
         <type>none</type>
-      </prefill><show_as_radio>True</show_as_radio>
+      </prefill><items />
+      <show_as_radio>True</show_as_radio>
       <data_source>
         <type>py_domicile</type>
       </data_source><in_filters>False</in_filters>
@@ -414,7 +415,8 @@
       <extra_css_class>newline grid-1-2</extra_css_class>
       <prefill>
         <type>none</type>
-      </prefill><show_as_radio>False</show_as_radio>
+      </prefill><items />
+      <show_as_radio>False</show_as_radio>
       <data_source>
         <type>passerelle_motifs</type>
       </data_source><in_filters>False</in_filters>
@@ -430,7 +432,8 @@
       <extra_css_class>newline grid-1-2</extra_css_class>
       <prefill>
         <type>none</type>
-      </prefill><show_as_radio>True</show_as_radio>
+      </prefill><items />
+      <show_as_radio>True</show_as_radio>
       <data_source>
         <type>passerelle_destinations</type>
         <value>[data_source.passerelle_destinations[1]] if form_var_concerne_qui =='Concerne une autre personne' else data_source.passerelle_destinations</value>
@@ -474,10 +477,10 @@
       </prefill><id>31</id>
     </field>
   </fields><user-roles>
-    <role role_id="7f9e28ce2b2a4f008a845fceffe56956">Citoyen (test)</role>
+    <role role_id="bbde7b72b5fd46049d44f16bc42974f6">Citoyen (test)</role>
   </user-roles><roles>
-    <role role_id="418c98aa366e4cf0985438b6d5647243" role_key="_receiver">Agents traitants - Population, etat civil</role>
-    <role role_id="418c98aa366e4cf0985438b6d5647243" role_key="_validateur-paiement">Agents traitants - Population, etat civil</role>
+    <role role_id="80aaf4ca883a4178a106b0e992f54e3d" role_key="_receiver">Agents traitants - Population, etat civil</role>
+    <role role_id="80aaf4ca883a4178a106b0e992f54e3d" role_key="_validateur-paiement">Agents traitants - Population, etat civil</role>
   </roles><options>
     <option varname="cp_commune">4500</option>
     <option varname="comptes_identifiants_regies_structured" />
