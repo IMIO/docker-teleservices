@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="utf-8"?>
+<workflow id="4">
+  <name>D&#233;partement Citoyen (avec redirection MONDOSSIER)</name>
+  <roles>
+    <role id="_receiver">Agent traitant</role>
+    <role id="_validateur-pc-banking">Validateur pc banking</role>
+  </roles><last_modification user_id="4">2018-05-08 10:51:01</last_modification>
+  <possible_status>
+    <status>
+      <id>just_submitted</id>
+      <name>Juste envoy&#233;</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item id="1" type="set-backoffice-fields">
+          <fields>
+            <field>
+              <field_id>bo2</field_id>
+              <value>=locals().get("form_var_nb_exemplaire")</value>
+            </field><field>
+              <field_id>bo3</field_id>
+              <value>=str(((Decimal(form_option_cost) + Decimal(form_var_motif_price)) * int(form_var_nb_exemplaire)) + Decimal(form_var_destination_price)) or '0.00'</value>
+            </field><field>
+              <field_id>bo6</field_id>
+              <value>=locals().get("form_user_field_numero_national")</value>
+            </field><field>
+              <field_id>bo8</field_id>
+              <value>=locals().get("form_var_nn_tiers")</value>
+            </field><field>
+              <field_id>bo9</field_id>
+              <value>=False</value>
+            </field>
+          </fields>
+        </item><item id="2" type="jump">
+          <status>20</status>
+          <set_marker_on_status>False</set_marker_on_status>
+          <condition>
+            <type>python</type>
+            <value>vars().get('form_option_lien_fedict') is not None and 'form_var_mode_delivrance_raw' in locals() and (form_var_mode_delivrance_raw != 'commune')</value>
+          </condition>
+        </item><item id="3" type="jump">
+          <status>13</status>
+          <set_marker_on_status>False</set_marker_on_status>
+          <condition>
+            <type>python</type>
+            <value>Decimal(form_var_wf_total_commande) == Decimal('0')</value>
+          </condition>
+        </item><item id="4" type="jump">
+          <status>21</status>
+          <set_marker_on_status>False</set_marker_on_status>
+          <condition>
+            <type>python</type>
+            <value>vars().get('form_var_wf_paiement_en_ligne_raw') is False</value>
+          </condition>
+        </item><item id="5" type="jump">
+          <status>10</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>4</id>
+      <name>rejet&#233;</name>
+      <colour>FF0000</colour>
+      <forced_endpoint>true</forced_endpoint>
+      <visibility />
+      <items>
+        <item id="1" type="register-comment">
+          <comment>[form_refus_var_object]
+
+[form_refus_var_body]</comment>
+        </item><item id="2" type="sendmail">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>[form_refus_var_object]</subject>
+          <body>[form_refus_var_body]</body>
+        </item>
+      </items>
+    </status><status>
+      <id>accepted</id>
+      <name>En cours de traitement</name>
+      <colour>66CCFF</colour>
+      <visibility />
+      <items>
+        <item id="1" type="sendmail">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to><subject>Nouveau formulaire en attente de traitement ({{ form_name }})</subject>
+          <body>Bonjour,
+
+Un nouveau formulaire a &#233;t&#233; compl&#233;t&#233;, vous pouvez le consulter
+en suivant ce lien :
+
+[form_url_backoffice]
+
+[if-any details]
+Pour r&#233;f&#233;rence, voici le d&#233;tail du formulaire :
+
+[details]
+[end]
+</body>
+        </item><item id="2" type="choice">
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>finished</status>
+          <label>Terminer</label>
+          <require_confirmation>False</require_confirmation>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="3" type="choice">
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>19</status>
+          <label>Refuser la demande</label>
+          <require_confirmation>False</require_confirmation>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>finished</id>
+      <name>Trait&#233;</name>
+      <colour>00FF00</colour>
+      <forced_endpoint>true</forced_endpoint>
+      <visibility />
+      <items>
+        <item id="1" type="sendmail">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>Administration de {{ commune_name }} : D&#233;marche "{{ form_name }}" trait&#233;e.</subject>
+          <body>Bonjour,
+
+Votre d&#233;marche "{{ form_name }}" a &#233;t&#233; trait&#233;e par nos services. 
+
+Bien cordialement,</body>
+        </item>
+      </items>
+    </status><status>
+      <id>10</id>
+      <name>Paiement en ligne</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item id="1" type="webservice_call">
+          <url>[portal_url]api/lingo/add-basket-item?NameId=[form_user_name_identifier_0]</url>
+          <post>True</post>
+          <varname>transaction_info</varname>
+          <post_data>
+            <item>
+              <name>amount</name>
+              <value>[form_var_wf_total_commande]</value>
+            </item>
+          </post_data><action_on_app_error>:pass</action_on_app_error>
+          <action_on_4xx>:stop</action_on_4xx>
+          <action_on_5xx>:stop</action_on_5xx>
+          <action_on_bad_data>:pass</action_on_bad_data>
+          <action_on_network_errors>:stop</action_on_network_errors>
+          <notify_on_errors>True</notify_on_errors>
+          <record_errors>True</record_errors>
+          <label>Paiement en ligne</label>
+          <method>POST</method>
+          <response_type>json</response_type>
+        </item><item id="2" type="register-comment">
+          <comment>&lt;p&gt;L'article se trouve dans votre panier.
+Veuillez r&#233;gler &lt;a href="{{combo_url}}panier"&gt;votre panier&lt;/a&gt;.
+&lt;p&gt;</comment>
+        </item><item id="3" type="jump">
+          <status>12</status>
+          <set_marker_on_status>False</set_marker_on_status>
+          <trigger>cancelled</trigger>
+        </item><item id="4" type="jump">
+          <status>17</status>
+          <set_marker_on_status>False</set_marker_on_status>
+          <trigger>paid</trigger>
+        </item>
+      </items>
+    </status><status>
+      <id>12</id>
+      <name>Demande annul&#233;e par le citoyen</name>
+      <colour>FFFFFF</colour>
+      <forced_endpoint>true</forced_endpoint>
+      <visibility />
+      <items />
+    </status><status>
+      <id>13</id>
+      <name>Document gratuit</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item id="1" type="jump">
+          <status>accepted</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="2" type="sendmail">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>Administration de {{ commune_name }} : D&#233;marche "{{ form_name }}" (document gratuit).</subject>
+          <body>Bonjour,
+Votre d&#233;marche gratuite "{{ form_name }}" est en cours de traitement par nos services. 
+
+
+Bien cordialement,</body>
+        </item>
+      </items>
+    </status><status>
+      <id>17</id>
+      <name>Paiement re&#231;u</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item id="1" type="sendmail">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>Administration de {{ commune_name }} : D&#233;marche "{{ form_name }}" accept&#233;e.</subject>
+          <body>Bonjour,
+
+Nous avons bien re&#231;u votre paiement. Votre demande va &#234;tre trait&#233;e dans les meilleurs d&#233;lais. 
+
+[if-any user]
+Vous pouvez continuer &#224; suivre son &#233;tat d'avancement en suivant ce lien :
+[url]
+[else]
+[end]
+
+Bien cordialement, 
+
+</body>
+        </item><item id="2" type="jump">
+          <status>accepted</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>18</id>
+      <name>Supprim&#233; du panier</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item id="1" type="webservice_call">
+          <url>[portal_url]/api/lingo/remove-basket-item?NameId=[form_user_name_identifier_0]</url>
+          <post>True</post>
+          <request_signature_key>13245</request_signature_key>
+          <post_data>
+            <item>
+              <name>skip_notification</name>
+              <value>skip</value>
+            </item><item>
+              <name>basket_item_id</name>
+              <value>[panier_response_id]</value>
+            </item>
+          </post_data><action_on_app_error>:pass</action_on_app_error>
+          <action_on_4xx>:stop</action_on_4xx>
+          <action_on_5xx>:stop</action_on_5xx>
+          <action_on_bad_data>:pass</action_on_bad_data>
+          <action_on_network_errors>:stop</action_on_network_errors>
+          <notify_on_errors>True</notify_on_errors>
+          <record_errors>False</record_errors>
+          <label>Supprimer du panier</label>
+          <method>POST</method>
+          <response_type>json</response_type>
+        </item>
+      </items>
+    </status><status>
+      <id>19</id>
+      <name>formulaire de refus</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item id="1" type="form">
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><varname>form_refus</varname>
+          <formdef>
+            <name>-</name>
+            <fields>
+              <field>
+                <label>Motif du refus</label>
+                <type>title</type>
+                <id>3</id>
+              </field><field>
+                <label>Le motif du refus sera envoy&#233; par mail &#224; l'usager.</label>
+                <type>comment</type>
+                <id>4</id>
+              </field><field>
+                <label>Objet du mail</label>
+                <type>string</type>
+                <required>True</required>
+                <varname>object</varname>
+                <in_listing>True</in_listing>
+                <prefill>
+                  <type>string</type>
+                  <value>Administration de {{ commune_name }} : Refus : {{ form_name }}</value>
+                </prefill><id>1</id>
+              </field><field>
+                <label>Corps du mail</label>
+                <type>text</type>
+                <required>True</required>
+                <varname>body</varname>
+                <in_listing>True</in_listing>
+                <prefill>
+                  <type>formula</type>
+                  <value>"Bonjour,\r\n\r\nNous sommes au regret de vous annoncer que votre d&#233;marche n'a pu aboutir.\r\n\r\nLa raison de ce refus est la suivante : \r\n\r\n\r\n\r\nBien cordialement, "</value>
+                </prefill><pre>False</pre>
+                <id>2</id>
+              </field>
+            </fields>
+          </formdef>
+        </item><item id="2" type="jumponsubmit">
+          <status>4</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>20</id>
+      <name>REDIRECTION MONDOSSIER</name>
+      <colour>FFFFFF</colour>
+      <forced_endpoint>true</forced_endpoint>
+      <visibility />
+      <items>
+        <item id="1" type="displaymsg">
+          <message>Vous avez choisis d'obtenir un fichier .pdf sign&#233; num&#233;riquement par le f&#233;d&#233;ral ou vous avez d&#233;sir&#233; l'imprimer vous-m&#234;me.
+
+En cliquant sur valider, vous allez &#234;tre red&#233;rig&#233; vers le site du f&#233;d&#233;ral. </message>
+          <position>top</position>
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to>
+        </item><item id="2" type="redirect_to_url">
+          <url>[form_option_lien_bosa]</url>
+        </item>
+      </items>
+    </status><status>
+      <id>21</id>
+      <name>PC Banking (virement)</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item id="1" type="jump">
+          <status>22</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>22</id>
+      <name>En attente du virement</name>
+      <colour>FFFF00</colour>
+      <visibility />
+      <items>
+        <item id="1" type="displaymsg">
+          <message>Madame,&lt;br&gt;
+Monsieur,&lt;br&gt;
+&lt;br&gt;
+Votre commande a bien &#233;t&#233; enregistr&#233;e dans notre syst&#232;me.
+&lt;br&gt;&lt;br&gt;
+Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en mentionnant les instructions de paiement suivantes : 
+&lt;ul&gt;
+&lt;li&gt;B&#233;n&#233;ficiaire : &lt;b&gt;Ville de {{ commune_name }} - {{ commune_rue }} - {{ commune_cp }}&lt;/b&gt;&lt;/li&gt;
+&lt;li&gt;Num&#233;ro de compte b&#233;n&#233;ficiaire (IBAN) : &lt;b&gt;{{form_option_iban}}&lt;/b&gt;&lt;/li&gt;
+&lt;li&gt;R&#233;f&#233;rence de la commande (communication libre) : &lt;b&gt;{{ form_number }}&lt;/b&gt;&lt;/li&gt;
+&lt;li&gt;Montant de la commande : &lt;b&gt;{{ form_var_wf_total_commande }}&lt;/b&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</message>
+          <position>top</position>
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to>
+        </item><item id="2" type="sendmail">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>Administration de {{ commune_name }} : D&#233;marche "{{ form_name }}". En attente du virement.</subject>
+          <body>Madame, Monsieur,
+
+Votre commande a bien &#233;t&#233; enregistr&#233;e dans notre syst&#232;me.
+
+
+Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en mentionnant les instructions de paiement suivantes : 
+
+
+B&#233;n&#233;ficiaire : Ville de {{ commune_name }} - {{ commune_rue }} - {{ commune_cp }}
+
+
+Num&#233;ro de compte b&#233;n&#233;ficiaire (IBAN) : {{form_option_iban}}
+
+
+R&#233;f&#233;rence de la commande (communication libre) :{{ form_number }}
+
+
+Montant de la commande : {{ form_var_wf_total_commande }}
+
+
+Bien cordialement,
+
+
+
+
+</body>
+        </item><item id="3" type="choice">
+          <by>
+            <item role_id="_validateur-pc-banking">_validateur-pc-banking</item>
+          </by><status>23</status>
+          <label>Le paiement par virement est valid&#233;.</label>
+          <require_confirmation>False</require_confirmation>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>23</id>
+      <name>Virement re&#231;u</name>
+      <colour>99FF66</colour>
+      <visibility />
+      <items>
+        <item id="1" type="jump">
+          <status>accepted</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status>
+  </possible_status><global_actions>
+    <action>
+      <id>1</id>
+      <name>Supprimer du panier</name>
+      <items>
+        <item id="1" type="jump">
+          <status>18</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items><triggers>
+        <trigger id="427021fb-bb5d-4741-a150-25e1c1f144c5" type="manual">
+          <roles>
+            <item role_id="ef2b99f7e8a34e2a8650bf2561098d90">Debug</item>
+          </roles>
+        </trigger>
+      </triggers>
+    </action><action>
+      <id>2</id>
+      <name>Supprimer la d&#233;marche</name>
+      <items>
+        <item id="1" type="remove" />
+      </items><triggers>
+        <trigger id="ddf59ab8-ee61-408a-ab43-fc2c1be021db" type="manual">
+          <roles>
+            <item role_id="ef2b99f7e8a34e2a8650bf2561098d90">Debug</item>
+          </roles>
+        </trigger>
+      </triggers>
+    </action>
+  </global_actions><variables>
+    <formdef>
+      <name>-</name>
+      <fields>
+        <field>
+          <label>cout du document</label>
+          <type>string</type>
+          <required>False</required>
+          <varname>cost</varname>
+          <in_listing>False</in_listing>
+          <prefill>
+            <type>string</type>
+            <value>"0"</value>
+          </prefill><id>1</id>
+        </field><field>
+          <label>Codes postaux (commune)</label>
+          <type>string</type>
+          <required>False</required>
+          <hint>Lister les diff&#233;rents codes postaux relatifs &#224; votre commune.
+Coll&#233;s et s&#233;par&#233;s par une ","
+ex : 4000,4020,4030,4031</hint>
+          <varname>cp_commune</varname>
+          <in_listing>True</in_listing>
+          <prefill>
+            <type>none</type>
+          </prefill><id>6</id>
+        </field><field>
+          <label>Motifs disponibles</label>
+          <type>items</type>
+          <required>False</required>
+          <varname>motifs_disponibles</varname>
+          <in_listing>False</in_listing>
+          <prefill>
+            <type>none</type>
+          </prefill><max_choices>0</max_choices>
+          <data_source>
+            <type>passerelle_motifs</type>
+          </data_source><anonymise>True</anonymise>
+          <display_disabled_items>False</display_disabled_items>
+          <id>3</id>
+        </field><field>
+          <label>Destinations</label>
+          <type>items</type>
+          <required>False</required>
+          <varname>destinations</varname>
+          <in_listing>False</in_listing>
+          <prefill>
+            <type>none</type>
+          </prefill><items />
+          <max_choices>0</max_choices>
+          <data_source>
+            <type>passerelle_destinations</type>
+          </data_source><anonymise>True</anonymise>
+          <display_disabled_items>False</display_disabled_items>
+          <id>4</id>
+        </field><field>
+          <label>Url du document sur le site de Mon Dossier</label>
+          <type>string</type>
+          <required>False</required>
+          <varname>lien_bosa</varname>
+          <in_listing>True</in_listing>
+          <prefill>
+            <type>none</type>
+          </prefill><id>7</id>
+        </field><field>
+          <label>iban</label>
+          <type>string</type>
+          <required>False</required>
+          <varname>iban</varname>
+          <in_listing>True</in_listing>
+          <prefill>
+            <type>none</type>
+          </prefill><id>9</id>
+        </field>
+      </fields>
+    </formdef>
+  </variables><backoffice-fields>
+    <formdef>
+      <name>-</name>
+      <fields>
+        <field>
+          <label>Num&#233;ro national</label>
+          <type>string</type>
+          <required>False</required>
+          <varname>wf_nn</varname>
+          <in_listing>False</in_listing>
+          <id>bo6</id>
+        </field><field>
+          <label>Num&#233;ro national (tiers)</label>
+          <type>string</type>
+          <required>False</required>
+          <varname>wf_nn_tiers</varname>
+          <in_listing>False</in_listing>
+          <id>bo8</id>
+        </field><field>
+          <label>Nombre d'exemplaires</label>
+          <type>string</type>
+          <required>True</required>
+          <varname>wf_nb_exemplaires</varname>
+          <in_listing>False</in_listing>
+          <id>bo2</id>
+        </field><field>
+          <label>Total de la commande</label>
+          <type>string</type>
+          <required>True</required>
+          <varname>wf_total_commande</varname>
+          <in_listing>True</in_listing>
+          <id>bo3</id>
+        </field><field>
+          <label>Paiement en ligne</label>
+          <type>bool</type>
+          <required>False</required>
+          <hint>Est-ce que le citoyen a choisit un paiement en ligne oui/non?</hint>
+          <varname>wf_paiement_en_ligne</varname>
+          <in_listing>False</in_listing>
+          <id>bo9</id>
+        </field>
+      </fields>
+    </formdef>
+  </backoffice-fields>
+</workflow>
