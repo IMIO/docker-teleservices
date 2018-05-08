@@ -21,7 +21,7 @@
                     "extra_css_class": "home_welcome",
                     "restricted_to_unlogged": false,
                     "last_update_timestamp": "2017-03-24T13:12:59.655Z",
-                    "text": "<h2>BIENVENUE SUR L&#39;E-GUICHET.<br />\r\n&nbsp;</h2>\r\n\r\n<p>Vos d&eacute;marches administratives sont disponibles en quelques clics!</p>\r\n",
+                    "text": "<h2>BIENVENUE SUR L&#39;E-GUICHET.<br />\r\n&nbsp;</h2>\r\n\r\n<p>Vos <a href='demarches/'>d&eacute;marches administratives</a> sont disponibles en quelques clics!</p>\r\n",
                     "order": 0,
                     "public": true,
                     "groups": [],
