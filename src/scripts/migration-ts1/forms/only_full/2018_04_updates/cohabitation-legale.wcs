@@ -17,7 +17,7 @@
   <category category_id="1">Population</category>
   <workflow workflow_id="2">D&#233;partement Citoyen (avec redirection MONDOSSIER)</workflow>
   <max_field_id>39</max_field_id>
-  <last_modification user_id="1">2018-05-09 09:39:42</last_modification>
+  <last_modification user_id="1">2018-05-09 11:59:16</last_modification>
   <fields>
     <field>
       <label>Attestation de Cohabitation L&#233;gale</label>
@@ -52,17 +52,17 @@
         <post_condition>
           <condition>
             <type>python</type>
-            <value>form_var_nn_ddeur == None or ((97 - int(form_var_nn_ddeur[:9]) % 97 == int(form_var_nn_ddeur[-2:])) 	 or 	 (97 - int("2" + form_var_nn_ddeur[:9]) % 97 == int(form_var_nn_ddeur[-2:])))</value>
+            <value>form_var_nn == None or ((97 - int(form_var_nn[:9]) % 97 == int(form_var_nn[-2:])) or (97 - int("2" + form_var_nn[:9]) % 97 == int(form_var_nn[-2:])))</value>
           </condition><error_message>Veuillez entrer un num&#233;ro national valide.</error_message>
         </post_condition><post_condition>
           <condition>
             <type>python</type>
-            <value>form_var_tel_ddeur == None or (re.match("^(0|\\+|00)(\d{8,})$", form_var_tel_ddeur))</value>
+            <value>form_var_tel == None or (re.match("^(0|\\+|00)(\d{8,})$", form_var_tel))</value>
           </condition><error_message>Num&#233;ro de t&#233;l&#233;phone : seuls les chiffres et le signe + sont accept&#233;s (pas de -, /, ...). Merci d'encoder minimum 9 chiffres pour le num&#233;ro de t&#233;l&#233;phone.</error_message>
         </post_condition><post_condition>
           <condition>
             <type>python</type>
-            <value>form_var_cp_ddeur in form_option_cp_commune.split(',')</value>
+            <value>form_var_cp in form_option_cp_commune.split(',')</value>
           </condition><error_message>Vous devez habiter notre commune afin que l'on puisse vous d&#233;livrer ce document.</error_message>
         </post_condition>
       </post_conditions><id>1</id>
@@ -201,7 +201,8 @@
       <extra_css_class>grid-2-4</extra_css_class>
       <prefill>
         <type>none</type>
-      </prefill><show_as_radio>False</show_as_radio>
+      </prefill><items />
+      <show_as_radio>False</show_as_radio>
       <data_source>
         <type>pays</type>
       </data_source><in_filters>False</in_filters>
@@ -234,8 +235,7 @@
       <extra_css_class>newline grid-1-2</extra_css_class>
       <prefill>
         <type>none</type>
-      </prefill><items />
-      <show_as_radio>False</show_as_radio>
+      </prefill><show_as_radio>False</show_as_radio>
       <data_source>
         <type>passerelle_motifs</type>
       </data_source><in_filters>False</in_filters>
@@ -260,8 +260,7 @@
       <extra_css_class>newline grid-1-2</extra_css_class>
       <prefill>
         <type>none</type>
-      </prefill><items />
-      <show_as_radio>False</show_as_radio>
+      </prefill><show_as_radio>False</show_as_radio>
       <data_source>
         <type>formula</type>
         <value>form_option_mode_recup_disponibles_structured</value>
@@ -306,8 +305,8 @@
   </user-roles><roles>
     <role role_id="ce08d89514b34f4babb920266a66f215" role_key="_receiver">Agents traitants - Population, etat civil</role>
   </roles><options>
+    <option varname="mode_recup_disponibles_display">Envoi &#224; domicile (Belgique), R&#233;cup&#233;rer le document &#224; la commune lorsqu'il est pr&#234;t</option>
     <option varname="cp_commune">4606,4607,4608</option>
-    <option varname="destinations_display" />
     <option varname="motifs_disponibles_structured" />
     <option varname="lien_mondossier">https://mondossier.rrn.fgov.be/fr/certificats.do#tab_tx_31</option>
     <option varname="lien_bosa">https://mondossier.rrn.fgov.be/fr/certificats.do#tab_tx_31</option>
@@ -317,7 +316,7 @@
     <option varname="iban" />
     <option varname="motifs_disponibles" />
     <option varname="motifs_disponibles_display" />
-    <option varname="mode_recup_disponibles_display">Envoi &#224; domicile (Belgique), R&#233;cup&#233;rer le document &#224; la commune lorsqu'il est pr&#234;t</option>
+    <option varname="destinations_display" />
     <option varname="destinations_structured" />
     <option varname="destinations" />
   </options><geolocations />
