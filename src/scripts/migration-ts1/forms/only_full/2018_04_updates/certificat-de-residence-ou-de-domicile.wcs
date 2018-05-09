@@ -17,7 +17,7 @@
   <category category_id="1">Population</category>
   <workflow workflow_id="2">D&#233;partement Citoyen (avec redirection MONDOSSIER)</workflow>
   <max_field_id>58</max_field_id>
-  <last_modification user_id="1">2018-05-09 11:14:13</last_modification>
+  <last_modification user_id="1">2018-05-09 11:24:30</last_modification>
   <fields>
     <field>
       <label>Comment obtenir mon document</label>
@@ -35,8 +35,7 @@
       <in_listing>False</in_listing>
       <prefill>
         <type>none</type>
-      </prefill><items />
-      <show_as_radio>True</show_as_radio>
+      </prefill><show_as_radio>True</show_as_radio>
       <data_source>
         <type>formula</type>
         <value>script.commune("authentication_delivrance_items_visibility",{'datasource':data_source.mode_de_delivrance,'auth':session_user.verified_fields})</value>
@@ -70,7 +69,8 @@
       <in_listing>False</in_listing>
       <prefill>
         <type>none</type>
-      </prefill><show_as_radio>True</show_as_radio>
+      </prefill><items />
+      <show_as_radio>True</show_as_radio>
       <data_source>
         <type>ds_personne_concernee</type>
       </data_source><in_filters>False</in_filters>
@@ -85,7 +85,8 @@
       <in_listing>False</in_listing>
       <prefill>
         <type>none</type>
-      </prefill><show_as_radio>True</show_as_radio>
+      </prefill><items />
+      <show_as_radio>True</show_as_radio>
       <data_source>
         <type>py_domicile</type>
       </data_source><in_filters>False</in_filters>
@@ -107,7 +108,7 @@
         </post_condition><post_condition>
           <condition>
             <type>python</type>
-            <value>form_var_code_postal_perscon in form_option_cp_commune.split(',')</value>
+            <value>form_var_cp_perscon in form_option_cp_commune.split(',')</value>
           </condition><error_message>Nous ne pouvons donner suite &#224; votre demande parce que vous n'&#234;tes pr&#233;sentement pas domicili&#233;(e) dans notre commune. Vous devez vous adresser &#224; la commune du domicile. Si la personne concern&#233;e N'habite PLUS notre commune, vous devriez commander un certificat de domicile/r&#233;sidence avec historique.</error_message>
         </post_condition>
       </post_conditions><id>45</id>
@@ -181,7 +182,7 @@
       <label>Code postal</label>
       <type>string</type>
       <required>True</required>
-      <varname>code_postal_perscon</varname>
+      <varname>cp_perscon</varname>
       <in_listing>False</in_listing>
       <extra_css_class>grid-1-4</extra_css_class>
       <prefill>
@@ -207,7 +208,8 @@
       <extra_css_class>grid-2-4</extra_css_class>
       <prefill>
         <type>none</type>
-      </prefill><show_as_radio>False</show_as_radio>
+      </prefill><items />
+      <show_as_radio>False</show_as_radio>
       <data_source>
         <type>pays</type>
       </data_source><in_filters>False</in_filters>
@@ -254,7 +256,7 @@
         </post_condition><post_condition>
           <condition>
             <type>python</type>
-            <value>(form_var_concerne_qui_raw == 'moi' and form_var_code_postal in form_option_cp_commune) or form_var_concerne_qui_raw != 'moi'</value>
+            <value>(form_var_concerne_qui_raw == 'moi' and form_var_cp in form_option_cp_commune) or form_var_concerne_qui_raw != 'moi'</value>
           </condition><error_message>Vous d&#233;sirez commander un certificat de r&#233;sidence ou de domicile pour vous-m&#234;me. Votre code postal ne semble pas &#234;tre celui de notre commune. Vous devez habitez notre commune pour commander ce document.</error_message>
         </post_condition>
       </post_conditions><id>5</id>
@@ -361,7 +363,7 @@
       <label>Code postal</label>
       <type>string</type>
       <required>True</required>
-      <varname>code_postal</varname>
+      <varname>cp</varname>
       <in_listing>False</in_listing>
       <extra_css_class>newline grid-1-4</extra_css_class>
       <prefill>
@@ -390,7 +392,8 @@
       <prefill>
         <type>user</type>
         <value>_country</value>
-      </prefill><show_as_radio>False</show_as_radio>
+      </prefill><items />
+      <show_as_radio>False</show_as_radio>
       <data_source>
         <type>pays</type>
       </data_source><in_filters>False</in_filters>
@@ -448,7 +451,8 @@
       <extra_css_class>newline grid-1-2</extra_css_class>
       <prefill>
         <type>none</type>
-      </prefill><show_as_radio>False</show_as_radio>
+      </prefill><items />
+      <show_as_radio>False</show_as_radio>
       <data_source>
         <type>passerelle_motifs</type>
       </data_source><in_filters>False</in_filters>
@@ -464,7 +468,8 @@
       <extra_css_class>newline grid-1-2</extra_css_class>
       <prefill>
         <type>none</type>
-      </prefill><show_as_radio>True</show_as_radio>
+      </prefill><items />
+      <show_as_radio>True</show_as_radio>
       <data_source>
         <type>passerelle_destinations</type>
         <value>[data_source.passerelle_destinations[1]] if form_var_concerne_qui =='Concerne une autre personne' else data_source.passerelle_destinations</value>
@@ -512,17 +517,17 @@
   </user-roles><roles>
     <role role_id="ce08d89514b34f4babb920266a66f215" role_key="_receiver">Agents traitants - Population, etat civil</role>
   </roles><options>
-    <option varname="cost">0</option>
+    <option varname="mode_recup_disponibles_display">Envoi par courrier au domicile, Envoi par courrier &#233;lectronique</option>
     <option varname="cp_commune">4606,4607,4608</option>
-    <option varname="comptes_identifiants_regies_structured" />
+    <option varname="comptes_identifiants_regies_display">atos_pop</option>
     <option varname="motifs_disponibles_structured" />
     <option varname="comptes_identifiants_regies">atos_pop</option>
-    <option varname="comptes_identifiants_regies_display">atos_pop</option>
+    <option varname="comptes_identifiants_regies_structured" />
     <option varname="lien_mondossier">https://mondossier.rrn.fgov.be/fr/certificate.do?tx=38&amp;language=FR</option>
     <option varname="lien_bosa">https://mondossier.rrn.fgov.be/fr/certificate.do?tx=38&amp;language=FR</option>
     <option varname="mode_recup_disponibles_structured" />
     <option varname="mode_recup_disponibles" />
-    <option varname="mode_recup_disponibles_display">Envoi par courrier au domicile, Envoi par courrier &#233;lectronique</option>
+    <option varname="cost">0</option>
     <option varname="iban" />
     <option varname="motifs_disponibles" />
     <option varname="motifs_disponibles_display" />
