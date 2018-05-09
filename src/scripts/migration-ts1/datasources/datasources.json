@@ -132,14 +132,7 @@
       "resource_type": "passerelle_imio_ts1_datasources.imiots1datasources",
       "destinations": [
         {
-          "text": "Envoi \u00e0 domicile par recommand\u00e9: co\u00fbt 6\u20ac",
-          "price": "5.0",
-          "paymentrequired": true,
-          "slug": "recommande",
-          "description": "Mode de r\u00e9ception : envoi par recommand\u00e9"
-        },
-        {
-          "text": "Envoi \u00e0 domicile : co\u00fbt 1\u20ac",
+          "text": "Envoi \u00e0 domicile",
           "price": "1.0",
           "paymentrequired": true,
           "slug": "poste",
