@@ -3,7 +3,7 @@
   <name>Certificat de R&#233;sidence ou de Domicile</name>
   <url_name>certificat-de-residence-ou-de-domicile</url_name>
   <description>&lt;p&gt;&lt;em&gt;Le certificat de r&#233;sidence reprend l&#8217;adresse du domicile. Le certificat de r&#233;sidence est destin&#233; &#224; prouver votre lieu de r&#233;sidence actuel.&lt;/em&gt;&lt;/p&gt;</description>
-  <internal_identifier>certificat-de-residence-ou-de-domicile-1</internal_identifier>
+  <internal_identifier>certificat-de-residence-ou-de-domicile</internal_identifier>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
   <disabled>false</disabled>
@@ -16,8 +16,8 @@
   <skip_from_360_view>false</skip_from_360_view>
   <category category_id="1">Population</category>
   <workflow workflow_id="2">D&#233;partement Citoyen (avec redirection MONDOSSIER)</workflow>
-  <max_field_id>53</max_field_id>
-  <last_modification user_id="1">2018-05-08 12:53:56</last_modification>
+  <max_field_id>58</max_field_id>
+  <last_modification user_id="1">2018-05-09 11:14:13</last_modification>
   <fields>
     <field>
       <label>Comment obtenir mon document</label>
@@ -67,7 +67,7 @@
       <type>item</type>
       <required>True</required>
       <varname>concerne_qui</varname>
-      <in_listing>True</in_listing>
+      <in_listing>False</in_listing>
       <prefill>
         <type>none</type>
       </prefill><show_as_radio>True</show_as_radio>
@@ -131,7 +131,7 @@
       <type>string</type>
       <required>True</required>
       <varname>nom_perscon</varname>
-      <in_listing>True</in_listing>
+      <in_listing>False</in_listing>
       <extra_css_class>newline grid-1-2</extra_css_class>
       <prefill>
         <type>none</type>
@@ -141,7 +141,7 @@
       <type>string</type>
       <required>True</required>
       <varname>prenom_perscon</varname>
-      <in_listing>True</in_listing>
+      <in_listing>False</in_listing>
       <extra_css_class>grid-1-2</extra_css_class>
       <prefill>
         <type>none</type>
@@ -183,41 +183,47 @@
       <required>True</required>
       <varname>code_postal_perscon</varname>
       <in_listing>False</in_listing>
-      <extra_css_class>grid-1-2</extra_css_class>
+      <extra_css_class>grid-1-4</extra_css_class>
       <prefill>
         <type>none</type>
       </prefill><validation>^[0-9]*</validation>
       <id>40</id>
     </field><field>
-      <label>Ville</label>
+      <label>Localit&#233;</label>
       <type>string</type>
       <required>True</required>
-      <varname>ville_perscon</varname>
+      <varname>localite_perscon</varname>
       <in_listing>False</in_listing>
-      <extra_css_class>grid-1-2</extra_css_class>
+      <extra_css_class>grid-1-4</extra_css_class>
       <prefill>
         <type>none</type>
       </prefill><id>41</id>
+    </field><field>
+      <label>Pays</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>pays_perscon</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-2-4</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><show_as_radio>False</show_as_radio>
+      <data_source>
+        <type>pays</type>
+      </data_source><in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>57</id>
     </field><field>
       <label>Num&#233;ro de t&#233;l&#233;phone</label>
       <type>string</type>
       <required>False</required>
       <varname>telephone_perscon</varname>
-      <in_listing>True</in_listing>
+      <in_listing>False</in_listing>
       <extra_css_class>grid-1-2</extra_css_class>
       <prefill>
         <type>none</type>
       </prefill><id>42</id>
-    </field><field>
-      <label>Num&#233;ro de GSM</label>
-      <type>string</type>
-      <required>False</required>
-      <varname>gsm_perscon</varname>
-      <in_listing>True</in_listing>
-      <extra_css_class>grid-1-2</extra_css_class>
-      <prefill>
-        <type>none</type>
-      </prefill><id>43</id>
     </field><field>
       <label>Adresse e-mail</label>
       <type>email</type>
@@ -269,7 +275,7 @@
       <type>string</type>
       <required>True</required>
       <varname>nom</varname>
-      <in_listing>True</in_listing>
+      <in_listing>False</in_listing>
       <extra_css_class>grid-1-2</extra_css_class>
       <prefill>
         <type>user</type>
@@ -280,7 +286,7 @@
       <type>string</type>
       <required>True</required>
       <varname>prenom</varname>
-      <in_listing>True</in_listing>
+      <in_listing>False</in_listing>
       <extra_css_class>grid-1-2</extra_css_class>
       <prefill>
         <type>user</type>
@@ -333,7 +339,7 @@
       <required>True</required>
       <hint>Ex de num&#233;ro: 12, 145 et pas 1C ou 12/21 &#224; indiquer dans le champ bo&#238;te.</hint>
       <varname>numero</varname>
-      <in_listing>True</in_listing>
+      <in_listing>False</in_listing>
       <extra_css_class>grid-1-4</extra_css_class>
       <prefill>
         <type>user</type>
@@ -357,12 +363,40 @@
       <required>True</required>
       <varname>code_postal</varname>
       <in_listing>False</in_listing>
-      <extra_css_class>grid-1-2</extra_css_class>
+      <extra_css_class>newline grid-1-4</extra_css_class>
       <prefill>
         <type>user</type>
         <value>_zipcode</value>
       </prefill><validation>^[0-9]*</validation>
       <id>49</id>
+    </field><field>
+      <label>Localit&#233;</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>localite</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-4</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_city</value>
+      </prefill><id>54</id>
+    </field><field>
+      <label>Pays</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>pays</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-2-4</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_country</value>
+      </prefill><show_as_radio>False</show_as_radio>
+      <data_source>
+        <type>pays</type>
+      </data_source><in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>58</id>
     </field><field>
       <label>Adresse e-mail</label>
       <type>email</type>
@@ -396,7 +430,7 @@
       <label>Date souhait&#233;e du certificat</label>
       <type>date</type>
       <required>False</required>
-      <in_listing>True</in_listing>
+      <in_listing>False</in_listing>
       <extra_css_class>newline grid-1-2</extra_css_class>
       <prefill>
         <type>formula</type>
@@ -410,7 +444,7 @@
       <type>item</type>
       <required>True</required>
       <varname>motifs</varname>
-      <in_listing>True</in_listing>
+      <in_listing>False</in_listing>
       <extra_css_class>newline grid-1-2</extra_css_class>
       <prefill>
         <type>none</type>
@@ -426,7 +460,7 @@
       <type>item</type>
       <required>True</required>
       <varname>destinations</varname>
-      <in_listing>True</in_listing>
+      <in_listing>False</in_listing>
       <extra_css_class>newline grid-1-2</extra_css_class>
       <prefill>
         <type>none</type>
@@ -444,7 +478,7 @@
       <required>True</required>
       <hint>Maximum 20 exemplaires.</hint>
       <varname>nb_exemplaire</varname>
-      <in_listing>True</in_listing>
+      <in_listing>False</in_listing>
       <extra_css_class>newline grid-1-2</extra_css_class>
       <prefill>
         <type>none</type>
@@ -462,11 +496,11 @@
       <type>comment</type>
       <id>48</id>
     </field><field>
-      <label>Montant</label>
+      <label>Montant (hors &#233;ventuels frais de port)</label>
       <type>string</type>
       <required>True</required>
       <varname>montant</varname>
-      <in_listing>True</in_listing>
+      <in_listing>False</in_listing>
       <extra_css_class>readonly</extra_css_class>
       <prefill>
         <type>formula</type>
@@ -478,17 +512,22 @@
   </user-roles><roles>
     <role role_id="ce08d89514b34f4babb920266a66f215" role_key="_receiver">Agents traitants - Population, etat civil</role>
   </roles><options>
-    <option varname="cp_commune">4500</option>
+    <option varname="cost">0</option>
+    <option varname="cp_commune">4606,4607,4608</option>
     <option varname="comptes_identifiants_regies_structured" />
     <option varname="motifs_disponibles_structured" />
     <option varname="comptes_identifiants_regies">atos_pop</option>
     <option varname="comptes_identifiants_regies_display">atos_pop</option>
     <option varname="lien_mondossier">https://mondossier.rrn.fgov.be/fr/certificate.do?tx=38&amp;language=FR</option>
+    <option varname="lien_bosa">https://mondossier.rrn.fgov.be/fr/certificate.do?tx=38&amp;language=FR</option>
     <option varname="mode_recup_disponibles_structured" />
     <option varname="mode_recup_disponibles" />
-    <option varname="cost">0</option>
+    <option varname="mode_recup_disponibles_display">Envoi par courrier au domicile, Envoi par courrier &#233;lectronique</option>
+    <option varname="iban" />
     <option varname="motifs_disponibles" />
     <option varname="motifs_disponibles_display" />
-    <option varname="mode_recup_disponibles_display">Envoi par courrier au domicile, Envoi par courrier &#233;lectronique</option>
+    <option varname="destinations_display" />
+    <option varname="destinations_structured" />
+    <option varname="destinations" />
   </options><geolocations />
 </formdef>

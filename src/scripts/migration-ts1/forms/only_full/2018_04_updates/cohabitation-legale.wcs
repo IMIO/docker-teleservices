@@ -3,7 +3,7 @@
   <name>Cohabitation L&#233;gale</name>
   <url_name>cohabitation-legale</url_name>
   <description>&lt;p class="accroche"&gt;&lt;em&gt;Document attestant qu'une d&amp;eacute;claration de cohabitation l&amp;eacute;gale a bien &amp;eacute;t&amp;eacute; enregistr&amp;eacute;e.&lt;/em&gt;&lt;/p&gt;</description>
-  <internal_identifier>cohabitation-legale-1</internal_identifier>
+  <internal_identifier>cohabitation-legale</internal_identifier>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
   <disabled>false</disabled>
@@ -16,8 +16,8 @@
   <skip_from_360_view>false</skip_from_360_view>
   <category category_id="1">Population</category>
   <workflow workflow_id="2">D&#233;partement Citoyen (avec redirection MONDOSSIER)</workflow>
-  <max_field_id>36</max_field_id>
-  <last_modification user_id="1">2018-05-08 12:54:19</last_modification>
+  <max_field_id>39</max_field_id>
+  <last_modification user_id="1">2018-05-09 09:39:42</last_modification>
   <fields>
     <field>
       <label>Attestation de Cohabitation L&#233;gale</label>
@@ -39,7 +39,7 @@
       <type>string</type>
       <required>False</required>
       <varname>cp_ddeur</varname>
-      <in_listing>True</in_listing>
+      <in_listing>False</in_listing>
       <extra_css_class>newline grid-1-4</extra_css_class>
       <prefill>
         <type>user</type>
@@ -78,8 +78,8 @@
       <label>Nom</label>
       <type>string</type>
       <required>True</required>
-      <varname>nom_ddeur</varname>
-      <in_listing>True</in_listing>
+      <varname>nom</varname>
+      <in_listing>False</in_listing>
       <extra_css_class>grid-1-2</extra_css_class>
       <prefill>
         <type>user</type>
@@ -89,8 +89,8 @@
       <label>Pr&#233;nom</label>
       <type>string</type>
       <required>True</required>
-      <varname>prenom_ddeur</varname>
-      <in_listing>True</in_listing>
+      <varname>prenom</varname>
+      <in_listing>False</in_listing>
       <extra_css_class>grid-1-2</extra_css_class>
       <prefill>
         <type>user</type>
@@ -101,8 +101,8 @@
       <type>string</type>
       <required>True</required>
       <hint>Le n&#176; d'identification au Registre national se trouve sur la carte d'identit&#233;.</hint>
-      <varname>nn_ddeur</varname>
-      <in_listing>True</in_listing>
+      <varname>nn</varname>
+      <in_listing>False</in_listing>
       <extra_css_class>grid-1-2 newline</extra_css_class>
       <prefill>
         <type>user</type>
@@ -113,8 +113,8 @@
       <label>Adresse e-mail</label>
       <type>email</type>
       <required>True</required>
-      <varname>email_ddeur</varname>
-      <in_listing>True</in_listing>
+      <varname>email</varname>
+      <in_listing>False</in_listing>
       <extra_css_class>newline grid-1-2</extra_css_class>
       <prefill>
         <type>user</type>
@@ -125,8 +125,8 @@
       <type>string</type>
       <required>True</required>
       <hint>Seuls les chiffres et le signe + sont accept&#233;s (pas de -, /, ...)</hint>
-      <varname>tel_ddeur</varname>
-      <in_listing>True</in_listing>
+      <varname>tel</varname>
+      <in_listing>False</in_listing>
       <extra_css_class>grid-1-2</extra_css_class>
       <prefill>
         <type>user</type>
@@ -140,8 +140,8 @@
       <label>Rue</label>
       <type>string</type>
       <required>True</required>
-      <varname>rue_ddeur</varname>
-      <in_listing>True</in_listing>
+      <varname>rue</varname>
+      <in_listing>False</in_listing>
       <extra_css_class>grid-1-2 newline</extra_css_class>
       <prefill>
         <type>user</type>
@@ -152,8 +152,8 @@
       <type>string</type>
       <required>True</required>
       <hint>Ex de num&#233;ro: 12, 145 et pas 1C ou 12/21 &#224; indiquer dans le champ bo&#238;te.</hint>
-      <varname>numero_ddeur</varname>
-      <in_listing>True</in_listing>
+      <varname>numero</varname>
+      <in_listing>False</in_listing>
       <extra_css_class>grid-1-4</extra_css_class>
       <prefill>
         <type>none</type>
@@ -163,13 +163,51 @@
       <label>Bo&#238;te</label>
       <type>string</type>
       <required>False</required>
-      <varname>boite_ddeur</varname>
-      <in_listing>True</in_listing>
+      <varname>boite</varname>
+      <in_listing>False</in_listing>
       <extra_css_class>grid-1-4</extra_css_class>
       <prefill>
         <type>user</type>
         <value>_num_box</value>
       </prefill><id>14</id>
+    </field><field>
+      <label>Code postal</label>
+      <type>string</type>
+      <required>False</required>
+      <varname>cp</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>newline grid-1-4</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_zipcode</value>
+      </prefill><id>37</id>
+    </field><field>
+      <label>Localit&#233;</label>
+      <type>string</type>
+      <required>False</required>
+      <varname>localite</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-4</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_city</value>
+      </prefill><id>38</id>
+    </field><field>
+      <label>Pays</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>pays</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-2-4</extra_css_class>
+      <prefill>
+        <type>none</type>
+      </prefill><show_as_radio>False</show_as_radio>
+      <data_source>
+        <type>pays</type>
+      </data_source><in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>39</id>
     </field><field>
       <label>Informations compl&#233;mentaires</label>
       <type>page</type>
@@ -178,7 +216,7 @@
       <label>Date souhait&#233;e du certificat</label>
       <type>date</type>
       <required>True</required>
-      <in_listing>True</in_listing>
+      <in_listing>False</in_listing>
       <extra_css_class>newline grid-1-2</extra_css_class>
       <prefill>
         <type>formula</type>
@@ -192,7 +230,7 @@
       <type>item</type>
       <required>True</required>
       <varname>motifs</varname>
-      <in_listing>True</in_listing>
+      <in_listing>False</in_listing>
       <extra_css_class>newline grid-1-2</extra_css_class>
       <prefill>
         <type>none</type>
@@ -208,7 +246,7 @@
       <label>Si Autre</label>
       <type>string</type>
       <required>False</required>
-      <in_listing>True</in_listing>
+      <in_listing>False</in_listing>
       <extra_css_class>newline grid-1-2</extra_css_class>
       <prefill>
         <type>none</type>
@@ -218,7 +256,7 @@
       <type>item</type>
       <required>True</required>
       <varname>destinations</varname>
-      <in_listing>True</in_listing>
+      <in_listing>False</in_listing>
       <extra_css_class>newline grid-1-2</extra_css_class>
       <prefill>
         <type>none</type>
@@ -237,7 +275,7 @@
       <required>True</required>
       <hint>Maximum 20 exemplaires.</hint>
       <varname>nb_exemplaire</varname>
-      <in_listing>True</in_listing>
+      <in_listing>False</in_listing>
       <extra_css_class>newline grid-1-2</extra_css_class>
       <prefill>
         <type>none</type>
@@ -252,11 +290,11 @@
       <type>comment</type>
       <id>33</id>
     </field><field>
-      <label>Montant</label>
+      <label>Montant (hors &#233;ventuels frais de port)</label>
       <type>string</type>
       <required>True</required>
       <varname>montant</varname>
-      <in_listing>True</in_listing>
+      <in_listing>False</in_listing>
       <extra_css_class>readonly</extra_css_class>
       <prefill>
         <type>formula</type>
@@ -268,8 +306,8 @@
   </user-roles><roles>
     <role role_id="ce08d89514b34f4babb920266a66f215" role_key="_receiver">Agents traitants - Population, etat civil</role>
   </roles><options>
-    <option varname="mode_recup_disponibles_display">Envoi &#224; domicile (Belgique), R&#233;cup&#233;rer le document &#224; la commune lorsqu'il est pr&#234;t</option>
-    <option varname="cp_commune">4500</option>
+    <option varname="cp_commune">4606,4607,4608</option>
+    <option varname="destinations_display" />
     <option varname="motifs_disponibles_structured" />
     <option varname="lien_mondossier">https://mondossier.rrn.fgov.be/fr/certificats.do#tab_tx_31</option>
     <option varname="lien_bosa">https://mondossier.rrn.fgov.be/fr/certificats.do#tab_tx_31</option>
@@ -279,7 +317,7 @@
     <option varname="iban" />
     <option varname="motifs_disponibles" />
     <option varname="motifs_disponibles_display" />
-    <option varname="destinations_display" />
+    <option varname="mode_recup_disponibles_display">Envoi &#224; domicile (Belgique), R&#233;cup&#233;rer le document &#224; la commune lorsqu'il est pr&#234;t</option>
     <option varname="destinations_structured" />
     <option varname="destinations" />
   </options><geolocations />
