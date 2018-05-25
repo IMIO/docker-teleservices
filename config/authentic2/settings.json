@@ -10,7 +10,7 @@
     "MELLON_PRIVATE_KEY": "/var/lib/authentic2-multitenant/tenants/local-auth.example.net/saml.key",
     "MELLON_IDENTITY_PROVIDERS": [
         {
-            "METADATA_URL": "https://idp.iamfas.int.belgium.be/fas/saml2/jsp/exportmetadata.jsp" 
+            "METADATA_URL": "https://iamapps-public.int.belgium.be/saml/fas-metadata.xml"
         }
     ],
     "MELLON_ATTRIBUTE_MAPPING": {
