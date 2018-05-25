@@ -97,7 +97,7 @@ class Waterloo(town.Town):
             if birthday is not None and len(birthday) > 0:
                 dt_birthday = datetime.strptime(birthday, '%d/%m/%Y')
                 today = datetime.today()
-                difference = relativedelta.relativedelta(today, dt_birthday)
+                difference = relativedelta.relativedelta(today, dt_birthday) + 1
                 if difference.years >= 13:
                     has_swimming_pool = True
                     details += '<ul><li>Enfant {0}  : {1} Eur</li></ul>'.format(num_enfant, supplement)
@@ -140,7 +140,7 @@ else:
         nb_children = globals().get('form_var_NB_Enfants') or 0
         lst_week_choices = [globals().get('form_var_semaineE1_raw'), globals().get('form_var_semaineE2_raw'), globals().get('form_var_semaineE3_raw'), globals().get('form_var_semaineE4_raw'), globals().get('form_var_semaineE5_raw'), globals().get('form_var_semaineE6_raw')] or []
         lst_activites_choices = [globals().get('form_var_activite_comp_E1_raw'), globals().get('form_var_activite_comp_E2_raw'), globals().get('form_var_activite_comp_E3_raw'), globals().get('form_var_activite_comp_E4_raw'), globals().get('form_var_activite_comp_E5_raw'), globals().get('form_var_activite_comp_E6_raw')] or []
-        lst_birthday_children = [ globals().get('form_var_birthdayE1'),  globals().get('form_var_birthdayE2'),  globals().get('form_var_birthdayE3'),  globals().get('form_var_birthdayE4'),  globals().get('form_var_birthdayE5'),  globals().get('form_var_birthdayE6')] or []
+        lst_birthday_children = [globals().get('form_var_birthdayE1'),  globals().get('form_var_birthdayE2'), globals().get('form_var_birthdayE3'), globals().get('form_var_birthdayE4'), globals().get('form_var_birthdayE5'), globals().get('form_var_birthdayE6')] or []
         w = Waterloo()
         w.centre_recreatif_compute(nb_children, lst_week_choices)
         w.centre_recreatif_activites_compute(nb_children, lst_activites_choices)
