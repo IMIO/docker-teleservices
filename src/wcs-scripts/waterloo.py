@@ -19,6 +19,7 @@ class children(object):
 
 class Waterloo(town.Town):
     description = ''
+
     def __init__(self):
         super(Waterloo, self).__init__(variables=globals())
 
@@ -54,7 +55,7 @@ class Waterloo(town.Town):
                 total = 'error : Stage : child {0}'.format(enfant)
                 break
         cls.description += '<p>-------------</p><p><b>Semaines de plaine :</b></p>{0}'.format(details)
-        return str(total) if promotion == 'Non' else str(total / 2)
+        return str(total) if promotion == 'Non' else '0.00' if globals().get('form_var_lst_promo_raw') == '1' else str(total / 2)
 
     @classmethod
     def centre_recreatif_activites_compute(cls, nb_enfants, lst_activites_choices):
