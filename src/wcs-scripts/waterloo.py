@@ -86,7 +86,7 @@ class Waterloo(town.Town):
         return str(total)
 
     @classmethod
-    def centre_recreatif_supp_piscine_13_ans(cls, lst_birthday_children, supplement=2):
+    def centre_recreatif_supp_piscine_5_ans(cls, lst_birthday_children, supplement=2):
         supp_piscine = 0
         from datetime import datetime
         from dateutil import relativedelta
@@ -96,9 +96,10 @@ class Waterloo(town.Town):
         for birthday in lst_birthday_children:
             if birthday is not None and len(birthday) > 0:
                 dt_birthday = datetime.strptime(birthday, '%d/%m/%Y')
-                today = datetime.today()
-                difference = relativedelta.relativedelta(today, dt_birthday)
-                if difference.years + 1 >= 13:
+                dt_2013 = datetime.strptime('01/01/2013', '%d/%m/%Y')
+                # today = datetime.today()
+                difference = relativedelta.relativedelta(dt_2013, dt_birthday)
+                if difference.years >= 5:
                     has_swimming_pool = True
                     details += '<ul><li>Enfant {0}  : {1} Eur</li></ul>'.format(num_enfant, supplement)
                     supp_piscine = supp_piscine + supplement
@@ -133,7 +134,7 @@ class Waterloo(town.Town):
 
 if globals().get('args') is None:
     w = Waterloo()
-    print str(w.centre_recreatif_supp_piscine_13_ans(['01/01/2005','','10/10/2016','02/02/2004']))
+    print str(w.centre_recreatif_supp_piscine_5_ans(['10/09/2007',]))
     print str(w.generate_structured_communication('34-45'))
 else:
     if args[0] == 'get_payement_details':
@@ -144,7 +145,7 @@ else:
         w = Waterloo()
         w.centre_recreatif_compute(nb_children, lst_week_choices)
         w.centre_recreatif_activites_compute(nb_children, lst_activites_choices)
-        w.centre_recreatif_supp_piscine_13_ans([globals().get('form_var_birthdayE1'),globals().get('form_var_birthdayE2'),globals().get('form_var_birthdayE3'),globals().get('form_var_birthdayE4'),globals().get('form_var_birthdayE5'),globals().get('form_var_birthdayE6')])
+        w.centre_recreatif_supp_piscine_5_ans([globals().get('form_var_birthdayE1'),globals().get('form_var_birthdayE2'),globals().get('form_var_birthdayE3'),globals().get('form_var_birthdayE4'),globals().get('form_var_birthdayE5'),globals().get('form_var_birthdayE6')])
         result = '<p>{0}</p>'.format(Waterloo.description)
     else:
         current_commune = Waterloo()
