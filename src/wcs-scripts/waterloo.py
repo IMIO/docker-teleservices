@@ -148,7 +148,7 @@ else:
         lst_activites_choices = [globals().get('form_var_activite_comp_E1_raw'), globals().get('form_var_activite_comp_E2_raw'), globals().get('form_var_activite_comp_E3_raw'), globals().get('form_var_activite_comp_E4_raw'), globals().get('form_var_activite_comp_E5_raw'), globals().get('form_var_activite_comp_E6_raw')] or []
         lst_birthday_children = [globals().get('form_var_birthdayE1'),  globals().get('form_var_birthdayE2'), globals().get('form_var_birthdayE3'), globals().get('form_var_birthdayE4'), globals().get('form_var_birthdayE5'), globals().get('form_var_birthdayE6')] or []
         w = Waterloo()
-        w.centre_recreatif_compute(nb_children, lst_week_choices)
+        w.centre_recreatif_compute(nb_children, lst_week_choices, globals().get('form_var_promotion'))
         w.centre_recreatif_activites_compute(nb_children, lst_activites_choices)
         w.centre_recreatif_supp_piscine_5_ans([globals().get('form_var_birthdayE1'),globals().get('form_var_birthdayE2'),globals().get('form_var_birthdayE3'),globals().get('form_var_birthdayE4'),globals().get('form_var_birthdayE5'),globals().get('form_var_birthdayE6')])
         result = '<p>{0}</p>'.format(Waterloo.description)
