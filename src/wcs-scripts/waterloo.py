@@ -54,7 +54,12 @@ class Waterloo(town.Town):
             else:
                 total = 'error : Stage : child {0}'.format(enfant)
                 break
-        cls.description += '<p>-------------</p><p><b>Semaines de plaine :</b></p>{0}'.format(details)
+        txt_promo = ''
+        if promotion == 'Oui' and globals().get('form_var_lst_promo_raw') == '0':
+            txt_promo = 'Promotion : 50% sur le total des semaines. (hors activités complémentaires)'
+        if promotion == 'Oui' and globals().get('form_var_lst_promo_raw') == '1':
+            txt_promo = 'Promotion : Inscription gratuite pour les semaines. (hors activités complémentaires)'
+        cls.description += '<p>-------------</p><p><b>Semaines de plaine :</b></p>{0}<p>{1}</p>'.format(details, txt_promo)
         return str(total) if promotion == 'Non' else '0.00' if globals().get('form_var_lst_promo_raw') == '1' else str(total / 2)
 
     @classmethod
