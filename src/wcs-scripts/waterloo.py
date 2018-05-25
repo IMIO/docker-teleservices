@@ -97,8 +97,8 @@ class Waterloo(town.Town):
             if birthday is not None and len(birthday) > 0:
                 dt_birthday = datetime.strptime(birthday, '%d/%m/%Y')
                 today = datetime.today()
-                difference = relativedelta.relativedelta(today, dt_birthday) + 1
-                if difference.years >= 13:
+                difference = relativedelta.relativedelta(today, dt_birthday)
+                if difference.years + 1 >= 13:
                     has_swimming_pool = True
                     details += '<ul><li>Enfant {0}  : {1} Eur</li></ul>'.format(num_enfant, supplement)
                     supp_piscine = supp_piscine + supplement
