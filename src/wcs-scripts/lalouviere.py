@@ -155,6 +155,22 @@ class Lalouviere(town.Town):
             str_mails_to_send += "{};".format(globals().get("{}_{}_mail".format(varname, i)))
         return str_mails_to_send
 
+    # lst_tab_intitule SAMPLE ['Taxe', 'article', 'exercice', 'montant']
+    # tab SAMPLE : [['TAXE 1', 'ARTICLE 1', '2001', '1'], ['TAXE 2', 'ARTICLE 2', '2002', '2'], ['TAXE 3', 'ARTICLE 3', '2003', '3']]
+    def dyn_tab_format_mail(self, lst_tab_intitule, tab):
+        clear_text = ''
+        cpt_elem = 0
+        if len(lst_tab_intitule) != len(tab[0]):
+            clear_text = 'ERREUR : Taille tableau.'
+        else:
+            for row in tab:
+                cpt_elem = 0
+                for elem in row:
+                    clear_text += '{0} : {1} \r\n'.format(lst_tab_intitule[cpt_elem], elem)
+                    cpt_elem = cpt_elem + 1
+                clear_text += '------------\r\n\r\n'
+            return clear_text
+
 
 if vars().get('args') is None:
     # test
