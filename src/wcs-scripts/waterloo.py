@@ -101,9 +101,9 @@ class Waterloo(town.Town):
         for birthday in lst_birthday_children:
             if birthday is not None and len(birthday) > 0:
                 dt_birthday = datetime.strptime(birthday, '%d/%m/%Y')
-                dt_2013 = datetime.strptime('01/01/2013', '%d/%m/%Y')
-                # today = datetime.today()
-                difference = relativedelta.relativedelta(dt_2013, dt_birthday)
+                #dt_2013 = datetime.strptime('01/01/2013', '%d/%m/%Y')
+                today = datetime.today()
+                difference = relativedelta.relativedelta(today, dt_birthday)
                 if difference.years >= 5:
                     has_swimming_pool = True
                     details += '<ul><li>Enfant {0}  : {1} Eur</li></ul>'.format(num_enfant, supplement)
@@ -140,7 +140,7 @@ class Waterloo(town.Town):
 if globals().get('args') is None:
     w = Waterloo()
     print str(w.centre_recreatif_supp_piscine_5_ans(['10/09/2007',]))
-    print str(w.generate_structured_communication('34-45'))
+    # print str(w.generate_structured_communication('34-45'))
 else:
     if args[0] == 'get_payement_details':
         nb_children = globals().get('form_var_NB_Enfants') or 0
