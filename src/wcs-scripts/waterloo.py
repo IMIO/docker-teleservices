@@ -91,7 +91,7 @@ class Waterloo(town.Town):
         return str(total)
 
     @classmethod
-    def centre_recreatif_supp_piscine_5_ans(cls, lst_birthday_children, supplement=2):
+    def centre_recreatif_supp_piscine_5_ans(cls, lst_birthday_children, supplement=2.3):
         supp_piscine = 0
         from datetime import datetime
         from dateutil import relativedelta
