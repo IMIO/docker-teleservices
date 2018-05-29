@@ -69,4 +69,10 @@ then
     (cd /opt/publik/passerelle-imio-ia-delib && python setup.py develop --no-deps)
 fi
 
+# passerelle-imio-ia-aes
+if [ -d /opt/publik/passerelle-imio-ia-aes ]
+then
+    (cd /opt/publik/passerelle-imio-ia-aes && python setup.py develop --no-deps)
+fi
+
 service nginx reload
