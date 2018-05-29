@@ -239,7 +239,7 @@
         </post_condition><post_condition>
           <condition>
             <type>python</type>
-            <value>(form_var_concerne_qui_raw == 'moi' and form_var_cp in form_option_cp_commune) or (form_var_choix_raw == 'moi' and form_var_domicile_raw == 'Plus Ecaussinnes') or form_var_concerne_qui_raw != 'moi'</value>
+            <value>(form_var_concerne_qui_raw == 'moi' and form_var_cp in form_option_cp_commune) or (form_var_concerne_qui_raw == 'moi' and form_var_domicile_raw == 'plus_{0}'.format(commune_slug)) or form_var_concerne_qui_raw != 'moi'</value>
           </condition><error_message>Vous commandez ce document pour vous-m&#234;me. Le code postal indiqu&#233; doit obligatoirement &#234;tre "7190" ou "7191".</error_message>
         </post_condition><post_condition>
           <condition>
