@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<workflow id="4">
+<workflow id="2">
   <name>D&#233;partement Citoyen (avec redirection MONDOSSIER)</name>
   <roles>
     <role id="_receiver">Agent traitant</role>
     <role id="_validateur-pc-banking">Validateur pc banking</role>
-  </roles><last_modification user_id="4">2018-05-08 10:51:01</last_modification>
+  </roles><last_modification user_id="1">2018-05-09 13:22:30</last_modification>
   <possible_status>
     <status>
       <id>just_submitted</id>
@@ -15,17 +15,26 @@
         <item id="1" type="set-backoffice-fields">
           <fields>
             <field>
+              <field_id>bo10</field_id>
+              <value>=form_var_nom if vars().get('form_var_rb_concerne') is None else form_var_nom if form_var_rb_concerne == 'moi' else form_var_nom_perscon</value>
+            </field><field>
+              <field_id>bo11</field_id>
+              <value>=form_var_prenom if vars().get('form_var_rb_concerne') is None else form_var_prenom if form_var_rb_concerne == 'moi' else form_var_prenom_perscon</value>
+            </field><field>
+              <field_id>bo6</field_id>
+              <value>=form_var_nn if vars().get('form_var_rb_concerne') is None else form_var_nn if form_var_rb_concerne == 'moi' else form_var_nn_perscon</value>
+            </field><field>
+              <field_id>bo13</field_id>
+	      <value>='{0} {1} {2} - {3} {4}'.format(form_var_rue, form_var_numero, '({0})'.format(vars().get('form_var_boite')) if vars().get('form_var_boite') is not None else '', form_var_cp, form_var_localite) if vars().get('form_var_rb_concerne') is None else '{0} {1}({2}) - {3} {4}'.format(form_var_rue, form_var_numero, form_var_boite, form_var_cp, form_var_localite) if form_var_rb_concerne == 'moi' else '{0} {1}({2}) - {3} {4}'.format(form_var_rue_perscon, form_var_numero_perscon, form_var_boite_perscon, form_var_cp_perscon, form_var_localite_perscon)</value>
+            </field><field>
+              <field_id>bo12</field_id>
+              <value>=form_var_tel if vars().get('form_var_rb_concerne') is None else form_var_tel if form_var_rb_concerne == 'moi' else form_var_tel_perscon</value>
+            </field><field>
               <field_id>bo2</field_id>
               <value>=locals().get("form_var_nb_exemplaire")</value>
             </field><field>
               <field_id>bo3</field_id>
-              <value>=str(((Decimal(form_option_cost) + Decimal(form_var_motif_price)) * int(form_var_nb_exemplaire)) + Decimal(form_var_destination_price)) or '0.00'</value>
-            </field><field>
-              <field_id>bo6</field_id>
-              <value>=locals().get("form_user_field_numero_national")</value>
-            </field><field>
-              <field_id>bo8</field_id>
-              <value>=locals().get("form_var_nn_tiers")</value>
+              <value>=str(((Decimal(form_option_cost) + Decimal(form_var_motifs_price)) * int(form_var_nb_exemplaire))) or '0.00'</value>
             </field><field>
               <field_id>bo9</field_id>
               <value>=False</value>
@@ -73,6 +82,10 @@
             <item role_id="_submitter">_submitter</item>
           </to><subject>[form_refus_var_object]</subject>
           <body>[form_refus_var_body]</body>
+        </item><item id="3" type="jump">
+          <status>24</status>
+          <set_marker_on_status>False</set_marker_on_status>
+          <condition />
         </item>
       </items>
     </status><status>
@@ -146,6 +159,9 @@ Bien cordialement,</body>
             <item>
               <name>amount</name>
               <value>[form_var_wf_total_commande]</value>
+            </item><item>
+              <name>nb_documents</name>
+              <value>[form_var_wf_nb_exemplaires]</value>
             </item>
           </post_data><action_on_app_error>:pass</action_on_app_error>
           <action_on_4xx>:stop</action_on_4xx>
@@ -201,7 +217,7 @@ Bien cordialement,</body>
     </status><status>
       <id>17</id>
       <name>Paiement re&#231;u</name>
-      <colour>FFFFFF</colour>
+      <colour>66FF66</colour>
       <visibility />
       <items>
         <item id="1" type="sendmail">
@@ -331,7 +347,14 @@ En cliquant sur valider, vous allez &#234;tre red&#233;rig&#233; vers le site du
       <colour>FFFFFF</colour>
       <visibility />
       <items>
-        <item id="1" type="jump">
+        <item id="2" type="set-backoffice-fields">
+          <fields>
+            <field>
+              <field_id>bo3</field_id>
+              <value>=Decimal(form_var_wf_total_commande) + Decimal(vars().get('form_var_destination_price')) or Decimal('0')</value>
+            </field>
+          </fields>
+        </item><item id="1" type="jump">
           <status>22</status>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
@@ -402,11 +425,184 @@ Bien cordialement,
     </status><status>
       <id>23</id>
       <name>Virement re&#231;u</name>
-      <colour>99FF66</colour>
+      <colour>66FF66</colour>
       <visibility />
       <items>
         <item id="1" type="jump">
           <status>accepted</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>24</id>
+      <name>Remboursement (appel ws)</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item id="1" type="webservice_call">
+          <url>[portal_url]/api/lingo/cancel-transaction</url>
+          <post>False</post>
+          <varname>cancel_operation</varname>
+          <action_on_app_error>25</action_on_app_error>
+          <action_on_4xx>:stop</action_on_4xx>
+          <action_on_5xx>:stop</action_on_5xx>
+          <action_on_bad_data>:pass</action_on_bad_data>
+          <action_on_network_errors>:stop</action_on_network_errors>
+          <notify_on_errors>True</notify_on_errors>
+          <record_errors>True</record_errors>
+          <method>POST</method>
+          <response_type>json</response_type>
+          <qs_data>
+            <item>
+              <name>amount</name>
+              <value>[form_var_wf_total_commande]</value>
+            </item><item>
+              <name>transaction_id</name>
+              <value>[transaction_id]</value>
+            </item>
+          </qs_data>
+        </item><item id="2" type="jump">
+          <status>26</status>
+          <set_marker_on_status>False</set_marker_on_status>
+          <condition />
+        </item>
+      </items>
+    </status><status>
+      <id>25</id>
+      <name>Demande d'informations pour le remboursement</name>
+      <colour>0099FF</colour>
+      <visibility />
+      <items>
+        <item id="1" type="sendmail">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>{{commune_name}} : Demande d'information pour le remboursement de votre commande de {{form_name}}</subject>
+          <body>Bonjour {{form_user_display_name}}, 
+
+Suite au refus de votre demande de {{form_name}} d'un montant de {{form_var_wf_total_commande}} &#8364;, nous n'avons pas pu proc&#233;der &#224; l'annulation de votre paiement. Merci de compl&#233;ter le formulaire &#224; l'adresse suivante afin que l'on proc&#232;de au remboursement : {{form_url}}#wf-actions 
+
+Attention, si vous avez pay&#233; &#224; l'aide d'une carte de cr&#233;dit, merci d'indiquer un num&#233;ro de compte IBAN classique.
+
+Bien &#224; vous,
+
+
+</body>
+        </item><item id="2" type="displaymsg">
+          <message>Merci de compl&#233;ter les informations bancaires n&#233;cessaires au remboursement de votre demande. 
+Le remboursement se fera dans les plus brefs d&#233;lais sur le compte bancaire renseign&#233; par vos soins en bas de cette page. 
+Attention, si vous aviez pay&#233; par carte de cr&#233;dit, veuillez indiquer un num&#233;ro de carte de d&#233;bit classique.
+Exemple de num&#233;ro IBAN : BE1234567890</message>
+          <position>top</position>
+        </item><item id="3" type="form">
+          <varname>infos_remboursement</varname>
+          <formdef>
+            <name>-</name>
+            <fields>
+              <field>
+                <label>Num&#233;ro de compte IBAN</label>
+                <type>string</type>
+                <required>True</required>
+                <varname>iban</varname>
+                <in_listing>True</in_listing>
+                <prefill>
+                  <type>none</type>
+                </prefill><id>1</id>
+              </field><field>
+                <label>Nom</label>
+                <type>string</type>
+                <required>True</required>
+                <varname>nom</varname>
+                <in_listing>True</in_listing>
+                <prefill>
+                  <type>user</type>
+                  <value>_last_name</value>
+                </prefill><id>2</id>
+              </field><field>
+                <label>Rue et num&#233;ro</label>
+                <type>string</type>
+                <required>False</required>
+                <varname>adresse1</varname>
+                <in_listing>True</in_listing>
+                <prefill>
+                  <type>none</type>
+                </prefill><id>3</id>
+              </field><field>
+                <label>Code postal et localit&#233;</label>
+                <type>string</type>
+                <required>False</required>
+                <varname>adresse2</varname>
+                <in_listing>True</in_listing>
+                <prefill>
+                  <type>none</type>
+                </prefill><id>4</id>
+              </field><field>
+                <label>Pays</label>
+                <type>item</type>
+                <required>True</required>
+                <varname>pays</varname>
+                <in_listing>True</in_listing>
+                <prefill>
+                  <type>user</type>
+                  <value>_country</value>
+                </prefill><show_as_radio>False</show_as_radio>
+                <data_source>
+                  <type>pays</type>
+                </data_source><in_filters>False</in_filters>
+                <anonymise>False</anonymise>
+                <display_disabled_items>False</display_disabled_items>
+                <id>5</id>
+              </field>
+            </fields>
+          </formdef>
+        </item><item id="4" type="jumponsubmit">
+          <status>28</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>26</id>
+      <name>Paiement annul&#233;</name>
+      <colour>FFFF66</colour>
+      <visibility />
+      <items />
+    </status><status>
+      <id>27</id>
+      <name>Demande rembours&#233;e</name>
+      <colour>0099FF</colour>
+      <visibility />
+      <items />
+    </status><status>
+      <id>28</id>
+      <name>Demande &#224; rembourser</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item id="1" type="sendmail">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to><subject>E-guichet {{commune_name}} - Demande de remboursement</subject>
+          <body>Bonjour, 
+
+Voici une demande de remboursement hors des d&#233;lais d'Atos, merci de proc&#233;der &#224; la demande de remboursement suivante : 
+
+* Num&#233;ro IBAN : {{infos_remboursement_var_iban}}
+* Nom : {{infos_remboursement_var_nom}}
+* Adresse : {{infos_remboursement_var_adresse1}}
+* Code postal et ville : {{infos_remboursement_var_adresse2}}
+* Pays : {{infos_remboursement_var_pays}}
+* Montant : {{form_var_wf_total_commande}}
+
+Communication sugg&#233;r&#233;e : {{form_name}}, code {{form_number}}
+
+Pour toute autre information, vous pouvez vous connecter au backoffice : {{form_url_backoffice}}
+
+Cordialement, </body>
+        </item><item id="2" type="choice">
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>27</status>
+          <label>Cl&#244;turer le remboursement</label>
+          <require_confirmation>False</require_confirmation>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
@@ -421,9 +617,9 @@ Bien cordialement,
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items><triggers>
-        <trigger id="427021fb-bb5d-4741-a150-25e1c1f144c5" type="manual">
+        <trigger id="2079fd66-cfd3-4561-9c11-36f689814252" type="manual">
           <roles>
-            <item role_id="ef2b99f7e8a34e2a8650bf2561098d90">Debug</item>
+            <item role_id="b6cb1f1033a049c2899badd11797e798">Debug</item>
           </roles>
         </trigger>
       </triggers>
@@ -433,9 +629,9 @@ Bien cordialement,
       <items>
         <item id="1" type="remove" />
       </items><triggers>
-        <trigger id="ddf59ab8-ee61-408a-ab43-fc2c1be021db" type="manual">
+        <trigger id="1680f42d-594a-47f6-b5ed-32b80f6f253e" type="manual">
           <roles>
-            <item role_id="ef2b99f7e8a34e2a8650bf2561098d90">Debug</item>
+            <item role_id="b6cb1f1033a049c2899badd11797e798">Debug</item>
           </roles>
         </trigger>
       </triggers>
@@ -521,19 +717,36 @@ ex : 4000,4020,4030,4031</hint>
       <name>-</name>
       <fields>
         <field>
-          <label>Num&#233;ro national</label>
+          <label>Nom de l'int&#233;ress&#233;</label>
+          <type>string</type>
+          <required>True</required>
+          <in_listing>True</in_listing>
+          <id>bo10</id>
+        </field><field>
+          <label>Pr&#233;nom de l'int&#233;ress&#233;</label>
+          <type>string</type>
+          <required>True</required>
+          <in_listing>True</in_listing>
+          <id>bo11</id>
+        </field><field>
+          <label>NN de l'int&#233;ress&#233;</label>
           <type>string</type>
           <required>False</required>
           <varname>wf_nn</varname>
           <in_listing>False</in_listing>
           <id>bo6</id>
         </field><field>
-          <label>Num&#233;ro national (tiers)</label>
+          <label>Adresse de l'int&#233;ress&#233;</label>
           <type>string</type>
-          <required>False</required>
-          <varname>wf_nn_tiers</varname>
-          <in_listing>False</in_listing>
-          <id>bo8</id>
+          <required>True</required>
+          <in_listing>True</in_listing>
+          <id>bo13</id>
+        </field><field>
+          <label>N&#176; t&#233;l&#233;phone de l'int&#233;ress&#233;</label>
+          <type>string</type>
+          <required>True</required>
+          <in_listing>True</in_listing>
+          <id>bo12</id>
         </field><field>
           <label>Nombre d'exemplaires</label>
           <type>string</type>
@@ -546,7 +759,7 @@ ex : 4000,4020,4030,4031</hint>
           <type>string</type>
           <required>True</required>
           <varname>wf_total_commande</varname>
-          <in_listing>True</in_listing>
+          <in_listing>False</in_listing>
           <id>bo3</id>
         </field><field>
           <label>Paiement en ligne</label>
