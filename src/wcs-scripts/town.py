@@ -263,3 +263,6 @@ class Town(object):
             subpart = str(previousModulo) + "" + numericIbanString[i:i + 5]
             previousModulo = int(subpart) % ibanValidationModulo
         return previousModulo == 1
+
+    def is_agent(self):
+        return globals().get('session_user') and globals().get('session_user').can_go_in_backoffice()
