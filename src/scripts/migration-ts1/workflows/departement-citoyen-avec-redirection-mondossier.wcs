@@ -175,7 +175,7 @@ Bien cordialement,</body>
           <response_type>json</response_type>
         </item><item id="2" type="register-comment">
           <comment>&lt;p&gt;L'article se trouve dans votre panier.
-Veuillez r&#233;gler &lt;a href="{{combo_url}}panier"&gt;votre panier&lt;/a&gt;.
+Veuillez r&#233;gler &lt;a href="{{portal_user_url}}panier"&gt;votre panier&lt;/a&gt;.
 &lt;p&gt;</comment>
         </item><item id="3" type="jump">
           <status>12</status>
