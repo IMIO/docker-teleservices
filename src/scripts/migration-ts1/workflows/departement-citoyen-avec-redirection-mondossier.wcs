@@ -74,9 +74,9 @@
       <visibility />
       <items>
         <item id="1" type="register-comment">
-          <comment>[form_refus_var_object]
+	<comment>{{form_refus_var_object}}
 
-[form_refus_var_body]</comment>
+	{{form_refus_var_body}}</comment>
         </item><item id="2" type="sendmail">
           <to>
             <item role_id="_submitter">_submitter</item>
@@ -300,8 +300,8 @@ Bien cordialement,
                 <varname>object</varname>
                 <in_listing>True</in_listing>
                 <prefill>
-                  <type>string</type>
-                  <value>Administration de {{ commune_name }} : Refus : {{ form_name }}</value>
+                  <type>formula</type>
+                  <value>"Administration de {{ commune_name }} : Refus : {{ form_name }}"</value>
                 </prefill><id>1</id>
               </field><field>
                 <label>Corps du mail</label>
@@ -493,8 +493,10 @@ Le remboursement se fera dans les plus brefs d&#233;lais sur le compte bancaire 
 Attention, si vous aviez pay&#233; par carte de cr&#233;dit, veuillez indiquer un num&#233;ro de carte de d&#233;bit classique.
 Exemple de num&#233;ro IBAN : BE1234567890</message>
           <position>top</position>
-        </item><item id="3" type="form">
-          <varname>infos_remboursement</varname>
+	  </item><item id="3" type="form">
+	  <by>
+            <item role_id="_submitter">_submitter</item>
+          </by><varname>infos_remboursement</varname>
           <formdef>
             <name>-</name>
             <fields>
