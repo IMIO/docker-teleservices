@@ -470,7 +470,8 @@
         <type>none</type>
       </prefill><show_as_radio>False</show_as_radio>
       <data_source>
-        <type>passerelle_motifs</type>
+      <type>formula</type>
+      <value>form_option_motifs_disponibles_structured or data_source.passerelle_motifs</value>
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
