@@ -473,7 +473,7 @@
         <value>form_var_mode_delivrance_raw == 'commune'</value>
       </condition><id>63</id>
     </field><field>
-      <label>&lt;p&gt;Ci-dessous, veuillez prendre connaissance du montant de votre demande.&lt;/p&gt;&lt;p&gt;Votre d&#233;marche sera automatiquement mise dans votre panier pour un paiement global de votre commande&lt;/p&gt;&lt;p&gt;&lt;strong&gt;A ce montant, devra &#233;ventuellement s'ajouter les frais de port.&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;Le tarif postal en vigueur est de 0,74 &#8364; (pour 5 documents command&#233;s).&lt;/p&gt;</label>
+      <label>&lt;p&gt;Ci-dessous, veuillez prendre connaissance du montant de votre demande.&lt;/p&gt;&lt;p&gt;Votre d&#233;marche sera automatiquement mise dans votre panier pour un paiement global de votre commande&lt;/p&gt;&lt;p&gt;&lt;strong&gt;A ce montant, devra &#233;ventuellement s'ajouter les frais de port.&lt;/strong&gt;&lt;/p&gt;</label>
       <type>comment</type>
       <id>33</id>
     </field><field>
