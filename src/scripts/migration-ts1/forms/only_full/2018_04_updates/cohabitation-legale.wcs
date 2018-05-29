@@ -263,7 +263,7 @@
       </prefill><show_as_radio>False</show_as_radio>
       <data_source>
         <type>formula</type>
-        <value>form_option_mode_recup_disponibles_structured</value>
+        <value>form_option_mode_destinations_structured</value>
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
