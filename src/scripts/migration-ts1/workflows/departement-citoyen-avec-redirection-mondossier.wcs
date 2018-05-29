@@ -80,8 +80,8 @@
         </item><item id="2" type="sendmail">
           <to>
             <item role_id="_submitter">_submitter</item>
-          </to><subject>[form_refus_var_object]</subject>
-          <body>[form_refus_var_body]</body>
+          </to><subject>{{form_refus_var_object}}</subject>
+	  <body>{{form_refus_var_body}}</body>
         </item><item id="3" type="jump">
           <status>24</status>
           <set_marker_on_status>False</set_marker_on_status>
@@ -301,7 +301,7 @@ Bien cordialement,
                 <in_listing>True</in_listing>
                 <prefill>
                   <type>formula</type>
-                  <value>"Administration de {{ commune_name }} : Refus : {{ form_name }}"</value>
+                  <value>"Administration de {0} : Refus : {1} ".format(commune_name, form_name)</value>
                 </prefill><id>1</id>
               </field><field>
                 <label>Corps du mail</label>
