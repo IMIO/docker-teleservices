@@ -28,19 +28,30 @@ class Waterloo(town.Town):
         total = Decimal('0')
         tarif_appliquer = None
         details = ''
-        if int(nb_enfants) == 1:
-            tarif_appliquer = 'prix1'
-        if int(nb_enfants) == 2:
-            tarif_appliquer = 'prix2'
-        if int(nb_enfants) >= 3:
-            tarif_appliquer = 'prix3'
+        #if int(nb_enfants) == 1:
+        #    tarif_appliquer = 'prix1'
+        #if int(nb_enfants) == 2:
+        #    tarif_appliquer = 'prix2'
+        #if int(nb_enfants) >= 3:
+        #    tarif_appliquer = 'prix3'
         # format du prix d'un centre recreatif pour un enfant
         # form_var_semaineE1_0_prix1
+        liste_stages = filter(None, lst_week_choices)
+        all_stages_id_for_all_children = [item for liste_stages in liste_stages for item in liste_stages if item is not None]
         for enfant in range(1,int(nb_enfants) + 1):
             if lst_week_choices[enfant - 1] is not None:
-                nb_stages = len(lst_week_choices[enfant - 1])
+                lst_id_stages_enfant = lst_week_choices[enfant - 1]
+                nb_stages = len(lst_id_stages_enfant)
                 details += 'Enfant {0}<ul>'.format(enfant)
                 for stage in range(0, nb_stages):
+                    id_stage = lst_id_stages_enfant[stage]
+                    cpt_children_for_this_stage = all_stages_id_for_all_children.count(id_stage)
+                    if int(cpt_children_for_this_stage) == 1:
+                        tarif_appliquer = 'prix1'
+                    if int(cpt_children_for_this_stage) == 2:
+                        tarif_appliquer = 'prix2'
+                    if int(cpt_children_for_this_stage) >= 3:
+                        tarif_appliquer = 'prix3'
                     semaine = globals().get('form_var_semaineE{0}'.format(enfant)).split(',')[stage]
                     price_varname = 'form_var_semaineE{0}_{1}_{2}'.format(enfant, stage, tarif_appliquer)
                     price_for_current_stage_and_child = globals().get(price_varname)
@@ -139,7 +150,46 @@ class Waterloo(town.Town):
 
 if globals().get('args') is None:
     w = Waterloo()
-    print str(w.centre_recreatif_supp_piscine_5_ans(['10/09/2007',]))
+    nb_enfants = 3
+    # lst_week_choices = [['S3_2018'],['S3_2018'],['S1_2018']]
+    form_var_semaineE1_raw = ['S3_2018']
+    form_var_semaineE2_raw = ['S3_2018','S2_2018']
+    form_var_semaineE3_raw = ['S1_2018']
+    form_var_semaineE4_raw = None
+    form_var_semaineE5_raw = None
+    form_var_semaineE6_raw = None
+    form_var_semaineE1_0_prix1 = 40
+    form_var_semaineE1_0_prix2 = 37.5
+    form_var_semaineE1_0_prix3 = 30
+    form_var_semaineE2_0_prix1 = 40
+    form_var_semaineE2_0_prix2 = 37.5
+    form_var_semaineE2_0_prix3 = 30
+    form_var_semaineE2_1_prix1 = 40
+    form_var_semaineE2_1_prix2 = 37.5
+    form_var_semaineE2_1_prix3 = 30
+    form_var_semaineE3_0_prix1 = 40
+    form_var_semaineE3_0_prix2 = 37.5
+    form_var_semaineE3_0_prix3 = 30
+    form_var_semaineE1 = 'S3 du 16 Juillet au 20 juillet 2018'
+    form_var_semaineE2 = 'S3 du 16 Juillet au 20 juillet 2018, S2 du 25 Juin au 30 juin 2018'
+    form_var_semaineE3 = 'S1 du 10 Juin au 20 juin 2018'
+    # Test promotion si n enfants participent à la meme semaine!
+    print str(w.centre_recreatif_compute(3 , 
+                                        [vars().get('form_var_semaineE1_raw'),
+                                         vars().get('form_var_semaineE2_raw'),
+                                         vars().get('form_var_semaineE3_raw'),
+                                         vars().get('form_var_semaineE4_raw'),
+                                         vars().get('form_var_semaineE5_raw'),
+                                         vars().get('form_var_semaineE6_raw')], 'Non'))
+    print str(w.centre_recreatif_compute(3 , 
+                                        [vars().get('form_var_semaineE1_raw'),
+                                         vars().get('form_var_semaineE2_raw'),
+                                         vars().get('form_var_semaineE3_raw'),
+                                         vars().get('form_var_semaineE4_raw'),
+                                         vars().get('form_var_semaineE5_raw'),
+                                         vars().get('form_var_semaineE6_raw')], 'Oui'))
+    # print str(w.centre_recreatif_compute(nb_enfants, lst_week_choices, promotion='Non')
+    # print str(w.centre_recreatif_supp_piscine_5_ans(['10/09/2007',]))
     # print str(w.generate_structured_communication('34-45'))
 else:
     if args[0] == 'get_payement_details':
