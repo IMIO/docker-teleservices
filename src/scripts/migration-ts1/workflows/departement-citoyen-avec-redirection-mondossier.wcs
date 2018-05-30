@@ -28,7 +28,7 @@
 	      <value>='{0} {1} {2} - {3} {4}'.format(form_var_rue, form_var_numero, '({0})'.format(vars().get('form_var_boite')) if vars().get('form_var_boite') is not None else '', form_var_cp, form_var_localite) if vars().get('form_var_rb_concerne') is None else '{0} {1}({2}) - {3} {4}'.format(form_var_rue, form_var_numero, form_var_boite, form_var_cp, form_var_localite) if form_var_rb_concerne == 'moi' else '{0} {1}({2}) - {3} {4}'.format(form_var_rue_perscon, form_var_numero_perscon, form_var_boite_perscon, form_var_cp_perscon, form_var_localite_perscon)</value>
             </field><field>
               <field_id>bo12</field_id>
-              <value>=form_var_tel if vars().get('form_var_rb_concerne') is None else form_var_tel if form_var_rb_concerne == 'moi' else form_var_tel_perscon</value>
+	      <value>=form_var_tel if vars().get('form_var_rb_concerne') is None else form_var_tel if form_var_rb_concerne == 'moi' else vars().get('form_var_tel_persconf') or ''</value>
             </field><field>
               <field_id>bo2</field_id>
               <value>=locals().get("form_var_nb_exemplaire")</value>
@@ -45,14 +45,14 @@
           <set_marker_on_status>False</set_marker_on_status>
           <condition>
             <type>python</type>
-            <value>vars().get('form_option_lien_fedict') is not None and 'form_var_mode_delivrance_raw' in locals() and (form_var_mode_delivrance_raw != 'commune')</value>
+            <value>vars().get('form_option_lien_mondossier') is not None and 'form_var_mode_delivrance_raw' in locals() and form_var_mode_delivrance_raw != 'commune'</value>
           </condition>
         </item><item id="3" type="jump">
           <status>13</status>
           <set_marker_on_status>False</set_marker_on_status>
           <condition>
             <type>python</type>
-            <value>Decimal(form_var_wf_total_commande) == Decimal('0')</value>
+            <value>Decimal(form_var_wf_total_commande) == Decimal('0') and 'form_var_mode_delivrance_raw' in locals() and form_var_mode_delivrance_raw == 'commune'</value>
           </condition>
         </item><item id="4" type="jump">
           <status>21</status>
@@ -338,7 +338,7 @@ En cliquant sur valider, vous allez &#234;tre red&#233;rig&#233; vers le site du
             <item role_id="_submitter">_submitter</item>
           </to>
         </item><item id="2" type="redirect_to_url">
-          <url>[form_option_lien_bosa]</url>
+	<url>{{form_option_lien_mondossier}}</url>
         </item>
       </items>
     </status><status>
@@ -697,7 +697,7 @@ ex : 4000,4020,4030,4031</hint>
           <label>Url du document sur le site de Mon Dossier</label>
           <type>string</type>
           <required>False</required>
-          <varname>lien_bosa</varname>
+          <varname>lien_mondossier</varname>
           <in_listing>True</in_listing>
           <prefill>
             <type>none</type>
