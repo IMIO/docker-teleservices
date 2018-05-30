@@ -103,7 +103,7 @@
 Un nouveau formulaire a &#233;t&#233; compl&#233;t&#233;, vous pouvez le consulter
 en suivant ce lien :
 
-[form_url_backoffice]
+{{form_url_backoffice}}
 
 [if-any details]
 Pour r&#233;f&#233;rence, voici le d&#233;tail du formulaire :
@@ -152,16 +152,16 @@ Bien cordialement,</body>
       <visibility />
       <items>
         <item id="1" type="webservice_call">
-          <url>[portal_url]api/lingo/add-basket-item?NameId=[form_user_name_identifier_0]</url>
+		<url>{{portal_url}}api/lingo/add-basket-item?NameId={{form_user_name_identifier_0}}</url>
           <post>True</post>
           <varname>transaction_info</varname>
           <post_data>
             <item>
               <name>amount</name>
-              <value>[form_var_wf_total_commande]</value>
+	      <value>{{form_var_wf_total_commande}}</value>
             </item><item>
               <name>nb_documents</name>
-              <value>[form_var_wf_nb_exemplaires]</value>
+	      <value>{{form_var_wf_nb_exemplaires}}</value>
             </item>
           </post_data><action_on_app_error>:pass</action_on_app_error>
           <action_on_4xx>:stop</action_on_4xx>
@@ -249,7 +249,7 @@ Bien cordialement,
       <visibility />
       <items>
         <item id="1" type="webservice_call">
-          <url>[portal_url]/api/lingo/remove-basket-item?NameId=[form_user_name_identifier_0]</url>
+		<url>{{portal_url}}/api/lingo/remove-basket-item?NameId={{form_user_name_identifier_0}}</url>
           <post>True</post>
           <request_signature_key>13245</request_signature_key>
           <post_data>
@@ -258,7 +258,7 @@ Bien cordialement,
               <value>skip</value>
             </item><item>
               <name>basket_item_id</name>
-              <value>[panier_response_id]</value>
+	      <value>{{panier_response_id}}</value>
             </item>
           </post_data><action_on_app_error>:pass</action_on_app_error>
           <action_on_4xx>:stop</action_on_4xx>
@@ -440,7 +440,7 @@ Bien cordialement,
       <visibility />
       <items>
         <item id="1" type="webservice_call">
-          <url>[portal_url]/api/lingo/cancel-transaction</url>
+		<url>{{portal_url}}/api/lingo/cancel-transaction</url>
           <post>False</post>
           <varname>cancel_operation</varname>
           <action_on_app_error>25</action_on_app_error>
@@ -455,10 +455,10 @@ Bien cordialement,
           <qs_data>
             <item>
               <name>amount</name>
-              <value>[form_var_wf_total_commande]</value>
+	      <value>{{form_var_wf_total_commande}}</value>
             </item><item>
               <name>transaction_id</name>
-              <value>[transaction_id]</value>
+	      <value>{{transaction_id}}</value>
             </item>
           </qs_data>
         </item><item id="2" type="jump">
