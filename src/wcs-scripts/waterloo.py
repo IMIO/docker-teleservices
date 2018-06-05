@@ -145,7 +145,6 @@ class Waterloo(town.Town):
             num_enfant = num_enfant + 1
         details += '<ul><li>Montant à soustraire  : {0} Eur</li></ul>'.format(total_remise)
         if has_swimming_pool_exceptions is True:
-            import ipdb;ipdb.set_trace()
             self.description += '<p>-------------</p><p><b>Annulation des frais de piscine pour les enfant de 6 et 7 ans :</b></p>{0}'.format(details)
         return str(total_remise)
 
