@@ -18,13 +18,13 @@ class children(object):
         self.lst_activites = lst_activites
 
 class Waterloo(town.Town):
-    description = ''
+    centre_recreatif_supplement_piscine = 0
 
     def __init__(self):
+        self.description = ''
         super(Waterloo, self).__init__(variables=globals())
 
-    @classmethod
-    def centre_recreatif_compute(cls, nb_enfants, lst_week_choices, promotion='Non'):
+    def centre_recreatif_compute(self, nb_enfants, lst_week_choices, promotion='Non'):
         total = Decimal('0')
         tarif_appliquer = None
         details = ''
@@ -70,11 +70,10 @@ class Waterloo(town.Town):
             txt_promo = 'Promotion : 50% sur le total des semaines. (hors activités complémentaires)'
         if promotion == 'Oui' and globals().get('form_var_lst_promo_raw') == '1':
             txt_promo = 'Promotion : Inscription gratuite pour les semaines. (hors activités complémentaires)'
-        cls.description += '<p>-------------</p><p><b>Semaines de plaine :</b></p>{0}<p>{1}</p>'.format(details, txt_promo)
+        self.description += '<p>-------------</p><p><b>Semaines de plaine :</b></p>{0}<p>{1}</p>'.format(details, txt_promo)
         return str(total) if promotion == 'Non' else '0.00' if globals().get('form_var_lst_promo_raw') == '1' else str(total / 2)
 
-    @classmethod
-    def centre_recreatif_activites_compute(cls, nb_enfants, lst_activites_choices):
+    def centre_recreatif_activites_compute(self, nb_enfants, lst_activites_choices):
         total = Decimal('0')
         # format du prix d'une activite par enfant
         # form_var_activite_comp_E1_0_prix
@@ -97,13 +96,13 @@ class Waterloo(town.Town):
                         break
                 details = '{0}{1}'.format(details,'</ul>')
         if has_activite is True:
-            cls.description += '<p>-------------</p><p><b>Activites complementaires :</b></p>{0}'.format(details)
+            self.description += '<p>-------------</p><p><b>Activites complementaires :</b></p>{0}'.format(details)
 
         return str(total)
 
-    @classmethod
-    def centre_recreatif_supp_piscine_5_ans(cls, lst_birthday_children, supplement=2.3):
-        supp_piscine = 0
+    def centre_recreatif_supp_piscine_5_ans(self, lst_birthday_children,lst_week_choices=[],supplement=2.3):
+        self.centre_recreatif_supplement_piscine = supplement
+        total_supp_piscine = 0
         from datetime import datetime
         from dateutil import relativedelta
         num_enfant = 1
@@ -118,11 +117,38 @@ class Waterloo(town.Town):
                 if difference.years >= 5:
                     has_swimming_pool = True
                     details += '<ul><li>Enfant {0}  : {1} Eur</li></ul>'.format(num_enfant, supplement)
-                    supp_piscine = supp_piscine + supplement
+                    nb_semaines_par_enfant = len(lst_week_choices[num_enfant -1])
+                    total_supp_piscine = total_supp_piscine + (supplement * nb_semaines_par_enfant)
             num_enfant = num_enfant + 1
         if has_swimming_pool is True:
-            cls.description += '<p>-------------</p><p><b>Frais de piscine :</b></p>{0}'.format(details)
-        return supp_piscine
+            self.description += '<p>-------------</p><p><b>Frais de piscine :</b></p>{0}'.format(details)
+        return total_supp_piscine
+
+    def centre_recreatif_piscine_exceptions(self, lst_birthday_children,lst_week_choices=[]):
+        from datetime import datetime
+        from dateutil import relativedelta
+        num_enfant = 1
+        has_swimming_pool_exceptions = False
+        details = ''
+        total_remise = 0
+        for birthday in lst_birthday_children:
+            if birthday is not None and len(birthday) > 0:
+                dt_birthday = datetime.strptime(birthday, '%d/%m/%Y')
+                today = datetime.today()
+                difference = relativedelta.relativedelta(today, dt_birthday)
+                if difference.years == 6 or difference.years == 7:
+                    semaines_enfant = lst_week_choices[num_enfant - 1]
+                    # 19/07 et du 16/08
+                    if 'S3_2018' in semaines_enfant or 'S7_2018' in semaines_enfant:
+                        has_swimming_pool_exceptions = True
+                        total_remise = total_remise - self.centre_recreatif_supplement_piscine 
+            num_enfant = num_enfant + 1
+        details += '<ul><li>Montant à soustraire  : {0} Eur</li></ul>'.format(total_remise)
+        if has_swimming_pool_exceptions is True:
+            import ipdb;ipdb.set_trace()
+            self.description += '<p>-------------</p><p><b>Annulation des frais de piscine pour les enfant de 6 et 7 ans :</b></p>{0}'.format(details)
+        return str(total_remise)
+
 
     def get_centre_recreatif_activites(self, lst_week_choices, datasource):
         new_datasource = []
@@ -152,9 +178,9 @@ if globals().get('args') is None:
     w = Waterloo()
     nb_enfants = 3
     # lst_week_choices = [['S3_2018'],['S3_2018'],['S1_2018']]
-    form_var_semaineE1_raw = ['S3_2018']
+    form_var_semaineE1_raw = ['S1_2018']
     form_var_semaineE2_raw = ['S3_2018','S2_2018']
-    form_var_semaineE3_raw = ['S1_2018']
+    form_var_semaineE3_raw = ['S3_2018']
     form_var_semaineE4_raw = None
     form_var_semaineE5_raw = None
     form_var_semaineE6_raw = None
@@ -189,7 +215,22 @@ if globals().get('args') is None:
                                          vars().get('form_var_semaineE5_raw'),
                                          vars().get('form_var_semaineE6_raw')], 'Oui'))
     # print str(w.centre_recreatif_compute(nb_enfants, lst_week_choices, promotion='Non')
-    # print str(w.centre_recreatif_supp_piscine_5_ans(['10/09/2007',]))
+    print str(w.centre_recreatif_supp_piscine_5_ans(['10/09/2007','01/01/2006','03/02/2011'],
+                                                    [vars().get('form_var_semaineE1_raw'),
+                                                     vars().get('form_var_semaineE2_raw'),
+                                                     vars().get('form_var_semaineE3_raw'),
+                                                     vars().get('form_var_semaineE4_raw'),
+                                                     vars().get('form_var_semaineE5_raw'),
+                                                     vars().get('form_var_semaineE6_raw')]))
+    # assert exception de prix pour enfant de 6 ou 7 ans 
+    print str(w.centre_recreatif_piscine_exceptions(['10/09/2007','01/01/2012','03/02/2011'],
+                                                    [vars().get('form_var_semaineE1_raw'),
+                                                     vars().get('form_var_semaineE2_raw'),
+                                                     vars().get('form_var_semaineE3_raw'),
+                                                     vars().get('form_var_semaineE4_raw'),
+                                                     vars().get('form_var_semaineE5_raw'),
+                                                     vars().get('form_var_semaineE6_raw')]))
+    print w.description
     # print str(w.generate_structured_communication('34-45'))
 else:
     if args[0] == 'get_payement_details':
@@ -200,8 +241,9 @@ else:
         w = Waterloo()
         w.centre_recreatif_compute(nb_children, lst_week_choices, globals().get('form_var_promotion'))
         w.centre_recreatif_activites_compute(nb_children, lst_activites_choices)
-        w.centre_recreatif_supp_piscine_5_ans([globals().get('form_var_birthdayE1'),globals().get('form_var_birthdayE2'),globals().get('form_var_birthdayE3'),globals().get('form_var_birthdayE4'),globals().get('form_var_birthdayE5'),globals().get('form_var_birthdayE6')])
-        result = '<p>{0}</p>'.format(Waterloo.description)
+        w.centre_recreatif_supp_piscine_5_ans([globals().get('form_var_birthdayE1'),globals().get('form_var_birthdayE2'),globals().get('form_var_birthdayE3'),globals().get('form_var_birthdayE4'),globals().get('form_var_birthdayE5'),globals().get('form_var_birthdayE6')], lst_week_choices)
+        w.w.centre_recreatif_piscine_exceptions([globals().get('form_var_birthdayE1'),globals().get('form_var_birthdayE2'),globals().get('form_var_birthdayE3'),globals().get('form_var_birthdayE4'),globals().get('form_var_birthdayE5'),globals().get('form_var_birthdayE6')], lst_week_choices)
+        result = '<p>{0}</p>'.format(w.description)
     else:
         current_commune = Waterloo()
         function = args[0]
