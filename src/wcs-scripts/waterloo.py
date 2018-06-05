@@ -141,9 +141,9 @@ class Waterloo(town.Town):
                     # 19/07 et du 16/08
                     if 'S3_2018' in semaines_enfant or 'S7_2018' in semaines_enfant:
                         has_swimming_pool_exceptions = True
-                        total_remise = total_remise - self.centre_recreatif_supplement_piscine 
+                        total_remise = total_remise + self.centre_recreatif_supplement_piscine 
             num_enfant = num_enfant + 1
-        details += '<ul><li>Montant à soustraire  : {0} Eur</li></ul>'.format(total_remise)
+        details += '<ul><li>Montant à soustraire  : -{0} Eur</li></ul>'.format(total_remise)
         if has_swimming_pool_exceptions is True:
             self.description += '<p>-------------</p><p><b>Annulation des frais de piscine pour les enfant de 6 et 7 ans :</b></p>{0}'.format(details)
         return str(total_remise)
