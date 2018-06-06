@@ -33,7 +33,7 @@ class Waterloo(town.Town):
                             globals().get('form_var_semaineE5_raw'),
                             globals().get('form_var_semaineE6_raw')
                         ]
-        return self.centre_recreatif_compute(globals().get('nb_enfants'), 
+        return self.centre_recreatif_compute(globals().get('form_var_NB_Enfants'), 
                                              lst_week_choices, globals().get('form_var_promotion'))
 
     def centre_recreatif_compute(self, nb_enfants, lst_week_choices, promotion='Non'):
