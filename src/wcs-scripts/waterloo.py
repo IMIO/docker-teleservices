@@ -10,42 +10,60 @@ if 'town' in sys.modules:
 
 import town
 
-class children(object):
-    def __init__(self, num_child, num_week, price, lst_activites):
-        self.num_child = naum_child
-        self.num_week = num_week
-        self.price = price
-        self.lst_activites = lst_activites
 
 class Waterloo(town.Town):
-    centre_recreatif_supplement_piscine = 0
 
     def __init__(self):
+        self.centre_recreatif_supplement_piscine = 0
         self.description = ''
+        self.cr_lst_week_choices = [globals().get('form_var_semaineE1_raw'),
+                           globals().get('form_var_semaineE2_raw'),
+                           globals().get('form_var_semaineE3_raw'),
+                           globals().get('form_var_semaineE4_raw'),
+                           globals().get('form_var_semaineE5_raw'),
+                           globals().get('form_var_semaineE6_raw')
+                        ]
+        self.cr_lst_activites_choices = [globals().get('form_var_activite_comp_E1_raw'),
+                                globals().get('form_var_activite_comp_E2_raw'),
+                                globals().get('form_var_activite_comp_E3_raw'),
+                                globals().get('form_var_activite_comp_E4_raw'),
+                                globals().get('form_var_activite_comp_E5_raw'),
+                                globals().get('form_var_activite_comp_E6_raw')
+                             ]
+        self.cr_lst_birthday_children = [globals().get('form_var_birthdayE1'),
+                                globals().get('form_var_birthdayE2'),
+                                globals().get('form_var_birthdayE3'),
+                                globals().get('form_var_birthdayE4'),
+                                globals().get('form_var_birthdayE5'),
+                                globals().get('form_var_birthdayE6')
+                            ]
+        self.cr_nb_enfants = globals().get('form_var_NB_Enfants')
+        self.cr_promotion = globals().get('form_var_promotion')
         super(Waterloo, self).__init__(variables=globals())
 
     def centre_recreatif_compute_desc(self, *args):
-        lst_week_choices = [
-                            globals().get('form_var_semaineE1_raw'),
-                            globals().get('form_var_semaineE2_raw'),
-                            globals().get('form_var_semaineE3_raw'),
-                            globals().get('form_var_semaineE4_raw'),
-                            globals().get('form_var_semaineE5_raw'),
-                            globals().get('form_var_semaineE6_raw')
-                        ]
-        return self.centre_recreatif_compute(globals().get('form_var_NB_Enfants'), 
-                                             lst_week_choices, globals().get('form_var_promotion'))
+        return self.centre_recreatif_compute(self.cr_nb_enfants, 
+                                             self.cr_lst_week_choices, self.cr_promotion)
+
+    def total_desc(self, *args):
+        import ipdb;ipdb.set_trace()
+        total_semaine_hors_activite = self.centre_recreatif_compute(self.cr_nb_enfants, 
+                                            self.cr_lst_week_choices, self.cr_promotion)
+        total_activites = self.centre_recreatif_activites_compute(self.cr_nb_enfants,
+                                            self.cr_lst_activites_choices)
+        supp_piscine = self.centre_recreatif_supp_piscine_5_ans(self.cr_lst_birthday_children,
+                                            self.cr_lst_week_choices)
+        exceptions_piscine = self.centre_recreatif_piscine_exceptions(self.cr_lst_birthday_children,
+                                            self.cr_lst_week_choices)
+        return str(round(Decimal(total_semaine_hors_activite) + 
+                         Decimal(total_activites) + 
+                         Decimal(supp_piscine) - 
+                         Decimal(exceptions_piscine)))
 
     def centre_recreatif_compute(self, nb_enfants, lst_week_choices, promotion='Non'):
         total = Decimal('0')
         tarif_appliquer = None
         details = ''
-        #if int(nb_enfants) == 1:
-        #    tarif_appliquer = 'prix1'
-        #if int(nb_enfants) == 2:
-        #    tarif_appliquer = 'prix2'
-        #if int(nb_enfants) >= 3:
-        #    tarif_appliquer = 'prix3'
         # format du prix d'un centre recreatif pour un enfant
         # form_var_semaineE1_0_prix1
         liste_stages = filter(None, lst_week_choices)
@@ -186,8 +204,8 @@ class Waterloo(town.Town):
 
 
 if globals().get('args') is None:
-    w = Waterloo()
-    nb_enfants = 3
+    form_var_NB_Enfants = '3'
+    form_var_promotion = 'Non'
     # lst_week_choices = [['S3_2018'],['S3_2018'],['S1_2018']]
     form_var_semaineE1_raw = ['S1_2018']
     form_var_semaineE2_raw = ['S3_2018','S2_2018']
@@ -210,6 +228,7 @@ if globals().get('args') is None:
     form_var_semaineE1 = 'S3 du 16 Juillet au 20 juillet 2018'
     form_var_semaineE2 = 'S3 du 16 Juillet au 20 juillet 2018, S2 du 25 Juin au 30 juin 2018'
     form_var_semaineE3 = 'S1 du 10 Juin au 20 juin 2018'
+    w = Waterloo()
     # Test promotion si n enfants participent à la meme semaine!
     print str(w.centre_recreatif_compute(3 , 
                                         [vars().get('form_var_semaineE1_raw'),
@@ -242,6 +261,7 @@ if globals().get('args') is None:
                                                      vars().get('form_var_semaineE5_raw'),
                                                      vars().get('form_var_semaineE6_raw')]))
     print w.description
+    print "method total_desc = {0}".format(w.total_desc(0))
     # print str(w.generate_structured_communication('34-45'))
 else:
     if args[0] == 'get_payement_details':
