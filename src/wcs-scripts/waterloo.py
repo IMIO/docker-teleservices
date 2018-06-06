@@ -241,7 +241,7 @@ else:
         w.centre_recreatif_compute(nb_children, lst_week_choices, globals().get('form_var_promotion'))
         w.centre_recreatif_activites_compute(nb_children, lst_activites_choices)
         w.centre_recreatif_supp_piscine_5_ans([globals().get('form_var_birthdayE1'),globals().get('form_var_birthdayE2'),globals().get('form_var_birthdayE3'),globals().get('form_var_birthdayE4'),globals().get('form_var_birthdayE5'),globals().get('form_var_birthdayE6')], lst_week_choices)
-        w.w.centre_recreatif_piscine_exceptions([globals().get('form_var_birthdayE1'),globals().get('form_var_birthdayE2'),globals().get('form_var_birthdayE3'),globals().get('form_var_birthdayE4'),globals().get('form_var_birthdayE5'),globals().get('form_var_birthdayE6')], lst_week_choices)
+        w.centre_recreatif_piscine_exceptions([globals().get('form_var_birthdayE1'),globals().get('form_var_birthdayE2'),globals().get('form_var_birthdayE3'),globals().get('form_var_birthdayE4'),globals().get('form_var_birthdayE5'),globals().get('form_var_birthdayE6')], lst_week_choices)
         result = '<p>{0}</p>'.format(w.description)
     else:
         current_commune = Waterloo()
