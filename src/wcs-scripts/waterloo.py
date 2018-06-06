@@ -37,8 +37,8 @@ class Waterloo(town.Town):
                                 globals().get('form_var_birthdayE5'),
                                 globals().get('form_var_birthdayE6')
                             ]
-        self.cr_nb_enfants = globals().get('form_var_NB_Enfants')
-        self.cr_promotion = globals().get('form_var_promotion')
+        self.cr_nb_enfants = globals().get('form_var_NB_Enfants') or '0'
+        self.cr_promotion = globals().get('form_var_promotion') or 'Non'
         super(Waterloo, self).__init__(variables=globals())
 
     def centre_recreatif_compute_desc(self, *args):
