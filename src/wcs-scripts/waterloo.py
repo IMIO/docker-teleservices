@@ -116,8 +116,8 @@ class Waterloo(town.Town):
                 difference = relativedelta.relativedelta(today, dt_birthday)
                 if difference.years >= 5:
                     has_swimming_pool = True
-                    details += '<ul><li>Enfant {0}  : {1} Eur</li></ul>'.format(num_enfant, supplement)
                     nb_semaines_par_enfant = len(lst_week_choices[num_enfant -1])
+                    details += '<ul><li>Enfant {0}  : {1} Eur</li></ul>'.format(num_enfant, (supplement * nb_semaines_par_enfant))
                     total_supp_piscine = total_supp_piscine + (supplement * nb_semaines_par_enfant)
             num_enfant = num_enfant + 1
         if has_swimming_pool is True:
