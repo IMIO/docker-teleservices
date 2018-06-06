@@ -227,7 +227,7 @@ if globals().get('args') is None:
     form_var_semaineE1 = 'S3 du 16 Juillet au 20 juillet 2018'
     form_var_semaineE2 = 'S3 du 16 Juillet au 20 juillet 2018, S2 du 25 Juin au 30 juin 2018'
     form_var_semaineE3 = 'S1 du 10 Juin au 20 juin 2018'
-    w = waterloo.Waterloo()
+    w = Waterloo()
 
     # Test promotion si n enfants participent à la meme semaine!
     print str(w.centre_recreatif_compute(3 , 
