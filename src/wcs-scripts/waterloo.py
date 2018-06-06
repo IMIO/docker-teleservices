@@ -24,7 +24,7 @@ class Waterloo(town.Town):
         self.description = ''
         super(Waterloo, self).__init__(variables=globals())
 
-    def centre_recreatif_compute_desc(self):
+    def centre_recreatif_compute_desc(self, *args):
         lst_week_choices = [
                             globals().get('form_var_semaineE1_raw'),
                             globals().get('form_var_semaineE2_raw'),
