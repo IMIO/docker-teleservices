@@ -203,65 +203,7 @@ class Waterloo(town.Town):
 
 
 if globals().get('args') is None:
-    form_var_NB_Enfants = '3'
-    form_var_promotion = 'Non'
-    # lst_week_choices = [['S3_2018'],['S3_2018'],['S1_2018']]
-    form_var_semaineE1_raw = ['S1_2018']
-    form_var_semaineE2_raw = ['S3_2018','S2_2018']
-    form_var_semaineE3_raw = ['S3_2018']
-    form_var_semaineE4_raw = None
-    form_var_semaineE5_raw = None
-    form_var_semaineE6_raw = None
-    form_var_semaineE1_0_prix1 = 40
-    form_var_semaineE1_0_prix2 = 37.5
-    form_var_semaineE1_0_prix3 = 30
-    form_var_semaineE2_0_prix1 = 40
-    form_var_semaineE2_0_prix2 = 37.5
-    form_var_semaineE2_0_prix3 = 30
-    form_var_semaineE2_1_prix1 = 40
-    form_var_semaineE2_1_prix2 = 37.5
-    form_var_semaineE2_1_prix3 = 30
-    form_var_semaineE3_0_prix1 = 40
-    form_var_semaineE3_0_prix2 = 37.5
-    form_var_semaineE3_0_prix3 = 30
-    form_var_semaineE1 = 'S3 du 16 Juillet au 20 juillet 2018'
-    form_var_semaineE2 = 'S3 du 16 Juillet au 20 juillet 2018, S2 du 25 Juin au 30 juin 2018'
-    form_var_semaineE3 = 'S1 du 10 Juin au 20 juin 2018'
-    w = Waterloo()
-    # Test promotion si n enfants participent à la meme semaine!
-    print str(w.centre_recreatif_compute(3 , 
-                                        [vars().get('form_var_semaineE1_raw'),
-                                         vars().get('form_var_semaineE2_raw'),
-                                         vars().get('form_var_semaineE3_raw'),
-                                         vars().get('form_var_semaineE4_raw'),
-                                         vars().get('form_var_semaineE5_raw'),
-                                         vars().get('form_var_semaineE6_raw')], 'Non'))
-    print str(w.centre_recreatif_compute(3 , 
-                                        [vars().get('form_var_semaineE1_raw'),
-                                         vars().get('form_var_semaineE2_raw'),
-                                         vars().get('form_var_semaineE3_raw'),
-                                         vars().get('form_var_semaineE4_raw'),
-                                         vars().get('form_var_semaineE5_raw'),
-                                         vars().get('form_var_semaineE6_raw')], 'Oui'))
-    # print str(w.centre_recreatif_compute(nb_enfants, lst_week_choices, promotion='Non')
-    print str(w.centre_recreatif_supp_piscine_5_ans(['10/09/2007','01/01/2006','03/02/2011'],
-                                                    [vars().get('form_var_semaineE1_raw'),
-                                                     vars().get('form_var_semaineE2_raw'),
-                                                     vars().get('form_var_semaineE3_raw'),
-                                                     vars().get('form_var_semaineE4_raw'),
-                                                     vars().get('form_var_semaineE5_raw'),
-                                                     vars().get('form_var_semaineE6_raw')]))
-    # assert exception de prix pour enfant de 6 ou 7 ans 
-    print str(w.centre_recreatif_piscine_exceptions(['10/09/2007','01/01/2012','03/02/2011'],
-                                                    [vars().get('form_var_semaineE1_raw'),
-                                                     vars().get('form_var_semaineE2_raw'),
-                                                     vars().get('form_var_semaineE3_raw'),
-                                                     vars().get('form_var_semaineE4_raw'),
-                                                     vars().get('form_var_semaineE5_raw'),
-                                                     vars().get('form_var_semaineE6_raw')]))
-    print w.description
-    print "method total_desc = {0}".format(w.total_desc(0))
-    # print str(w.generate_structured_communication('34-45'))
+    print 'False'
 else:
     if args[0] == 'get_payement_details':
         nb_children = globals().get('form_var_NB_Enfants') or 0
@@ -278,7 +220,7 @@ else:
         current_commune = Waterloo()
         function = args[0]
         functionList = {function: getattr(current_commune,function)}
-        if args[1] is not None:
+        if len(args) > 1:
             parameters = args[1]
             if isinstance(parameters, dict):
                 result = functionList[function](**parameters)
