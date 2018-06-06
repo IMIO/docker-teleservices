@@ -46,7 +46,6 @@ class Waterloo(town.Town):
                                              self.cr_lst_week_choices, self.cr_promotion)
 
     def total_desc(self, *args):
-        import ipdb;ipdb.set_trace()
         total_semaine_hors_activite = self.centre_recreatif_compute(self.cr_nb_enfants, 
                                             self.cr_lst_week_choices, self.cr_promotion)
         total_activites = self.centre_recreatif_activites_compute(self.cr_nb_enfants,
