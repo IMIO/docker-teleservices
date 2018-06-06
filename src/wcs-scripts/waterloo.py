@@ -57,7 +57,7 @@ class Waterloo(town.Town):
         return str(round(Decimal(total_semaine_hors_activite) + 
                          Decimal(total_activites) + 
                          Decimal(supp_piscine) - 
-                         Decimal(exceptions_piscine)))
+                         Decimal(exceptions_piscine),2))
 
     def centre_recreatif_compute(self, nb_enfants, lst_week_choices, promotion='Non'):
         total = Decimal('0')
