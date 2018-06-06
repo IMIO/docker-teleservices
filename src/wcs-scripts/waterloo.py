@@ -26,7 +26,7 @@ class Waterloo(town.Town):
 
     def centre_recreatif_compute_desc(self):
         lst_week_choices = [
-                            globals().get('form_var_semaineE1_raw',
+                            globals().get('form_var_semaineE1_raw'),
                             globals().get('form_var_semaineE2_raw'),
                             globals().get('form_var_semaineE3_raw'),
                             globals().get('form_var_semaineE4_raw'),
