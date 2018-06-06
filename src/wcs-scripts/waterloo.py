@@ -24,6 +24,18 @@ class Waterloo(town.Town):
         self.description = ''
         super(Waterloo, self).__init__(variables=globals())
 
+    def centre_recreatif_compute_desc(self):
+        lst_week_choices = [
+                            globals().get('form_var_semaineE1_raw',
+                            globals().get('form_var_semaineE2_raw'),
+                            globals().get('form_var_semaineE3_raw'),
+                            globals().get('form_var_semaineE4_raw'),
+                            globals().get('form_var_semaineE5_raw'),
+                            globals().get('form_var_semaineE6_raw')
+                        ]
+        return self.centre_recreatif_compute(globals().get('nb_enfants'), 
+                                             lst_week_choices, globals().get('form_var_promotion'))
+
     def centre_recreatif_compute(self, nb_enfants, lst_week_choices, promotion='Non'):
         total = Decimal('0')
         tarif_appliquer = None
