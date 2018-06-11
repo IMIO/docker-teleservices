@@ -682,7 +682,7 @@ ex : 4000,4020,4030,4031</hint>
           <label>Destinations</label>
           <type>items</type>
           <required>False</required>
-          <varname>mode_recup</varname>
+          <varname>mode_recup_disponibles</varname>
           <in_listing>False</in_listing>
           <prefill>
             <type>none</type>
