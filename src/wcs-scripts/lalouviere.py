@@ -152,7 +152,7 @@ class Lalouviere(town.Town):
         else:
             lst_index_to_keep = [int(var_raw.index(elem)) for elem in var_raw if elem in auth_ids]
         for i in lst_index_to_keep:
-            str_mails_to_send += "{};".format(globals().get("{}_{}_mail".format(varname, i)))
+            str_mails_to_send += "{}".format(globals().get("{}_{}_mail".format(varname, i)))
         return str_mails_to_send
 
     # lst_tab_intitule SAMPLE ['Taxe', 'article', 'exercice', 'montant']
@@ -160,22 +160,21 @@ class Lalouviere(town.Town):
     def dyn_tab_format_mail(self, lst_tab_intitule, tab):
         clear_text = ''
         cpt_elem = 0
-        if len(lst_tab_intitule) != len(tab[0]):
-            clear_text = 'ERREUR : Taille tableau.'
-        else:
-            for row in tab:
-                cpt_elem = 0
-                for elem in row:
-                    clear_text += '{0} : {1} \r\n'.format(lst_tab_intitule[cpt_elem], elem)
-                    cpt_elem = cpt_elem + 1
-                clear_text += '------------\r\n\r\n'
-            return clear_text
+        for row in tab:
+            cpt_elem = 0
+            for elem in row:
+                clear_text += '{0} : {1} \r\n'.format(lst_tab_intitule[cpt_elem], elem)
+                cpt_elem = cpt_elem + 1
+            clear_text += '------------\r\n\r\n'
+        return clear_text
 
 
 if vars().get('args') is None:
     # test
     ll = Lalouviere()
     print str(ll.is_deadline_ok('4/5/2018','8/5/2018',legal_holidays=[['30/4/2018'],['1/5/2018']]))
+    print str(ll.dyn_tab_format_mail(['Taxe','Article de rôle','Exercice fiscal','Montant'],
+                                        [['ovp', '7765', '852']] ))
 else:
     current_commune = Lalouviere()
     function = args[0]
