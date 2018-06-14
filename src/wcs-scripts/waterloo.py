@@ -13,7 +13,8 @@ import town
 
 class Waterloo(town.Town):
 
-    def __init__(self):
+    def __init__(self, variables={}):
+        globals().update(variables)
         self.centre_recreatif_supplement_piscine = 0
         self.description = ''
         self.cr_lst_week_choices = [globals().get('form_var_semaineE1_raw'),
@@ -81,10 +82,7 @@ class Waterloo(town.Town):
                         tarif_appliquer = 'prix2'
                     if int(cpt_children_for_this_stage) >= 3:
                         tarif_appliquer = 'prix3'
-                    try:
-                        semaine = globals().get('form_var_semaineE{0}'.format(enfant)).split(',')[stage]
-                    except:
-                        import ipdb;ipdb.set_trace()
+                    semaine = globals().get('form_var_semaineE{0}'.format(enfant)).split(',')[stage]
                     price_varname = 'form_var_semaineE{0}_{1}_{2}'.format(enfant, stage, tarif_appliquer)
                     price_for_current_stage_and_child = globals().get(price_varname)
                     if price_for_current_stage_and_child is not None:
