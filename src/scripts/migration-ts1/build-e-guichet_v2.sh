@@ -2,6 +2,7 @@
 # $1 : commune_id (test, demo, local, huy, liege,...)
 # $2 : domain (guichet-citoyen.be, example.net, ...)
 # $3 : Type Instance light or full (case sensitive)
+# $4 : All town's postcodes with a comma as separator (4000,4020,...)
 
 # Use postgresql with wcs
 sed -i '/[options] /a postgresql = true' /var/lib/wcs/$1-formulaires.$2/site-options.cfg
@@ -46,7 +47,9 @@ fi
 if [ $3 = "full" ]
     then
     echo "INSTALL FORMS FOR FULL INSTANCE."
+    sed -i "s/[cp_commune]/$4/g" /opt/publik/scripts/migration-ts1/forms/only_full/2018_04_updates/*.wcs
     sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2 /opt/publik/scripts/migration-ts1/import-ts1-forms.py /opt/publik/scripts/migration-ts1/forms/only_full/2018_04_updates/
+    sed -i "s/$4/[cp_commune]/g" /opt/publik/scripts/migration-ts1/forms/only_full/2018_04_updates/*.wcs
     sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2 /opt/publik/scripts/migration-ts1/import-ts1-forms.py /opt/publik/scripts/migration-ts1/forms/models/
 else
     echo "INSTALL FORMS FOR LIGHT INSTANCE."
