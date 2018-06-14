@@ -81,7 +81,10 @@ class Waterloo(town.Town):
                         tarif_appliquer = 'prix2'
                     if int(cpt_children_for_this_stage) >= 3:
                         tarif_appliquer = 'prix3'
-                    semaine = globals().get('form_var_semaineE{0}'.format(enfant)).split(',')[stage]
+                    try:
+                        semaine = globals().get('form_var_semaineE{0}'.format(enfant)).split(',')[stage]
+                    except:
+                        import ipdb;ipdb.set_trace()
                     price_varname = 'form_var_semaineE{0}_{1}_{2}'.format(enfant, stage, tarif_appliquer)
                     price_for_current_stage_and_child = globals().get(price_varname)
                     if price_for_current_stage_and_child is not None:
@@ -201,68 +204,21 @@ class Waterloo(town.Town):
         # test if valid structured comm.
         return "{}/{}/{}".format(com[0:3], com[3:7], com[7:12])
 
+    def is_at_least_one_activity_by_week(self, enfant):
+        selected_weeks = globals().get('form_var_semaine{0}_raw'.format(enfant))    
+        selected_activities = globals().get('form_var_activite_comp_{0}_raw'.format(enfant))
+        set_weeks = set(selected_weeks)
+        set_activities = set([x[:-2] for x in selected_activities])
+        nb_diff = len(set_activities.difference(set_weeks))
+        if nb_diff == 0:
+            return True
+        else:
+            return False
+
+
 
 if globals().get('args') is None:
-    form_var_NB_Enfants = '3'
-    form_var_promotion = 'Non'
-    # lst_week_choices = [['S3_2018'],['S3_2018'],['S1_2018']]
-    form_var_semaineE1_raw = ['S1_2018']
-    form_var_semaineE2_raw = ['S3_2018','S2_2018']
-    form_var_semaineE3_raw = ['S3_2018']
-    form_var_semaineE4_raw = None
-    form_var_semaineE5_raw = None
-    form_var_semaineE6_raw = None
-    form_var_semaineE1_0_prix1 = 40
-    form_var_semaineE1_0_prix2 = 37.5
-    form_var_semaineE1_0_prix3 = 30
-    form_var_semaineE2_0_prix1 = 40
-    form_var_semaineE2_0_prix2 = 37.5
-    form_var_semaineE2_0_prix3 = 30
-    form_var_semaineE2_1_prix1 = 40
-    form_var_semaineE2_1_prix2 = 37.5
-    form_var_semaineE2_1_prix3 = 30
-    form_var_semaineE3_0_prix1 = 40
-    form_var_semaineE3_0_prix2 = 37.5
-    form_var_semaineE3_0_prix3 = 30
-    form_var_semaineE1 = 'S3 du 16 Juillet au 20 juillet 2018'
-    form_var_semaineE2 = 'S3 du 16 Juillet au 20 juillet 2018, S2 du 25 Juin au 30 juin 2018'
-    form_var_semaineE3 = 'S1 du 10 Juin au 20 juin 2018'
-    w = Waterloo()
-
-    # Test promotion si n enfants participent à la meme semaine!
-    print str(w.centre_recreatif_compute(3 , 
-                                        [vars().get('form_var_semaineE1_raw'),
-                                         vars().get('form_var_semaineE2_raw'),
-                                         vars().get('form_var_semaineE3_raw'),
-                                         vars().get('form_var_semaineE4_raw'),
-                                         vars().get('form_var_semaineE5_raw'),
-                                         vars().get('form_var_semaineE6_raw')], 'Non'))
-    print str(w.centre_recreatif_compute(3 , 
-                                        [vars().get('form_var_semaineE1_raw'),
-                                         vars().get('form_var_semaineE2_raw'),
-                                         vars().get('form_var_semaineE3_raw'),
-                                         vars().get('form_var_semaineE4_raw'),
-                                         vars().get('form_var_semaineE5_raw'),
-                                         vars().get('form_var_semaineE6_raw')], 'Oui'))
-    print str(w.centre_recreatif_supp_piscine_5_ans(['10/09/2007','01/01/2006','03/02/2011'],
-                                                    [vars().get('form_var_semaineE1_raw'),
-                                                     vars().get('form_var_semaineE2_raw'),
-                                                     vars().get('form_var_semaineE3_raw'),
-                                                     vars().get('form_var_semaineE4_raw'),
-                                                     vars().get('form_var_semaineE5_raw'),
-                                                     vars().get('form_var_semaineE6_raw')]))
-    # assert exception de prix pour enfant de 6 ou 7 ans 
-    print str(w.centre_recreatif_piscine_exceptions(['10/09/2007','01/01/2012','03/02/2011'],
-                                                    [vars().get('form_var_semaineE1_raw'),
-                                                     vars().get('form_var_semaineE2_raw'),
-                                                     vars().get('form_var_semaineE3_raw'),
-                                                     vars().get('form_var_semaineE4_raw'),
-                                                     vars().get('form_var_semaineE5_raw'),
-                                                     vars().get('form_var_semaineE6_raw')]))
-    print w.description
-    print "method total_desc = {0}".format(w.total_desc(0))
-    # print str(w.generate_structured_communication('34-45'))
-
+    test = True
 else:
     if args[0] == 'get_payement_details':
         nb_children = globals().get('form_var_NB_Enfants') or 0
