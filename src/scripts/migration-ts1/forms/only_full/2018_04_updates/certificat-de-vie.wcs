@@ -553,7 +553,7 @@
   </user-roles><roles>
     <role role_key="_receiver">Agents traitants - Population, etat civil</role>
   </roles><options>
-    <option varname="cp_commune">4606,4607,4608</option>
+    <option varname="cp_commune">[cp_commune]</option>
     <option varname="destinations_display" />
     <option varname="motifs_disponibles_structured" />
     <option varname="lien_mondossier">https://mondossier.rrn.fgov.be/fr/certificats.do#tx_43/&amp;language=FR</option>

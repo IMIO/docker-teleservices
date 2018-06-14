@@ -519,7 +519,7 @@
     <role role_key="_receiver">Agents traitants - Population, etat civil</role>
   </roles><options>
     <option varname="mode_recup_disponibles_display">Envoi par courrier au domicile, Envoi par courrier &#233;lectronique</option>
-    <option varname="cp_commune">4606,4607,4608</option>
+    <option varname="cp_commune">[cp_commune]</option>
     <option varname="comptes_identifiants_regies_display">atos_pop</option>
     <option varname="motifs_disponibles_structured" />
     <option varname="comptes_identifiants_regies">atos_pop</option>
