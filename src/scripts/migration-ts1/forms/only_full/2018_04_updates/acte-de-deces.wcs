@@ -45,7 +45,8 @@
       </prefill><items />
       <show_as_radio>True</show_as_radio>
       <data_source>
-        <type>py_deces</type>
+        <type>formula</type>
+        <value>data_source.py_deces</value>
       </data_source><in_filters>False</in_filters>
       <anonymise>False</anonymise>
       <display_disabled_items>False</display_disabled_items>
@@ -471,9 +472,9 @@
       </prefill><id>58</id>
     </field>
   </fields><user-roles>
-    <role role_id="41ce91063d834a5bba804ccfcaf24530">Citoyen (test)</role>
+    <role>Citoyen (test)</role>
   </user-roles><roles>
-    <role role_id="ce08d89514b34f4babb920266a66f215" role_key="_receiver">Agents traitants - Population, etat civil</role>
+    <role role_key="_receiver">Agents traitants - Population, etat civil</role>
   </roles><options>
     <option varname="mode_recup_disponibles_display">Envoi &#224; domicile (Belgique), R&#233;cup&#233;rer le document &#224; la commune lorsqu'il est pr&#234;t</option>
     <option varname="cp_commune">4606,4607,4608</option>
