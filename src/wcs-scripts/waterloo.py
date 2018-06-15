@@ -206,7 +206,16 @@ class Waterloo(town.Town):
         selected_weeks = globals().get('form_var_semaine{0}_raw'.format(enfant))    
         selected_activities = globals().get('form_var_activite_comp_{0}_raw'.format(enfant))
         set_weeks = set(selected_weeks)
-        set_activities = set([x[:-2] for x in selected_activities])
+        selected_activities = [x[:-2] for x in selected_activities]
+        set_activities = set()
+        uniq = []
+        for item in selected_activities:
+            if item not in set_activities:
+                uniq.append(item)
+                set_activities.add(item)
+            else:
+                return False
+        # set_activities = set([x[:-2] for x in selected_activities])
         nb_diff = len(set_activities.difference(set_weeks))
         if nb_diff == 0:
             return True
