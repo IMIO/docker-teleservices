@@ -180,6 +180,8 @@ class Waterloo(town.Town):
 
 
     def get_centre_recreatif_activites(self, lst_week_choices, datasource):
+        if type(datasource) is not list and datasource.get('data') is not None:
+            datasource = datasource.get('data')
         new_datasource = []
         for item in datasource:
             for semaine in lst_week_choices:
@@ -202,25 +204,32 @@ class Waterloo(town.Town):
         # test if valid structured comm.
         return "{}/{}/{}".format(com[0:3], com[3:7], com[7:12])
 
-    def is_at_least_one_activity_by_week(self, enfant):
+    def is_at_least_one_activity_by_week(self, enfant, ds=None):
+        lst_week_choices = globals().get('form_var_semaine{0}_raw'.format(enfant))
+        list_activites_affichees = self.get_centre_recreatif_activites(lst_week_choices, ds)
         selected_weeks = globals().get('form_var_semaine{0}_raw'.format(enfant))    
         selected_activities = globals().get('form_var_activite_comp_{0}_raw'.format(enfant))
         set_weeks = set(selected_weeks)
-        selected_activities = [x[:-2] for x in selected_activities]
+        sel_activities = [x[:-2] for x in selected_activities]
         set_activities = set()
-        uniq = []
-        for item in selected_activities:
+        for item in sel_activities:
             if item not in set_activities:
-                uniq.append(item)
                 set_activities.add(item)
             else:
                 return False
-        # set_activities = set([x[:-2] for x in selected_activities])
-        nb_diff = len(set_activities.difference(set_weeks))
-        if nb_diff == 0:
-            return True
+        if list_activites_affichees is not None:
+            if len(set_activities) != len(set([dic.get('id')[:-2] for dic in list_activites_affichees])):
+                return False
+            else:
+                return True
         else:
-            return False
+            return True
+        # set_activities = set([x[:-2] for x in selected_activities])
+        # nb_diff = len(set_activities.difference(set_weeks))
+        # if nb_diff == 0:
+        #    return True
+        #else:
+        #    return False
 
 
 
