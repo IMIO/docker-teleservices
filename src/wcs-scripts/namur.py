@@ -63,6 +63,13 @@ class Namur(town.Town):
             i = i+1
         return str(sum(map(operator.mul, list_motifs, filtered_table)))
 
+    def compute_standard_motivations_table_args(self, *args):
+        values = args
+        retour = ''
+        if globals().get(values[0]) is not None and  globals().get(values[1]) is not None:
+            retour = str(self.compute_standard_motivations_table(globals().get(values[0]), globals().get(values[1])))
+        return retour
+
     def compute_standard_motivations_table(self, motif_tab_var, lst_motifs_disponibles_var):
         nb_tiers = len(globals().get('form_var_tableau_tiers')) if globals().get('form_var_tableau_tiers') is not None else 1
         return nb_tiers * Decimal(super(Namur, self).compute_standard_motivations_table(motif_tab_var, lst_motifs_disponibles_var))
