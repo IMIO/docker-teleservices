@@ -37,7 +37,8 @@ def get_close_demands(formdef, coords, context=None):
                 coords['lon'], coords['lat'])[2]
         formdata._distance = distance
         formdata._coords = formdata_coords
-        if distance < 750:
+        zoom_max = context.get('form_option_zoom_max') or '750'
+        if distance <  int(zoom_max):
             counter += 1
             formdata.counter = counter
             yield formdata
