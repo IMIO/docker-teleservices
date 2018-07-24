@@ -4,6 +4,15 @@ import re
 
 from datetime import date, datetime, timedelta
 from decimal import Decimal
+import ast, operator
+
+binOps = {
+    ast.Add: operator.add,
+    ast.Sub: operator.sub,
+    ast.Mult: operator.mul,
+    ast.Div: operator.div,
+    ast.Mod: operator.mod
+}
 
 class Town(object):
 
@@ -30,7 +39,7 @@ class Town(object):
     def dt_to_date(self, dt, format_date='%Y-%m-%d', format_time='%H:%M:%S'):
         return datetime.strptime(dt, '{0} {1}'.format(format_date, format_time)).date()
 
-    # Méthode qui ser à retourner un texte accompaggé d'un résultat.
+    # Méthode qui sert à retourner un texte accompaggé d'un résultat.
     # valeur : Un nombre
     # texte : un article (par exemple)
     # coeff : un coéfficient multiplicateur
@@ -162,12 +171,14 @@ class Town(object):
         return self.is_valid_belgian_nrn(nn, can_be_none)
 
     def is_valid_belgian_nrn(self, nrn, can_be_none = 'False'):
+        # nn => toujours 11 char meme apres 2000.
         if can_be_none == 'True' and str(nrn) == "None":
             return True
         else:
             try:
                 if nrn is None or nrn == "None":
                     nrn = "0"
+                nrn = re.sub('[.-]', '', nrn)
                 return ((97 - int(nrn[:9]) % 97 == int(nrn[-2:])) or (97 - int("2" + nrn[:9]) % 97 == int(nrn[-2:])))
             except ValueError:
                 return False
@@ -266,3 +277,30 @@ class Town(object):
 
     def is_agent(self):
         return globals().get('session_user') and globals().get('session_user').can_go_in_backoffice()
+
+    # Decimal usage? :https://stackoverflow.com/questions/35406257/convert-ast-num-to-decimal-decimal-for-precision-in-python
+    def arithmeticEval (self, s):
+        node = ast.parse(s, mode='eval')
+        def _eval(node):
+            if isinstance(node, ast.Expression):
+                return _eval(node.body)
+            elif isinstance(node, ast.Str):
+                return node.s
+            elif isinstance(node, ast.Num):
+                return node.n
+            elif isinstance(node, ast.BinOp):
+                return binOps[type(node.op)](_eval(node.left), _eval(node.right))
+            else:
+                raise Exception('Unsupported type {}'.format(node))
+        return _eval(node.body)
+
+    def safe_total(self,formula):
+        return str(self.arithmeticEval(formula))
+
+    def total(self, formula=None):
+        if formula is not None:
+            retour = self.safe_total(formula)
+        else:
+            retour = (Decimal(globals().get('form_option_cost')) + Decimal(globals().get('form_var_motifs_price'))) * int(globals().get('form_var_nb_exemplaire'))
+        return str(retour)
+
