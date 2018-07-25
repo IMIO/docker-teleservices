@@ -60,8 +60,37 @@ class Waterloo(town.Town):
                          Decimal(supp_piscine) - 
                          Decimal(exceptions_piscine),2))
 
-    def centre_recreatif_compute(self, nb_enfants, lst_week_choices, promotion='Non'):
+
+    def centre_recreatif_compute_v2(self, nb_enfants, lst_week_choices, promotion='Non'):    
+        import collections
         total = Decimal('0')
+        tarif_appliquer = None
+        details = ''
+        liste_stages = filter(None, lst_week_choices)
+        all_stages_id_for_all_children = [item for liste_stages in liste_stages for item in liste_stages if item is not None]
+        dic_prices = {
+                'S1_2018':[40,75,90],
+                'S2_2018':[40,75,90],
+                'S3_2018':[40,75,90],
+                'S4_2018':[40,75,90], 
+                'S5_2018':[40,75,90], 
+                'S6_2018':[40,75,90], 
+                'S7_2018':[32,60,72], 
+                'S8_2018':[40,75,90]
+        }
+        participations = collections.Counter(all_stages_id_for_all_children)
+        for p in participations:
+            semaine = p
+            print(semaine,participations[p])
+            if participations[p] >= 3:
+                total = total + dic_prices.get(semaine)[2]
+            else:
+                total = total + dic_prices.get(semaine)[participations[p] -1]
+        return total
+
+    def centre_recreatif_compute(self, nb_enfants, lst_week_choices, promotion='Non'):
+        total = self.centre_recreatif_compute_v2(nb_enfants, lst_week_choices, promotion='Non')
+        # total = Decimal('0')
         tarif_appliquer = None
         details = ''
         # format du prix d'un centre recreatif pour un enfant
@@ -86,8 +115,8 @@ class Waterloo(town.Town):
                     price_varname = 'form_var_semaineE{0}_{1}_{2}'.format(enfant, stage, tarif_appliquer)
                     price_for_current_stage_and_child = globals().get(price_varname)
                     if price_for_current_stage_and_child is not None:
-                        details += '<li>{0} - {1} Eur</li>'.format(semaine, price_for_current_stage_and_child)
-                        total = total + Decimal(price_for_current_stage_and_child)
+                        details += '<li>{0} - {1} Eur</li>'.format(semaine, price_for_current_stage_and_child)                        
+                        # total = total + Decimal(price_for_current_stage_and_child)
                     else:
                         total = 'error : Stage : child {0}, var {1}, value = {2}'.format(enfant, price_varname, price_for_current_stage_and_child)
                         break
@@ -180,13 +209,16 @@ class Waterloo(town.Town):
 
 
     def get_centre_recreatif_activites(self, lst_week_choices, datasource):
-        if type(datasource) is not list and datasource.get('data') is not None:
-            datasource = datasource.get('data')
         new_datasource = []
-        for item in datasource:
-            for semaine in lst_week_choices:
-                if semaine in item.get('id'):
-                    new_datasource.append(item)
+        if datasource is not None:
+            if type(datasource) is not list:
+                if datasource.get('data') is not None:
+                    datasource = datasource.get('data')
+            if lst_week_choices is not None:
+                for item in datasource:
+                    for semaine in lst_week_choices:
+                        if semaine in item.get('id'):
+                            new_datasource.append(item)
         return new_datasource
 
     def generate_structured_communication(self, transaction_id):
