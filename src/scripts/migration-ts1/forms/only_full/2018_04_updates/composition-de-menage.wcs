@@ -240,11 +240,11 @@
           <condition>
             <type>python</type>
             <value>(form_var_concerne_qui_raw == 'moi' and form_var_cp in form_option_cp_commune) or (form_var_concerne_qui_raw == 'moi' and form_var_domicile_raw == 'plus_{0}'.format(commune_slug)) or form_var_concerne_qui_raw != 'moi'</value>
-          </condition><error_message>Vous commandez ce document pour vous-m&#234;me. Le code postal indiqu&#233; doit obligatoirement &#234;tre "7190" ou "7191".</error_message>
+          </condition><error_message>Vous commandez ce document pour vous-m&#234;me. Le code postal indiqu&#233; doit obligatoirement &#234;tre celui de notre commune.</error_message>
         </post_condition><post_condition>
           <condition>
             <type>python</type>
-            <value>form_var_telephone == None or (re.match("^(0|\\+|00)(\d{8,})$", form_var_telephone))</value>
+            <value>form_var_tel == None or (re.match("^(0|\\+|00)(\d{8,})$", form_var_tel))</value>
           </condition><error_message>Num&#233;ro de t&#233;l&#233;phone : seuls les chiffres et le signe + sont accept&#233;s (pas de -, /, ...). Merci d'encoder minimum 9 chiffres pour le num&#233;ro de t&#233;l&#233;phone.</error_message>
         </post_condition>
       </post_conditions><id>3</id>
@@ -301,7 +301,7 @@
       <label>Num&#233;ro</label>
       <type>string</type>
       <required>True</required>
-      <varname>numero_porte</varname>
+      <varname>numero</varname>
       <in_listing>False</in_listing>
       <extra_css_class>grid-1-3</extra_css_class>
       <prefill>
@@ -377,7 +377,7 @@
       <type>string</type>
       <required>True</required>
       <hint>Seuls les chiffres et le signe + sont accept&#233;s (pas de -, /, ...)</hint>
-      <varname>telephone</varname>
+      <varname>tel</varname>
       <in_listing>False</in_listing>
       <extra_css_class>grid-1-2</extra_css_class>
       <prefill>
