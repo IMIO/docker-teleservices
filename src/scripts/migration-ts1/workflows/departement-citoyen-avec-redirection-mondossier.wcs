@@ -84,8 +84,10 @@
 	  <body>{{form_refus_var_body}}</body>
         </item><item id="3" type="jump">
           <status>24</status>
-          <set_marker_on_status>False</set_marker_on_status>
-          <condition />
+          <condition>
+            <type>python</type>
+            <value>Decimal(wf_total_commande) &gt; 0</value>
+          </condition><set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
     </status><status>
@@ -140,7 +142,7 @@ Pour r&#233;f&#233;rence, voici le d&#233;tail du formulaire :
           </to><subject>Administration de {{ commune_name }} : D&#233;marche "{{ form_name }}" trait&#233;e.</subject>
           <body>Bonjour,
 
-Votre d&#233;marche "{{ form_name }}" a &#233;t&#233; trait&#233;e par nos services. 
+Votre d&#233;marche "{{ form_name }}" a &#233;t&#233; trait&#233;e par nos services.
 
 Bien cordialement,</body>
         </item>
@@ -208,7 +210,7 @@ Veuillez r&#233;gler &lt;a href="{{portal_user_url}}panier"&gt;votre panier&lt;/
             <item role_id="_submitter">_submitter</item>
           </to><subject>Administration de {{ commune_name }} : D&#233;marche "{{ form_name }}" (document gratuit).</subject>
           <body>Bonjour,
-Votre d&#233;marche gratuite "{{ form_name }}" est en cours de traitement par nos services. 
+Votre d&#233;marche gratuite "{{ form_name }}" est en cours de traitement par nos services.
 
 
 Bien cordialement,</body>
@@ -226,7 +228,7 @@ Bien cordialement,</body>
           </to><subject>Administration de {{ commune_name }} : D&#233;marche "{{ form_name }}" accept&#233;e.</subject>
           <body>Bonjour,
 
-Nous avons bien re&#231;u votre paiement. Votre demande va &#234;tre trait&#233;e dans les meilleurs d&#233;lais. 
+Nous avons bien re&#231;u votre paiement. Votre demande va &#234;tre trait&#233;e dans les meilleurs d&#233;lais.
 
 [if-any user]
 Vous pouvez continuer &#224; suivre son &#233;tat d'avancement en suivant ce lien :
@@ -234,7 +236,7 @@ Vous pouvez continuer &#224; suivre son &#233;tat d'avancement en suivant ce lie
 [else]
 [end]
 
-Bien cordialement, 
+Bien cordialement,
 
 </body>
         </item><item id="2" type="jump">
@@ -371,7 +373,7 @@ Monsieur,&lt;br&gt;
 &lt;br&gt;
 Votre commande a bien &#233;t&#233; enregistr&#233;e dans notre syst&#232;me.
 &lt;br&gt;&lt;br&gt;
-Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en mentionnant les instructions de paiement suivantes : 
+Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en mentionnant les instructions de paiement suivantes :
 &lt;ul&gt;
 &lt;li&gt;B&#233;n&#233;ficiaire : &lt;b&gt;Ville de {{ commune_name }} - {{ commune_rue }} - {{ commune_cp }}&lt;/b&gt;&lt;/li&gt;
 &lt;li&gt;Num&#233;ro de compte b&#233;n&#233;ficiaire (IBAN) : &lt;b&gt;{{form_option_iban}}&lt;/b&gt;&lt;/li&gt;
@@ -392,7 +394,7 @@ Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en me
 Votre commande a bien &#233;t&#233; enregistr&#233;e dans notre syst&#232;me.
 
 
-Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en mentionnant les instructions de paiement suivantes : 
+Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en mentionnant les instructions de paiement suivantes :
 
 
 B&#233;n&#233;ficiaire : Ville de {{ commune_name }} - {{ commune_rue }} - {{ commune_cp }}
@@ -477,9 +479,9 @@ Bien cordialement,
           <to>
             <item role_id="_submitter">_submitter</item>
           </to><subject>{{commune_name}} : Demande d'information pour le remboursement de votre commande de {{form_name}}</subject>
-          <body>Bonjour {{form_user_display_name}}, 
+          <body>Bonjour {{form_user_display_name}},
 
-Suite au refus de votre demande de {{form_name}} d'un montant de {{form_var_wf_total_commande}} &#8364;, nous n'avons pas pu proc&#233;der &#224; l'annulation de votre paiement. Merci de compl&#233;ter le formulaire &#224; l'adresse suivante afin que l'on proc&#232;de au remboursement : {{form_url}}#wf-actions 
+Suite au refus de votre demande de {{form_name}} d'un montant de {{form_var_wf_total_commande}} &#8364;, nous n'avons pas pu proc&#233;der &#224; l'annulation de votre paiement. Merci de compl&#233;ter le formulaire &#224; l'adresse suivante afin que l'on proc&#232;de au remboursement : {{form_url}}#wf-actions
 
 Attention, si vous avez pay&#233; &#224; l'aide d'une carte de cr&#233;dit, merci d'indiquer un num&#233;ro de compte IBAN classique.
 
@@ -488,8 +490,8 @@ Bien &#224; vous,
 
 </body>
         </item><item id="2" type="displaymsg">
-          <message>Merci de compl&#233;ter les informations bancaires n&#233;cessaires au remboursement de votre demande. 
-Le remboursement se fera dans les plus brefs d&#233;lais sur le compte bancaire renseign&#233; par vos soins en bas de cette page. 
+          <message>Merci de compl&#233;ter les informations bancaires n&#233;cessaires au remboursement de votre demande.
+Le remboursement se fera dans les plus brefs d&#233;lais sur le compte bancaire renseign&#233; par vos soins en bas de cette page.
 Attention, si vous aviez pay&#233; par carte de cr&#233;dit, veuillez indiquer un num&#233;ro de carte de d&#233;bit classique.
 Exemple de num&#233;ro IBAN : BE1234567890</message>
           <position>top</position>
@@ -583,9 +585,9 @@ Exemple de num&#233;ro IBAN : BE1234567890</message>
           <to>
             <item role_id="_receiver">_receiver</item>
           </to><subject>E-guichet {{commune_name}} - Demande de remboursement</subject>
-          <body>Bonjour, 
+          <body>Bonjour,
 
-Voici une demande de remboursement hors des d&#233;lais d'Atos, merci de proc&#233;der &#224; la demande de remboursement suivante : 
+Voici une demande de remboursement hors des d&#233;lais d'Atos, merci de proc&#233;der &#224; la demande de remboursement suivante :
 
 * Num&#233;ro IBAN : {{infos_remboursement_var_iban}}
 * Nom : {{infos_remboursement_var_nom}}
