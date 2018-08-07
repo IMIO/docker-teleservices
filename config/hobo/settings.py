@@ -61,6 +61,3 @@ EMAIL_HOST = 'localhost'
 CSRF_COOKIE_SECURE = False
 SESSION_COOKIE_SECURE = False
 # SESSION_COOKIE_SECURE = True
-
-BROKER_URL = 'amqp://guest:guest@rabbitmq:5672/'
-

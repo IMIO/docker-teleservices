@@ -82,4 +82,3 @@ MELLON_ADAPTER = ('authentic2_auth_fedict.adapters.AuthenticAdapter',)
 #A2_SSLAUTH_ENABLE = False
 
 HOBO_ROLE_EXPORT = True
-BROKER_URL = 'amqp://guest:guest@rabbitmq:5672/'

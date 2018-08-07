@@ -1,8 +1,3 @@
-# AMQP message broker
-# http://celery.readthedocs.org/en/latest/configuration.html#broker-url
-# transport://userid:password@hostname:port/virtual_host
-BROKER_URL = 'amqp://guest:guest@rabbitmq:5672/'
-
 # It's possible to limit agents to particular applications, or particular
 # hostnames, using the AGENT_HOST_PATTERNS configuration variable.
 #
