@@ -1,0 +1,8 @@
+# Dockerfile
+FROM teleservices-jessie:latest
+user wcs
+COPY run-wcs.sh /
+
+CMD ["/run-wcs.sh"]
+
+

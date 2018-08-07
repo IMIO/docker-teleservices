@@ -1,0 +1,8 @@
+# Dockerfile
+FROM teleservices-jessie:latest
+user combo
+COPY run-combo.sh /
+
+CMD ["/run-combo.sh"]
+
+

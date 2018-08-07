@@ -1,0 +1,8 @@
+# Dockerfile
+FROM teleservices-jessie:latest
+user passerelle
+COPY run-passerelle.sh /
+
+CMD ["/run-passerelle.sh"]
+
+

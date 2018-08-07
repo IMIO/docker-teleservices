@@ -1,4 +1,4 @@
-branch=use-modules-from-git-clones
+branch=jessie
 
 pull:
 		docker-compose pull
@@ -11,8 +11,16 @@ clean:
 run:
 		docker-compose -f docker-compose-$(branch).yml up
 
-build:
-		docker-compose -f docker-compose-$(branch).yml build
+base:
+		docker image build -f teleservices/Dockerfile-jessie -t teleservices-jessie:latest teleservices
+
+LIST=hobo combo bijoe fargo authentic wcs passerelle
+
+build: base $(LIST)
+
+$(LIST):
+		docker image build -f teleservices/Dockerfile-$@ -t teleservices-jessie-$@:latest teleservices
+
 build-no-cache:
 		docker-compose -f docker-compose-$(branch).yml build --no-cache
 

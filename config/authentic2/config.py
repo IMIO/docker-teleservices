@@ -13,11 +13,11 @@
 # This file is sourced by "execfile" from /usr/lib/authentic/debian_config.py
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-TEMPLATE_DEBUG = True
+DEBUG = False
+TEMPLATE_DEBUG = False
 
 ADMINS = (
-  ('Admins IMIO', 'admints@example.net'),
+  ('Admins IMIO', 'admints@imio.be'),
 )
 
 # ALLOWED_HOSTS must be correct in production!
@@ -86,61 +86,19 @@ BROKER_URL = 'amqp://guest:guest@rabbitmq:5672/'
 
 LOCALE_PATHS = ('/var/lib/authentic2/locale',) + LOCALE_PATHS
 
-from django import forms
-import re
-
-
-class RrnField(forms.CharField):
-    def validate(self, value):
-        super(RrnField, self).validate(value)
-        if not value:
-            return
-        try:
-            if (97 - int(value[:9]) % 97) != int(value[-2:]):
-                raise ValueError()
-        except ValueError:
-            raise forms.ValidationError("Format invalide")
-
-
-class NumHouseField(forms.CharField):
-    def validate(self, value):
-        super(NumHouseField, self).validate(value)
-        if not value:
-            return
-        try:
-            if not re.match("[1-9][0-9]*", value):
-                raise ValueError()
-        except ValueError:
-            raise forms.ValidationError("Format invalide")
-
-class NumPhoneField(forms.CharField):
-    def validate(self, value):
-        super(NumPhoneField, self).validate(value)
-        if not value:
-            return
-        try:
-            if not re.match("^(0|\\+|00)(\d{8,})", value):
-                raise ValueError()
-        except ValueError:
-            raise forms.ValidationError("Format invalide")
-
-
-
-A2_ATTRIBUTE_KINDS = [
-        {
-            'label': u'Numéro de registre national',
-            'name': 'rrn',
-            'field_class': RrnField,
+import os
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
         },
-        {
-            'label': u'Numéro de maison',
-            'name': 'num_house',
-            'field_class': NumHouseField,
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
         },
-        {
-            'label': u'Numéro de téléphone',
-            'name': 'phone',
-            'field_class': NumPhoneField,
-        }
-]
-
+    },
+}

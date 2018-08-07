@@ -1,0 +1,8 @@
+# Dockerfile
+FROM teleservices-jessie:latest
+user bijoe
+COPY run-bijoe.sh /
+
+CMD ["/run-bijoe.sh"]
+
+

@@ -1,0 +1,8 @@
+# Dockerfile
+FROM teleservices-jessie:latest
+user authentic-multitenant
+
+COPY run-authentic.sh /
+CMD ["/run-authentic.sh"]
+
+

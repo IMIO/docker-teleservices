@@ -1,0 +1,8 @@
+# Dockerfile
+FROM teleservices-jessie:latest
+user fargo
+COPY run-fargo.sh /
+
+CMD ["/run-fargo.sh"]
+
+
