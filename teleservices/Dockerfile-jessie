@@ -34,6 +34,7 @@ RUN chown hobo-agent:hobo-agent /var/run/hobo /var/log/hobo
 RUN chown fargo:fargo /var/run/fargo /var/log/fargo
 RUN chown passerelle:passerelle /var/run/passerelle /var/log/passerelle
 RUN chown wcs:wcs /var/run/wcs /var/log/wcs
+RUN chown bijoe:bijoe /var/run/bijoe /var/log/bijoe
 
 #cleanup
 RUN rm -f /etc/default/authentic2-multitenant

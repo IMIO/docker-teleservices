@@ -8,11 +8,12 @@ services:
       - ./config/hobo:/etc/hobo
       - ./config/common/settings.d:/etc/hobo/settings.d
       - ./config/hobo-agent:/etc/hobo-agent
-    #  bijoe:
-    #    image: teleservices-jessie-bijoe:latest
-    #    volumes:
-    #      - ./data/bijoe:/var/lib/bijoe/tenants
-    #      - ./config/bijoe:/etc/bijoe
+  bijoe:
+    image: teleservices-jessie-bijoe:latest
+    volumes:
+      - ./data/bijoe:/var/lib/bijoe/tenants
+      - ./config/bijoe:/etc/bijoe
+      - ./config/common/settings.d:/etc/bijoe/settings.d
   combo:
     image: teleservices-jessie-combo:latest
     volumes:
