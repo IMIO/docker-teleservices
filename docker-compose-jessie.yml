@@ -6,6 +6,7 @@ services:
     volumes:
       - ./data/hobo:/var/lib/hobo/tenants
       - ./config/hobo:/etc/hobo
+      - ./config/common/settings.d:/etc/hobo/settings.d
       - ./config/hobo-agent:/etc/hobo-agent
     #  bijoe:
     #    image: teleservices-jessie-bijoe:latest
@@ -17,16 +18,19 @@ services:
     volumes:
       - ./data/combo:/var/lib/combo/tenants
       - ./config/combo:/etc/combo
+      - ./config/common/settings.d:/etc/combo/settings.d
   fargo:
     image: teleservices-jessie-fargo:latest
     volumes:
       - ./config/fargo:/etc/fargo
       - ./data/fargo:/var/lib/fargo/tenants
+      - ./config/common/settings.d:/etc/fargo/settings.d
   authentic:
     image: teleservices-jessie-authentic:latest
     volumes:
       - ./data/authentic2:/var/lib/authentic2-multitenant/tenants
       - ./config/authentic2:/etc/authentic2-multitenant
+      - ./config/common/settings.d:/etc/authentic2-multitenant/settings.d
         #depends_on:
         #  - database
     #  wcs:

@@ -83,22 +83,3 @@ MELLON_ADAPTER = ('authentic2_auth_fedict.adapters.AuthenticAdapter',)
 
 HOBO_ROLE_EXPORT = True
 BROKER_URL = 'amqp://guest:guest@rabbitmq:5672/'
-
-LOCALE_PATHS = ('/var/lib/authentic2/locale',) + LOCALE_PATHS
-
-import os
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console'],
-            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
-        },
-    },
-}
