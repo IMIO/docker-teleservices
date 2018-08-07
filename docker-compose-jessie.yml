@@ -33,10 +33,11 @@ services:
       - ./config/common/settings.d:/etc/authentic2-multitenant/settings.d
         #depends_on:
         #  - database
-    #  wcs:
-    #    image: teleservices-jessie-wcs:latest
-    #    volumes:
-    #      - ./data/wcs:/var/lib/wcs
+  wcs:
+    image: teleservices-jessie-wcs:latest
+    volumes:
+      - ./data/wcs:/var/lib/wcs
+      - ./config/common/settings.d:/etc/wcs/settings.d
     #  passerelle:
     #    image: teleservices-jessie-passerelle:latest
     #    volumes:
