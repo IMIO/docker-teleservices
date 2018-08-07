@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 DESC="Web Forms Manager"
 NAME=wcs

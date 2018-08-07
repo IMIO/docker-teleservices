@@ -38,11 +38,12 @@ services:
     volumes:
       - ./data/wcs:/var/lib/wcs
       - ./config/common/settings.d:/etc/wcs/settings.d
-    #  passerelle:
-    #    image: teleservices-jessie-passerelle:latest
-    #    volumes:
-    #      - ./data/passerelle:/var/lib/passerelle/tenants
-    #      - ./config/passerelle:/etc/passerelle
+  passerelle:
+    image: teleservices-jessie-passerelle:latest
+    volumes:
+      - ./data/passerelle:/var/lib/passerelle/tenants
+      - ./config/passerelle:/etc/passerelle
+      - ./config/common/settings.d:/etc/passerelle/settings.d
     #nginx:
     #  image: nginx:latest
     #  volumes:

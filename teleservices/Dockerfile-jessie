@@ -28,10 +28,11 @@ RUN ln -s /usr/lib/python2.7/dist-packages/authentic2/static/authentic2 /var/lib
 RUN ln -s /usr/lib/python2.7/dist-packages/authentic2/static/jquery /var/lib/authentic2-multitenant/static/
 RUN ln -s /usr/lib/python2.7/dist-packages/authentic2/static/ulx /var/lib/authentic2-multitenant/static/
 RUN chown -R www-data:www-data /var/lib/authentic2-multitenant/static
-RUN mkdir /var/run/combo /var/run/hobo /var/run/fargo /var/run/wcs
+RUN mkdir /var/run/combo /var/run/hobo /var/run/fargo /var/run/wcs /var/run/passerelle
 RUN chown combo:combo /var/run/combo
 RUN chown hobo-agent:hobo-agent /var/run/hobo /var/log/hobo
 RUN chown fargo:fargo /var/run/fargo /var/log/fargo
+RUN chown passerelle:passerelle /var/run/passerelle /var/log/passerelle
 RUN chown wcs:wcs /var/run/wcs /var/log/wcs
 
 #cleanup
