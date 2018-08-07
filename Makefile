@@ -18,7 +18,7 @@ LIST=hobo combo bijoe fargo authentic wcs passerelle
 
 build: base $(LIST)
 
-$(LIST):
+$(LIST): base
 		docker image build -f teleservices/Dockerfile-$@ -t teleservices-jessie-$@:latest teleservices
 
 build-no-cache:
