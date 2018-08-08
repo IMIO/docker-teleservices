@@ -8,30 +8,53 @@ services:
       - ./config/hobo:/etc/hobo
       - ./config/common/settings.d:/etc/hobo/settings.d
       - ./config/hobo-agent:/etc/hobo-agent
+      - /var/run/hobo
+    extra_hosts:
+        local.example.net:
+          172.17.0.1
+        local-portail-agent.example.net:
+          172.17.0.1
+        local-auth.example.net:
+          172.17.0.1
+        local-formulaires.example.net:
+          172.17.0.1
+        local-documents.example.net:
+          172.17.0.1
+        local-passerelle.example.net:
+          172.17.0.1
+        local-hobo.example.net:
+          172.17.0.1
+        local-stats.example.net:
+          172.17.0.1        
+
   bijoe:
     image: teleservices-jessie-bijoe:latest
     volumes:
       - ./data/bijoe:/var/lib/bijoe/tenants
       - ./config/bijoe:/etc/bijoe
       - ./config/common/settings.d:/etc/bijoe/settings.d
+      - /var/run/bijoe
   combo:
     image: teleservices-jessie-combo:latest
     volumes:
       - ./data/combo:/var/lib/combo/tenants
       - ./config/combo:/etc/combo
       - ./config/common/settings.d:/etc/combo/settings.d
+      - /var/run/combo
   fargo:
     image: teleservices-jessie-fargo:latest
     volumes:
       - ./config/fargo:/etc/fargo
       - ./data/fargo:/var/lib/fargo/tenants
       - ./config/common/settings.d:/etc/fargo/settings.d
+      - /var/run/fargo
   authentic:
     image: teleservices-jessie-authentic:latest
     volumes:
       - ./data/authentic2:/var/lib/authentic2-multitenant/tenants
       - ./config/authentic2:/etc/authentic2-multitenant
       - ./config/common/settings.d:/etc/authentic2-multitenant/settings.d
+      - /var/run/authentic2-multitenant
         #depends_on:
         #  - database
   wcs:
@@ -39,30 +62,43 @@ services:
     volumes:
       - ./data/wcs:/var/lib/wcs
       - ./config/common/settings.d:/etc/wcs/settings.d
+      - /var/run/wcs
   passerelle:
     image: teleservices-jessie-passerelle:latest
     volumes:
       - ./data/passerelle:/var/lib/passerelle/tenants
       - ./config/passerelle:/etc/passerelle
       - ./config/common/settings.d:/etc/passerelle/settings.d
-    #nginx:
-    #  image: nginx:latest
-    #  volumes:
-    #    - ./config/nginx:/etc/nginx/sites-available
+      - /var/run/passerelle
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./config/nginx:/etc/nginx/conf.d
+    ports:
+        - 80:80
+    volumes_from:
+      - passerelle
+      - wcs
+      - fargo
+      - combo
+      - bijoe
+      - hobo
+      - authentic
     #  depends_on:
     #    - database
     #    - rabbitmq
-    #rabbitmq:
-    #  image: rabbitmq
-    #  hostname: rabbitmq
-    #database:
-    #  image: postgres
-    #  hostname: postgres
-    #  container_name: postgres
-    #  volumes:
-    #    - ./data/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d/
-    #  environment:
-    #    - "POSTGRES_PASSWORD=password"
+  rabbitmq:
+    image: rabbitmq
+    hostname: rabbitmq
+  database:
+    image: postgres
+    hostname: postgres
+    container_name: postgres
+    volumes:
+      - ./data/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d/
+      - ./data/postgres:/var/lib/postgresql/data
+    environment:
+      - "POSTGRES_PASSWORD=password"
     #memcached:
     #  image: memcached
     #  hostname: memcached
