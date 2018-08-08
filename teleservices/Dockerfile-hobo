@@ -1,6 +1,6 @@
 # Dockerfile
 FROM teleservices-jessie:latest
-user hobo-agent
+user hobo
 COPY run-hobo.sh /
 
 CMD ["/run-hobo.sh"]

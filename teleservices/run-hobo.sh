@@ -40,7 +40,6 @@ export HOBO_SETTINGS_FILE
 #
 # Function that starts the daemon/service
 #
-ls -ld $LOG_DIR
 $DAEMON $DAEMON_ARGS
 
 #sudo -u hobo hobo-manage cook /etc/hobo/recipe.json
