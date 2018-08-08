@@ -11,7 +11,7 @@ BIND=unix:$RUN_DIR/$NAME.sock
 WORKERS=5
 TIMEOUT=30
 
-COMBO_SETTINGS_FILE=/usr/lib/$NAME/debian_config.py
+export COMBO_SETTINGS_FILE=/usr/lib/$NAME/debian_config.py
 MANAGE_SCRIPT="/usr/bin/$NAME-manage"
 
 USER=$NAME
