@@ -19,6 +19,8 @@ GROUP=authentic-multitenant
 
 /usr/bin/gunicorn --pid $PIDFILE \
 --user $USER --group $GROUP \
+--access-logfile $LOG_DIR/gunicorn-access.log \
+--log-file $LOG_DIR/gunicorn-error.log \
 --bind=$BIND \
 --workers=$WORKERS \
 --worker-class=sync \
