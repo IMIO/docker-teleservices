@@ -126,7 +126,7 @@
       "description": "Format de la date : 13/01/2016",
       "asked_on_registration": true,
       "required": true,
-      "kind": "date",
+      "kind": "fedict_date",
       "order": 13
     }},
     {"set-attribute": {
