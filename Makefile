@@ -8,7 +8,7 @@ clean:
 		docker-compose rm
 		sudo rm -fr data/*/*.example.net/ data/wcs/config.pck data/wcs/.rnd
 
-run:
+run: build
 		docker-compose -f docker-compose-$(branch).yml up
 
 base:
@@ -19,7 +19,7 @@ LIST=hobo combo bijoe fargo authentic wcs passerelle nginx
 build: base $(LIST)
 
 $(LIST): base
-		docker image build -f teleservices/Dockerfile-$@ -t teleservices-jessie-$@:latest teleservices --no-cache
+		docker image build -f teleservices/Dockerfile-$@ -t teleservices-jessie-$@:latest teleservices
 
 build-no-cache:
 		docker-compose -f docker-compose-$(branch).yml build --no-cache
