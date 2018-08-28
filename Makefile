@@ -8,6 +8,9 @@ clean:
 		docker-compose rm
 		sudo rm -fr data/*/*.example.net/ data/wcs/config.pck data/wcs/.rnd
 
+cleanall: clean
+		sudo rm -fr data/postgres
+
 run: build
 		docker-compose -f docker-compose-$(branch).yml up
 
