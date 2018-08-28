@@ -35,6 +35,8 @@ RUN chown fargo:fargo /var/run/fargo /var/log/fargo
 RUN chown passerelle:passerelle /var/run/passerelle /var/log/passerelle
 RUN chown wcs:wcs /var/run/wcs /var/log/wcs
 RUN chown bijoe:bijoe /var/run/bijoe /var/log/bijoe
+RUN chmod 666 /var/log/supervisor/supervisord.log /var/run/supervisord.pid
+RUN chmod 777 /var/run /var/log/hobo-agent/
 
 #cleanup
 RUN rm -f /etc/default/authentic2-multitenant

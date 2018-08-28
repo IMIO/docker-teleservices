@@ -6,7 +6,8 @@
     "combo_agent": "local-portail-agent.example.net",
     "fargo": "local-documents.example.net",
     "passerelle": "local-passerelle.example.net",
-    "wcs": "local-formulaires.example.net"
+    "wcs": "local-formulaires.example.net",
+    "bijoe": "local-stats.example.net"
   },
   "steps": [
     {"create-hobo": {
@@ -44,6 +45,10 @@
     {"create-wcs": {
       "url": "http://${wcs}/",
       "title": "Guichet citoyen local - Formulaires"
+    }},
+    {"create-bijoe": {
+      "url": "http://${bijoe}/",
+      "title": "Guichet citoyen local- Statistiques"
     }},
     {"set-attribute": {
       "name": "niss",

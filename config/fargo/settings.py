@@ -13,7 +13,6 @@
 #
 # # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = False
-# TEMPLATE_DEBUG = False
 
 ADMINS = (
   ('Admins IMIO', 'admints@example.net'),

@@ -9,6 +9,7 @@ services:
       - ./config/common/settings.d:/etc/hobo/settings.d
       - ./config/hobo-agent:/etc/hobo-agent
       - /var/run/hobo
+      - /var/lib/hobo
     extra_hosts:
         local.example.net:
           172.17.0.1
@@ -25,7 +26,10 @@ services:
         local-hobo.example.net:
           172.17.0.1
         local-stats.example.net:
-          172.17.0.1        
+          172.17.0.1
+    depends_on:
+      - rabbitmq
+      - database
 
   bijoe:
     image: teleservices-jessie-bijoe:latest
@@ -34,13 +38,26 @@ services:
       - ./config/bijoe:/etc/bijoe
       - ./config/common/settings.d:/etc/bijoe/settings.d
       - /var/run/bijoe
+      - ./config/hobo-agent/settings-bijoe.py:/etc/hobo-agent/settings.py
+      - ./config/supervisor/supervisord-bijoe.conf:/etc/supervisor/supervisord.conf
+      - ./config/supervisor/hobo-agent-bijoe.conf:/etc/supervisor/conf.d/hobo-agent.conf
+    depends_on:
+      - database
+      - rabbitmq
   combo:
     image: teleservices-jessie-combo:latest
     volumes:
       - ./data/combo:/var/lib/combo/tenants
       - ./config/combo:/etc/combo
       - ./config/common/settings.d:/etc/combo/settings.d
+      - ./config/hobo-agent/settings-combo.py:/etc/hobo-agent/settings.py
+      - ./config/supervisor/supervisord-combo.conf:/etc/supervisor/supervisord.conf
+      - ./config/supervisor/hobo-agent-combo.conf:/etc/supervisor/conf.d/hobo-agent.conf
       - /var/run/combo
+      - /var/lib/combo
+    depends_on:
+      - database
+      - rabbitmq
   fargo:
     image: teleservices-jessie-fargo:latest
     volumes:
@@ -48,21 +65,40 @@ services:
       - ./data/fargo:/var/lib/fargo/tenants
       - ./config/common/settings.d:/etc/fargo/settings.d
       - /var/run/fargo
+      - /var/lib/fargo
+      - ./config/hobo-agent/settings-fargo.py:/etc/hobo-agent/settings.py
+      - ./config/supervisor/supervisord-fargo.conf:/etc/supervisor/supervisord.conf
+      - ./config/supervisor/hobo-agent-fargo.conf:/etc/supervisor/conf.d/hobo-agent.conf
+    depends_on:
+      - database
+      - rabbitmq
   authentic:
     image: teleservices-jessie-authentic:latest
     volumes:
       - ./data/authentic2:/var/lib/authentic2-multitenant/tenants
       - ./config/authentic2:/etc/authentic2-multitenant
+      - ./config/hobo-agent/settings-authentic2.py:/etc/hobo-agent/settings.py
       - ./config/common/settings.d:/etc/authentic2-multitenant/settings.d
+      - ./config/supervisor/supervisord-authentic.conf:/etc/supervisor/supervisord.conf
+      - ./config/supervisor/hobo-agent-authentic.conf:/etc/supervisor/conf.d/hobo-agent.conf
       - /var/run/authentic2-multitenant
-        #depends_on:
-        #  - database
+      - /var/lib/authentic2-multitenant
+    depends_on:
+      - rabbitmq
+      - database
   wcs:
     image: teleservices-jessie-wcs:latest
     volumes:
       - ./data/wcs:/var/lib/wcs
       - ./config/common/settings.d:/etc/wcs/settings.d
       - /var/run/wcs
+      - /var/lib/wcs
+      - ./config/hobo-agent/settings-wcs.py:/etc/hobo-agent/settings.py
+      - ./config/supervisor/supervisord-wcs.conf:/etc/supervisor/supervisord.conf
+      - ./config/supervisor/hobo-agent-wcs.conf:/etc/supervisor/conf.d/hobo-agent.conf
+    depends_on:
+      - database
+      - rabbitmq
   passerelle:
     image: teleservices-jessie-passerelle:latest
     volumes:
@@ -70,10 +106,17 @@ services:
       - ./config/passerelle:/etc/passerelle
       - ./config/common/settings.d:/etc/passerelle/settings.d
       - /var/run/passerelle
+      - /var/lib/passerelle
+      - ./config/hobo-agent/settings-passerelle.py:/etc/hobo-agent/settings.py
+      - ./config/supervisor/supervisord-passerelle.conf:/etc/supervisor/supervisord.conf
+      - ./config/supervisor/hobo-agent-passerelle.conf:/etc/supervisor/conf.d/hobo-agent.conf
+    depends_on:
+      - database
+      - rabbitmq
   nginx:
-    image: nginx:latest
+    image: teleservices-jessie-nginx:latest
     volumes:
-      - ./config/nginx:/etc/nginx/conf.d
+      - ./config/nginx:/etc/nginx/sites-available
     ports:
         - 80:80
     volumes_from:
@@ -84,12 +127,16 @@ services:
       - bijoe
       - hobo
       - authentic
-    #  depends_on:
-    #    - database
-    #    - rabbitmq
   rabbitmq:
-    image: rabbitmq
-    hostname: rabbitmq
+    image: rabbitmq:3-management
+    ports:
+        - 15672:15672
+    expose:
+        - 5672
+    environment:
+        - RABBITMQ_DEFAULT_USER=teleservices
+        - RABBITMQ_DEFAULT_PASS=password
+        - RABBITMQ_DEFAULT_VHOST=/teleservices
   database:
     image: postgres
     hostname: postgres
@@ -98,6 +145,3 @@ services:
       - ./data/postgres:/var/lib/postgresql/data
     environment:
       - "POSTGRES_PASSWORD=password"
-    #memcached:
-    #  image: memcached
-    #  hostname: memcached

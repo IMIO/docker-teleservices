@@ -13,8 +13,7 @@
 # This file is sourced by "execfile" from /usr/lib/authentic/debian_config.py
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-TEMPLATE_DEBUG = False
+DEBUG = True
 
 ADMINS = (
   ('Admins IMIO', 'admints@imio.be'),

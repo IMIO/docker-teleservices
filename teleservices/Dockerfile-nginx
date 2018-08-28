@@ -1,0 +1,8 @@
+# Dockerfile
+FROM teleservices-jessie:latest
+RUN apt-get install nginx -y
+COPY run-nginx.sh /
+
+CMD ["/run-nginx.sh"]
+
+

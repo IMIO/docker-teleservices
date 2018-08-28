@@ -1,4 +1,7 @@
 #!/bin/bash
+
+/etc/init.d/supervisor start
+
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESC="Portal Management System"
 NAME=combo

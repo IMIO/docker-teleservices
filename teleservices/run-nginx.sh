@@ -1,5 +1,5 @@
-#!/bin/bash
+#!/bin/bash -ex
 
 service nginx start
 
-tail -f /var/log/syslog
+sleep 1000000

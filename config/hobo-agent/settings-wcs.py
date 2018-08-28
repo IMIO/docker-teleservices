@@ -5,9 +5,9 @@
 # value. The hostnames can be prefixed by an exclamation mark to exclude them.
 #
 AGENT_HOST_PATTERNS = {
-    'hobo': ['local-hobo.example.net'],
+    'wcs': ['local-formulaires.example.net'],
 }
 
-HOBO_MANAGE_COMMAND = '/usr/bin/hobo-manage'
+WCS_MANAGE_COMMAND = '/usr/bin/wcsctl -f /etc/wcs/wcs-au-quotidien.cfg'
 
 BROKER_URL = 'amqp://teleservices:password@rabbitmq:5672//teleservices'

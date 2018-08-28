@@ -5,9 +5,8 @@
 # value. The hostnames can be prefixed by an exclamation mark to exclude them.
 #
 AGENT_HOST_PATTERNS = {
-    'hobo': ['local-hobo.example.net'],
+    'combo': ['local.example.net', 'local-portail-agent.example.net'],
 }
 
-HOBO_MANAGE_COMMAND = '/usr/bin/hobo-manage'
-
+COMBO_MANAGE_COMMAND = '/usr/bin/combo-manage'
 BROKER_URL = 'amqp://teleservices:password@rabbitmq:5672//teleservices'
