@@ -44,6 +44,25 @@ services:
     depends_on:
       - database
       - rabbitmq
+    extra_hosts:
+        local.example.net:
+          172.17.0.1
+        local-portail-agent.example.net:
+          172.17.0.1
+        local-auth.example.net:
+          172.17.0.1
+        local-formulaires.example.net:
+          172.17.0.1
+        local-documents.example.net:
+          172.17.0.1
+        local-passerelle.example.net:
+          172.17.0.1
+        local-hobo.example.net:
+          172.17.0.1
+        local-stats.example.net:
+          172.17.0.1
+
+
   combo:
     image: teleservices-jessie-combo:latest
     volumes:
@@ -58,6 +77,25 @@ services:
     depends_on:
       - database
       - rabbitmq
+    extra_hosts:
+        local.example.net:
+          172.17.0.1
+        local-portail-agent.example.net:
+          172.17.0.1
+        local-auth.example.net:
+          172.17.0.1
+        local-formulaires.example.net:
+          172.17.0.1
+        local-documents.example.net:
+          172.17.0.1
+        local-passerelle.example.net:
+          172.17.0.1
+        local-hobo.example.net:
+          172.17.0.1
+        local-stats.example.net:
+          172.17.0.1
+
+
   fargo:
     image: teleservices-jessie-fargo:latest
     volumes:
@@ -72,6 +110,25 @@ services:
     depends_on:
       - database
       - rabbitmq
+    extra_hosts:
+        local.example.net:
+          172.17.0.1
+        local-portail-agent.example.net:
+          172.17.0.1
+        local-auth.example.net:
+          172.17.0.1
+        local-formulaires.example.net:
+          172.17.0.1
+        local-documents.example.net:
+          172.17.0.1
+        local-passerelle.example.net:
+          172.17.0.1
+        local-hobo.example.net:
+          172.17.0.1
+        local-stats.example.net:
+          172.17.0.1
+
+
   authentic:
     image: teleservices-jessie-authentic:latest
     volumes:
@@ -86,6 +143,24 @@ services:
     depends_on:
       - rabbitmq
       - database
+    extra_hosts:
+        local.example.net:
+          172.17.0.1
+        local-portail-agent.example.net:
+          172.17.0.1
+        local-auth.example.net:
+          172.17.0.1
+        local-formulaires.example.net:
+          172.17.0.1
+        local-documents.example.net:
+          172.17.0.1
+        local-passerelle.example.net:
+          172.17.0.1
+        local-hobo.example.net:
+          172.17.0.1
+        local-stats.example.net:
+          172.17.0.1
+
   wcs:
     image: teleservices-jessie-wcs:latest
     volumes:
@@ -99,6 +174,25 @@ services:
     depends_on:
       - database
       - rabbitmq
+    extra_hosts:
+        local.example.net:
+          172.17.0.1
+        local-portail-agent.example.net:
+          172.17.0.1
+        local-auth.example.net:
+          172.17.0.1
+        local-formulaires.example.net:
+          172.17.0.1
+        local-documents.example.net:
+          172.17.0.1
+        local-passerelle.example.net:
+          172.17.0.1
+        local-hobo.example.net:
+          172.17.0.1
+        local-stats.example.net:
+          172.17.0.1
+
+
   passerelle:
     image: teleservices-jessie-passerelle:latest
     volumes:
@@ -113,6 +207,25 @@ services:
     depends_on:
       - database
       - rabbitmq
+    extra_hosts:
+        local.example.net:
+          172.17.0.1
+        local-portail-agent.example.net:
+          172.17.0.1
+        local-auth.example.net:
+          172.17.0.1
+        local-formulaires.example.net:
+          172.17.0.1
+        local-documents.example.net:
+          172.17.0.1
+        local-passerelle.example.net:
+          172.17.0.1
+        local-hobo.example.net:
+          172.17.0.1
+        local-stats.example.net:
+          172.17.0.1
+
+
   nginx:
     image: teleservices-jessie-nginx:latest
     volumes:
