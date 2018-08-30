@@ -105,13 +105,13 @@
 Un nouveau formulaire a &#233;t&#233; compl&#233;t&#233;, vous pouvez le consulter
 en suivant ce lien :
 
-{{form_url_backoffice}}
+{{ form_url_backoffice }}
 
-[if-any details]
+{% if details %}
 Pour r&#233;f&#233;rence, voici le d&#233;tail du formulaire :
 
-[details]
-[end]
+{{ details }}
+{% endif %}
 </body>
         </item><item id="2" type="choice">
           <by>
@@ -230,11 +230,11 @@ Bien cordialement,</body>
 
 Nous avons bien re&#231;u votre paiement. Votre demande va &#234;tre trait&#233;e dans les meilleurs d&#233;lais.
 
-[if-any user]
+{%if user%}
 Vous pouvez continuer &#224; suivre son &#233;tat d'avancement en suivant ce lien :
-[url]
-[else]
-[end]
+{{ url }}
+{% else %}
+{% endif %}
 
 Bien cordialement,
 
@@ -375,7 +375,7 @@ Votre commande a bien &#233;t&#233; enregistr&#233;e dans notre syst&#232;me.
 &lt;br&gt;&lt;br&gt;
 Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en mentionnant les instructions de paiement suivantes :
 &lt;ul&gt;
-&lt;li&gt;B&#233;n&#233;ficiaire : &lt;b&gt;Ville de {{ commune_name }} - {{ commune_rue }} - {{ commune_cp }}&lt;/b&gt;&lt;/li&gt;
+&lt;li&gt;B&#233;n&#233;ficiaire : &lt;b&gt;Ville de {{ commune_name }} - {{ administration_adresse }} &lt;/b&gt;&lt;/li&gt;
 &lt;li&gt;Num&#233;ro de compte b&#233;n&#233;ficiaire (IBAN) : &lt;b&gt;{{form_option_iban}}&lt;/b&gt;&lt;/li&gt;
 &lt;li&gt;R&#233;f&#233;rence de la commande (communication libre) : &lt;b&gt;{{ form_number }}&lt;/b&gt;&lt;/li&gt;
 &lt;li&gt;Montant de la commande : &lt;b&gt;{{ form_var_wf_total_commande }}&lt;/b&gt;&lt;/li&gt;
@@ -397,7 +397,7 @@ Votre commande a bien &#233;t&#233; enregistr&#233;e dans notre syst&#232;me.
 Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en mentionnant les instructions de paiement suivantes :
 
 
-B&#233;n&#233;ficiaire : Ville de {{ commune_name }} - {{ commune_rue }} - {{ commune_cp }}
+B&#233;n&#233;ficiaire : Ville de {{ commune_name }} - {{ administration_adresse }}
 
 
 Num&#233;ro de compte b&#233;n&#233;ficiaire (IBAN) : {{form_option_iban}}
