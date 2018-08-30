@@ -5,3 +5,4 @@ Variable(name='commune_slug', label='Nom de la commune sans accent, sans espace 
 Variable(name='commune_cp', label='Code postal/postaux de la commune', value='1111').save()
 Variable(name='administration_adresse', label="Adresse complète de l'administration", value="1, Place de l'administration - 1111 Ma Commune").save()
 Variable(name='administration_site', label='Site Internet de la commune', value='https://www.ma-commune.be').save()
+Variable(name='global_title', label='Intitulé de l\'instance et mails', value='Commune - Guichet en ligne').save()
