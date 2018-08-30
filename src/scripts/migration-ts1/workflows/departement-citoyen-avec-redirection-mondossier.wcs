@@ -86,7 +86,7 @@
           <status>24</status>
           <condition>
             <type>python</type>
-            <value>Decimal(wf_total_commande) &gt; 0</value>
+            <value>Decimal(form_var_wf_total_commande) &gt; 0</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
