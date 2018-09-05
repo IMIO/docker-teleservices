@@ -96,6 +96,6 @@ test -e /etc/hobo/recipe-$1-extra.json && sudo -u hobo hobo-manage cook /etc/hob
 
 cat /etc/combo/settings.py
 
-echo "sudo -u wcs wcsctl convert-to-sql --dbname=teleservices_"$1"_wcs --user=teleservices_"$1"_teleservices --password=... --host=database.lan.imio.be" $1"-formulaires.guichet-citoyen.be"
+echo "sudo -u wcs wcs-manage convert-to-sql --dbname=teleservices_"$1"_wcs --user=teleservices_"$1"_teleservices --password=... --host=database.lan.imio.be" $1"-formulaires.guichet-citoyen.be"
 
 echo "Config mail : mailrelay.imio.be"
