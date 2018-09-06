@@ -20,11 +20,11 @@ def get_coords(context):
     if 'form_var_numero' in context:
         geolocate = GeolocateWorkflowStatusItem()
         geolocate.method = 'address_string'
-        geolocate.address_string = '[form_var_numero] [form_var_voie], [form_var_commune], Belgique'
+        geolocate.address_string = '{{ form_var_numero}} {{ form_var_voie }}, {{ form_var_commune }}, Belgique'
         return geolocate.geolocate_address_string(None)
     return None
 
-def get_close_demands(formdef, coords, context=None):
+def get_close_demands(formdef, coords, context):
     applied_filters = ['wf-%s' % x.id for x in formdef.workflow.get_not_endpoint_status()]
     formdatas = formdef.data_class().select([Contains('status', applied_filters)])
     counter = 0
@@ -37,7 +37,10 @@ def get_close_demands(formdef, coords, context=None):
                 coords['lon'], coords['lat'])[2]
         formdata._distance = distance
         formdata._coords = formdata_coords
-        zoom_max = context.get('form_option_zoom_max') or '750'
+        if context is not None:
+            zoom_max = context.get('form_option_zoom_max') or '750'
+        else:
+            zoom_max = '750'
         if distance <  int(zoom_max):
             counter += 1
             formdata.counter = counter
@@ -46,4 +49,4 @@ def get_close_demands(formdef, coords, context=None):
 if __name__ in ('__builtin__') and 'form_objects' in vars():
     coords = get_coords(vars())
     if coords or True:
-        result = get_close_demands(form_objects.formdef, coords)
+        result = get_close_demands(form_objects.formdef, coords, vars())

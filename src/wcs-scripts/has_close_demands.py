@@ -14,6 +14,6 @@ import close_demands
 
 coords = close_demands.get_coords(vars())
 if coords:
-    result = any(close_demands.get_close_demands(form_objects.formdef, coords))
+    result = any(close_demands.get_close_demands(form_objects.formdef, coords, vars()))
 else:
     result = False
