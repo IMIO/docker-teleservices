@@ -24,7 +24,7 @@ if coords:
     formdef = form_objects.formdef
 
     features = []
-    for formdata in close_demands.get_close_demands(formdef, coords):
+    for formdata in close_demands.get_close_demands(formdef, coords, vars()):
         feature = {
             'type': 'Feature',
             'properties': {},
