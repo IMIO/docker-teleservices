@@ -1,4 +1,4 @@
-# Usage : # sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2 /opt/publik/scripts/migration-ts1/import-forms.py /opt/publik/scripts/migration-ts1/forms/
+# Usage : # sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2 /opt/publik/scripts/build-e-guichet/import-forms.py /opt/publik/scripts/build-e-guichet/forms/
 
 import os
 import sys
@@ -9,7 +9,7 @@ conv = lambda x: int(x)
 for formdef in FormDef.select():
     lst_formdef_names.append(formdef.name)
     lst_formdef_ids.append(formdef.id)
-# default folder path : # "/opt/publik/scripts/migration-ts1/forms/"
+# default folder path : # "/opt/publik/scripts/build-e-guichet/forms/"
 folder_path = sys.argv[1]
 for fichier in os.listdir(folder_path):
     if fichier[-4:] == ".wcs":

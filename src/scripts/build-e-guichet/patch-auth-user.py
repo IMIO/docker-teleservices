@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# USAGE : authentic2-multitenant-manage tenant_command runscript /opt/publik/scripts/migration-ts1/patch-auth-user.py -d $1-auth.$2
+# USAGE : authentic2-multitenant-manage tenant_command runscript /opt/publik/scripts/build-e-guichet/patch-auth-user.py -d $1-auth.$2
 from authentic2.compat import get_user_model
 from django_rbac.utils import get_role_model, get_ou_model
 from hobo.agent.authentic2.provisionning import provisionning
