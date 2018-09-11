@@ -2,17 +2,17 @@ scripts usage
 -------------
 - import-forms.py
 
-  >> sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=test-formulaires.guichet-citoyen.be /opt/publik/scripts/migration-ts1/import-forms.py /opt/publik/scripts/migration-ts1/forms/
+  >> sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=test-formulaires.guichet-citoyen.be /opt/publik/scripts/build-e-guichet/import-forms.py /opt/publik/scripts/build-e-guichet/forms/
 
   Docker sample execution :
 
   for i in commune1 commune2 commune3 ...; do
-      echo docker exec -ti ${i}teleservices_${i}teleservices_1 sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=${i}-formulaires.guichet-citoyen.be /opt/publik/scripts/migration-ts1/import-forms.py /opt/publik/scripts/migration-ts1/forms/
+      echo docker exec -ti ${i}teleservices_${i}teleservices_1 sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=${i}-formulaires.guichet-citoyen.be /opt/publik/scripts/build-e-guichet/import-forms.py /opt/publik/scripts/build-e-guichet/forms/
   done
 
 - import-workflows.py
 
-  >> sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=test-formulaires.guichet-citoyen.be /opt/publik/scripts/migration-ts1/import-workflows.py /opt/publik/scripts/migration-ts1/workflows/
+  >> sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=test-formulaires.guichet-citoyen.be /opt/publik/scripts/build-e-guichet/import-workflows.py /opt/publik/scripts/build-e-guichet/workflows/
 
 
 - import-wcs-user.py
