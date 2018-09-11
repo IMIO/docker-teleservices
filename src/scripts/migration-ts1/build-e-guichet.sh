@@ -47,9 +47,9 @@ fi
 if [ $3 = "full" ]
     then
     echo "INSTALL FORMS FOR FULL INSTANCE."
-    sed -i "s/[cp_commune]/$4/g" /opt/publik/scripts/migration-ts1/forms/only_full/2018_04_updates/*.wcs
-    sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2 /opt/publik/scripts/migration-ts1/import-forms.py /opt/publik/scripts/migration-ts1/forms/only_full/2018_04_updates/
-    sed -i "s/$4/[cp_commune]/g" /opt/publik/scripts/migration-ts1/forms/only_full/2018_04_updates/*.wcs
+    sed -i "s/[cp_commune]/$4/g" /opt/publik/scripts/migration-ts1/forms/only_full/*.wcs
+    sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2 /opt/publik/scripts/migration-ts1/import-forms.py /opt/publik/scripts/migration-ts1/forms/only_full/
+    sed -i "s/$4/[cp_commune]/g" /opt/publik/scripts/migration-ts1/forms/only_full/*.wcs
     sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2 /opt/publik/scripts/migration-ts1/import-forms.py /opt/publik/scripts/migration-ts1/forms/models/
 else
     echo "INSTALL FORMS FOR LIGHT INSTANCE."
