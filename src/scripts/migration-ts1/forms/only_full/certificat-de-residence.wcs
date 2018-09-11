@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="iso-8859-15"?>
+<formdef id="16">
+  <name>Certificat de r&#233;sidence</name>
+  <url_name>certificat-de-residence</url_name>
+  <description>Il faut r&#233;sider obligatoirement dans la commune</description>
+  <internal_identifier>certificat-de-residence</internal_identifier>
+  <discussion>false</discussion>
+  <detailed_emails>true</detailed_emails>
+  <disabled>false</disabled>
+  <only_allow_one>false</only_allow_one>
+  <enable_tracking_codes>false</enable_tracking_codes>
+  <confirmation>true</confirmation>
+  <always_advertise>true</always_advertise>
+  <private_status_and_history>false</private_status_and_history>
+  <has_captcha>false</has_captcha>
+  <skip_from_360_view>false</skip_from_360_view>
+  <category category_id="99">Etat civil - Population</category>
+  <workflow workflow_id="3">D&#233;partement Citoyen (d&#233;faut)</workflow>
+  <max_field_id>29</max_field_id>
+  <last_modification user_id="1">2018-02-23 13:48:56</last_modification>
+  <fields>
+    <field>
+      <label>Certificat de r&#233;sidence</label>
+      <type>page</type>
+      <post_conditions>
+        <post_condition>
+          <condition>vars().get('form_option_cp_commune') is None or form_var_code_postal in form_option_cp_commune.split(',')</condition>
+          <error_message>Votre code postal ne fait pas partie des code postaux de notre commune. Nous ne pourrons faire suite &#224; votre demande.</error_message>
+        </post_condition>
+      </post_conditions><id>1</id>
+    </field><field>
+      <label>Si vous &#234;tes domicili&#233;(e) dans notre commune, vous pouvez utiliser ce formulaire.</label>
+      <type>comment</type>
+      <id>2</id>
+    </field><field>
+      <label>Nom</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>nom</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_last_name</value>
+      </prefill><id>3</id>
+    </field><field>
+      <label>Pr&#233;nom</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>prenom</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_first_name</value>
+      </prefill><id>4</id>
+    </field><field>
+      <label>Rue</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>rue</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-3</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_street</value>
+      </prefill><id>5</id>
+    </field><field>
+      <label>Num&#233;ro</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>numero_porte</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-3</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_num_house</value>
+      </prefill><validation>^[0-9]*</validation>
+      <id>6</id>
+    </field><field>
+      <label>Bo&#238;te</label>
+      <type>string</type>
+      <required>False</required>
+      <varname>boite</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-3</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_num_box</value>
+      </prefill><id>7</id>
+    </field><field>
+      <label>Code postal</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>code_postal</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_zipcode</value>
+      </prefill><validation>^[0-9]*</validation>
+      <id>8</id>
+    </field><field>
+      <label>Ville</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>ville</varname>
+      <in_listing>False</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_city</value>
+      </prefill><id>9</id>
+    </field><field>
+      <label>Num&#233;ro de t&#233;l&#233;phone</label>
+      <type>string</type>
+      <required>False</required>
+      <varname>telephone</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_phone</value>
+      </prefill><id>10</id>
+    </field><field>
+      <label>Num&#233;ro de GSM</label>
+      <type>string</type>
+      <required>False</required>
+      <varname>gsm</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>grid-1-2</extra_css_class>
+      <prefill>
+        <type>user</type>
+        <value>_mobile</value>
+      </prefill><id>11</id>
+    </field><field>
+      <label>Adresse e-mail</label>
+      <type>email</type>
+      <required>False</required>
+      <varname>email</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>user</type>
+        <value>_email</value>
+      </prefill><id>12</id>
+    </field><field>
+      <label>&lt;p&gt;Si vos informations personnelles ont chang&amp;eacute;, vous devez changer votre siganl&amp;eacute;tique dans vos pr&amp;eacute;f&amp;eacute;rences personnelles (&lt;a href="[idp_account_url]edit/"&gt;page de profil&lt;/a&gt;) avant de r&amp;eacute;aliser votre demande. Merci.&lt;/p&gt;</label>
+      <type>comment</type>
+      <id>13</id>
+    </field><field>
+      <label>Commentaire</label>
+      <type>text</type>
+      <required>False</required>
+      <varname>commentaire</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><cols>100</cols>
+      <rows>10</rows>
+      <pre>False</pre>
+      <id>14</id>
+    </field><field>
+      <label>Motifs</label>
+      <type>item</type>
+      <required>True</required>
+      <varname>motif</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>none</type>
+      </prefill><show_as_radio>False</show_as_radio>
+      <data_source>
+        <type>formula</type>
+        <value>form_option_motifs_disponibles_structured</value>
+      </data_source><in_filters>False</in_filters>
+      <anonymise>False</anonymise>
+      <display_disabled_items>False</display_disabled_items>
+      <id>15</id>
+    </field><field>
+      <label>Nombre d'exemplaire(s)</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>nb_exemplaire</varname>
+      <in_listing>False</in_listing>
+      <prefill>
+        <type>string</type>
+        <value>1</value>
+      </prefill><validation>^[0-9]*</validation>
+      <id>17</id>
+    </field><field>
+      <label>Prix de la d&#233;marche</label>
+      <type>page</type>
+      <id>19</id>
+    </field><field>
+      <label>Ci-dessous, veuillez prendre connaissance du montant de votre demande.</label>
+      <type>comment</type>
+      <id>20</id>
+    </field><field>
+      <label>Montant</label>
+      <type>string</type>
+      <required>True</required>
+      <varname>montant</varname>
+      <in_listing>True</in_listing>
+      <extra_css_class>readonly</extra_css_class>
+      <prefill>
+        <type>formula</type>
+        <value>str((Decimal(form_option_cost) + Decimal(form_var_motif_price)) * int(form_var_nb_exemplaire))</value>
+      </prefill><id>21</id>
+    </field>
+  </fields><user-roles>
+    <role role_id="07273b1154054ac3bcea88831428a7d0">Citoyen (test)</role>
+  </user-roles><roles>
+    <role role_id="8dd5fab6656d49149b9b570776b675ee" role_key="_receiver">Agents traitants - Population, etat civil</role>
+  </roles><options>
+    <option varname="destinations_structured" />
+    <option varname="motifs_disponibles_structured" />
+    <option varname="cost">0</option>
+    <option varname="iban" />
+    <option varname="motifs_disponibles" />
+    <option varname="motifs_disponibles_display">Assurance : co&#251;t 2&#8364;,Avocat : co&#251;t 2&#8364;,Banque : co&#251;t 2&#8364;,Demande d'emploi : gratuit,Ecole : gratuit,Huissier : co&#251;t 2&#8364;,Notaire : co&#251;t 2&#8364;,Pension : gratuit,Succession : co&#251;t 2&#8364;,Usage &#224; l'&#233;tranger : co&#251;t 2&#8364;,Autre : indiquer la raison dans le commentaire</option>
+    <option varname="destinations_display">R&#233;cup&#233;rer le document &#224; la commune lorsqu'il est pr&#234;t,Envoi &#224; domicile : co&#251;t 1&#8364;,Envoi &#224; domicile par recommand&#233;: co&#251;t 6&#8364;</option>
+    <option varname="destinations" />
+  </options><geolocations />
+</formdef>
