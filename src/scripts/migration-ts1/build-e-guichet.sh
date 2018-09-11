@@ -2,6 +2,7 @@
 # $1 : commune_id (test, demo, local, huy, liege,...)
 # $2 : domain (guichet-citoyen.be, example.net, ...)
 # $3 : Type Instance light or full (case sensitive)
+# $4 : All town's postcodes with a comma as separator (4000,4020,...)
 
 # Use postgresql with wcs
 sed -i '/[options] /a postgresql = true' /var/lib/wcs/$1-formulaires.$2/site-options.cfg
@@ -14,9 +15,6 @@ sh copy_categories.sh $1 $2
 
 # Create datasources
 sh copy_datasources.sh $1 $2
-
-# Import wcs user to limit site permissions
-# sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2 /opt/publik/scripts/migration-ts1/import-wcs-user.py
 
 # Import defaults authentic users
 sed -i "s/COMMUNE_ID/$1/g" /opt/publik/scripts/migration-ts1/import-authentic-user.py
@@ -49,11 +47,13 @@ fi
 if [ $3 = "full" ]
     then
     echo "INSTALL FORMS FOR FULL INSTANCE."
-    sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2 /opt/publik/scripts/migration-ts1/import-ts1-forms.py /opt/publik/scripts/migration-ts1/forms/
-    sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2 /opt/publik/scripts/migration-ts1/import-ts1-forms.py /opt/publik/scripts/migration-ts1/forms/only_full/
+    sed -i "s/[cp_commune]/$4/g" /opt/publik/scripts/migration-ts1/forms/only_full/2018_04_updates/*.wcs
+    sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2 /opt/publik/scripts/migration-ts1/import-forms.py /opt/publik/scripts/migration-ts1/forms/only_full/2018_04_updates/
+    sed -i "s/$4/[cp_commune]/g" /opt/publik/scripts/migration-ts1/forms/only_full/2018_04_updates/*.wcs
+    sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2 /opt/publik/scripts/migration-ts1/import-forms.py /opt/publik/scripts/migration-ts1/forms/models/
 else
     echo "INSTALL FORMS FOR LIGHT INSTANCE."
-    sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2 /opt/publik/scripts/migration-ts1/import-ts1-forms.py /opt/publik/scripts/migration-ts1/forms/only_light/
+    sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2 /opt/publik/scripts/migration-ts1/import-forms.py /opt/publik/scripts/migration-ts1/forms/only_light/
 fi
 
 # Create regie
@@ -95,4 +95,7 @@ sed "s~commune~$1~g" hobo/recipe-commune-extra.json > /etc/hobo/recipe-$1-extra.
 test -e /etc/hobo/recipe-$1-extra.json && sudo -u hobo hobo-manage cook /etc/hobo/recipe-$1-extra.json
 
 cat /etc/combo/settings.py
+
+echo "sudo -u wcs wcs-manage convert-to-sql --dbname=teleservices_"$1"_wcs --user=teleservices_"$1"_teleservices --password=... --host=database.lan.imio.be" $1"-formulaires.guichet-citoyen.be"
+
 echo "Config mail : mailrelay.imio.be"
