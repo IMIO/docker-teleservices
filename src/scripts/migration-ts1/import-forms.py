@@ -14,11 +14,7 @@ folder_path = sys.argv[1]
 for fichier in os.listdir(folder_path):
     if fichier[-4:] == ".wcs":
         fd = open("{}{}".format(folder_path, fichier))
-        try:
-            formdef = FormDef.import_from_xml(fd, charset='utf-8', include_id=False)
-        except:
-            print "!!! ECHEC IMPORT FILE : {}".format(fichier)
-            formdef = None
+        formdef = FormDef.import_from_xml(fd, charset='utf-8', include_id=False)
         if formdef is not None:
             print formdef.name
             if formdef.name not in lst_formdef_names:
