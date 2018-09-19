@@ -19,7 +19,7 @@ for fichier in os.listdir(folder_path):
             print formdef.name
             if formdef.name not in lst_formdef_names:
                 formdef.disabled = False
-                if formdef.category.id == "99":
+                if formdef.category.id == "1" or formdef.category.id == "2":
                     try:
                         with open("/tmp/tmp_uuid_agent_traitant_pop.txt", 'r') as file_at:
                             uuid_at = file_at.read()
