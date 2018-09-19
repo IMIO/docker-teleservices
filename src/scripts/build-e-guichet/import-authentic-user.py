@@ -65,6 +65,7 @@ def create_authentic_user():
 
         # GET or Create default user with default organisation unit.
         try:
+            user_admin = User.objects.get(username='admin')
             user_admin_commune = User.objects.get(username='admin_commune')
             user_admin_commune.email = "admin_commune@{}.be".format('COMMUNE_ID')
             user_admin_commune.first_name = "Admin"
@@ -98,6 +99,8 @@ def create_authentic_user():
         role_admin_portail_citoyen.members.add(user_admin_commune)
         role_admin_portail_agent.members.add(user_admin_commune)
         role_admin_stat.members.add(user_admin_commune)
+
+        role_debug.members.add(user_admin)
 
 def create_password(commune_id):
     m = hashlib.md5(commune_id)
