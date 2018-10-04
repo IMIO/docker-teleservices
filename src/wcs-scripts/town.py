@@ -120,27 +120,30 @@ class Town(object):
                     result = "Erreur compute_tab_col"
         return str(result)
 
-    def validate_dynamic_tab_cells(self, table_var, id_colonne, regex_pattern, id_row = "-1"):
-        retour = True
+    def validate_dynamic_tab_cells(self, table_var, id_colonne, regex_pattern, id_row = '-1'):
+        retour = False
         id_col = int(id_colonne)
         is_date = False
         value = None
-        if regex_pattern == "is_date":
+        if regex_pattern == 'is_date':
             is_date = True
-            regex_pattern = "(0?[1-9]|[12][0-9]|3[01])[-./](0?[1-9]|1[012])[-./]((1[1-9]|2[0-9])\\d\\d)"
+            regex_pattern = '(0?[1-9]|[12][0-9]|3[01])[-./](0?[1-9]|1[012])[-./]((1[1-9]|2[0-9])\\d\\d)'
         try:
-            if id_row == "-1":
+            if id_row == '-1':
                 for item in table_var:
                     value = item[id_col]
-                    if value == '' or value is None:
-                        value = "0"
-                    if re.match(regex_pattern, str(value)) is None:
-                        retour = False
+                    if item[0] == '':
+                        pass
+                    else:
+                        if value == '' or value is None:
+                            value = 'NONE'
+                        if re.match(regex_pattern, value):
+                            retour = True
             else:
                 id_r = int(id_row)
                 value = table_var[id_r][id_col]
-                if re.match(regex_pattern, value) is None:
-                    retour = False
+                if re.match(regex_pattern, value):
+                    retour = True
             if retour is True and is_date is True:
                 try:
                     separators = re.sub('[0-9]*', '', value)
