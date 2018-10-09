@@ -80,6 +80,7 @@ else
     sed -i "s/$2/DOMAINE/g" combo-site/combo-site-structure-light.json
 fi
 
+# Import combo portail agent structure
 sed -i "s/COMMUNE/$1/g" combo-site/combo-portail-agent-structure.json
 sed -i "s/DOMAINE/$2/g" combo-site/combo-portail-agent-structure.json
 sudo -u combo combo-manage tenant_command import_site -d $1-portail-agent.$2 /opt/publik/scripts/build-e-guichet/combo-site/combo-portail-agent-structure.json
@@ -95,6 +96,8 @@ sed "s~commune~$1~g" hobo/recipe-commune-extra.json > /etc/hobo/recipe-$1-extra.
 test -e /etc/hobo/recipe-$1-extra.json && sudo -u hobo hobo-manage cook /etc/hobo/recipe-$1-extra.json
 
 cat /etc/combo/settings.py
+
+# Deploy wcs properties : postgresql, smtp_server, homepage_redirect.
 sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2 /opt/publik/scripts/build-e-guichet/wcs_config.py $1
 
 echo "sudo -u wcs wcs-manage convert-to-sql --dbname=teleservices_"$1"_wcs --user=teleservices_"$1"_teleservices --password=... --host=database.lan.imio.be" $1"-formulaires.guichet-citoyen.be"
