@@ -1,249 +1,262 @@
 {
-    "map-layers": [],
-        "pages": [
+  "map-layers": [],
+  "pages": [
+    {
+      "fields": {
+        "sub_slug": "",
+        "picture": "",
+        "slug": "index",
+        "description": "",
+        "parent": null,
+        "title": "Accueil",
+        "last_update_timestamp": "2018-01-15T10:49:28.555Z",
+        "template_name": "two-columns",
+        "public": true,
+        "snapshot": null,
+        "redirect_url": "",
+        "groups": [],
+        "order": 1,
+        "exclude_from_navigation": false
+      },
+      "cells": [
         {
-            "fields": {
-                "picture": "",
-                "redirect_url": "",
-                "exclude_from_navigation": false,
-                "parent": null,
-                "title": "Accueil",
-                "last_update_timestamp": "2018-01-15T10:49:28.555Z",
-                "template_name": "two-columns",
-                "public": true,
-                "groups": [],
-                "order": 1,
-                "slug": "index"
-            },
-            "cells": [
-            {
-                "fields": {
-                    "extra_css_class": "home_welcome",
-                    "restricted_to_unlogged": false,
-                    "last_update_timestamp": "2017-03-24T13:12:59.655Z",
-                    "text": "<h2>BIENVENUE SUR L&#39;E-GUICHET.<br />\r\n&nbsp;</h2>\r\n\r\n<p>Vos <a href='demarches/'>d&eacute;marches administratives</a> sont disponibles en quelques clics!</p>\r\n",
-                    "order": 0,
-                    "public": true,
-                    "groups": [],
-                    "placeholder": "content",
-                    "slug": ""
-                },
-                "model": "data.textcell"
-            },
-            {
-                "fields": {
-                    "extra_css_class": "home_connexion",
-                    "restricted_to_unlogged": false,
-                    "last_update_timestamp": "2017-03-24T13:14:51.281Z",
-                    "text": "<a href=\"login\"><h2>CONNEXION &Agrave; L&#39;E-GUICHET</h2></a>",
-                    "order": 1,
-                    "public": true,
-                    "groups": [],
-                    "placeholder": "right",
-                    "slug": ""
-                },
-                "model": "data.textcell"
-            },
-            {
-                "fields": {
-                    "extra_css_class": "home_procedure_in_progress",
-                    "restricted_to_unlogged": false,
-                    "done_forms": false,
-                    "current_forms": true,
-                    "last_update_timestamp": "2017-03-24T13:15:52.792Z",
-                    "wcs_site": "",
-                    "order": 2,
-                    "public": false,
-                    "groups": [],
-                    "placeholder": "right",
-                    "slug": "",
-                    "categories": {}
-                },
-                "model": "wcs.wcscurrentformscell"
-            },
-            {
-                "fields": {
-                    "extra_css_class": "home_procedure_draft",
-                    "restricted_to_unlogged": false,
-                    "last_update_timestamp": "2017-03-24T13:16:06.259Z",
-                    "wcs_site": "",
-                    "order": 3,
-                    "public": false,
-                    "groups": [],
-                    "placeholder": "right",
-                    "slug": ""
-                },
-                "model": "wcs.wcscurrentdraftscell"
-            },
-            {
-                "fields": {
-                    "extra_css_class": "",
-                    "restricted_to_unlogged": false,
-                    "last_update_timestamp": "2017-03-24T13:11:09.541Z",
-                    "order": 4,
-                    "public": true,
-                    "groups": [],
-                    "placeholder": "footer",
-                    "slug": ""
-                },
-                "model": "data.parentcontentcell"
-            },
-            {
-                "fields": {
-                    "extra_css_class": "home_footer_text",
-                    "restricted_to_unlogged": false,
-                    "last_update_timestamp": "2017-03-24T13:18:50.213Z",
-                    "text": "<p>--- E-guichet ,Vos d\u00e9marches administratives en quelques clics! --- </p>",
-                    "order": 5,
-                    "public": true,
-                    "groups": [],
-                    "placeholder": "footer",
-                    "slug": ""
-                },
-                "model": "data.textcell"
-            }
-            ]
+          "fields": {
+            "extra_css_class": "home_welcome",
+            "restricted_to_unlogged": false,
+            "last_update_timestamp": "2017-03-24T13:12:59.655Z",
+            "text": "<h2>BIENVENUE SUR L&#39;E-GUICHET.<br />\r\n&nbsp;</h2>\r\n\r\n<p>Vos <a href='demarches/'>d&eacute;marches administratives</a> sont disponibles en quelques clics!</p>\r\n",
+            "order": 0,
+            "public": true,
+            "groups": [],
+            "placeholder": "content",
+            "slug": ""
+          },
+          "model": "data.textcell"
         },
         {
-            "fields": {
-                "picture": "",
-                "redirect_url": "",
-                "exclude_from_navigation": false,
-                "parent": null,
-                "title": "D\u00e9marches",
-                "last_update_timestamp": "2018-01-15T10:49:28.557Z",
-                "template_name": "two-columns",
-                "public": true,
-                "groups": [],
-                "order": 2,
-                "slug": "demarches"
-            },
-            "cells": [
-            {
-                "fields": {
-                    "extra_css_class": "",
-                    "restricted_to_unlogged": false,
-                    "last_update_timestamp": "2018-03-23T09:49:03.745Z",
-                    "placeholder": "content",
-                    "public": true,
-                    "ordering": "alpha",
-                    "order": 0,
-                    "limit": null,
-                    "groups": [],
-                    "manual_order": {
-                        "data": []
-                    },
-                    "category_reference": "eservices:etat-civil-population",
-                    "slug": ""
-                },
-                "model": "wcs.wcsformsofcategorycell"
-            },
-            {
-                "fields": {
-                    "extra_css_class": "",
-                    "restricted_to_unlogged": false,
-                    "last_update_timestamp": "2018-03-23T09:49:25.640Z",
-                    "placeholder": "right",
-                    "public": true,
-                    "ordering": "alpha",
-                    "order": 2,
-                    "limit": null,
-                    "groups": [],
-                    "manual_order": {
-                        "data": []
-                    },
-                    "category_reference": "eservices:etat-civil-population-bosa",
-                    "slug": ""
-                },
-                "model": "wcs.wcsformsofcategorycell"
-            },
-            {
-                "fields": {
-                    "extra_css_class": "",
-                    "restricted_to_unlogged": false,
-                    "last_update_timestamp": "2018-01-15T10:49:09.439Z",
-                    "order": 3,
-                    "public": true,
-                    "groups": [],
-                    "placeholder": "footer",
-                    "slug": ""
-                },
-                "model": "data.parentcontentcell"
-            }
-            ]
+          "fields": {
+            "extra_css_class": "home_connexion",
+            "restricted_to_unlogged": false,
+            "last_update_timestamp": "2017-03-24T13:14:51.281Z",
+            "text": "<a href=\"login\"><h2>CONNEXION &Agrave; L&#39;E-GUICHET</h2></a>",
+            "order": 1,
+            "public": true,
+            "groups": [],
+            "placeholder": "right",
+            "slug": ""
+          },
+          "model": "data.textcell"
         },
         {
-            "fields": {
-                "picture": "",
-                "redirect_url": "https://COMMUNE-auth.guichet-citoyen.be/accounts",
-                "exclude_from_navigation": false,
-                "parent": null,
-                "title": "Mon compte",
-                "last_update_timestamp": "2018-03-23T09:50:14.074Z",
-                "template_name": "standard",
-                "public": true,
-                "groups": [],
-                "order": 3,
-                "slug": "profil"
-            },
-            "cells": [
-            {
-                "fields": {
-                    "extra_css_class": "",
-                    "restricted_to_unlogged": false,
-                    "last_update_timestamp": "2017-02-22T04:00:54.690Z",
-                    "order": 0,
-                    "public": true,
-                    "groups": [],
-                    "placeholder": "footer",
-                    "slug": ""
-                },
-                "model": "data.parentcontentcell"
-            }
-            ]
+          "fields": {
+            "extra_css_class": "home_procedure_in_progress",
+            "restricted_to_unlogged": false,
+            "done_forms": false,
+            "current_forms": true,
+            "last_update_timestamp": "2017-03-24T13:15:52.792Z",
+            "wcs_site": "",
+            "order": 2,
+            "public": false,
+            "groups": [],
+            "placeholder": "right",
+            "slug": "",
+            "categories": {}
+          },
+          "model": "wcs.wcscurrentformscell"
         },
         {
-            "fields": {
-                "picture": "",
-                "redirect_url": "",
-                "exclude_from_navigation": false,
-                "parent": null,
-                "title": "Panier",
-                "last_update_timestamp": "2018-01-15T12:13:01.917Z",
-                "template_name": "standard",
-                "public": true,
-                "groups": [],
-                "order": 4,
-                "slug": "panier"
+          "fields": {
+            "extra_css_class": "home_procedure_draft",
+            "restricted_to_unlogged": false,
+            "last_update_timestamp": "2017-03-24T13:16:06.259Z",
+            "wcs_site": "",
+            "order": 3,
+            "public": false,
+            "groups": [],
+            "placeholder": "right",
+            "slug": ""
+          },
+          "model": "wcs.wcscurrentdraftscell"
+        },
+        {
+          "fields": {
+            "extra_css_class": "",
+            "restricted_to_unlogged": false,
+            "last_update_timestamp": "2017-03-24T13:11:09.541Z",
+            "order": 4,
+            "public": true,
+            "groups": [],
+            "placeholder": "footer",
+            "slug": ""
+          },
+          "model": "data.parentcontentcell"
+        },
+        {
+          "fields": {
+            "extra_css_class": "home_footer_text",
+            "restricted_to_unlogged": false,
+            "last_update_timestamp": "2017-03-24T13:18:50.213Z",
+            "text": "<p>--- E-guichet ,Vos d\u00e9marches administratives en quelques clics! --- </p>",
+            "order": 5,
+            "public": true,
+            "groups": [],
+            "placeholder": "footer",
+            "slug": ""
+          },
+          "model": "data.textcell"
+        }
+      ]
+    },
+    {
+      "fields": {
+        "sub_slug": "",
+        "picture": "",
+        "slug": "demarches",
+        "description": "",
+        "parent": null,
+        "title": "D\u00e9marches",
+        "last_update_timestamp": "2018-01-15T10:49:28.557Z",
+        "template_name": "two-columns",
+        "public": true,
+        "snapshot": null,
+        "redirect_url": "",
+        "groups": [],
+        "order": 2,
+        "exclude_from_navigation": false
+      },
+      "cells": [
+        {
+          "fields": {
+            "extra_css_class": "",
+            "restricted_to_unlogged": false,
+            "last_update_timestamp": "2018-06-14T07:30:35.037Z",
+            "placeholder": "content",
+            "public": true,
+            "ordering": "alpha",
+            "order": 0,
+            "limit": null,
+            "groups": [],
+            "manual_order": {
+              "data": []
             },
-            "cells": [
-            {
-                "fields": {
-                    "extra_css_class": "",
-                    "restricted_to_unlogged": false,
-                    "last_update_timestamp": "2018-01-15T12:13:02.038Z",
-                    "order": 0,
-                    "public": true,
-                    "groups": [],
-                    "placeholder": "footer",
-                    "slug": ""
-                },
-                "model": "data.parentcontentcell"
+            "category_reference": "eservices:etat-civil",
+            "slug": ""
+          },
+          "model": "wcs.wcsformsofcategorycell"
+        },
+        {
+          "fields": {
+            "extra_css_class": "",
+            "restricted_to_unlogged": false,
+            "last_update_timestamp": "2018-06-14T07:30:40.534Z",
+            "placeholder": "right",
+            "public": true,
+            "ordering": "alpha",
+            "order": 2,
+            "limit": null,
+            "groups": [],
+            "manual_order": {
+              "data": []
             },
-            {
-                "fields": {
-                    "extra_css_class": "",
-                    "restricted_to_unlogged": false,
-                    "last_update_timestamp": "2018-01-15T12:13:14.837Z",
-                    "order": 1,
-                    "public": true,
-                    "groups": [],
-                    "placeholder": "content",
-                    "slug": ""
-                },
+            "category_reference": "eservices:population",
+            "slug": ""
+          },
+          "model": "wcs.wcsformsofcategorycell"
+        },
+        {
+          "fields": {
+            "extra_css_class": "",
+            "restricted_to_unlogged": false,
+            "last_update_timestamp": "2018-01-15T10:49:09.439Z",
+            "order": 3,
+            "public": true,
+            "groups": [],
+            "placeholder": "footer",
+            "slug": ""
+          },
+          "model": "data.parentcontentcell"
+        }
+      ]
+    },
+    {
+      "fields": {
+        "sub_slug": "",
+        "picture": "",
+        "slug": "profil",
+        "description": "",
+        "parent": null,
+        "title": "Mon compte",
+        "last_update_timestamp": "2018-03-23T09:50:14.074Z",
+        "template_name": "standard",
+        "public": true,
+        "snapshot": null,
+        "redirect_url": "https://tintigny-auth.guichet-citoyen.be/accounts",
+        "groups": [],
+        "order": 3,
+        "exclude_from_navigation": false
+      },
+      "cells": [
+        {
+          "fields": {
+            "extra_css_class": "",
+            "restricted_to_unlogged": false,
+            "last_update_timestamp": "2017-02-22T04:00:54.690Z",
+            "order": 0,
+            "public": true,
+            "groups": [],
+            "placeholder": "footer",
+            "slug": ""
+          },
+          "model": "data.parentcontentcell"
+        }
+      ]
+    },
+    {
+      "fields": {
+        "sub_slug": "",
+        "picture": "",
+        "slug": "panier",
+        "description": "",
+        "parent": null,
+        "title": "Panier",
+        "last_update_timestamp": "2018-10-09T08:53:15.015Z",
+        "template_name": "standard",
+        "public": false,
+        "snapshot": null,
+        "redirect_url": "",
+        "groups": [],
+        "order": 4,
+        "exclude_from_navigation": false
+      },
+      "cells": [
+        {
+          "fields": {
+            "extra_css_class": "",
+            "restricted_to_unlogged": false,
+            "last_update_timestamp": "2018-01-15T12:13:02.038Z",
+            "order": 0,
+            "public": true,
+            "groups": [],
+            "placeholder": "footer",
+            "slug": ""
+          },
+          "model": "data.parentcontentcell"
+        },
+        {
+          "fields": {
+            "extra_css_class": "",
+            "restricted_to_unlogged": false,
+            "last_update_timestamp": "2018-10-09T08:52:56.092Z",
+            "order": 1,
+            "public": false,
+            "groups": [],
+            "placeholder": "content",
+            "slug": ""
+          },
           "model": "lingo.lingobasketcell"
         }
       ]
     }
-  ]
+  ],
+  "assets": []
 }
