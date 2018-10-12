@@ -52,6 +52,23 @@ class Demo(town.Town):
                     cpt = cpt + 1
         return str(cpt)
 
+    def format_tablelist_to_txt(self, tablevar):
+        intitules = [["Interopérabilité (lien avec iA.Delib, iA.Docs, ...)"],
+                    ["Intégration budgets (comptabilité, e-compte, fichier SIC, ?)"],
+                    ["Multi-plan (intégration d'autres plans dans des onglets complémentaires)"],
+                    ["Action commune à plusieurs objectifs"],
+                    ["Echéancier"],
+                    ["Gestion de dossier"],
+                    ["Intégration avec un logiciel de gestion de projets"],
+                    ["Notifications"]]
+        txt = ""
+        cpt = 0
+        for elem in intitules:
+            txt = txt + '{} : {} \n'.format(elem[0], tablevar[cpt][0])
+            cpt = cpt + 1
+        return txt
+
+
 current_commune = Demo()
 function = args[0]
 
