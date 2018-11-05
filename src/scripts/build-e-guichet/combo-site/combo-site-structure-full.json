@@ -190,7 +190,7 @@
         "template_name": "standard",
         "public": true,
         "snapshot": null,
-        "redirect_url": "https://tintigny-auth.guichet-citoyen.be/accounts",
+        "redirect_url": "https://COMMUNE-auth.DOMAINE/accounts",
         "groups": [],
         "order": 3,
         "exclude_from_navigation": false
