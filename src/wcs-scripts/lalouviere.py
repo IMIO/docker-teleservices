@@ -169,6 +169,19 @@ class Lalouviere(town.Town):
         return clear_text
 
 
+    #because LaLouviere has chosen to use "domicile" instead "commune" as ID, we needed to specify "domicile" in the conditions
+    def authentication_delivrance_items_visibility(self, datasource, auth=None):
+        if len(auth) > 0:
+            for elm in datasource:
+                if 'commune' not in elm['id'] or 'domicile' not in elm['id'] :
+                    elm['disabled'] = False
+        return datasource
+
+
+############################################################################################################################################
+##out of class##
+###########################################################################################################################################
+
 if vars().get('args') is None:
     # test
     ll = Lalouviere()
