@@ -281,6 +281,11 @@ class Town(object):
     def is_agent(self):
         return globals().get('session_user') and globals().get('session_user').can_go_in_backoffice()
 
+    # In comment field, we can do thing like that : [script.commune "somme" form_var_value1 form_var_value2 form_var_value3]
+    def somme(self, *args):
+        decimal_lst = [Decimal(item) for item in args]
+        return str(sum(decimal_lst))
+
     # Decimal usage? :https://stackoverflow.com/questions/35406257/convert-ast-num-to-decimal-decimal-for-precision-in-python
     def arithmeticEval (self, s):
         node = ast.parse(s, mode='eval')
