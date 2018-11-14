@@ -22,3 +22,10 @@ build-jessie:
 		make build branch=jessie
 build-no-cache-jessie:
 		make build-no-cache branch=jessie
+
+run-stretch:
+		make run branch=stretch
+build-stretch:
+		make build branch=stretch
+build-no-cache-stretch:
+		make build-no-cache branch=stretch
