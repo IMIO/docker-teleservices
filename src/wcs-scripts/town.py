@@ -283,8 +283,13 @@ class Town(object):
 
     # In comment field, we can do thing like that : [script.commune "somme" form_var_value1 form_var_value2 form_var_value3]
     def somme(self, *args):
-        decimal_lst = [Decimal(item) for item in args]
-        return str(sum(decimal_lst))
+        result = Decimal('0')
+        for item in args:
+            try:
+                result = result + Decimal(item)
+            except:
+                pass
+        return str(result)
 
     # Decimal usage? :https://stackoverflow.com/questions/35406257/convert-ast-num-to-decimal-decimal-for-precision-in-python
     def arithmeticEval (self, s):
