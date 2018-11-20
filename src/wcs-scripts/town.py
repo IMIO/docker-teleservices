@@ -291,9 +291,16 @@ class Town(object):
                 pass
         return str(result)
 
+    def test_globals (self, *args):
+        return globals().get('form_var_prenom') or ' '
+
     # Decimal usage? :https://stackoverflow.com/questions/35406257/convert-ast-num-to-decimal-decimal-for-precision-in-python
     def arithmeticEval (self, s):
-        node = ast.parse(s, mode='eval')
+        lst_elem = s.split(' ')
+        lst_vars = [elem for elem in lst_elem if elem.startswith('form_var_')]
+        for elem in lst_vars:
+            s = s.replace(elem, str(globals().get(elem)))
+            node = ast.parse(s, mode='eval')
         def _eval(node):
             if isinstance(node, ast.Expression):
                 return _eval(node.body)
@@ -302,7 +309,11 @@ class Town(object):
             elif isinstance(node, ast.Num):
                 return node.n
             elif isinstance(node, ast.BinOp):
-                return binOps[type(node.op)](_eval(node.left), _eval(node.right))
+                try:
+                    return binOps[type(node.op)](_eval(node.left), _eval(node.right))
+                except:
+                    return "-1"
+
             else:
                 raise Exception('Unsupported type {}'.format(node))
         return _eval(node.body)
