@@ -17,6 +17,7 @@ binOps = {
 class Town(object):
 
     def __init__(self, variables):
+        self.variables = variables
         self.class_name = 'Town'
         self.form_name = variables.get('form_name')
         self.user_zipcode = variables.get('session_user_var_zipcode')
@@ -292,14 +293,14 @@ class Town(object):
         return str(result)
 
     def test_globals (self, *args):
-        return globals().get('form_var_prenom') or ' '
+        return self.variables.get('form_var_prenom') or ' '
 
     # Decimal usage? :https://stackoverflow.com/questions/35406257/convert-ast-num-to-decimal-decimal-for-precision-in-python
     def arithmeticEval (self, s):
         lst_elem = s.split(' ')
         lst_vars = [elem for elem in lst_elem if elem.startswith('form_var_')]
         for elem in lst_vars:
-            s = s.replace(elem, str(globals().get(elem)))
+            s = s.replace(elem, str(self.variables.get(elem)))
             node = ast.parse(s, mode='eval')
         def _eval(node):
             if isinstance(node, ast.Expression):
