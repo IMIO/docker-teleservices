@@ -301,7 +301,8 @@ class Town(object):
         lst_vars = [elem for elem in lst_elem if elem.startswith('form_var_')]
         for elem in lst_vars:
             s = s.replace(elem, str(self.variables.get(elem)))
-            node = ast.parse(s, mode='eval')
+        s = s.strip()
+        node = ast.parse(s, mode='eval')
         def _eval(node):
             if isinstance(node, ast.Expression):
                 return _eval(node.body)
