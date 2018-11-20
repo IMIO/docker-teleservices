@@ -16,14 +16,6 @@ sh copy_categories.sh $1 $2
 # Create datasources
 sh copy_datasources.sh $1 $2
 
-# Import defaults authentic users
-sed -i "s/COMMUNE_ID/$1/g" /opt/publik/scripts/build-e-guichet/import-authentic-user.py
-authentic2-multitenant-manage tenant_command runscript /opt/publik/scripts/build-e-guichet/import-authentic-user.py -d $1-auth.$2
-sed -i "s/$1/COMMUNE_ID/g" /opt/publik/scripts/build-e-guichet/import-authentic-user.py
-
-# Set permissions
-sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2 /opt/publik/scripts/build-e-guichet/import-permissions.py $3
-
 # Create passerelle "ts1 datasources connector" with prefilled motivations and destinations terms.
 sudo -u passerelle /usr/bin/passerelle-manage tenant_command import_site -d $1-passerelle.$2 /opt/publik/scripts/build-e-guichet/datasources/datasources.json
 
@@ -33,8 +25,20 @@ sudo -u passerelle /usr/bin/passerelle-manage tenant_command runscript /opt/publ
 # Create passerelle "pays" datasource. (To choice country in users' profile).
 sudo -u passerelle /usr/bin/passerelle-manage tenant_command import_site -d $1-passerelle.$2 /opt/publik/scripts/build-e-guichet/passerelle/pays.json
 
-# TODO : voir ce que je peux faire pour les datasources par defaut avec l'url de passerelle hardcodee.
+# Add hobo extra params
+sudo -u hobo hobo-manage cook /etc/hobo/recipe.json
+sed "s~commune~$1~g" hobo/recipe-commune-extra.json > /etc/hobo/recipe-$1-extra.json
+test -e /etc/hobo/recipe-$1-extra.json && sudo -u hobo hobo-manage cook /etc/hobo/recipe-$1-extra.json
 
+# Import defaults authentic users
+sed -i "s/COMMUNE_ID/$1/g" /opt/publik/scripts/build-e-guichet/import-authentic-user.py
+authentic2-multitenant-manage tenant_command runscript /opt/publik/scripts/build-e-guichet/import-authentic-user.py -d $1-auth.$2
+sed -i "s/$1/COMMUNE_ID/g" /opt/publik/scripts/build-e-guichet/import-authentic-user.py
+
+# Set permissions
+sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2 /opt/publik/scripts/build-e-guichet/import-permissions.py $3
+
+# TODO : voir ce que je peux faire pour les datasources par defaut avec l'url de passerelle hardcodee.
 # Import workflows
 sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2 /opt/publik/scripts/build-e-guichet/import-workflows.py /opt/publik/scripts/build-e-guichet/workflows/
 if [ $3 = "full" ]
@@ -89,11 +93,6 @@ sed -i "s/$2/DOMAINE/g" combo-site/combo-portail-agent-structure.json
 
 # Create global hobo variables
 sudo -u hobo hobo-manage tenant_command runscript -d $1-hobo.$2 /opt/publik/scripts/build-e-guichet/hobo_create_variables.py
-
-# Add hobo extra params
-sudo -u hobo hobo-manage cook /etc/hobo/recipe.json
-sed "s~commune~$1~g" hobo/recipe-commune-extra.json > /etc/hobo/recipe-$1-extra.json
-test -e /etc/hobo/recipe-$1-extra.json && sudo -u hobo hobo-manage cook /etc/hobo/recipe-$1-extra.json
 
 cat /etc/combo/settings.py
 
