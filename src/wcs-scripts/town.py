@@ -297,7 +297,11 @@ class Town(object):
 
     # Decimal usage? :https://stackoverflow.com/questions/35406257/convert-ast-num-to-decimal-decimal-for-precision-in-python
     def arithmeticEval (self, s):
-        lst_elem = s.split(' ')
+        special_chars_to_remove = "()/+-*"
+        string_without_special = s
+        for c in special_chars_to_remove:
+            string_without_special = string_without_special.replace(c,' ')
+        lst_elem = string_without_special.split(' ')
         lst_vars = [elem for elem in lst_elem if elem.startswith('form_var_')]
         for elem in lst_vars:
             s = s.replace(elem, str(self.variables.get(elem)))
@@ -315,7 +319,6 @@ class Town(object):
                     return binOps[type(node.op)](_eval(node.left), _eval(node.right))
                 except:
                     return "-1"
-
             else:
                 raise Exception('Unsupported type {}'.format(node))
         return _eval(node.body)
