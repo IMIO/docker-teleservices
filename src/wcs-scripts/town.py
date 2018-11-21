@@ -53,9 +53,6 @@ class Town(object):
             return str(valeur) + " " + texte + " = " + str(int(valeur) * coeff)+ " " + unit
 
     def criteria_filtered_list(self, choices, value_to_test, criteria_to_test, choices_if_true, choices_if_false):
-        if str(choices) not in choices_if_false:
-            # patch for attestatin de milice Liege ... TODO
-            choices_if_false = [0]
         if value_to_test == criteria_to_test:
             return [x for i, x in enumerate(choices) if i in choices_if_true]
         else:
@@ -294,6 +291,9 @@ class Town(object):
 
     def test_globals (self, *args):
         return self.variables.get('form_var_prenom') or ' '
+
+    def ifelse(self, *args):
+            return args[0] or args[1]
 
     # Decimal usage? :https://stackoverflow.com/questions/35406257/convert-ast-num-to-decimal-decimal-for-precision-in-python
     def arithmeticEval (self, s):
