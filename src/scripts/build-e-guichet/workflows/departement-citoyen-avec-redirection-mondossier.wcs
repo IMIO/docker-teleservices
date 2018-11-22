@@ -50,7 +50,7 @@
           <status>13</status>
           <condition>
             <type>python</type>
-            <value>Decimal(form_var_wf_total_commande) == Decimal('0') and 'form_var_mode_delivrance_raw' in locals() and form_var_mode_delivrance_raw == 'commune'</value>
+            <value>Decimal(form_var_wf_total_commande) == Decimal('0')</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
         </item><item id="4" type="jump">
           <status>21</status>
