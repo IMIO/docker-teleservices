@@ -107,7 +107,7 @@
         </post_condition><post_condition>
           <condition>
             <type>python</type>
-            <value>(form_var_choix_raw == 'tiers' and form_var_cp_tiers in form_option_cp_commune) or (form_var_choix_raw == 'tiers' and form_var_domicile_raw == 'plus_{0}'.format(commune_slug))</value>
+            <value>(form_var_concerne_qui_raw == 'tiers' and form_var_code_postal_perscon in form_option_cp_commune) or (form_var_concerne_qui_raw == 'tiers' and form_var_domicile_raw == 'plus_{0}'.format(commune_slug))</value>
           </condition><error_message>Vous commandez ce document pour une personne tiers. Cette personne doit habiter ou doit avoir habit&#233; dans notre commune.</error_message>
         </post_condition>
       </post_conditions><id>18</id>
