@@ -30,6 +30,9 @@ sudo -u hobo hobo-manage cook /etc/hobo/recipe.json
 sed "s~commune~$1~g" hobo/recipe-commune-extra.json > /etc/hobo/recipe-$1-extra.json
 test -e /etc/hobo/recipe-$1-extra.json && sudo -u hobo hobo-manage cook /etc/hobo/recipe-$1-extra.json
 
+# Adapt country field in DB to have a list field instead a text field
+authentic2-multitenant-manage tenant_command runscript /opt/publik/scripts/build-e-guichet/auth_fedict_var.py -d $1-auth.$2
+
 # Import defaults authentic users
 sed -i "s/COMMUNE_ID/$1/g" /opt/publik/scripts/build-e-guichet/import-authentic-user.py
 authentic2-multitenant-manage tenant_command runscript /opt/publik/scripts/build-e-guichet/import-authentic-user.py -d $1-auth.$2
