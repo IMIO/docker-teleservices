@@ -30,7 +30,7 @@
             "access_rights": [
                 {
                     "codename": "can_access", 
-                    "apiuser": "Tout le monde"
+                    "apiuser": "Tout_le_monde"
                 }
             ], 
             "@type": "passerelle-resource", 

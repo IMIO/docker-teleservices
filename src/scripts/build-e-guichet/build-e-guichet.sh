@@ -16,11 +16,11 @@ sh copy_categories.sh $1 $2
 # Create datasources
 sh copy_datasources.sh $1 $2
 
-# Create passerelle "ts1 datasources connector" with prefilled motivations and destinations terms.
-sudo -u passerelle /usr/bin/passerelle-manage tenant_command import_site -d $1-passerelle.$2 /opt/publik/scripts/build-e-guichet/datasources/datasources.json
-
 # Create passerelle api user.
 sudo -u passerelle /usr/bin/passerelle-manage tenant_command runscript /opt/publik/scripts/build-e-guichet/passerelle/build-api-user.py -d $1-passerelle.$2
+
+# Create passerelle "ts1 datasources connector" with prefilled motivations and destinations terms.
+sudo -u passerelle /usr/bin/passerelle-manage tenant_command import_site -d $1-passerelle.$2 /opt/publik/scripts/build-e-guichet/datasources/datasources.json
 
 # Create passerelle "pays" datasource. (To choice country in users' profile).
 sudo -u passerelle /usr/bin/passerelle-manage tenant_command import_site -d $1-passerelle.$2 /opt/publik/scripts/build-e-guichet/passerelle/pays.json
