@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Scripts for map statement management:
 # close_demands.py  
 # has_close_demands.py  
@@ -19,6 +20,13 @@ import close_demands
 
 result = ''
 coords = close_demands.get_coords(vars())
+dict = {'Voie publique':'#7F7F7F',
+        'Déchets - Propreté publique':'#674D24',
+        'Avaloir - Taque':'#40A497',
+        'Graffiti - Tag - Affichage sauvage':'#E423FF',
+        'Espace vert':'#67B976', 'Signalisation':'#FB9A01',
+        'Eclairage public en panne ou qui clignote':'#ECEE6C',
+        'Dégradation du mobilier urbain':'#8F1E06'}
 if coords:
     map_widget = MapWidget('geo', readonly=True, value='%(lat)s;%(lon)s' % coords, initial_zoom=16)
     formdef = form_objects.formdef
@@ -40,6 +48,7 @@ if coords:
         feature['properties']['reference'] = '%s:%s' % (formdef.url_name, formdata.id)
         feature['properties']['id'] = formdata.id
         feature['properties']['counter'] = formdata.counter
+        feature['properties']['color'] = incidents.get(formdata.incident)
         features.append(feature)
 
     result = '''
