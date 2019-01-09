@@ -20,7 +20,7 @@ import close_demands
 
 result = ''
 coords = close_demands.get_coords(vars())
-dict = {'Voie publique':'#7F7F7F',
+incidents = {'Voie publique':'#7F7F7F',
         'Déchets - Propreté publique':'#674D24',
         'Avaloir - Taque':'#40A497',
         'Graffiti - Tag - Affichage sauvage':'#E423FF',
@@ -42,13 +42,14 @@ if coords:
             }
             }
         for field in formdef.fields:
-            if field.varname in ('numero', 'voie', 'commune', 'message', 'type_probleme'):
+            if field.varname in ('numero', 'voie', 'commune', 'message', 'type_probleme', 'incident'):
                 feature['properties'][field.varname] = formdata.data.get(field.id)
+                if field.varname == 'incident':
+                    feature['properties']['color'] = incidents.get(formdata.data.get(field.id))
         feature['properties']['datetime'] = time.strftime('%d/%m/%Y %H:%M', formdata.receipt_time)
         feature['properties']['reference'] = '%s:%s' % (formdef.url_name, formdata.id)
         feature['properties']['id'] = formdata.id
         feature['properties']['counter'] = formdata.counter
-        feature['properties']['color'] = incidents.get(formdata.incident)
         features.append(feature)
 
     result = '''
