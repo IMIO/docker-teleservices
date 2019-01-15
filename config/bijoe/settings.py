@@ -1,7 +1,7 @@
-# Configuration for fargo.
-# You can override Fargo default settings here
+# Configuration for bijoe.
+# You can override Bijoe default settings here
 
-# Fargo is a Django application: for the full list of settings and their
+# Bijoe is a Django application: for the full list of settings and their
 # values, see https://docs.djangoproject.com/en/1.7/ref/settings/
 # For more information on settings see
 # https://docs.djangoproject.com/en/1.7/topics/settings/
@@ -9,7 +9,7 @@
 # WARNING! Quick-start development settings unsuitable for production!
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
-# This file is sourced by "execfile" from /usr/lib/fargo/debian_config.py
+# This file is sourced by "execfile" from /usr/lib/bijoe/debian_config.py
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -26,11 +26,11 @@ ALLOWED_HOSTS = [
 ]
 
 # Databases
-# Default: a local database named "fargo"
+# Default: a local database named "bijoe"
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 # Warning: don't change ENGINE
-# DATABASES['default']['NAME'] = 'fargo'
-# DATABASES['default']['USER'] = 'fargo'
+# DATABASES['default']['NAME'] = 'bijoe'
+# DATABASES['default']['USER'] = 'bijoe'
 # DATABASES['default']['PASSWORD'] = '******'
 # DATABASES['default']['HOST'] = 'localhost'
 # DATABASES['default']['PORT'] = '5432'
@@ -39,9 +39,9 @@ LANGUAGE_CODE = 'fr-fr'
 TIME_ZONE = 'Europe/Paris'
 
 # Email configuration
-# EMAIL_SUBJECT_PREFIX = '[fargo] '
-# SERVER_EMAIL = 'root@fargo.example.org'
-# DEFAULT_FROM_EMAIL = 'webmaster@fargo.example.org'
+# EMAIL_SUBJECT_PREFIX = '[bijoe] '
+# SERVER_EMAIL = 'root@bijoe.example.org'
+# DEFAULT_FROM_EMAIL = 'webmaster@bijoe.example.org'
 
 # SMTP configuration
 # EMAIL_HOST = 'localhost'

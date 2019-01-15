@@ -1,7 +1,7 @@
 # AMQP message broker
 # http://celery.readthedocs.org/en/latest/configuration.html#broker-url
 # transport://userid:password@hostname:port/virtual_host
-BROKER_URL = 'amqp://guest:guest@rabbitmq:5672/'
+BROKER_URL = 'amqp://'
 
 # It's possible to limit agents to particular applications, or particular
 # hostnames, using the AGENT_HOST_PATTERNS configuration variable.
@@ -9,21 +9,13 @@ BROKER_URL = 'amqp://guest:guest@rabbitmq:5672/'
 # The format is a dictionary with applications as keys and a list of hostnames as
 # value. The hostnames can be prefixed by an exclamation mark to exclude them.
 #
-AGENT_HOST_PATTERNS = {
-    'authentic': ['local-auth.example.net'],
-    'combo': ['local.example.net', 'local-portail-agent.example.net'],
-    'wcs': ['local-formulaires.example.net'],
-    'fargo': ['local-documents.example.net'],
-    'passerelle': ['local-passerelle.example.net'],
-}
-
-CACHES = {
-    'default': {
-        'BACKEND': 'hobo.multitenant.cache.TenantCache',
-        'REAL_BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '172.17.0.1:11211',
-    }
-}
+#  AGENT_HOST_PATTERNS = {
+#      'wcs': ['*.example.net', '!  *.dev.example.net'],
+#  }
+#
+# Will limit wcs deployments to *.example.net hostnames, while excluding
+# *.dev.example.net.
+AGENT_HOST_PATTERNS = None
 
 WCS_MANAGE_COMMAND = 'sudo -u wcs /usr/bin/wcsctl -f /etc/wcs/wcs-au-quotidien.cfg'
 AUTHENTIC_MANAGE_COMMAND = 'sudo -u authentic-multitenant /usr/bin/authentic2-multitenant-manage'
@@ -38,3 +30,13 @@ PIWIK_MANAGE_COMMAND = 'sudo -u hobo-piwik /usr/bin/piwik-manage.py'
 BIJOE_MANAGE_COMMAND = 'sudo -u bijoe /usr/bin/bijoe-manage'
 HOBO_MANAGE_COMMAND = 'sudo -u hobo /usr/bin/hobo-manage'
 
+CELERY_SETTINGS = {
+    'CELERY_SEND_TASK_ERROR_EMAILS': True,
+    'ADMINS': (
+        ('Admins', 'root@localhost'),
+    ),
+}
+
+# run additional settings snippets
+ETC_DIR = '/etc/hobo-agent'
+execfile('/usr/lib/hobo/debian_config_settings_d.py')
