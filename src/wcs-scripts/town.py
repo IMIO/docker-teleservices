@@ -323,7 +323,7 @@ class Town(object):
                 raise Exception('Unsupported type {}'.format(node))
         return _eval(node.body)
 
-    def safe_total(self,formula):
+    def safe_total(self, formula):
         return str(self.arithmeticEval(formula))
 
     def total(self, formula=None):
@@ -333,3 +333,15 @@ class Town(object):
             retour = (Decimal(globals().get('form_option_cost')) + Decimal(globals().get('form_var_motifs_price'))) * int(globals().get('form_var_nb_exemplaire'))
         return str(retour)
 
+    def towntime_add_type_rdv_dic_key(self, lst_type_rdv):
+        numeric_id = 1
+        new_lst = []
+        for item in lst_type_rdv:
+            item['numericid'] = str(numeric_id)
+            numeric_id = numeric_id + 1
+            new_lst.append(item)
+        return new_lst
+
+    def towntime_are_nn_all_differents(self, lst_nn):
+        lst_without_none = [nn for nn in lst_nn if nn is not None]
+        return len(lst_without_none) == len(set(lst_without_none))
