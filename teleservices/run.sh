@@ -43,6 +43,7 @@ service nginx start
 service supervisor start
 sudo -u hobo hobo-manage cook /etc/hobo/recipe.json
 test -e /etc/hobo/recipe*extra.json && sudo -u hobo hobo-manage cook /etc/hobo/recipe*extra.json
+test -e /etc/hobo/extra/recipe*json && sudo -u hobo hobo-manage cook /etc/hobo/extra/recipe*.json
 
 if [ x$1 = xfromgit ]
 then
