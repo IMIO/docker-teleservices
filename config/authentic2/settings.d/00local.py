@@ -19,3 +19,5 @@ CACHES = {
 }
 
 BROKER_URL = 'amqp://guest:guest@rabbitmq:5672/'
+
+LOCALE_PATHS = ('/var/lib/authentic2/locale',) + LOCALE_PATHS
