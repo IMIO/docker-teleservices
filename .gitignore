@@ -2,6 +2,7 @@
 *.tar.gz
 tmp.py
 data/authentic2/
+data/chrono/
 data/combo/
 data/fargo/
 data/passerelle/
