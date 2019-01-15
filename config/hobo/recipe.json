@@ -2,6 +2,7 @@
   "variables": {
     "hobo": "local-hobo.example.net",
     "authentic": "local-auth.example.net",
+    "chrono": "local-agendas.example.net",
     "combo": "local.example.net",
     "combo_agent": "local-portail-agent.example.net",
     "fargo": "local-documents.example.net",
@@ -40,6 +41,10 @@
     {"create-passerelle": {
       "url": "http://${passerelle}/",
       "title": "Guichet citoyen local - Passerelle"
+    }},
+    {"create-chrono": {
+      "url": "http://${chrono}/",
+      "title": "Guichet citoyen local - Agendas"
     }},
     {"create-wcs": {
       "url": "http://${wcs}/",

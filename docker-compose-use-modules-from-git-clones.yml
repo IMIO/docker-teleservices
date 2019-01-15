@@ -14,6 +14,8 @@ services:
           127.0.0.1
         local-portail-agent.example.net:
           127.0.0.1
+        local-agendas.example.net:
+          127.0.0.1
         local-auth.example.net:
           127.0.0.1
         local-formulaires.example.net:
@@ -29,12 +31,14 @@ services:
     volumes:
       - ./data/bijoe:/var/lib/bijoe/tenants
       - ./data/hobo:/var/lib/hobo/tenants
+      - ./data/chrono:/var/lib/chrono/tenants
       - ./data/combo:/var/lib/combo/tenants
       - ./data/fargo:/var/lib/fargo/tenants
       - ./data/authentic2:/var/lib/authentic2-multitenant/tenants
       - ./data/wcs:/var/lib/wcs
       - ./data/passerelle:/var/lib/passerelle/tenants
       - ./config/nginx:/etc/nginx/sites-available
+      - ./config/chrono:/etc/chrono
       - ./config/combo:/etc/combo
       - ./config/fargo:/etc/fargo
       - ./config/authentic2:/etc/authentic2-multitenant
