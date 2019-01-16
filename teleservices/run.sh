@@ -3,6 +3,7 @@ rm /var/run/{authentic2-multitenant/authentic2-multitenant,chrono/chrono,fargo/f
 
 chown authentic-multitenant:authentic-multitenant /var/lib/authentic2-multitenant/tenants -R
 chown hobo:hobo /var/lib/hobo/tenants -R
+chown bijoe:bijoe /var/lib/bijoe/tenants -R
 chown chrono:chrono /var/lib/chrono/tenants -R
 chown combo:combo /var/lib/combo/tenants -R
 chown fargo:fargo /var/lib/fargo/tenants -R
