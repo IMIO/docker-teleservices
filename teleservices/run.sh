@@ -1,6 +1,13 @@
 #!/bin/bash
 rm /var/run/{authentic2-multitenant/authentic2-multitenant,chrono/chrono,fargo/fargo,hobo/hobo,combo/combo,nginx,rsyslogd,supervisord,wcs,passerelle/passerelle,bijoe/bijoe}.{pid,sock}
-/etc/hobo/fix-permissions.sh
+
+chown authentic-multitenant:authentic-multitenant /var/lib/authentic2-multitenant/tenants -R
+chown hobo:hobo /var/lib/hobo/tenants -R
+chown chrono:chrono /var/lib/chrono/tenants -R
+chown combo:combo /var/lib/combo/tenants -R
+chown fargo:fargo /var/lib/fargo/tenants -R
+chown passerelle:passerelle /var/lib/passerelle/tenants -R
+chown wcs:wcs /var/lib/wcs -R
 
 python /var/lib/authentic2/locale/fr/LC_MESSAGES/mail-translation.py
 
