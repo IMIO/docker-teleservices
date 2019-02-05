@@ -377,7 +377,8 @@
       <in_listing>False</in_listing>
       <extra_css_class>grid-1-2 newline</extra_css_class>
       <prefill>
-        <type>none</type>
+        <type>user</type>
+        <value>_email</value>
       </prefill><id>65</id>
     </field><field>
       <label>Num&#233;ro de t&#233;l&#233;phone</label>
