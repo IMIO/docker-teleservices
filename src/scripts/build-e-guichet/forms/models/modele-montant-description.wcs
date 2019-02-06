@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-15"?>
+<formdef id="39">
+  <name>Modele - Montant (description)</name>
+  <url_name>modele-montant-description</url_name>
+  <internal_identifier>modele-montant-description</internal_identifier>
+  <discussion>false</discussion>
+  <detailed_emails>true</detailed_emails>
+  <disabled>true</disabled>
+  <only_allow_one>false</only_allow_one>
+  <enable_tracking_codes>false</enable_tracking_codes>
+  <confirmation>true</confirmation>
+  <always_advertise>false</always_advertise>
+  <private_status_and_history>false</private_status_and_history>
+  <has_captcha>false</has_captcha>
+  <skip_from_360_view>false</skip_from_360_view>
+  <category category_id="96">Mod&#232;les</category>
+  <workflow workflow_id="_default">Par d&#233;faut</workflow>
+  <max_field_id>1</max_field_id>
+  <last_modification user_id="1">2019-02-05 10:30:37</last_modification>
+  <fields>
+    <field>
+      <label>&lt;p&gt;Montant&lt;p&gt;
+[script.commune "safe_total" "(form_var_motifs_price * form_var_nb_exemplaire) + form_var_destinations_price"]&#8364;</label>
+      <type>comment</type>
+      <id>1</id>
+    </field>
+  </fields><options />
+  <geolocations />
+</formdef>

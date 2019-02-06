@@ -523,16 +523,9 @@
       <type>comment</type>
       <id>80</id>
     </field><field>
-      <label>Montant (hors &#233;ventuels frais de port)</label>
-      <type>string</type>
-      <required>True</required>
-      <varname>montant</varname>
-      <in_listing>False</in_listing>
-      <extra_css_class>readonly</extra_css_class>
-      <prefill>
-        <type>formula</type>
-        <value>str((Decimal(form_option_cost) + Decimal(form_var_motifs_price)) * int(form_var_nb_exemplaire))</value>
-      </prefill><id>81</id>
+      <label>&lt;p&gt;Montant (hors &#233;ventuels frais de port)&lt;p&gt;[script.commune "safe_total" "(form_option_cost + form_var_motifs_price) * form_var_nb_exemplaire"]&#8364;</label>
+      <type>comment</type>
+      <id>81</id>
     </field>
   </fields><user-roles>
     <role>Citoyen (test)</role>
