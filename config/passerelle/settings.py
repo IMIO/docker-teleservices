@@ -52,3 +52,12 @@ TIME_ZONE = 'Europe/Paris'
 # HTTPS
 #CSRF_COOKIE_SECURE = True
 #SESSION_COOKIE_SECURE = True
+
+if 'passerelle_imio_ts1_datasources' not in INSTALLED_APPS:
+    INSTALLED_APPS += ('passerelle_imio_ts1_datasources',)
+    TENANT_APPS += ('passerelle_imio_ts1_datasources',)
+    PASSERELLE_APP_PASSERELLE_IMIO_TS1_DATASOURCES_ENABLED = True
+
+if 'passerelle_imio_extra_fees' not in INSTALLED_APPS:
+    INSTALLED_APPS += ('passerelle_imio_extra_fees',)
+    TENANT_APPS += ('passerelle_imio_extra_fees',)
