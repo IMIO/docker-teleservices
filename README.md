@@ -29,6 +29,7 @@ Supported modules are:
 * imio-publik-themes (hence publik-base-theme)
 * passerelle
 * passerelle-imio-tax-compute
+* passerelle-imio-ia-aes
 
 Services will be run in django-runserver mode, and can be seen in a screen
 session running in the container.
