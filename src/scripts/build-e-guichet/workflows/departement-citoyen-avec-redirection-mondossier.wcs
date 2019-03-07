@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<workflow id="10">
+<workflow id="3">
   <name>D&#233;partement Citoyen (avec redirection MONDOSSIER)</name>
   <roles>
     <role id="_receiver">Agent traitant</role>
     <role id="_validateur-pc-banking">Validateur pc banking</role>
-  </roles><last_modification user_id="1">2018-11-13 11:01:37</last_modification>
+  </roles><last_modification user_id="1">2019-03-07 15:47:04</last_modification>
   <possible_status>
     <status>
       <id>just_submitted</id>
@@ -12,7 +12,13 @@
       <colour>FFFFFF</colour>
       <visibility />
       <items>
-        <item id="1" type="set-backoffice-fields">
+        <item id="2" type="jump">
+          <status>20</status>
+          <condition>
+            <type>python</type>
+            <value>vars().get('form_option_lien_mondossier') is not None and 'form_var_mode_delivrance_raw' in locals() and form_var_mode_delivrance_raw != 'commune'</value>
+          </condition><set_marker_on_status>False</set_marker_on_status>
+        </item><item id="1" type="set-backoffice-fields">
           <fields>
             <field>
               <field_id>bo10</field_id>
@@ -25,7 +31,7 @@
               <value>=form_var_nn if vars().get('form_var_rb_concerne') is None else form_var_nn if form_var_rb_concerne_raw == 'moi' else form_var_nn_perscon</value>
             </field><field>
               <field_id>bo13</field_id>
-              <value>='{0} {1} {2} - {3} {4}'.format(form_var_rue, form_var_numero, '({0})'.format(vars().get('form_var_boite')) if vars().get('form_var_boite') is not None else '', form_var_cp, form_var_localite) if vars().get('form_var_rb_concerne') is None else '{0} {1}({2}) - {3} {4}'.format(form_var_rue, form_var_numero, form_var_boite, form_var_cp, form_var_localite) if form_var_rb_concerne == 'moi' else '{0} {1}({2}) - {3} {4}'.format(form_var_rue_perscon, form_var_numero_perscon, form_var_boite_perscon, form_var_cp_perscon, form_var_localite_perscon)</value>
+              <value>='{0} {1} {2} - {3} {4}'.format(form_var_rue, form_var_numero, '({0})'.format(vars().get('form_var_boite')) if vars().get('form_var_boite') is not None else '', form_var_cp, form_var_localite) if vars().get('form_var_rb_concerne') is None else '{0} {1}({2}) - {3} {4}'.format(form_var_rue, form_var_numero, form_var_boite, form_var_cp, form_var_localite) if form_var_rb_concerne_raw == 'moi' else '{0} {1}({2}) - {3} {4}'.format(form_var_rue_perscon, form_var_numero_perscon, form_var_boite_perscon, form_var_cp_perscon, form_var_localite_perscon)</value>
             </field><field>
               <field_id>bo12</field_id>
               <value>=form_var_tel if vars().get('form_var_rb_concerne') is None else form_var_tel if form_var_rb_concerne_raw == 'moi' else vars().get('form_var_tel_persconf') or ''</value>
@@ -40,17 +46,11 @@
               <value>=True</value>
             </field>
           </fields>
-        </item><item id="2" type="jump">
-          <status>20</status>
-          <condition>
-            <type>python</type>
-            <value>vars().get('form_option_lien_mondossier') is not None and 'form_var_mode_delivrance_raw' in locals() and form_var_mode_delivrance_raw != 'commune'</value>
-          </condition><set_marker_on_status>False</set_marker_on_status>
         </item><item id="3" type="jump">
           <status>13</status>
           <condition>
             <type>python</type>
-            <value>Decimal(form_var_wf_total_commande) == Decimal('0')</value>
+            <value>Decimal(form_var_wf_total_commande) == Decimal('0') and 'form_var_mode_delivrance_raw' in locals() and form_var_mode_delivrance_raw == 'commune'</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
         </item><item id="4" type="jump">
           <status>21</status>
@@ -242,6 +242,36 @@ Bien cordialement,
         </item>
       </items>
     </status><status>
+      <id>18</id>
+      <name>Supprim&#233; du panier</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item id="1" type="webservice_call">
+          <label>Supprimer du panier</label>
+          <url>{{portal_url}}/api/lingo/remove-basket-item?NameId={{form_user_name_identifier_0}}</url>
+          <request_signature_key>13245</request_signature_key>
+          <method>POST</method>
+          <post>True</post>
+          <post_data>
+            <item>
+              <name>skip_notification</name>
+              <value>skip</value>
+            </item><item>
+              <name>basket_item_id</name>
+              <value>{{panier_response_id}}</value>
+            </item>
+          </post_data><response_type>json</response_type>
+          <action_on_app_error>:pass</action_on_app_error>
+          <action_on_4xx>:stop</action_on_4xx>
+          <action_on_5xx>:stop</action_on_5xx>
+          <action_on_bad_data>:pass</action_on_bad_data>
+          <action_on_network_errors>:stop</action_on_network_errors>
+          <notify_on_errors>True</notify_on_errors>
+          <record_errors>False</record_errors>
+        </item>
+      </items>
+    </status><status>
       <id>19</id>
       <name>formulaire de refus</name>
       <colour>FFFFFF</colour>
@@ -271,7 +301,8 @@ Bien cordialement,
                 <prefill>
                   <type>formula</type>
                   <value>"Administration de {0} : Refus : {1} ".format(commune_name, form_name)</value>
-                </prefill><id>1</id>
+                </prefill><anonymise>True</anonymise>
+                <id>1</id>
               </field><field>
                 <label>Corps du mail</label>
                 <type>text</type>
@@ -404,7 +435,7 @@ Bien cordialement,
       </items>
     </status><status>
       <id>24</id>
-      <name>Remboursement (appel ws)</name>
+      <name>Remboursement</name>
       <colour>FFFFFF</colour>
       <visibility />
       <items>
@@ -475,7 +506,8 @@ Exemple de num&#233;ro IBAN : BE1234567890</message>
                 <in_listing>True</in_listing>
                 <prefill>
                   <type>none</type>
-                </prefill><id>1</id>
+                </prefill><anonymise>True</anonymise>
+                <id>1</id>
               </field><field>
                 <label>Nom</label>
                 <type>string</type>
@@ -485,7 +517,8 @@ Exemple de num&#233;ro IBAN : BE1234567890</message>
                 <prefill>
                   <type>user</type>
                   <value>_last_name</value>
-                </prefill><id>2</id>
+                </prefill><anonymise>True</anonymise>
+                <id>2</id>
               </field><field>
                 <label>Rue et num&#233;ro</label>
                 <type>string</type>
@@ -494,7 +527,8 @@ Exemple de num&#233;ro IBAN : BE1234567890</message>
                 <in_listing>True</in_listing>
                 <prefill>
                   <type>none</type>
-                </prefill><id>3</id>
+                </prefill><anonymise>True</anonymise>
+                <id>3</id>
               </field><field>
                 <label>Code postal et localit&#233;</label>
                 <type>string</type>
@@ -503,7 +537,8 @@ Exemple de num&#233;ro IBAN : BE1234567890</message>
                 <in_listing>True</in_listing>
                 <prefill>
                   <type>none</type>
-                </prefill><id>4</id>
+                </prefill><anonymise>True</anonymise>
+                <id>4</id>
               </field><field>
                 <label>Pays</label>
                 <type>item</type>
@@ -576,49 +611,6 @@ Cordialement, </body>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items>
-    </status><status>
-      <id>18</id>
-      <name>Supprim&#233; du panier</name>
-      <colour>FFFFFF</colour>
-      <visibility />
-      <items>
-        <item id="3" type="register-comment">
-          <comment>BIM!</comment>
-        </item><item id="1" type="webservice_call">
-          <label>Supprimer du panier</label>
-          <url>{{portal_url}}/api/lingo/remove-basket-item?NameId={{form_user_name_identifier_0}}</url>
-          <request_signature_key />
-          <method>POST</method>
-          <post>True</post>
-          <post_data>
-            <item>
-              <name>notify</name>
-              <value>false</value>
-            </item><item>
-              <name>basket_item_id</name>
-              <value>=transaction_info_response_id</value>
-            </item>
-          </post_data><response_type>json</response_type>
-          <varname>rm_panier</varname>
-          <action_on_app_error>29</action_on_app_error>
-          <action_on_4xx>:stop</action_on_4xx>
-          <action_on_5xx>:stop</action_on_5xx>
-          <action_on_bad_data>29</action_on_bad_data>
-          <action_on_network_errors>29</action_on_network_errors>
-          <notify_on_errors>False</notify_on_errors>
-          <record_errors>True</record_errors>
-        </item><item id="2" type="jump">
-          <status>29</status>
-          <set_marker_on_status>False</set_marker_on_status>
-        </item>
-      </items>
-    </status><status>
-      <id>29</id>
-      <name>Supprim&#233;</name>
-      <colour>FF0000</colour>
-      <forced_endpoint>true</forced_endpoint>
-      <visibility />
-      <items />
     </status>
   </possible_status><global_actions>
     <action>
@@ -630,9 +622,9 @@ Cordialement, </body>
           <set_marker_on_status>False</set_marker_on_status>
         </item>
       </items><triggers>
-        <trigger id="265adc31-26c6-4a0a-9859-363f8492a01d" type="manual">
+        <trigger id="9d1da440-5f3f-4620-af4b-e6cd9d2897d7" type="manual">
           <roles>
-            <item role_id="609f08a9f8834515a6ce7b7f973cdabe">Debug</item>
+            <item role_id="421076dbd1424b4dbf23f3b972fdb982">Debug</item>
           </roles>
         </trigger>
       </triggers>
@@ -640,14 +632,11 @@ Cordialement, </body>
       <id>2</id>
       <name>Supprimer la d&#233;marche</name>
       <items>
-        <item id="2" type="jump">
-          <status>29</status>
-          <set_marker_on_status>False</set_marker_on_status>
-        </item>
+        <item id="1" type="remove" />
       </items><triggers>
-        <trigger id="2dc75e45-b44f-471f-ad83-f3b0d027fbc7" type="manual">
+        <trigger id="d37046bc-46aa-46cb-9b51-0c4d6f2998af" type="manual">
           <roles>
-            <item role_id="609f08a9f8834515a6ce7b7f973cdabe">Debug</item>
+            <item role_id="421076dbd1424b4dbf23f3b972fdb982">Debug</item>
           </roles>
         </trigger>
       </triggers>
@@ -665,7 +654,8 @@ Cordialement, </body>
           <prefill>
             <type>string</type>
             <value>"0"</value>
-          </prefill><id>1</id>
+          </prefill><anonymise>True</anonymise>
+          <id>1</id>
         </field><field>
           <label>Codes postaux (commune)</label>
           <type>string</type>
@@ -677,7 +667,8 @@ ex : 4000,4020,4030,4031</hint>
           <in_listing>True</in_listing>
           <prefill>
             <type>none</type>
-          </prefill><id>6</id>
+          </prefill><anonymise>True</anonymise>
+          <id>6</id>
         </field><field>
           <label>Motifs disponibles</label>
           <type>items</type>
@@ -686,10 +677,9 @@ ex : 4000,4020,4030,4031</hint>
           <in_listing>False</in_listing>
           <prefill>
             <type>none</type>
-          </prefill><items />
-          <max_choices>0</max_choices>
+          </prefill><max_choices>0</max_choices>
           <data_source>
-            <type>passerelle_motifs</type>
+            <type>motifsandenne</type>
           </data_source><in_filters>False</in_filters>
           <anonymise>True</anonymise>
           <display_disabled_items>False</display_disabled_items>
@@ -717,7 +707,8 @@ ex : 4000,4020,4030,4031</hint>
           <in_listing>True</in_listing>
           <prefill>
             <type>none</type>
-          </prefill><id>7</id>
+          </prefill><anonymise>True</anonymise>
+          <id>7</id>
         </field><field>
           <label>iban</label>
           <type>string</type>
@@ -726,7 +717,8 @@ ex : 4000,4020,4030,4031</hint>
           <in_listing>True</in_listing>
           <prefill>
             <type>none</type>
-          </prefill><id>9</id>
+          </prefill><anonymise>True</anonymise>
+          <id>9</id>
         </field>
       </fields>
     </formdef>
@@ -739,12 +731,14 @@ ex : 4000,4020,4030,4031</hint>
           <type>string</type>
           <required>True</required>
           <in_listing>True</in_listing>
+          <anonymise>True</anonymise>
           <id>bo10</id>
         </field><field>
           <label>Pr&#233;nom de l'int&#233;ress&#233;</label>
           <type>string</type>
           <required>True</required>
           <in_listing>True</in_listing>
+          <anonymise>True</anonymise>
           <id>bo11</id>
         </field><field>
           <label>NN de l'int&#233;ress&#233;</label>
@@ -752,18 +746,21 @@ ex : 4000,4020,4030,4031</hint>
           <required>False</required>
           <varname>wf_nn</varname>
           <in_listing>False</in_listing>
+          <anonymise>True</anonymise>
           <id>bo6</id>
         </field><field>
           <label>Adresse de l'int&#233;ress&#233;</label>
           <type>string</type>
           <required>True</required>
           <in_listing>True</in_listing>
+          <anonymise>True</anonymise>
           <id>bo13</id>
         </field><field>
           <label>N&#176; t&#233;l&#233;phone de l'int&#233;ress&#233;</label>
           <type>string</type>
           <required>True</required>
           <in_listing>True</in_listing>
+          <anonymise>True</anonymise>
           <id>bo12</id>
         </field><field>
           <label>Nombre d'exemplaires</label>
@@ -771,6 +768,7 @@ ex : 4000,4020,4030,4031</hint>
           <required>True</required>
           <varname>wf_nb_exemplaires</varname>
           <in_listing>False</in_listing>
+          <anonymise>True</anonymise>
           <id>bo2</id>
         </field><field>
           <label>Total de la commande</label>
@@ -778,6 +776,7 @@ ex : 4000,4020,4030,4031</hint>
           <required>True</required>
           <varname>wf_total_commande</varname>
           <in_listing>False</in_listing>
+          <anonymise>True</anonymise>
           <id>bo3</id>
         </field><field>
           <label>Paiement en ligne</label>
