@@ -118,7 +118,7 @@ class Namur(town.Town):
         return str_table
 
     def total_with_tab_tiers(self, *args):
-        return str(int(globals().get(args[0])) * Decimal(globals().get(args[1]))* (len(globals().get(args[2]) or '/')))
+        return str(int(globals().get(args[0]) or '1') * Decimal(globals().get(args[1]) or '1')* (len(globals().get(args[2]) or '/')))
 
 current_commune = Namur()
 function = args[0]
