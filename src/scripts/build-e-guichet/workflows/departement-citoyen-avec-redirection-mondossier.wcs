@@ -12,13 +12,13 @@
       <colour>FFFFFF</colour>
       <visibility />
       <items>
-        <item id="2" type="jump">
+        <item id="1" type="jump">
           <status>20</status>
           <condition>
             <type>python</type>
             <value>vars().get('form_option_lien_mondossier') is not None and 'form_var_mode_delivrance_raw' in locals() and form_var_mode_delivrance_raw != 'commune'</value>
           </condition><set_marker_on_status>False</set_marker_on_status>
-        </item><item id="1" type="set-backoffice-fields">
+        </item><item id="2" type="set-backoffice-fields">
           <fields>
             <field>
               <field_id>bo10</field_id>
