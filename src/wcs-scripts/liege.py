@@ -52,20 +52,27 @@ class Liege(town.Town):
             return False
 
     def had_liege_wedding(self, choices, is_not_liege_filtered_list = []):
-        if not self.user_wedding_cities:
-            return choices
-        if liege_cities.intersection(self.user_wedding_cities.split('|')):
+        # BAEC Hack
+        if len(self.user_wedding_cities.split('|')) > 1:
             return choices
         else:
             return [x for i, x in enumerate(choices) if i in is_not_liege_filtered_list]
+        #if not self.user_wedding_cities:
+        #    return choices
+        #if liege_cities.intersection(self.user_wedding_cities.split('|')):
+        #    return choices
+        #else:
+        #    return [x for i, x in enumerate(choices) if i in is_not_liege_filtered_list]
 
     def has_liege_birthplace(self, choices, is_not_liege_filtered_list = []):
-        if not self.user_birthplace:
-            return choices
-        if self.user_birthplace in liege_cities:
-            return choices
-        else:
-            return [x for i, x in enumerate(choices) if i in is_not_liege_filtered_list]
+        # BAEC Hack
+        return choices
+        #if not self.user_birthplace:
+        #    return choices
+        #if self.user_birthplace in liege_cities:
+        #    return choices
+        #else:
+        #    return [x for i, x in enumerate(choices) if i in is_not_liege_filtered_list]
 
 
     def test_liege_and_return_text(self, is_liege_text, is_not_liege_text):
