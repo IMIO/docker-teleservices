@@ -44,7 +44,7 @@
       <display_disabled_items>True</display_disabled_items>
       <id>69</id>
     </field><field>
-      <label>Certificat de Nationalit&#233;</label>
+      <label>Certificat de vie</label>
       <type>page</type>
       <condition>
         <type>python</type>
