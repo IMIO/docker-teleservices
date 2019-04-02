@@ -406,7 +406,8 @@
       <in_listing>False</in_listing>
       <extra_css_class>grid-1-4</extra_css_class>
       <prefill>
-        <type>none</type>
+        <type>user</type>
+        <value>_city</value>
       </prefill><id>63</id>
     </field><field>
       <label>Pays</label>
