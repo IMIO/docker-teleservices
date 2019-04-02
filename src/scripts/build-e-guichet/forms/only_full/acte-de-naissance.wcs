@@ -91,7 +91,7 @@
       <type>page</type>
       <condition>
         <type>python</type>
-        <value>form_var_rb_concerne == 'concerne un tiers'</value>
+        <value>form_var_rb_concerne == 'Concerne une autre personne'</value>
       </condition><id>6</id>
     </field><field>
       <label>Lien de parent&#233; :</label>
@@ -123,7 +123,7 @@
       <type>page</type>
       <condition>
         <type>python</type>
-        <value>form_var_rb_concerne_raw == "concerne un tiers" </value>
+        <value>form_var_rb_concerne_raw == "Concerne une autre personne" </value>
       </condition><post_conditions>
         <post_condition>
           <condition>
