@@ -2,7 +2,7 @@
 <formdef id="5">
   <name>Certificat de vie</name>
   <url_name>certificat-de-vie</url_name>
-  <description>&lt;p&gt;&lt;em&gt;Le certificat de r&#233;sidence reprend l&#8217;adresse du domicile. Le certificat de r&#233;sidence est destin&#233; &#224; prouver votre lieu de r&#233;sidence actuel.&lt;/em&gt;&lt;/p&gt;</description>
+  <description>&lt;p&gt;&lt;em&gt;Le certificat de vie reprend l&#8217;adresse du domicile. Le certificat de r&#233;sidence est destin&#233; &#224; prouver votre lieu de r&#233;sidence actuel.&lt;/em&gt;&lt;/p&gt;</description>
   <internal_identifier>certificat-de-vie</internal_identifier>
   <discussion>false</discussion>
   <detailed_emails>true</detailed_emails>
