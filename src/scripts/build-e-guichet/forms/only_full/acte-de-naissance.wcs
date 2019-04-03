@@ -26,7 +26,7 @@
         <post_condition>
           <condition>
             <type>python</type>
-            <value>form_var_lieu_naissance in form_option_cp_commune</value>
+            <value>form_option_BAEC is True or (form_var_lieu_naissance in form_option_cp_commune and form_option_BAEC is False)</value>
           </condition><error_message>Il semble que la personne concern&#233;e ne soit pas n&#233;e dans notre commune. Veuillez vous adresser &#224; la commune du lieu de votre naissance.</error_message>
         </post_condition>
       </post_conditions><id>1</id>
@@ -37,7 +37,10 @@
     </field><field>
       <label>Veuillez entrer le code postal du lieu de naissance de la personne concern&#233;e par le document</label>
       <type>string</type>
-      <required>True</required>
+      <condition>
+        <type>django</type>
+        <value>form_option_BAEC is none or form_option_BAEC is False</value>
+      </condition><required>True</required>
       <varname>lieu_naissance</varname>
       <in_listing>False</in_listing>
       <prefill>
