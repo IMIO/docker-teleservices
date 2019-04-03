@@ -23,7 +23,7 @@ sudo -u passerelle /usr/bin/passerelle-manage tenant_command runscript /opt/publ
 sudo -u passerelle /usr/bin/passerelle-manage tenant_command import_site -d $1-passerelle.$2 /opt/publik/scripts/build-e-guichet/datasources/datasources.json
 
 # Create passerelle "pays" datasource. (To choice country in users' profile).
-sudo -u passerelle /usr/bin/passerelle-manage tenant_command import_site -d $1-passerelle.$2 /opt/publik/scripts/build-e-guichet/passerelle/pays.json
+sudo -u passerelle /usr/bin/passerelle-manage tenant_command import_site -d $1-passerelle.$2 /opt/publik/scripts/build-e-guichet/passerelle/pays.json --import-users
 
 # Add hobo extra params
 sudo -u hobo hobo-manage cook /etc/hobo/recipe.json
