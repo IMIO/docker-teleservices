@@ -26,6 +26,7 @@ RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d
 RUN echo "server_names_hash_bucket_size 128;" > /etc/nginx/conf.d/server_names.conf
 RUN apt-get install -y -t stretch hobo-agent
 # authentic
+RUN sed -i "s/5 \*/5 1/g" /etc/cron.d/authentic2-multitenant
 RUN ln -s /usr/lib/python2.7/dist-packages/authentic2/static/authentic2 /var/lib/authentic2-multitenant/static/
 RUN ln -s /usr/lib/python2.7/dist-packages/authentic2/static/jquery /var/lib/authentic2-multitenant/static/
 RUN ln -s /usr/lib/python2.7/dist-packages/authentic2/static/ulx /var/lib/authentic2-multitenant/static/
