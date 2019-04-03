@@ -719,6 +719,15 @@ ex : 4000,4020,4030,4031</hint>
             <type>none</type>
           </prefill><anonymise>True</anonymise>
           <id>9</id>
+        </field><field>
+          <label>BAEC</label>
+          <type>bool</type>
+          <required>False</required>
+          <varname>BAEC</varname>
+          <in_listing>False</in_listing>
+          <prefill>
+            <type>none</type>
+          </prefill><id>10</id>
         </field>
       </fields>
     </formdef>
