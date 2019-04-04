@@ -168,6 +168,7 @@ class Town(object):
         for selected_motif in lst_selected_motifs:
             for motif in lst_motifs_disponibles_var:
                 if selected_motif[col_title] == motif['text']:
+                    nb_copies = selected_motif[col_nb_copies] if selected_motif[col_nb_copies] != '' else '1'
                     total_price += int(selected_motif[col_nb_copies]) * Decimal(motif['price'])
         return str(total_price)
 
