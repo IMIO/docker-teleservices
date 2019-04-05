@@ -129,16 +129,26 @@ class Liege(town.Town):
             datasource[0]['disabled'] = True
         return datasource
 
-
     def vignette_table_compute(self, table_var, id_colonne, datasource):
+        result = "0"
         id_col = int(id_colonne)
-        for item in table_var:
-            for vignette in datasource:
-                if vignette['id'] == item[id_col]:
-                    item[id_col] = vignette['price']
-        result = self.compute_dynamic_tab(table_var, id_colonne)
+        if table_var is not None:
+            for item in table_var:
+                for vignette in datasource:
+                    if vignette['id'] == item[id_col]:
+                        item[id_col] = vignette['price']
+            result = self.compute_dynamic_tab(table_var, id_colonne)
         return result
 
+    def vignette_total(self, *args):
+        table_var = globals().get(args[0])
+        id_colonne = args[1]
+        datasource = args[2]
+        total = str(Decimal(globals().get('form_var_vignette_price') or 0) 
+                if (globals().get('form_var_nombre') == "une nouvelle vignette de stationnement") 
+                else 
+                    Decimal(self.vignette_table_compute(table_var, id_colonne, datasource)))
+        return total
 
     def test(self, a):
         return type(Town)
