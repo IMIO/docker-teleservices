@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from decimal import Decimal
 import sys
 import re
 sys.path.insert(0, '/var/lib/wcs/scripts')
