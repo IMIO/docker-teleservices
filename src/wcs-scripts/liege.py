@@ -54,7 +54,7 @@ class Liege(town.Town):
 
     def had_liege_wedding(self, choices, is_not_liege_filtered_list = []):
         # BAEC Hack
-        if len(self.user_wedding_cities.split('|')) > 1:
+        if self.user_wedding_cities != '':
             return choices
         else:
             return [x for i, x in enumerate(choices) if i in is_not_liege_filtered_list]
