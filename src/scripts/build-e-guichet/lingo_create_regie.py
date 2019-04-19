@@ -4,7 +4,9 @@ import sys
 from combo.apps.lingo.models import Regie
 
 service_opt = '''
-              {"platform": "test",
+              {
+               "payment_means": "VISA,MASTERCARD,MAESTRO",
+               "platform": "test",
                "secret_key": "002001000000001_KEY1",
                "merchant_id": "002001000000001",
                "key_version": "1"
