@@ -27,7 +27,6 @@ list_sous_domaines = ['var_sous_domaine_proprete',
 def get_similars_observations_count(data):
     coords = close_demands.get_coords(data)
     result = 0
-    import ipdb;ipdb.set_trace()
     if coords:
         for item in close_demands.get_close_demands(form_objects.formdef, coords, data):
             structured_item =  item.get_as_dict()
