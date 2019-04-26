@@ -27,6 +27,7 @@ list_sous_domaines = ['var_sous_domaine_proprete',
 def get_similars_observations_count(data):
     coords = close_demands.get_coords(data)
     result = 0
+    import ipdb;ipdb.set_trace()
     if coords:
         for item in close_demands.get_close_demands(form_objects.formdef, coords, data):
             structured_item =  item.get_as_dict()
@@ -49,8 +50,8 @@ def get_similars_observations_mails(data):
                 for sous_domaine in list_sous_domaines:
                     if structured_item.has_key(sous_domaine):
                         if structured_item[sous_domaine] is not None and structured_item[sous_domaine] == data.get('form_{}'.format(sous_domaine)):
-                            if structured_item.has_key('var_mail_for_similar_observation') and 
-                               structured_item['var_mail_for_similar_observation'] is not None:
+                            if structured_item.has_key('var_mail_for_similar_observation') and \
+                                    structured_item['var_mail_for_similar_observation'] is not None:
                                 lst_mails.append(formdata.get_field_view_value(field))
         result = ','.join(lst_mails)
     return result
