@@ -29,6 +29,9 @@ def get_close_demands(formdef, coords, context):
     formdatas = formdef.data_class().select([Contains('status', applied_filters)])
     counter = 0
     for formdata in formdatas:
+        structured_item = formdata.get_as_dict()
+        if 'var_first_observation' in structured_item.keys() and structured_item['var_first_observation'] != 'True':
+            continue
         if not formdata.geolocations:
             continue
         formdata_coords = misc.normalize_geolocation(formdata.geolocations['base'])
