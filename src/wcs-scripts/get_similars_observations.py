@@ -80,7 +80,7 @@ def set_data_on_first_observation(data, signalement_similaire):
                             formdata.data[field.id] = tmp_form_number
                             cpt_signalements = 1
                         else:
-                            lst_signalements = formdata.data[field.id].split(',')
+                            lst_signalements = str(formdata.data[field.id]).split(',')
                             if str(tmp_form_number) not in lst_signalements:
                                 formdata.data[field.id] = "{},{}".format(formdata.data[field.id], tmp_form_number)
                             cpt_signalements = len(lst_signalements) 
