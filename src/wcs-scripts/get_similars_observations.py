@@ -66,23 +66,24 @@ def set_data_on_first_observation(data, signalement_similaire):
     for formdata in formdef.data_class().select():
         # structured_item =  formdata.get_as_dict()
         tmp_form_number = max([int(i) for i in formdata.keys()])
-        if formdata.id == signalement_similaire:
+        if str(formdata.id) == str(signalement_similaire):
             for field in formdef.get_all_fields():
                 if field.varname is not None:
                     if 'str_all_mails' == field.varname and data.get('form_var_mail_for_similar_observation','') != '':
-                        if field.id not in formdata.data.keys():
+                        if field.id not in formdata.data.keys() or formdata.data[field.id] is None:
                             formdata.data[field.id] = form_var_mail_for_similar_observation
                         else:
-                            formdata.data[field.id] = "{},{}".format(formdata.data[field.id], form_var_mail_for_similar_observation)
+                            lst_mails = set("{},{}".format(formdata.data[field.id] or '', form_var_mail_for_similar_observation).split(','))
+                            formdata.data[field.id] = ','.join(lst_mails)
                     if 'signalements' == field.varname:
                         tmp_form_number = max([int(i) for i in formdata.keys()])
-                        if field.id not in formdata.data.keys():
-                            formdata.data[field.id] = tmp_form_number
+                        if field.id not in formdata.data.keys() or formdata.data[field.id] is None:
+                            formdata.data[field.id] = str(tmp_form_number)
                             cpt_signalements = 1
                         else:
-                            lst_signalements = str(formdata.data[field.id]).split(',')
+                            lst_signalements = str(formdata.data[field.id] or '').split(',')
                             if str(tmp_form_number) not in lst_signalements:
-                                formdata.data[field.id] = "{},{}".format(formdata.data[field.id], tmp_form_number)
+                                formdata.data[field.id] = "{},{}".format(formdata.data[field.id] or '', tmp_form_number)
                             cpt_signalements = len(lst_signalements) 
                     if 'cpt_signalements' == field.varname:
                         formdata.data[field.id] = str(cpt_signalements)
