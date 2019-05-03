@@ -61,11 +61,11 @@ def get_similars_observations_mails(data):
 def set_data_on_first_observation(data, signalement_similaire):
     # Set first observation on current demand.
     # form_var_first_observation = signalement_similaire
+    # structured_item =  formdata.get_as_dict()
     formdef = form_objects.formdef
     cpt_signalements = 0
     for formdata in formdef.data_class().select():
-        # structured_item =  formdata.get_as_dict()
-        tmp_form_number = max([int(i) for i in formdata.keys()])
+        guess_form_number = globals().get('form_number_raw', max([int(i) for i in formdata.keys()]))
         if str(formdata.id) == str(signalement_similaire):
             for field in formdef.get_all_fields():
                 if field.varname is not None:
@@ -76,14 +76,13 @@ def set_data_on_first_observation(data, signalement_similaire):
                             lst_mails = set("{},{}".format(formdata.data[field.id] or '', form_var_mail_for_similar_observation).split(','))
                             formdata.data[field.id] = ','.join(lst_mails)
                     if 'signalements' == field.varname:
-                        tmp_form_number = max([int(i) for i in formdata.keys()])
                         if field.id not in formdata.data.keys() or formdata.data[field.id] is None:
-                            formdata.data[field.id] = str(tmp_form_number)
+                            formdata.data[field.id] = str(guess_form_number)
                             cpt_signalements = 1
                         else:
                             lst_signalements = str(formdata.data[field.id] or '').split(',')
-                            if str(tmp_form_number) not in lst_signalements:
-                                formdata.data[field.id] = "{},{}".format(formdata.data[field.id] or '', tmp_form_number)
+                            if str(guess_form_number) not in lst_signalements:
+                                formdata.data[field.id] = "{},{}".format(formdata.data[field.id] or '', guess_form_number)
                             cpt_signalements = len(lst_signalements) 
                     if 'cpt_signalements' == field.varname:
                         formdata.data[field.id] = str(cpt_signalements)
