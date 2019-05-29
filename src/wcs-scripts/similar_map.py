@@ -26,7 +26,10 @@ incidents = {'Voie publique':'#7F7F7F',
         'Graffiti - Tag - Affichage sauvage':'#E423FF',
         'Espace vert':'#67B976', 'Signalisation':'#FB9A01',
         'Eclairage public en panne ou qui clignote':'#ECEE6C',
+        'Eclairage public':'#ECEE6C',
+        'Signalisation':'#6CA3EE',
         'Dégradation du mobilier urbain':'#8F1E06'}
+
 if coords:
     map_widget = MapWidget('geo', readonly=True, value='%(lat)s;%(lon)s' % coords, initial_zoom=16)
     formdef = form_objects.formdef
