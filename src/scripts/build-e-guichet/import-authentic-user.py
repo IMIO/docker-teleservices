@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from authentic2.compat import get_user_model
+from django.contrib.auth import get_user_model
 from django.core.exceptions import ObjectDoesNotExist
 from django_rbac.utils import get_role_model, get_ou_model
 from hobo.agent.authentic2.provisionning import provisionning
