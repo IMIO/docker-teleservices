@@ -151,14 +151,14 @@ class Liege(town.Town):
                     Decimal(self.vignette_table_compute(table_var, id_colonne, datasource)))
         return total
 
-    def vignettes(form_var_tab_vignettes, dts):
+    def vignettes(self, form_var_tab_vignettes, dts):
         new_list = []
         for item in form_var_tab_vignettes:
             for dic in dts:
                 if item[3] == dic.get('id'):
-                    new_list = item
-                    new_list.append(dic.get('start_date'))
-                    new_list.append(dic.get('end_date'))
+                    new_list.append(item)
+                    new_list[-1].append(dic.get('start_date'))
+                    new_list[-1].append(dic.get('end_date'))
         return new_list
 
     def test(self, a):
