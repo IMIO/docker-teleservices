@@ -213,6 +213,7 @@ class Town(object):
     # Birthdate unknow => 00 00 01 003-85 (5 firsts number are 0 and sixth is 1
     # nn like 79010705741
     def check_birthday_in_nn(self, birthday, nn):
+        birthday = datetime.strftime(birthday, '%d/%m/%Y')
         result = False
         try:
             # date unknow
