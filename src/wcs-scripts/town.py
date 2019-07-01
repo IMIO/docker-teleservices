@@ -213,7 +213,8 @@ class Town(object):
     # Birthdate unknow => 00 00 01 003-85 (5 firsts number are 0 and sixth is 1
     # nn like 79010705741
     def check_birthday_in_nn(self, birthday, nn):
-        birthday = datetime.strftime(birthday, '%d/%m/%Y')
+        if isinstance(birthday, datetime):
+            birthday = datetime.strftime(birthday, '%d/%m/%Y')
         result = False
         try:
             # date unknow
@@ -222,17 +223,13 @@ class Town(object):
             # year is knowing
             if (nn.startswith(birthday[-2:] + "0000") or nn.startswith("2" + birthday[-2:] + "000")):
                 result = birthday[-2:] in nn[0:3]
-            # birth in 2000 and later
-            elif(int(birthday[-4:]) >= 2000):
-                reversed_birthday_short_year = ''.join([elt for elt in birthday.split('/')[::-1]])[2:]
-                result = nn[1:7] == reversed_birthday_short_year
-            # birth before 2000
+            # else
             else:
                 reversed_birthday_short_year = ''.join([elt for elt in birthday.split('/')[::-1]])[2:]
                 result = nn[:6] == reversed_birthday_short_year
         except:
             result = False
-        return result
+        return str(result)
 
     def authentication_delivrance_items_visibility(self, datasource, auth=None):
         if len(auth) > 0:
