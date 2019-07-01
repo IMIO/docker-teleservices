@@ -19,7 +19,7 @@ RUN apt-get update
 RUN apt install -y -t stretch-backports python-django python-django-common python-attr
 RUN apt-get install -y -t stretch wcs-au-quotidien combo fargo hobo bijoe chrono libjs-leaflet passerelle authentic2-multitenant publik-base-theme python-suds python-django-filters
 RUN apt-get install -y imio-publik-themes python-authentic2-auth-fedict python-passerelle-imio-liege-lisrue python-passerelle-imio-liege-rn python-passerelle-imio-extra-fees python-passerelle-imio-ia-delib python-passerelle-imio-ts1-datasources -t stretch-eobuilder
-RUN apt-get install -y imio-ts-aes passerelle-imio-ia-aes passerelle-imio-ia-tech imio-town-time imio-town-street --allow-unauthenticated
+RUN apt-get install -y imio-ts-aes passerelle-imio-ia-aes passerelle-imio-ia-tech passerelle-imio-aes-meal imio-town-time --allow-unauthenticated
 # Allow services to start, this is necessary as hobo-agent postinst will fail
 # if supervisord is not running
 RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d
