@@ -12,12 +12,12 @@ RUN sed -i "s%httpredir.debian.org%debian.mirrors.ovh.net%g" /etc/apt/sources.li
 RUN apt-get update && apt-get install -y nginx wget gnupg debian-archive-keyring rsyslog python-dns gettext vim.nox bash-completion libjs-jquery libreoffice cron lftp procps apt-transport-https ca-certificates
 RUN wget -O - http://deb.entrouvert.org/entrouvert.gpg | apt-key add -
 RUN echo "deb http://http.debian.net/debian stretch-backports main"> /etc/apt/sources.list.d/backports.list
-RUN echo "deb https://nexus.imio.be/repository/stretch stretch main" >> /etc/apt/sources.list.d/imio.list
+RUN echo "deb [trusted=yes] https://nexus.imio.be/repository/stretch stretch main" >> /etc/apt/sources.list.d/imio.list
 RUN echo "deb http://deb.entrouvert.org/ stretch main\ndeb http://deb.entrouvert.org/ stretch-eobuilder main\ndeb http://deb.entrouvert.org/ stretch-testing main\n" > /etc/apt/sources.list.d/entrouvert.list
 RUN echo "Package: *\nPin: release a=stretch-eobuilder\nPin-Priority: 900" > /etc/apt/preferences.d/stretch-eobuilder.pref
 RUN apt-get update
-RUN apt install -y -t stretch-backports python-django python-django-common python-attr
-RUN apt-get install -y -t stretch wcs-au-quotidien combo fargo hobo bijoe chrono libjs-leaflet passerelle authentic2-multitenant publik-base-theme python-suds python-django-filters
+RUN apt install -y -t stretch-backports python-django python-django-common python-attr python-pywebpush
+RUN apt-get install -y -t stretch wcs-au-quotidien python-combo combo fargo hobo bijoe chrono libjs-leaflet passerelle authentic2-multitenant publik-base-theme python-suds python-django-filters
 RUN apt-get install -y imio-publik-themes python-authentic2-auth-fedict python-passerelle-imio-liege-lisrue python-passerelle-imio-liege-rn python-passerelle-imio-extra-fees python-passerelle-imio-ia-delib python-passerelle-imio-ts1-datasources -t stretch-eobuilder
 RUN apt-get install -y imio-ts-aes passerelle-imio-ia-aes passerelle-imio-ia-tech passerelle-imio-aes-meal imio-town-time --allow-unauthenticated
 # Allow services to start, this is necessary as hobo-agent postinst will fail
