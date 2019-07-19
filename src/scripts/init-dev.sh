@@ -75,4 +75,9 @@ then
     (cd /opt/publik/passerelle-imio-ia-aes && python setup.py develop --no-deps)
 fi
 
+# passerelle-imio-aes-meal
+if [ -d /opt/publik/passerelle-imio-aes-meal ]
+then
+    (cd /opt/publik/passerelle-imio-aes-meal && python setup.py develop --no-deps)
+fi
 service nginx reload
