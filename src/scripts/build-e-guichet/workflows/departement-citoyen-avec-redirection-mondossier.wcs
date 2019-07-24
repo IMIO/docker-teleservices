@@ -679,7 +679,7 @@ ex : 4000,4020,4030,4031</hint>
             <type>none</type>
           </prefill><max_choices>0</max_choices>
           <data_source>
-            <type>motifsandenne</type>
+            <type>passerelle_motifs</type>
           </data_source><in_filters>False</in_filters>
           <anonymise>True</anonymise>
           <display_disabled_items>False</display_disabled_items>
