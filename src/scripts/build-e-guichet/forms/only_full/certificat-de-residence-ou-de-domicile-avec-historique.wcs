@@ -285,7 +285,7 @@
       <date_can_be_today>False</date_can_be_today>
       <id>11</id>
     </field><field>
-      <label>&lt;u&gt;ADRESSE&lt;/u&gt; :</label>
+      <label>ADRESSE :</label>
       <type>subtitle</type>
       <id>12</id>
     </field><field>

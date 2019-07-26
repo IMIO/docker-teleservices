@@ -133,7 +133,7 @@
         <value>_phone</value>
       </prefill><id>18</id>
     </field><field>
-      <label>&lt;u&gt;ADRESSE&lt;/u&gt; :</label>
+      <label>ADRESSE :</label>
       <type>subtitle</type>
       <id>11</id>
     </field><field>
