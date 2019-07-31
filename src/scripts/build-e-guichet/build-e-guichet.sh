@@ -41,7 +41,6 @@ sed -i "s/$1/COMMUNE_ID/g" /opt/publik/scripts/build-e-guichet/import-authentic-
 # Set permissions
 sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2 /opt/publik/scripts/build-e-guichet/import-permissions.py $3
 
-# TODO : voir ce que je peux faire pour les datasources par defaut avec l'url de passerelle hardcodee.
 # Import workflows
 sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2 /opt/publik/scripts/build-e-guichet/import-workflows.py /opt/publik/scripts/build-e-guichet/workflows/
 if [ $3 = "full" ]
