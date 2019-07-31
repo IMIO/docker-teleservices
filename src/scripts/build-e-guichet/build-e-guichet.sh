@@ -34,14 +34,20 @@ test -e /etc/hobo/recipe-$1-extra.json && sudo -u hobo hobo-manage cook /etc/hob
 authentic2-multitenant-manage tenant_command runscript /opt/publik/scripts/build-e-guichet/auth_fedict_var.py -d $1-auth.$2
 
 # Import defaults authentic users
+echo "IMPORT AUTHENTIC USERS AND ROLES"
 sed -i "s/COMMUNE_ID/$1/g" /opt/publik/scripts/build-e-guichet/import-authentic-user.py
 authentic2-multitenant-manage tenant_command runscript /opt/publik/scripts/build-e-guichet/import-authentic-user.py -d $1-auth.$2
 sed -i "s/$1/COMMUNE_ID/g" /opt/publik/scripts/build-e-guichet/import-authentic-user.py
 
+echo "WAITING 30 SECONDES FOR SYNCHRONISATION BETWEEN AUTHENTIC AND WCS"
+sleep 30
+
 # Set permissions
+echo "SETTING PERMISSIONS"
 sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2 /opt/publik/scripts/build-e-guichet/import-permissions.py $3
 
 # Import workflows
+echo "INSTALL GENERIC WORKFLOWS"
 sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2 /opt/publik/scripts/build-e-guichet/import-workflows.py /opt/publik/scripts/build-e-guichet/workflows/
 if [ $3 = "full" ]
     then
