@@ -151,7 +151,12 @@ class Liege(town.Town):
                     Decimal(self.vignette_table_compute(table_var, id_colonne, datasource)))
         return total
 
+    #Cette méthode à pour mission d'enrichir la liste des vignettes commandée par l'usager avec leurs
+    #dates de validité. Pour ce faire, elle compare l'id de la variable du formulaire à une datasource
+    #qui contient les données manquantes.
     def vignettes(self, form_var_tab_vignettes, dts):
+    #dts désigne "DaTaSource". Cette datasource contient entre autre les dates de début et de fin
+    #de validité des vignettes
         new_list = []
         for item in form_var_tab_vignettes:
             for dic in dts:
