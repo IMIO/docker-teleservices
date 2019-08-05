@@ -214,7 +214,7 @@ class Town(object):
     # nn like 79010705741
     def check_birthday_in_nn(self, birthday, nn):
         if isinstance(birthday, datetime):
-            birthday = datetime.strftime(birthday, '%d/%m/%Y')
+            birthday = datetime.strftime(birthday,'%d/%m/%Y')
         result = False
         try:
             # date unknow
@@ -223,7 +223,7 @@ class Town(object):
             # year is knowing
             if (nn.startswith(birthday[-2:] + "0000") or nn.startswith("2" + birthday[-2:] + "000")):
                 result = birthday[-2:] in nn[0:3]
-            # else
+            # standart behaviour
             else:
                 reversed_birthday_short_year = ''.join([elt for elt in birthday.split('/')[::-1]])[2:]
                 result = nn[:6] == reversed_birthday_short_year
