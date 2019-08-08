@@ -2,6 +2,7 @@
 FROM debian:stretch
 
 ENV DEBIAN_FRONTEND noninteractive
+ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 
 #Update Packages List
 RUN echo "APT::Install-Suggests \"false\";\nAPT::Install-Recommends \"false\";" >> /etc/apt/apt.conf
@@ -10,6 +11,7 @@ RUN echo "#!/bin/sh\nexit 101" > /usr/sbin/policy-rc.d
 RUN chmod +x /usr/sbin/policy-rc.d
 RUN sed -i "s%httpredir.debian.org%debian.mirrors.ovh.net%g" /etc/apt/sources.list
 RUN apt-get update && apt-get install -y nginx wget gnupg debian-archive-keyring rsyslog python-dns gettext vim.nox bash-completion libjs-jquery libreoffice cron lftp procps apt-transport-https ca-certificates
+RUN wget -O - http://static.imio.be/imio.gpg | apt-key add -
 RUN wget -O - http://deb.entrouvert.org/entrouvert.gpg | apt-key add -
 RUN echo "deb http://http.debian.net/debian stretch-backports main"> /etc/apt/sources.list.d/backports.list
 RUN echo "deb [trusted=yes] https://nexus.imio.be/repository/stretch stretch main" >> /etc/apt/sources.list.d/imio.list
