@@ -278,7 +278,8 @@
       <in_listing>False</in_listing>
       <extra_css_class>newline grid-1-2</extra_css_class>
       <prefill>
-        <type>none</type>
+        <type>string</type>
+        <value>1</value>
       </prefill><validation>^[1-9]$|^[0-1][0-9]$|^20$</validation>
       <id>31</id>
     </field><field>
