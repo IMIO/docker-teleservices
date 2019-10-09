@@ -44,7 +44,7 @@
           },
           "model": "data.textcell"
         },
-		{
+	{
           "model": "data.linkcell", 
           "fields": {
             "extra_css_class": "", 
