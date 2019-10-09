@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="utf-8"?>
+<workflow id="5">
+  <name>D&#233;partement Citoyen (light)</name>
+  <roles>
+    <role id="_receiver">Agent traitant</role>
+    <role id="_validateur-paiement">Validateur paiement</role>
+  </roles><last_modification user_id="1">2019-10-08 16:15:54</last_modification>
+  <possible_status>
+    <status>
+      <id>just_submitted</id>
+      <name>Juste envoy&#233;</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item id="4" type="jump">
+          <status>22</status>
+          <condition>
+            <type>django</type>
+            <value>form_var_mode_delivrance_raw == "mondossier"</value>
+          </condition><set_marker_on_status>False</set_marker_on_status>
+        </item><item id="1" type="set-backoffice-fields">
+          <fields>
+            <field>
+              <field_id>bo2</field_id>
+              <value>=locals().get("form_var_nb_exemplaire")</value>
+            </field><field>
+              <field_id>bo3</field_id>
+              <value>=str(((Decimal(form_option_cost) + Decimal(form_var_motif_price)) * int(form_var_nb_exemplaire)) + Decimal(form_var_destination_price)) or '0.00'</value>
+            </field><field>
+              <field_id>bo6</field_id>
+              <value>=locals().get("form_user_field_numero_national")</value>
+            </field><field>
+              <field_id>bo8</field_id>
+              <value>=locals().get("form_var_nn_tiers")</value>
+            </field>
+          </fields>
+        </item><item id="2" type="jump">
+          <status>13</status>
+          <condition>
+            <type>python</type>
+            <value>Decimal(form_var_wf_total_commande) == Decimal('0')</value>
+          </condition><set_marker_on_status>False</set_marker_on_status>
+        </item><item id="3" type="jump">
+          <status>20</status>
+          <condition>
+            <type>python</type>
+            <value>Decimal(form_var_wf_total_commande) != Decimal('0')</value>
+          </condition><set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>4</id>
+      <name>rejet&#233;</name>
+      <colour>FF0000</colour>
+      <forced_endpoint>true</forced_endpoint>
+      <visibility />
+      <items>
+        <item id="1" type="register-comment">
+          <comment>{{ form_refus_var_object }}
+
+{{ form_refus_var_body }}</comment>
+        </item><item id="2" type="sendmail">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>{{ form_refus_var_object }}</subject>
+          <body>{{ form_refus_var_body }}</body>
+        </item>
+      </items>
+    </status><status>
+      <id>accepted</id>
+      <name>En cours de traitement</name>
+      <colour>66CCFF</colour>
+      <visibility />
+      <items>
+        <item id="1" type="sendmail">
+          <to>
+            <item role_id="_receiver">_receiver</item>
+          </to><subject>Nouveau formulaire en attente de traitement ({{ form_name }})</subject>
+          <body>Bonjour,
+
+Un nouvelle demande de {{ form_name }} a &#233;t&#233; soumise, vous pouvez la consulter
+en suivant ce lien : {{ form_url_backoffice }}
+
+{% if form_details %}
+Pour r&#233;f&#233;rence, voici le d&#233;tail du formulaire :
+
+{{ form_details }}
+{% endif %}</body>
+          <custom_from />
+        </item><item id="2" type="choice">
+          <label>Terminer</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>finished</status>
+          <require_confirmation>False</require_confirmation>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="3" type="choice">
+          <label>Refuser la demande</label>
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>19</status>
+          <require_confirmation>False</require_confirmation>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>finished</id>
+      <name>Trait&#233;</name>
+      <colour>00FF00</colour>
+      <forced_endpoint>true</forced_endpoint>
+      <visibility />
+      <items>
+        <item id="1" type="sendmail">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>Administration de {{ commune_name }} : D&#233;marche "{{ form_name }}" trait&#233;e.</subject>
+          <body>Bonjour,
+Votre d&#233;marche "{{ form_name }}" a &#233;t&#233; trait&#233;e par nos services.
+Lors de la compl&#233;tion de votre d&#233;marche, vous aviez sp&#233;cifi&#233; comme destination :
+"{{ form_var_destination }}".
+
+Bien cordialement,</body>
+        </item>
+      </items>
+    </status><status>
+      <id>13</id>
+      <name>Document gratuit</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item id="1" type="jump">
+          <status>accepted</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="2" type="sendmail">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>Document gratuit....</subject>
+          <body>...</body>
+        </item>
+      </items>
+    </status><status>
+      <id>19</id>
+      <name>formulaire de refus</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item id="1" type="form">
+          <by>
+            <item role_id="_receiver">_receiver</item>
+          </by><varname>form_refus</varname>
+          <formdef>
+            <name>-</name>
+            <fields>
+              <field>
+                <label>Motif du refus</label>
+                <type>title</type>
+                <id>3</id>
+              </field><field>
+                <label>Le motif du refus sera envoy&#233; par mail &#224; l'usager.</label>
+                <type>comment</type>
+                <id>4</id>
+              </field><field>
+                <label>Objet du mail</label>
+                <type>string</type>
+                <required>True</required>
+                <varname>object</varname>
+                <in_listing>True</in_listing>
+                <prefill>
+                  <type>string</type>
+                  <value>{{ commune_name }} : Refus de votre d&#233;marche : {{ form_name }}</value>
+                </prefill><anonymise>True</anonymise>
+                <id>1</id>
+              </field><field>
+                <label>Corps du mail</label>
+                <type>text</type>
+                <required>True</required>
+                <varname>body</varname>
+                <in_listing>True</in_listing>
+                <prefill>
+                  <type>formula</type>
+                  <value>"Bonjour,\r\n\r\nNous sommes au regret de vous annoncer que votre d&#233;marche n'a pu aboutir.\r\n\r\nLa raison de ce refus est la suivante : \r\n\r\n\r\n\r\nBien cordialement, "</value>
+                </prefill><pre>False</pre>
+                <id>2</id>
+              </field>
+            </fields>
+          </formdef>
+        </item><item id="2" type="jumponsubmit">
+          <status>4</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>20</id>
+      <name>PC Banking (virement)</name>
+      <colour>FFFFFF</colour>
+      <visibility />
+      <items>
+        <item id="1" type="jump">
+          <status>21</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items>
+    </status><status>
+      <id>21</id>
+      <name>En attente du virement</name>
+      <colour>FFFF00</colour>
+      <visibility />
+      <items>
+        <item id="1" type="displaymsg">
+          <message>Madame,&lt;br&gt;
+Monsieur,&lt;br&gt;
+&lt;br&gt;
+Votre commande a bien &#233;t&#233; enregistr&#233;e dans notre syst&#232;me.
+&lt;br&gt;&lt;br&gt;
+Nous vous invitons &#224; r&#233;gler votre commande par virement bancaire en mentionnant les instructions de paiement suivantes :
+&lt;ul&gt;
+&lt;li&gt;B&#233;n&#233;ficiaire : &lt;b&gt;{{ commune_cp }}, Ville de {{ commune_name }} - {{ commune_adresse }}&lt;/b&gt;&lt;/li&gt;
+&lt;li&gt;Num&#233;ro de compte b&#233;n&#233;ficiaire (IBAN) : &lt;b&gt;{{ form_option_iban }}&lt;/b&gt;&lt;/li&gt;
+&lt;li&gt;R&#233;f&#233;rence de la commande (communication libre) : &lt;b&gt;{{ form_number }}&lt;/b&gt;&lt;/li&gt;
+&lt;li&gt;Montant de la commande : &lt;b&gt;{{ form_var_wf_total_commande }}&lt;/b&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+Veuillez bien &#224; "Signaler que votre paiement a &#233;t&#233; r&#233;alis&#233;" via le bouton ci-dessous cette page.&lt;br/&gt;
+Ceci aura pour effet d'avertir directement l'un de nos agents pour traiter au plus vite votre demande.
+&lt;/p&gt;</message>
+          <position>top</position>
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to>
+        </item><item id="2" type="sendmail">
+          <to>
+            <item role_id="_submitter">_submitter</item>
+          </to><subject>Administration de [[NOM_COMMUNE]] : D&#233;marche "[form_name]" en attente du virement.</subject>
+          <body>Bonjour,
+
+Nous avons bien re&#231;u votre demande pour la d&#233;marche : {{ form_name }}.
+N&#233;anmoins, avant de pouvoir la traiter, nous sommes en attente de votre virement.
+
+Voici les informations utiles &#224; votre virement :
+
+B&#233;n&#233;ficiaire : {{ commune_cp }}, Ville de {{ commune_name }} - {{ commune_adresse }}
+
+Num&#233;ro de compte b&#233;n&#233;ficiaire (IBAN) : {{ form_option_iban }}
+
+R&#233;f&#233;rence de la commande (communication libre) : {{ form_number }}
+
+Montant de la commande : {{ form_var_wf_total_commande }}
+
+
+Bien cordialement, </body>
+        </item><item id="3" type="choice">
+          <label>Virement bien re&#231;u</label>
+          <by>
+            <item role_id="_validateur-paiement">_validateur-paiement</item>
+            <item role_id="_receiver">_receiver</item>
+          </by><status>accepted</status>
+          <require_confirmation>False</require_confirmation>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item><item id="4" type="sendmail">
+          <to>
+            <item role_id="_validateur-paiement">_validateur-paiement</item>
+          </to><subject>Nouvelle demande en attente de paiement</subject>
+          <body>Bonjour,
+
+Un nouvelle demande de {{ form_name }} a &#233;t&#233; soumise, vous pouvez la consulter
+en suivant ce lien : {{ form_url_backoffice }}
+
+{% if form_details %}
+Pour r&#233;f&#233;rence, voici le d&#233;tail du formulaire :
+
+{{ form_details }}
+{% endif %}</body>
+          <custom_from />
+        </item>
+      </items>
+    </status><status>
+      <id>22</id>
+      <name>Redirection vers MONDOSSIER</name>
+      <colour>66FF66</colour>
+      <visibility />
+      <items />
+    </status>
+  </possible_status><global_actions>
+    <action>
+      <id>1</id>
+      <name>Supprim&#233; du panier</name>
+      <items>
+        <item id="1" type="jump">
+          <status>18</status>
+          <set_marker_on_status>False</set_marker_on_status>
+        </item>
+      </items><triggers>
+        <trigger id="7d0b6929-f1be-4bb1-b8de-302a1f83d4b4" type="manual">
+          <roles>
+            <item role_id="_testeur">_testeur</item>
+          </roles>
+        </trigger>
+      </triggers>
+    </action><action>
+      <id>2</id>
+      <name>Supprimer la d&#233;marche</name>
+      <items>
+        <item id="1" type="remove" />
+      </items><triggers>
+        <trigger id="66fd7d06-e5e0-49df-9111-7ea20cf6a2e6" type="manual">
+          <roles>
+            <item role_id="6937e408afc54107bac9ea08777395d0">Debug</item>
+          </roles>
+        </trigger>
+      </triggers>
+    </action>
+  </global_actions><variables>
+    <formdef>
+      <name>-</name>
+      <fields>
+        <field>
+          <label>cout du document</label>
+          <type>string</type>
+          <required>True</required>
+          <varname>cost</varname>
+          <in_listing>False</in_listing>
+          <prefill>
+            <type>string</type>
+            <value>"0"</value>
+          </prefill><anonymise>True</anonymise>
+          <id>1</id>
+        </field><field>
+          <label>Codes postaux (commune)</label>
+          <type>string</type>
+          <required>True</required>
+          <hint>Lister les diff&#233;rents codes postaux relatifs &#224; votre commune.
+Coll&#233;s et s&#233;par&#233;s par une ","
+ex : 4000,4020,4030,4031</hint>
+          <varname>cp_commune</varname>
+          <in_listing>True</in_listing>
+          <prefill>
+            <type>none</type>
+          </prefill><anonymise>True</anonymise>
+          <id>6</id>
+        </field><field>
+          <label>Motifs disponibles</label>
+          <type>items</type>
+          <required>False</required>
+          <varname>motifs_disponibles</varname>
+          <in_listing>False</in_listing>
+          <prefill>
+            <type>none</type>
+          </prefill><max_choices>0</max_choices>
+          <data_source>
+            <type>passerelle_motifs</type>
+          </data_source><in_filters>False</in_filters>
+          <anonymise>True</anonymise>
+          <display_disabled_items>False</display_disabled_items>
+          <id>3</id>
+        </field><field>
+          <label>Destinations</label>
+          <type>items</type>
+          <required>False</required>
+          <varname>destinations</varname>
+          <in_listing>False</in_listing>
+          <prefill>
+            <type>none</type>
+          </prefill><max_choices>0</max_choices>
+          <data_source>
+            <type>passerelle_destinations</type>
+          </data_source><in_filters>False</in_filters>
+          <anonymise>True</anonymise>
+          <display_disabled_items>False</display_disabled_items>
+          <id>4</id>
+        </field><field>
+          <label>Url du document sur MONDOSSIER</label>
+          <type>item</type>
+          <required>True</required>
+          <varname>mondossier_url</varname>
+          <in_listing>False</in_listing>
+          <prefill>
+            <type>none</type>
+          </prefill><display_mode>list</display_mode>
+          <data_source>
+            <type>url_vers_mondossier</type>
+          </data_source><in_filters>False</in_filters>
+          <anonymise>False</anonymise>
+          <display_disabled_items>False</display_disabled_items>
+          <id>7</id>
+        </field><field>
+          <label>Iban</label>
+          <type>string</type>
+          <required>True</required>
+          <varname>iban</varname>
+          <in_listing>False</in_listing>
+          <prefill>
+            <type>none</type>
+          </prefill><anonymise>True</anonymise>
+          <id>8</id>
+        </field>
+      </fields>
+    </formdef>
+  </variables><backoffice-fields>
+    <formdef>
+      <name>-</name>
+      <fields>
+        <field>
+          <label>Num&#233;ro national</label>
+          <type>string</type>
+          <required>False</required>
+          <varname>wf_nn</varname>
+          <in_listing>False</in_listing>
+          <anonymise>True</anonymise>
+          <id>bo6</id>
+        </field><field>
+          <label>Num&#233;ro national (tiers)</label>
+          <type>string</type>
+          <required>False</required>
+          <varname>wf_nn_tiers</varname>
+          <in_listing>False</in_listing>
+          <anonymise>True</anonymise>
+          <id>bo8</id>
+        </field><field>
+          <label>Nombre d'exemplaires</label>
+          <type>string</type>
+          <required>True</required>
+          <varname>wf_nb_exemplaires</varname>
+          <in_listing>False</in_listing>
+          <anonymise>True</anonymise>
+          <id>bo2</id>
+        </field><field>
+          <label>Total de la commande</label>
+          <type>string</type>
+          <required>True</required>
+          <varname>wf_total_commande</varname>
+          <in_listing>True</in_listing>
+          <anonymise>True</anonymise>
+          <id>bo3</id>
+        </field>
+      </fields>
+    </formdef>
+  </backoffice-fields>
+</workflow>
