@@ -81,6 +81,27 @@
             "public": false
           }
         },
+		{
+          "model": "data.linkcell", 
+          "fields": {
+            "extra_css_class": "", 
+            "restricted_to_unlogged": false, 
+            "link_page": null, 
+            "title": "ACC\u00c9DER AU PORTAIL-AGENT", 
+            "last_update_timestamp": "2019-10-09T15:15:11.316Z", 
+            "slug": "", 
+            "url": "https://chatelet-portail-agent.guichet-citoyen.be", 
+            "groups": [
+              "Agent ayant acces aux fabriques", 
+              "Agents traitants - Population, etat civil", 
+              "Agents traitants - Travaux"
+            ], 
+            "anchor": "", 
+            "order": 4, 
+            "placeholder": "right", 
+            "public": false
+          }
+        },
         {
           "fields": {
             "extra_css_class": "home_procedure_in_progress",
@@ -89,7 +110,7 @@
             "current_forms": true,
             "last_update_timestamp": "2017-03-24T13:15:52.792Z",
             "wcs_site": "",
-            "order": 4,
+            "order": 5,
             "public": false,
             "groups": [],
             "placeholder": "right",
@@ -104,7 +125,7 @@
             "restricted_to_unlogged": false,
             "last_update_timestamp": "2017-03-24T13:16:06.259Z",
             "wcs_site": "",
-            "order": 5,
+            "order": 6,
             "public": false,
             "groups": [],
             "placeholder": "right",
@@ -117,7 +138,7 @@
             "extra_css_class": "",
             "restricted_to_unlogged": false,
             "last_update_timestamp": "2017-03-24T13:11:09.541Z",
-            "order": 6,
+            "order": 7,
             "public": true,
             "groups": [],
             "placeholder": "footer",
@@ -131,7 +152,7 @@
             "restricted_to_unlogged": false,
             "last_update_timestamp": "2017-03-24T13:18:50.213Z",
             "text": "<p>--- E-guichet ,Vos d\u00e9marches administratives en quelques clics! --- </p>",
-            "order": 7,
+            "order": 8,
             "public": true,
             "groups": [],
             "placeholder": "footer",
