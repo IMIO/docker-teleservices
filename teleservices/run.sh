@@ -18,6 +18,10 @@ test -e /var/lib/wcs/scripts || ln -s /opt/publik/wcs-scripts /var/lib/wcs/scrip
 HOSTNAME=$(hostname)
 test -f /opt/publik/hooks/$HOSTNAME/run-hook.sh && /opt/publik/hooks/$HOSTNAME/run-hook.sh
 
+# alter bijoe job to run at random time during the night
+RANDOM_TIME="$(( ( RANDOM % 60 ) )) $(( ( RANDOM % 6 ) ))"
+sed -ie 's/^0 1 /$RANDOM_TIME /' /etc/cron.d/bijoe
+
 service rsyslog start
 service cron start
 
