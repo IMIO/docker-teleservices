@@ -40,6 +40,10 @@ class Town(object):
     def dt_to_date(self, dt, format_date='%Y-%m-%d', format_time='%H:%M:%S'):
         return datetime.strptime(dt, '{0} {1}'.format(format_date, format_time)).date()
 
+
+    def is_strong_authentication(self, *args):
+        return self.strong_authentication
+
     # Méthode qui sert à retourner un texte accompaggé d'un résultat.
     # valeur : Un nombre
     # texte : un article (par exemple)
