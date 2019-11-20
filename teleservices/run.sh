@@ -20,7 +20,7 @@ test -f /opt/publik/hooks/$HOSTNAME/run-hook.sh && /opt/publik/hooks/$HOSTNAME/r
 
 # alter bijoe job to run at random time during the night
 RANDOM_TIME="$(( ( RANDOM % 60 ) )) $(( ( RANDOM % 6 ) ))"
-sed -ie "s/^0 1 /$RANDOM_TIME /" /etc/cron.d/bijoe
+sed -ie "s/^1 0 /$RANDOM_TIME /" /etc/cron.d/bijoe
 
 service rsyslog start
 service cron start
