@@ -25,6 +25,8 @@ sed -ie "s/^1 0 /$RANDOM_TIME /" /etc/cron.d/bijoe
 service rsyslog start
 service cron start
 
+apt install scripts-teleservices wcs-scripts-teleservices
+
 if [ x$1 != xfromgit ] || [ ! -d /opt/publik/combo ]
 then
 	service combo start
