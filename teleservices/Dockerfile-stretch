@@ -21,7 +21,7 @@ RUN echo "Package: *\nPin: release a=stretch-eobuilder\nPin-Priority: 400" > /et
 # Install extra modules
 RUN apt install -y wcs-au-quotidien combo fargo hobo bijoe chrono passerelle authentic2-multitenant publik-base-theme python-dns python-qrcode python-magic python-docutils poppler-utils
 RUN apt install -y imio-publik-themes python-authentic2-auth-fedict python-passerelle-imio-liege-lisrue python-passerelle-imio-liege-rn python-passerelle-imio-extra-fees python-passerelle-imio-ia-delib python-passerelle-imio-ts1-datasources -t stretch-eobuilder
-RUN apt install -y imio-ts-aes passerelle-imio-ia-aes passerelle-imio-ia-tech passerelle-imio-aes-meal imio-town-time --allow-unauthenticated
+RUN apt install -y imio-ts-aes passerelle-imio-ia-aes passerelle-imio-ia-tech passerelle-imio-aes-meal passerelle-imio-sso-agents imio-town-time --allow-unauthenticated
 # Allow services to start, this is necessary as hobo-agent postinst will fail
 # if supervisord is not running
 RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d
