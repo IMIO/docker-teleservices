@@ -11,6 +11,7 @@ chown passerelle:passerelle /var/lib/passerelle/tenants -R
 chown wcs:wcs /var/lib/wcs -R
 
 python /var/lib/authentic2/locale/fr/LC_MESSAGES/mail-translation.py
+test -e /var/lib/wcs/configure-database.py || python /var/lib/wcs/configure-database.py
 
 # install link to wcs external scripts
 test -e /var/lib/wcs/scripts || ln -s /opt/publik/wcs-scripts /var/lib/wcs/scripts
