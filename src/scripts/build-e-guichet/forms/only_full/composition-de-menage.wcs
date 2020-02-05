@@ -169,7 +169,7 @@
       <label>Code postal</label>
       <type>string</type>
       <required>True</required>
-      <varname>code_ppostal_perscon</varname>
+      <varname>code_postal_perscon</varname>
       <in_listing>False</in_listing>
       <extra_css_class>grid-1-4</extra_css_class>
       <prefill>
