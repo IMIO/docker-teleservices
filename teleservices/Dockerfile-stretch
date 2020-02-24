@@ -14,7 +14,7 @@ RUN apt update && apt install -y nginx curl gnupg debian-archive-keyring rsyslog
 RUN echo "deb http://deb.entrouvert.org/ stretch main" > /etc/apt/sources.list.d/entrouvert-local.list
 RUN echo "deb http://debian.mirrors.ovh.net/debian stretch-backports main" > /etc/apt/sources.list.d/backports.list
 RUN echo "deb [trusted=yes] https://nexus.imio.be/repository/stretch stretch main" > /etc/apt/sources.list.d/imio.list
-RUN curl http://static.imio.be/imio.gpg | apt-key add -
+RUN curl https://static.imio.be/imio.gpg | apt-key add -
 RUN curl https://deb.entrouvert.org/entrouvert.gpg | apt-key add -
 RUN apt update && apt install -y entrouvert-repository entrouvert-repository-hotfix entrouvert-repository-eobuilder && apt update
 RUN echo "Package: *\nPin: release a=stretch-eobuilder\nPin-Priority: 400" > /etc/apt/preferences.d/entrouvert-eobuilder
