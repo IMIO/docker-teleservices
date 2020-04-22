@@ -1,4 +1,6 @@
 #!/bin/bash
+
+export LANG=C.UTF-8
 rm /var/run/{authentic2-multitenant/authentic2-multitenant,chrono/chrono,fargo/fargo,hobo/hobo,combo/combo,nginx,rsyslogd,supervisord,wcs,passerelle/passerelle,bijoe/bijoe}.{pid,sock}
 
 chown authentic-multitenant:authentic-multitenant /var/lib/authentic2-multitenant/tenants -R
