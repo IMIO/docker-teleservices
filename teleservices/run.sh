@@ -37,8 +37,7 @@ fi
 
 if [ x$1 != xfromgit ] || [ ! -d /opt/publik/authentic ]
 then
-	sed -ie 's/^authentic2-auth-fc/#authentic2-auth-fc/' /usr/lib/python2.7/dist-packages/authentic2-*.egg-info/entry_points.txt
-	sed -ie 's/^authentic2-auth-oidc/#authentic2-auth-oidc/' /usr/lib/python2.7/dist-packages/authentic2-*.egg-info/entry_points.txt
+	test -e /var/lib/authentic2-multitenant/tenants/configure.py && python /var/lib/authentic2-multitenant/tenants/configure.py
 	service authentic2-multitenant update
 	service authentic2-multitenant start
 fi
