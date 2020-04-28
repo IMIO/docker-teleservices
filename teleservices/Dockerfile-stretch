@@ -40,7 +40,7 @@ RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d
 RUN echo "server_names_hash_bucket_size 128;" > /etc/nginx/conf.d/server_names.conf
 RUN apt install -y hobo-agent
 
-# Authentic
+# Change cron time of authentic2 cleanup 
 RUN sed -i "s/5 \*/5 1/g" /etc/cron.d/authentic2-multitenant
 
 # Cleanup
