@@ -36,7 +36,6 @@ RUN apt install -y imio-ts-aes passerelle-imio-ia-aes passerelle-imio-ia-tech pa
 
 # Allow services to start, this is necessary as hobo-agent postinst will fail
 # if supervisord is not running
-
 RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d
 RUN echo "server_names_hash_bucket_size 128;" > /etc/nginx/conf.d/server_names.conf
 RUN apt install -y hobo-agent
