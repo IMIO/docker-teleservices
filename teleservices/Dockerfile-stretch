@@ -12,9 +12,9 @@ RUN sed -i "s%httpredir.debian.org%debian.mirrors.ovh.net%g" /etc/apt/sources.li
 RUN apt update && apt install -y nginx curl gnupg debian-archive-keyring rsyslog gettext vim.nox bash-completion libreoffice cron lftp procps apt-transport-https ca-certificates
 
 #Set locales to C.UTF8
-RUN apt update && apt install -y locales
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
+RUN apt update && apt install -y locales
 
 #Avoid debconf warning 
 RUN apt install -y --no-install-recommends apt-utils
