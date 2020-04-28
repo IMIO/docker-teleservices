@@ -4,12 +4,18 @@ FROM debian:stretch
 ENV DEBIAN_FRONTEND noninteractive
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 
+#Set locales to C.UTF8
+RUN apt update && apt install -y locales
+ENV LANG C.UTF-8
+ENV LC_ALL C.UTF-8
+
 #Update Packages List
 RUN echo "APT::Install-Suggests \"false\";\nAPT::Install-Recommends \"false\";" >> /etc/apt/apt.conf
 # Don't allow services to start when building the image
 RUN echo "#!/bin/sh\nexit 101" > /usr/sbin/policy-rc.d && chmod +x /usr/sbin/policy-rc.d
 RUN sed -i "s%httpredir.debian.org%debian.mirrors.ovh.net%g" /etc/apt/sources.list
 RUN apt update && apt install -y nginx curl gnupg debian-archive-keyring rsyslog gettext vim.nox bash-completion libreoffice cron lftp procps apt-transport-https ca-certificates
+
 # Configure extra repositories
 RUN echo "deb http://deb.entrouvert.org/ stretch main" > /etc/apt/sources.list.d/entrouvert-local.list
 RUN echo "deb http://debian.mirrors.ovh.net/debian stretch-backports main" > /etc/apt/sources.list.d/backports.list
@@ -18,10 +24,12 @@ RUN curl https://static.imio.be/imio.gpg | apt-key add -
 RUN curl https://deb.entrouvert.org/entrouvert.gpg | apt-key add -
 RUN apt update && apt install -y entrouvert-repository entrouvert-repository-hotfix entrouvert-repository-eobuilder && apt update
 RUN echo "Package: *\nPin: release a=stretch-eobuilder\nPin-Priority: 400" > /etc/apt/preferences.d/entrouvert-eobuilder
+
 # Install extra modules
 RUN apt install -y wcs-au-quotidien combo fargo hobo bijoe chrono passerelle authentic2-multitenant publik-base-theme python-dns python-qrcode python-magic python-docutils poppler-utils
 RUN apt install -y imio-publik-themes python-authentic2-auth-fedict python-passerelle-imio-liege-lisrue python-passerelle-imio-liege-rn python-passerelle-imio-extra-fees python-passerelle-imio-ia-delib python-passerelle-imio-ts1-datasources -t stretch-eobuilder
 RUN apt install -y imio-ts-aes passerelle-imio-ia-aes passerelle-imio-ia-tech passerelle-imio-aes-meal passerelle-imio-aes-health passerelle-imio-sso-agents imio-town-time --allow-unauthenticated
+
 # Allow services to start, this is necessary as hobo-agent postinst will fail
 # if supervisord is not running
 RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d
