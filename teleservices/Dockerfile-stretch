@@ -4,6 +4,13 @@ FROM debian:stretch
 ENV DEBIAN_FRONTEND noninteractive
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 
+#Update Packages List
+RUN echo "APT::Install-Suggests \"false\";\nAPT::Install-Recommends \"false\";" >> /etc/apt/apt.conf
+# Don't allow services to start when building the image
+RUN echo "#!/bin/sh\nexit 101" > /usr/sbin/policy-rc.d && chmod +x /usr/sbin/policy-rc.d
+RUN sed -i "s%httpredir.debian.org%debian.mirrors.ovh.net%g" /etc/apt/sources.list
+RUN apt update && apt install -y nginx curl gnupg debian-archive-keyring rsyslog gettext vim.nox bash-completion libreoffice cron lftp procps apt-transport-https ca-certificates
+
 #Set locales to C.UTF8
 RUN apt update && apt install -y locales
 ENV LANG C.UTF-8
@@ -11,13 +18,6 @@ ENV LC_ALL C.UTF-8
 
 #Avoid debconf warning 
 apt install -y --no-install-recommends apt-utils
-
-#Update Packages List
-RUN echo "APT::Install-Suggests \"false\";\nAPT::Install-Recommends \"false\";" >> /etc/apt/apt.conf
-# Don't allow services to start when building the image
-RUN echo "#!/bin/sh\nexit 101" > /usr/sbin/policy-rc.d && chmod +x /usr/sbin/policy-rc.d
-RUN sed -i "s%httpredir.debian.org%debian.mirrors.ovh.net%g" /etc/apt/sources.list
-RUN apt update && apt install -y nginx curl gnupg debian-archive-keyring rsyslog gettext vim.nox bash-completion libreoffice cron lftp procps apt-transport-https ca-certificates
 
 # Configure extra repositories
 RUN echo "deb http://deb.entrouvert.org/ stretch main" > /etc/apt/sources.list.d/entrouvert-local.list
