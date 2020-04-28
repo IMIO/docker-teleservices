@@ -4,19 +4,20 @@ FROM debian:stretch
 ENV DEBIAN_FRONTEND noninteractive
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 
-#Update Packages List
+# Update Packages List
 RUN echo "APT::Install-Suggests \"false\";\nAPT::Install-Recommends \"false\";" >> /etc/apt/apt.conf
+
 # Don't allow services to start when building the image
 RUN echo "#!/bin/sh\nexit 101" > /usr/sbin/policy-rc.d && chmod +x /usr/sbin/policy-rc.d
 RUN sed -i "s%httpredir.debian.org%debian.mirrors.ovh.net%g" /etc/apt/sources.list
 RUN apt update && apt install -y nginx curl gnupg debian-archive-keyring rsyslog gettext vim.nox bash-completion libreoffice cron lftp procps apt-transport-https ca-certificates
 
-#Set locales to C.UTF8
+# Set locales to C.UTF8
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 RUN apt update && apt install -y locales
 
-#Avoid debconf warning 
+# Avoid debconf warning 
 RUN apt install -y --no-install-recommends apt-utils
 
 # Configure extra repositories
@@ -35,13 +36,15 @@ RUN apt install -y imio-ts-aes passerelle-imio-ia-aes passerelle-imio-ia-tech pa
 
 # Allow services to start, this is necessary as hobo-agent postinst will fail
 # if supervisord is not running
+
 RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d
 RUN echo "server_names_hash_bucket_size 128;" > /etc/nginx/conf.d/server_names.conf
 RUN apt install -y hobo-agent
-# authentic
+
+# Authentic
 RUN sed -i "s/5 \*/5 1/g" /etc/cron.d/authentic2-multitenant
 
-#cleanup
+# Cleanup
 RUN rm -f /etc/default/authentic2-multitenant
 RUN apt-get -y remove python-dev && apt-get -y autoremove
 RUN apt-get clean
