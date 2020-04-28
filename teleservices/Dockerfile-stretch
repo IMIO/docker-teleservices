@@ -9,6 +9,9 @@ RUN apt update && apt install -y locales
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 
+#Avoid debconf warning 
+apt install -y --no-install-recommends apt-utils
+
 #Update Packages List
 RUN echo "APT::Install-Suggests \"false\";\nAPT::Install-Recommends \"false\";" >> /etc/apt/apt.conf
 # Don't allow services to start when building the image
