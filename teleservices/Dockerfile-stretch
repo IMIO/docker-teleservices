@@ -17,7 +17,7 @@ ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 
 #Avoid debconf warning 
-apt install -y --no-install-recommends apt-utils
+RUN apt install -y --no-install-recommends apt-utils
 
 # Configure extra repositories
 RUN echo "deb http://deb.entrouvert.org/ stretch main" > /etc/apt/sources.list.d/entrouvert-local.list
