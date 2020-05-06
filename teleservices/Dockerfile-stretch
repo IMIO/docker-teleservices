@@ -13,7 +13,7 @@ RUN sed -i "s%httpredir.debian.org%debian.mirrors.ovh.net%g" /etc/apt/sources.li
 RUN apt update && apt install -y \
   apt-transport-https \
   bash-completion \
-  ca-certificates
+  ca-certificates \
   cron \
   curl \
   debian-archive-keyring \
