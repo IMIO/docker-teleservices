@@ -1,6 +1,7 @@
 # Dockerfile
 FROM debian:stretch
 
+# Setting ENV variables
 ENV DEBIAN_FRONTEND=noninteractive \
     APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn \
     LANG=C.UTF-8 \
