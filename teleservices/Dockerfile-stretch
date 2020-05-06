@@ -96,9 +96,7 @@ RUN sed -i "s/5 \*/5 1/g" /etc/cron.d/authentic2-multitenant
 
 # Cleanup
 RUN rm -f /etc/default/authentic2-multitenant \
-&& apt-get -y \
-  python-dev \
-  remove \
+&& apt-get -y remove python-dev \
 && apt-get -y autoremove
 
 RUN mkdir -p /var/lib/authentic2/locale/fr/LC_MESSAGES
