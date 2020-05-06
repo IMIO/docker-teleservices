@@ -1,10 +1,10 @@
 # Dockerfile
 FROM debian:stretch
 
-ENV LANG C.UTF-8
-ENV LC_ALL C.UTF-8
-ENV DEBIAN_FRONTEND noninteractive
-ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
+ENV DEBIAN_FRONTEND=noninteractive \
+    APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn \
+    LANG=C.UTF-8 \
+    LC_ALL C.UTF-8
 
 # Setting APT parameters 
 RUN echo "APT::Install-Suggests \"false\";\nAPT::Install-Recommends \"false\";" >> /etc/apt/apt.conf
