@@ -10,15 +10,26 @@ RUN echo "APT::Install-Suggests \"false\";\nAPT::Install-Recommends \"false\";" 
 # Don't allow services to start when building the image
 RUN echo "#!/bin/sh\nexit 101" > /usr/sbin/policy-rc.d && chmod +x /usr/sbin/policy-rc.d
 RUN sed -i "s%httpredir.debian.org%debian.mirrors.ovh.net%g" /etc/apt/sources.list
-RUN apt update && apt install -y nginx curl gnupg debian-archive-keyring rsyslog gettext vim.nox bash-completion libreoffice cron lftp procps apt-transport-https ca-certificates
-
+RUN apt update && apt install -y \
+  apt-transport-https \
+  bash-completion \
+  ca-certificates
+  cron \
+  curl \
+  debian-archive-keyring \
+  gettext \
+  gnupg \
+  lftp \
+  libreoffice \
+  locales \
+  nginx \
+  procps \
+  rsyslog \
+  vim.nox
+  
 # Set locales to C.UTF8
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
-RUN apt update && apt install -y locales
-
-# Avoid debconf warning 
-RUN apt install -y --no-install-recommends apt-utils
 
 # Configure extra repositories
 RUN echo "deb http://deb.entrouvert.org/ stretch main" > /etc/apt/sources.list.d/entrouvert-local.list
@@ -26,13 +37,49 @@ RUN echo "deb http://debian.mirrors.ovh.net/debian stretch-backports main" > /et
 RUN echo "deb [trusted=yes] https://nexus.imio.be/repository/stretch stretch main" > /etc/apt/sources.list.d/imio.list
 RUN curl https://static.imio.be/imio.gpg | apt-key add -
 RUN curl https://deb.entrouvert.org/entrouvert.gpg | apt-key add -
-RUN apt update && apt install -y entrouvert-repository entrouvert-repository-hotfix entrouvert-repository-eobuilder && apt update
+RUN apt update && apt install -y \
+  entrouvert-repository 
+  entrouvert-repository-hotfix 
+  entrouvert-repository-eobuilder \
+&& apt update
 RUN echo "Package: *\nPin: release a=stretch-eobuilder\nPin-Priority: 400" > /etc/apt/preferences.d/entrouvert-eobuilder
 
 # Install extra modules
-RUN apt install -y wcs-au-quotidien combo fargo hobo bijoe chrono passerelle authentic2-multitenant publik-base-theme python-dns python-qrcode python-magic python-docutils poppler-utils
-RUN apt install -y imio-publik-themes python-authentic2-auth-fedict python-passerelle-imio-liege-lisrue python-passerelle-imio-liege-rn python-passerelle-imio-extra-fees python-passerelle-imio-ia-delib python-passerelle-imio-ts1-datasources -t stretch-eobuilder
-RUN apt install -y imio-ts-aes passerelle-imio-ia-aes passerelle-imio-ia-tech passerelle-imio-aes-meal passerelle-imio-aes-health passerelle-imio-sso-agents imio-town-time --allow-unauthenticated
+RUN apt install -y \
+  authentic2-multitenant \
+  bijoe \
+  combo \
+  chrono \
+  fargo \
+  hobo \
+  passerelle \
+  publik-base-theme \
+  poppler-utils
+  python3-dns \
+  python3-docutils \
+  python3-qrcode \
+  python3-magic \
+  wcs-au-quotidien
+
+RUN apt install -y \
+  imio-publik-themes \
+  python-authentic2-auth-fedict \
+  python-passerelle-imio-extra-fees \
+  python-passerelle-imio-ia-delib \
+  python-passerelle-imio-liege-lisrue \
+  python-passerelle-imio-liege-rn \
+  python-passerelle-imio-ts1-datasources \
+-t stretch-eobuilder
+
+RUN apt install -y \
+  imio-ts-aes \
+  passerelle-imio-ia-aes \
+  passerelle-imio-ia-tech \
+  passerelle-imio-aes-meal \
+  passerelle-imio-aes-health \
+  passerelle-imio-sso-agents \
+  imio-town-time \
+--allow-unauthenticated
 
 # Allow services to start, this is necessary as hobo-agent postinst will fail
 # if supervisord is not running
@@ -45,12 +92,20 @@ RUN sed -i "s/5 \*/5 1/g" /etc/cron.d/authentic2-multitenant
 
 # Cleanup
 RUN rm -f /etc/default/authentic2-multitenant
-RUN apt-get -y remove python-dev && apt-get -y autoremove
-RUN apt-get clean
+
+RUN apt-get -y \
+  remove \
+  python-dev \
+&& apt-get -y autoremove \
+&& apt-get clean
+
 RUN mkdir -p /var/lib/authentic2/locale/fr/LC_MESSAGES
+
 COPY mail-translation.py overrides.po /var/lib/authentic2/locale/fr/LC_MESSAGES/
 COPY run.sh /
+
 ADD bash-vim.tar.gz /
+
 RUN echo "Europe/Brussels" > /etc/timezone
 RUN dpkg-reconfigure tzdata
 
