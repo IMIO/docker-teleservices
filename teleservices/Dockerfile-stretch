@@ -32,9 +32,9 @@ ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 
 # Configure extra repositories
-RUN echo "deb http://deb.entrouvert.org/ stretch main" > /etc/apt/sources.list.d/entrouvert-local.list
-RUN echo "deb http://debian.mirrors.ovh.net/debian stretch-backports main" > /etc/apt/sources.list.d/backports.list
-RUN echo "deb [trusted=yes] https://nexus.imio.be/repository/stretch stretch main" > /etc/apt/sources.list.d/imio.list
+RUN echo "deb http://deb.entrouvert.org/ stretch main" > /etc/apt/sources.list.d/entrouvert-local.list \
+&& echo "deb http://debian.mirrors.ovh.net/debian stretch-backports main" > /etc/apt/sources.list.d/backports.list \
+&& echo "deb [trusted=yes] https://nexus.imio.be/repository/stretch stretch main" > /etc/apt/sources.list.d/imio.list
 RUN curl https://static.imio.be/imio.gpg | apt-key add -
 RUN curl https://deb.entrouvert.org/entrouvert.gpg | apt-key add -
 RUN apt update && apt install -y \
