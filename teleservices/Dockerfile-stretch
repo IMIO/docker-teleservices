@@ -85,9 +85,8 @@ RUN apt install -y \
 # Allow services to start, this is necessary as hobo-agent postinst will fail
 # if supervisord is not running
 RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d \
-&& echo "server_names_hash_bucket_size 128;" > /etc/nginx/conf.d/server_names.conf
-
-RUN apt install -y hobo-agent
+&& echo "server_names_hash_bucket_size 128;" > /etc/nginx/conf.d/server_names.conf \
+&& apt install -y hobo-agent
 
 # Change cron time of authentic2 cleanup 
 RUN sed -i "s/5 \*/5 1/g" /etc/cron.d/authentic2-multitenant
