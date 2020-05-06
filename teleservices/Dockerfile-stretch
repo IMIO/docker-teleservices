@@ -1,15 +1,19 @@
 # Dockerfile
 FROM debian:stretch
 
+ENV LANG C.UTF-8
+ENV LC_ALL C.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 
-# Update Packages List
+# Setting APT parameters 
 RUN echo "APT::Install-Suggests \"false\";\nAPT::Install-Recommends \"false\";" >> /etc/apt/apt.conf
 
 # Don't allow services to start when building the image
-RUN echo "#!/bin/sh\nexit 101" > /usr/sbin/policy-rc.d && chmod +x /usr/sbin/policy-rc.d
-RUN sed -i "s%httpredir.debian.org%debian.mirrors.ovh.net%g" /etc/apt/sources.list
+RUN echo "#!/bin/sh\nexit 101" > /usr/sbin/policy-rc.d \
+&& chmod +x /usr/sbin/policy-rc.d \
+&& sed -i "s%httpredir.debian.org%debian.mirrors.ovh.net%g" /etc/apt/sources.list
+
 RUN apt update && apt install -y \
   apt-transport-https \
   bash-completion \
@@ -26,22 +30,21 @@ RUN apt update && apt install -y \
   procps \
   rsyslog \
   vim.nox
-  
-# Set locales to C.UTF8
-ENV LANG C.UTF-8
-ENV LC_ALL C.UTF-8
 
 # Configure extra repositories
 RUN echo "deb http://deb.entrouvert.org/ stretch main" > /etc/apt/sources.list.d/entrouvert-local.list \
 && echo "deb http://debian.mirrors.ovh.net/debian stretch-backports main" > /etc/apt/sources.list.d/backports.list \
 && echo "deb [trusted=yes] https://nexus.imio.be/repository/stretch stretch main" > /etc/apt/sources.list.d/imio.list
-RUN curl https://static.imio.be/imio.gpg | apt-key add -
-RUN curl https://deb.entrouvert.org/entrouvert.gpg | apt-key add -
+
+RUN curl https://static.imio.be/imio.gpg | apt-key add - \
+&& curl https://deb.entrouvert.org/entrouvert.gpg | apt-key add -
+
 RUN apt update && apt install -y \
   entrouvert-repository \
-  entrouvert-repository-hotfix \
   entrouvert-repository-eobuilder \
+  entrouvert-repository-hotfix \
 && apt update
+
 RUN echo "Package: *\nPin: release a=stretch-eobuilder\nPin-Priority: 400" > /etc/apt/preferences.d/entrouvert-eobuilder
 
 # Install extra modules
@@ -72,30 +75,30 @@ RUN apt install -y \
 -t stretch-eobuilder
 
 RUN apt install -y \
+  imio-town-time \
   imio-ts-aes \
+  passerelle-imio-aes-health \
+  passerelle-imio-aes-meal \
   passerelle-imio-ia-aes \
   passerelle-imio-ia-tech \
-  passerelle-imio-aes-meal \
-  passerelle-imio-aes-health \
   passerelle-imio-sso-agents \
-  imio-town-time \
 --allow-unauthenticated
 
 # Allow services to start, this is necessary as hobo-agent postinst will fail
 # if supervisord is not running
-RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d
-RUN echo "server_names_hash_bucket_size 128;" > /etc/nginx/conf.d/server_names.conf
+RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d \
+&& echo "server_names_hash_bucket_size 128;" > /etc/nginx/conf.d/server_names.conf
+
 RUN apt install -y hobo-agent
 
 # Change cron time of authentic2 cleanup 
 RUN sed -i "s/5 \*/5 1/g" /etc/cron.d/authentic2-multitenant
 
 # Cleanup
-RUN rm -f /etc/default/authentic2-multitenant
-
-RUN apt-get -y \
-  remove \
+RUN rm -f /etc/default/authentic2-multitenant \
+&& apt-get -y \
   python-dev \
+  remove \
 && apt-get -y autoremove \
 && apt-get clean
 
