@@ -99,8 +99,7 @@ RUN rm -f /etc/default/authentic2-multitenant \
 && apt-get -y \
   python-dev \
   remove \
-&& apt-get -y autoremove \
-&& apt-get clean
+&& apt-get -y autoremove
 
 RUN mkdir -p /var/lib/authentic2/locale/fr/LC_MESSAGES
 
