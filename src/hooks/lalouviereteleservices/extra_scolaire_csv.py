@@ -20,8 +20,9 @@ for formdef in FormDef.select(lambda x: x.name == dicforms[sys.argv[1]]):
     for formdata in formdef.data_class().select():
         r = re.compile("Paiement effectu.*")
         if (
-            len(
-                filter(
+            sum(
+                1
+                for _ in filter(
                     r.match,
                     [evolution.get_status().name for evolution in formdata.evolution],
                 )
