@@ -7,15 +7,15 @@ import csv
 import re
 import sys
 from datetime import datetime
+from os import path
 from time import mktime
-
 from wcs.formdef import FormDef
 
 dicforms = {
     "tickets_repas": "Commande de tickets repas",
     "cartes_garderies": "Commande de cartes de garderie",
 }
-
+file_open_method = "w+"
 for formdef in FormDef.select(lambda x: x.name == dicforms[sys.argv[1]]):
     for formdata in formdef.data_class().select():
         r = re.compile("Paiement effectu.*")
@@ -58,8 +58,11 @@ for formdef in FormDef.select(lambda x: x.name == dicforms[sys.argv[1]]):
                             formdata.get_field_view_value(field)
                         )
                     columns.append(field_value)
-
-            with open("/var/tmp/{}.csv".format(sys.argv[1]), "a") as csvfile:
+            if path.exists("/var/tmp/{}.csv".format(sys.argv[1])):
+                file_open_method = "a"
+            with open(
+                "/var/tmp/{}.csv".format(sys.argv[1]), file_open_method
+            ) as csvfile:
                 csvwriter = csv.writer(
                     csvfile,
                     delimiter="|",
