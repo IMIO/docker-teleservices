@@ -105,8 +105,7 @@ COPY run.sh /
 
 ADD bash-vim.tar.gz /
 
-RUN echo "Europe/Brussels" > /etc/timezone \
-&& dpkg-reconfigure tzdata
+RUN ln -sf /usr/share/zoneinfo/Europe/Brussels /etc/localtime
 
 # Run
 CMD ["/run.sh"]
