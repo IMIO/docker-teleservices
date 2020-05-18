@@ -59,6 +59,7 @@ RUN apt install -y \
   passerelle \
   publik-base-theme \
   poppler-utils \
+  python-magic \
   python3-dns \
   python3-docutils \
   python3-qrcode \
