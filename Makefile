@@ -29,3 +29,10 @@ build-stretch:
 		make build branch=stretch
 build-no-cache-stretch:
 		make build-no-cache branch=stretch
+
+run-buster:
+		make run branch=buster
+build-buster:
+		make build branch=buster
+build-no-cache-buster:
+		make build-no-cache branch=buster
