@@ -7,7 +7,7 @@ Variable(name='administration_adresse', label="Adresse complète de l'administra
 Variable(name='administration_site', label='Site Internet de la commune', value='https://www.ma-commune.be').save()
 Variable(name='global_title', label='Intitulé de l\'instance et mails', value='Commune - Guichet en ligne').save()
 variables = Variable.objects
-variables.filter(name='default_from_email').update(value='no-reply@imio.be')
+variables.filter(name='default_from_email').update(value='e-guichet@imio.be')
 
 #dic_default_from_email = ''
 #for variable in variables.values():
