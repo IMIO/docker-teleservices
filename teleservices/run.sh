@@ -26,7 +26,7 @@ RANDOM_TIME="$(( ( RANDOM % 60 ) )) $(( ( RANDOM % 6 ) ))"
 sed -ie "s/^1 0 /$RANDOM_TIME /" /etc/cron.d/bijoe
 
 # Check if UTF8 is well configured (wcs cron jobs)
-if ! grep -q 'LANG=C.UTF8' /etc/cron.d/wcs; then
+if ! grep -q 'LANG=C.UTF-8' /etc/cron.d/wcs; then
   sed -i '2i LANG=C.UTF-8' /etc/cron.d/wcs
   if [ $? -eq 0 ]; then
     echo " --- LANG=C.UTF-8 has been added to /etc/cron.d/wcs ..."
