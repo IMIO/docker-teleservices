@@ -13,8 +13,8 @@ chown passerelle:passerelle /var/lib/passerelle/tenants -R
 chown wcs:wcs /var/lib/wcs -R
 
 # uploads & attchmts permission check
-chown -R wcs:wcs attachments/ 
-chown -R wcs:wcs uploads/
+chown -R wcs:wcs /var/lib/wcs/*/attachments/ 
+chown -R wcs:wcs var/lib/wcs/*/uploads/
 
 python /var/lib/authentic2/locale/fr/LC_MESSAGES/mail-translation.py
 test -e /var/lib/wcs/configure-wcs.py && python /var/lib/wcs/configure-wcs.py
