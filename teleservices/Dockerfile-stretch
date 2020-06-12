@@ -21,6 +21,7 @@ RUN apt update && apt install -y \
   ca-certificates \
   cron \
   curl \
+  debhelper \
   debian-archive-keyring \
   gettext \
   gnupg \
@@ -54,16 +55,23 @@ RUN apt install -y \
   bijoe \
   combo \
   chrono \
+  dh-python \
   fargo \
   hobo \
   passerelle \
   publik-base-theme \
   poppler-utils \
+  python-all \
+  python-django \
   python-magic \
+  python-setuptools \
+  python3-all \
   python3-dns \
+  python3-django \
   python3-docutils \
   python3-qrcode \
   python3-magic \
+  python3-setuptools \
   wcs-au-quotidien \
 && apt install -y \
   imio-publik-themes \
