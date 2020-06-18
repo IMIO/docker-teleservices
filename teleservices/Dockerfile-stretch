@@ -83,6 +83,7 @@ RUN apt install -y \
   python-passerelle-imio-ts1-datasources \
 -t stretch-eobuilder \
 && apt install -y \
+  imio-town-street \
   imio-town-time \
   imio-ts-aes \
   passerelle-imio-aes-health \
