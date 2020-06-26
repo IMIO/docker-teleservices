@@ -64,6 +64,7 @@ RUN apt install -y \
   python-all \
   python-django \
   python-magic \
+  python-passerelle \
   python-setuptools \
   python3-all \
   python3-dns \
@@ -71,6 +72,7 @@ RUN apt install -y \
   python3-docutils \
   python3-qrcode \
   python3-magic \
+  python3-pycryptodome \
   python3-setuptools \
   wcs-au-quotidien \
 && apt install -y \
