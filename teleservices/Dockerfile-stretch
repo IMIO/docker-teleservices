@@ -64,6 +64,7 @@ RUN apt install -y \
   python-all \
   python-django \
   python-magic \
+  python-passerelle \
   python-setuptools \
   python3-all \
   python3-dns \
