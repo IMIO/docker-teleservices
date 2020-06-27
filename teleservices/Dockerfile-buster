@@ -60,12 +60,11 @@ RUN apt install -y \
   publik-base-theme \
   poppler-utils \
   python-magic \
-  python-passerelle \
+  python3-passerelle \
   python3-dns \
   python3-docutils \
   python3-qrcode \
   python3-magic \
-  python3-pycryptodome \
   wcs-au-quotidien \
 && apt install -y \
   imio-publik-themes \
