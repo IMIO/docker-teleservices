@@ -56,7 +56,6 @@ RUN apt install -y \
   chrono \
   fargo \
   hobo \
-  passerelle \
   publik-base-theme \
   poppler-utils \
   python-magic \
