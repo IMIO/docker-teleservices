@@ -68,11 +68,11 @@ RUN apt install -y \
   wcs-au-quotidien \
 && apt install -y \
   imio-publik-themes \
-  python-authentic2-auth-fedict \
-  python-passerelle-imio-extra-fees \
-  python-passerelle-imio-ia-delib \
-  python-passerelle-imio-liege-lisrue \
-  python-passerelle-imio-liege-rn \
+  python3-authentic2-auth-fedict \
+  python3-passerelle-imio-extra-fees \
+  python3-passerelle-imio-ia-delib \
+  python3-passerelle-imio-liege-lisrue \
+  python3-passerelle-imio-liege-rn \
   python-passerelle-imio-ts1-datasources \
 -t buster-eobuilder \
 && apt install -y \
