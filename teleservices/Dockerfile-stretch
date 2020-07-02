@@ -72,7 +72,7 @@ RUN apt install -y \
   python3-passerelle-imio-ia-delib \
   python3-passerelle-imio-liege-lisrue \
   python3-passerelle-imio-liege-rn \
-  python-passerelle-imio-ts1-datasources \
+  python3-passerelle-imio-ts1-datasources \
 -t stretch-eobuilder \
 && apt install -y \
   imio-town-street \
