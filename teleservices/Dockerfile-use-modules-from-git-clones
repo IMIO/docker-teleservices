@@ -24,9 +24,9 @@ RUN apt-get install -y imio-publik-themes python-authentic2-auth-fedict python-p
 RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d
 RUN apt-get install -y -t jessie-testing hobo-agent
 # authentic
-RUN ln -s /usr/lib/python2.7/dist-packages/authentic2/static/authentic2 /var/lib/authentic2-multitenant/static/
-RUN ln -s /usr/lib/python2.7/dist-packages/authentic2/static/jquery /var/lib/authentic2-multitenant/static/
-RUN ln -s /usr/lib/python2.7/dist-packages/authentic2/static/ulx /var/lib/authentic2-multitenant/static/
+RUN ln -s /usr/lib/python3/dist-packages/authentic2/static/authentic2 /var/lib/authentic2-multitenant/static/
+RUN ln -s /usr/lib/python3/dist-packages/authentic2/static/jquery /var/lib/authentic2-multitenant/static/
+RUN ln -s /usr/lib/python3/dist-packages/authentic2/static/ulx /var/lib/authentic2-multitenant/static/
 RUN chown -R www-data:www-data /var/lib/authentic2-multitenant/static
 
 RUN apt-get install -y screen git vim less ruby-sass
