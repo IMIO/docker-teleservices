@@ -16,7 +16,7 @@ chown wcs:wcs /var/lib/wcs -R
 [ -d /var/lib/wcs/*/attachments ] && chown -R wcs:wcs /var/lib/wcs/*/attachments/ 
 [ -d /var/lib/wcs/*/uploads ] && chown -R wcs:wcs var/lib/wcs/*/uploads/
 
-python /var/lib/authentic2/locale/fr/LC_MESSAGES/mail-translation.py
+python3 /var/lib/authentic2/locale/fr/LC_MESSAGES/mail-translation.py
 test -e /var/lib/wcs/configure-wcs.py && python /var/lib/wcs/configure-wcs.py
 
 # install link to wcs external scripts
@@ -53,7 +53,7 @@ fi
 
 if [ x$1 != xfromgit ] || [ ! -d /opt/publik/authentic ]
 then
-	test -e /var/lib/authentic2-multitenant/tenants/configure.py && python /var/lib/authentic2-multitenant/tenants/configure.py
+	test -e /var/lib/authentic2-multitenant/tenants/configure.py && python3 /var/lib/authentic2-multitenant/tenants/configure.py
 	service authentic2-multitenant update
 	service authentic2-multitenant start
 fi
