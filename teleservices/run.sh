@@ -1,7 +1,12 @@
 #!/bin/bash
 
 export LANG=C.UTF-8
-rm /var/run/{authentic2-multitenant/authentic2-multitenant,chrono/chrono,fargo/fargo,hobo/hobo,combo/combo,nginx,rsyslogd,supervisord,wcs,passerelle/passerelle,bijoe/bijoe}.{pid,sock}
+
+#  cleaning some pid/sock files that can be generated at image creation (if they exist)
+for file in /var/run/{authentic2-multitenant/authentic2-multitenant,chrono/chrono,fargo/fargo,hobo/hobo,combo/combo,nginx,rsyslogd,supervisord,wcs,passerelle/passerelle,bijoe/bijoe}.{pid,sock};                                                                                         
+do                 
+  test -e $file && rm $file;
+done 
 
 chown authentic-multitenant:authentic-multitenant /var/lib/authentic2-multitenant/tenants -R
 chown hobo:hobo /var/lib/hobo/tenants -R
