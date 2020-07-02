@@ -8,7 +8,7 @@ import subprocess
 if os.path.isfile('/usr/share/pyshared/authentic2/locale/fr/LC_MESSAGES/django.po'):
     contents = open('/usr/share/pyshared/authentic2/locale/fr/LC_MESSAGES/django.po').read()
 else:
-    contents = open('/usr/lib/python2.7/dist-packages/authentic2/locale/fr/LC_MESSAGES/django.po').read()
+    contents = open('/usr/lib/python3/dist-packages/authentic2/locale/fr/LC_MESSAGES/django.po').read()
 contents = contents.replace('adresse de courriel', 'adresse e-mail'
                   ).replace('Nouveau courriel', 'Nouvelle adresse e-mail'
                   ).replace('dans ce courriel', 'dans cet e-mail'
