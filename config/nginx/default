@@ -14,6 +14,10 @@ server {
                           /var/lib/wcs/$host/theme/static/$1
                           /var/lib/wcs/collectstatic/$1
                           =404;
+                add_header 'X-Content-Type-Options' 'nosniff';
+                add_header 'X-XSS-Protection' '1; mode=block';
+                add_header 'Content-Security-Policy' "default-src 'none'; style-src 'self' 'unsafe-inline'; object-src 'self' 'unsafe-inline'; img-src 'self' data:;";
+                add_header 'Cache-Control' 'private';
         }
 
         location /themes {
@@ -21,6 +25,11 @@ server {
             try_files /var/lib/wcs/$host$uri
                       /usr/share/wcs/$uri
                       =404;
+                add_header 'X-Content-Type-Options' 'nosniff';
+                add_header 'X-XSS-Protection' '1; mode=block';
+                add_header 'Content-Security-Policy' "default-src 'none'; style-src 'self' 'unsafe-inline'; object-src 'self' 'unsafe-inline'; img-src 'self' data:;";
+                add_header 'Cache-Control' 'private';
+
         }
 
         location / {
@@ -28,6 +37,9 @@ server {
             proxy_set_header   Host $http_host;
             proxy_set_header   X-Real-IP       $remote_addr;
             proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+                add_header 'X-Content-Type-Options' 'nosniff';
+                add_header 'X-XSS-Protection' '1; mode=block';
+                add_header 'Cache-Control' 'private';
         }
 
 
@@ -45,10 +57,20 @@ server {
                       /var/lib/combo/collectstatic/$1
                       =404;
             add_header         'Access-Control-Allow-Origin' '*';
+                add_header 'X-Content-Type-Options' 'nosniff';
+                add_header 'X-XSS-Protection' '1; mode=block';
+                add_header 'Content-Security-Policy' "default-src 'none'; style-src 'self' 'unsafe-inline'; object-src 'self' 'unsafe-inline'; img-src 'self' data:;";
+                add_header 'Cache-Control' 'private';
+
         }
 
         location ~ ^/media/(.+)$ {
             alias /var/lib/combo/tenants/$host/media/$1;
+                add_header 'X-Content-Type-Options' 'nosniff';
+                add_header 'X-XSS-Protection' '1; mode=block';
+                add_header 'Content-Security-Policy' "default-src 'none'; style-src 'self' 'unsafe-inline'; object-src 'self' 'unsafe-inline'; img-src 'self' data:;";
+                add_header 'Cache-Control' 'private';
+
         }
 
         server_name local.example.net;
@@ -58,6 +80,10 @@ server {
             proxy_set_header   Host $http_host;
             proxy_set_header   X-Real-IP       $remote_addr;
             proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+                add_header 'X-Content-Type-Options' 'nosniff';
+                add_header 'X-XSS-Protection' '1; mode=block';
+                add_header 'Cache-Control' 'private';
+
         }
 
         error_log /var/log/nginx/error-local.example.net.log warn;
@@ -72,10 +98,20 @@ server {
                       /var/lib/combo/tenants/$host/theme/static/$1
                       /var/lib/combo/collectstatic/$1
                       =404;
+                add_header 'X-Content-Type-Options' 'nosniff';
+                add_header 'X-XSS-Protection' '1; mode=block';
+                add_header 'Content-Security-Policy' "default-src 'none'; style-src 'self' 'unsafe-inline'; object-src 'self' 'unsafe-inline'; img-src 'self' data:;";
+                add_header 'Cache-Control' 'private';
+
         }
 
         location ~ ^/media/(.+)$ {
             alias /var/lib/combo/tenants/$host/media/$1;
+                add_header 'X-Content-Type-Options' 'nosniff';
+                add_header 'X-XSS-Protection' '1; mode=block';
+                add_header 'Content-Security-Policy' "default-src 'none'; style-src 'self' 'unsafe-inline'; object-src 'self' 'unsafe-inline'; img-src 'self' data:;";
+                add_header 'Cache-Control' 'private';
+
         }
 
         server_name local-portail-agent.example.net;
@@ -85,6 +121,10 @@ server {
             proxy_set_header   Host $http_host;
             proxy_set_header   X-Real-IP       $remote_addr;
             proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+                add_header 'X-Content-Type-Options' 'nosniff';
+                add_header 'X-XSS-Protection' '1; mode=block';
+                add_header 'Cache-Control' 'private';
+
         }
 
         error_log /var/log/nginx/error-local-portail-agent.example.net.log warn;
@@ -101,6 +141,11 @@ server {
             try_files /var/lib/authentic2-multitenant/static/$1
                       /var/lib/authentic2-multitenant/collectstatic/$1
                       =404;
+                add_header 'X-Content-Type-Options' 'nosniff';
+                add_header 'X-XSS-Protection' '1; mode=block';
+                add_header 'Content-Security-Policy' "default-src 'none'; style-src 'self' 'unsafe-inline'; object-src 'self' 'unsafe-inline'; img-src 'self' data:;";
+                add_header 'Cache-Control' 'private';
+
         }
 
         location / {
@@ -109,6 +154,10 @@ server {
             proxy_set_header   Host $http_host;
             proxy_set_header   X-Real-IP       $remote_addr;
             proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+                add_header 'X-Content-Type-Options' 'nosniff';
+                add_header 'X-XSS-Protection' '1; mode=block';
+                add_header 'Cache-Control' 'private';
+
         }
         error_log /var/log/nginx/error-local-auth.example.net.log warn;
         access_log /var/log/nginx/access-local-auth.example.net.log combined;
@@ -123,6 +172,10 @@ server {
             try_files /var/lib/fargo/static/$1
                       /var/lib/fargo/collectstatic/$1
                       =404;
+                add_header 'X-Content-Type-Options' 'nosniff';
+                add_header 'X-XSS-Protection' '1; mode=block';
+                add_header 'Content-Security-Policy' "default-src 'none'; style-src 'self' 'unsafe-inline'; object-src 'self' 'unsafe-inline'; img-src 'self' data:;";
+                add_header 'Cache-Control' 'private';
         }
 
         location / {
@@ -130,6 +183,10 @@ server {
             proxy_set_header   Host $http_host;
             proxy_set_header   X-Real-IP       $remote_addr;
             proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+                add_header 'X-Content-Type-Options' 'nosniff';
+                add_header 'X-XSS-Protection' '1; mode=block';
+                add_header 'Cache-Control' 'private';
+
         }
         error_log /var/log/nginx/error-local-documents.example.net.log warn;
         access_log /var/log/nginx/access-local-documents.example.net.log combined;
@@ -145,6 +202,11 @@ server {
                       /var/lib/passerelle/theme/static/$1
                       /var/lib/passerelle/collectstatic/$1
                       =404;
+                add_header 'X-Content-Type-Options' 'nosniff';
+                add_header 'X-XSS-Protection' '1; mode=block';
+                add_header 'Content-Security-Policy' "default-src 'none'; style-src 'self' 'unsafe-inline'; object-src 'self' 'unsafe-inline'; img-src 'self' data:;";
+                add_header 'Cache-Control' 'private';
+
         }
 
         location / {
@@ -152,6 +214,10 @@ server {
             proxy_set_header   Host $http_host;
             proxy_set_header   X-Real-IP       $remote_addr;
             proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+                add_header 'X-Content-Type-Options' 'nosniff';
+                add_header 'X-XSS-Protection' '1; mode=block';
+                add_header 'Cache-Control' 'private';
+
         }
         error_log /var/log/nginx/error-local-passerelle.example.net.log warn;
         access_log /var/log/nginx/access-local-passerelle.example.net.log combined;
@@ -168,6 +234,11 @@ server {
                       /var/lib/hobo/theme/static/$1
                       /var/lib/hobo/collectstatic/$1
                       =404;
+                add_header 'X-Content-Type-Options' 'nosniff';
+                add_header 'X-XSS-Protection' '1; mode=block';
+                add_header 'Content-Security-Policy' "default-src 'none'; style-src 'self' 'unsafe-inline'; object-src 'self' 'unsafe-inline'; img-src 'self' data:;";
+                add_header 'Cache-Control' 'private';
+
         }
 
         location / {
@@ -175,6 +246,10 @@ server {
             proxy_set_header   Host $http_host;
             proxy_set_header   X-Real-IP       $remote_addr;
             proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+                add_header 'X-Content-Type-Options' 'nosniff';
+                add_header 'X-XSS-Protection' '1; mode=block';
+                add_header 'Cache-Control' 'private';
+
         }
         error_log /var/log/nginx/error-local-hobo.example.net.log warn;
         access_log /var/log/nginx/access-local-hobo.example.net.log combined;
@@ -191,6 +266,10 @@ server {
                       /var/lib/chrono/theme/static/$1
                       /var/lib/chrono/collectstatic/$1
                       =404;
+                add_header 'X-Content-Type-Options' 'nosniff';
+                add_header 'X-XSS-Protection' '1; mode=block';
+                add_header 'Content-Security-Policy' "default-src 'none'; style-src 'self' 'unsafe-inline'; object-src 'self' 'unsafe-inline'; img-src 'self' data:;";
+                add_header 'Cache-Control' 'private';
         }
 
         location / {
@@ -198,6 +277,9 @@ server {
             proxy_set_header   Host $http_host;
             proxy_set_header   X-Real-IP       $remote_addr;
             proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+                add_header 'X-Content-Type-Options' 'nosniff';
+                add_header 'X-XSS-Protection' '1; mode=block';
+                add_header 'Cache-Control' 'private';
         }
         error_log /var/log/nginx/error-local-agendas.example.net.log warn;
         access_log /var/log/nginx/access-local-agendas.example.net.log combined;
