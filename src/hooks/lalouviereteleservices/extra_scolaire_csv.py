@@ -19,8 +19,10 @@ file_open_method = "w+"
 for formdef in FormDef.select(lambda x: x.name == dicforms[sys.argv[1]]):
     for formdata in formdef.data_class().select():
         r = re.compile("Paiement effectu.*")
+        creation_date = datetime.fromtimestamp(mktime(formdata.receipt_time))
         if (
-            sum(
+            creation_date.year > 2019
+            and sum(
                 1
                 for _ in filter(
                     r.match,
@@ -31,7 +33,6 @@ for formdef in FormDef.select(lambda x: x.name == dicforms[sys.argv[1]]):
         ):
             columns = []
             columns.append(formdata.get_display_id())  # identifiant du formulaire
-            creation_date = datetime.fromtimestamp(mktime(formdata.receipt_time))
             columns.append(creation_date.strftime("%d/%m/%Y %H:%M:%S"))
             last_update_date = datetime.fromtimestamp(mktime(formdata.last_update_time))
             columns.append(last_update_date.strftime("%d/%m/%Y %H:%M:%S"))
