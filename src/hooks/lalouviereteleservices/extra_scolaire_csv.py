@@ -4,6 +4,7 @@
 # arg : tickets_repas or cartes_garderies
 
 import csv
+import os
 import re
 import sys
 from datetime import datetime
@@ -16,6 +17,8 @@ dicforms = {
     "cartes_garderies": "Commande de cartes de garderie",
 }
 file_open_method = "w+"
+if path.exists("/var/tmp/{}.csv".format(sys.argv[1])):
+    os.remove("/var/tmp/{}.csv".format(sys.argv[1]))
 for formdef in FormDef.select(lambda x: x.name == dicforms[sys.argv[1]]):
     for formdata in formdef.data_class().select():
         r = re.compile("Paiement effectu.*")
