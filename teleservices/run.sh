@@ -59,7 +59,6 @@ fi
 if [ x$1 != xfromgit ] || [ ! -d /opt/publik/authentic ]
 then
 	test -e /var/lib/authentic2-multitenant/tenants/configure.py && python3 /var/lib/authentic2-multitenant/tenants/configure.py
-	service authentic2-multitenant update
 	service authentic2-multitenant start
 fi
 
