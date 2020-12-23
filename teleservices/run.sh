@@ -49,10 +49,6 @@ fi
 service rsyslog start
 service cron start
 
-# Keeping wcs-scripts-teleservices up to date
-echo "Updating wcs-scripts-teleservices package at startup"
-apt update && apt install scripts-teleservices wcs-scripts-teleservices
-
 if [ x$1 != xfromgit ] || [ ! -d /opt/publik/combo ]
 then
 	service combo start
@@ -90,6 +86,10 @@ then
 	/opt/publik/scripts/init-dev.sh
 	screen -d -m -c /opt/publik/screenrc
 fi
+
+# Keeping wcs-scripts-teleservices up to date
+echo "Updating wcs-scripts-teleservices package at startup"
+apt update && apt install scripts-teleservices wcs-scripts-teleservices --reinstall
 
 test -f /opt/publik/hooks/$HOSTNAME/run-finish-hook.sh && /opt/publik/hooks/$HOSTNAME/run-finish-hook.sh
 
