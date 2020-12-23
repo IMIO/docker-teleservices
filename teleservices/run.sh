@@ -49,7 +49,9 @@ fi
 service rsyslog start
 service cron start
 
-apt update && install scripts-teleservices wcs-scripts-teleservices
+# Keeping wcs-scripts-teleservices up to date
+echo "Updating wcs-scripts-teleservices package at startup"
+apt update && apt install wcs-scripts-teleservices
 
 if [ x$1 != xfromgit ] || [ ! -d /opt/publik/combo ]
 then
