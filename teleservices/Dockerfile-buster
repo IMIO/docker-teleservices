@@ -84,6 +84,8 @@ RUN apt install -y \
   passerelle-imio-ia-aes \
   passerelle-imio-ia-tech \
   passerelle-imio-sso-agents \
+  scripts-teleservices \
+  wcs-scripts-teleservices \
 --allow-unauthenticated
 
 # Allow services to start, this is necessary as hobo-agent postinst will fail
