@@ -51,7 +51,7 @@ service cron start
 
 # Keeping wcs-scripts-teleservices up to date
 echo "Updating wcs-scripts-teleservices package at startup"
-apt update && apt install wcs-scripts-teleservices
+apt update && apt install scripts-teleservices wcs-scripts-teleservices
 
 if [ x$1 != xfromgit ] || [ ! -d /opt/publik/combo ]
 then
