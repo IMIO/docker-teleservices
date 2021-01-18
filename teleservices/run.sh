@@ -88,8 +88,9 @@ then
 fi
 
 # Keeping wcs-scripts-teleservices up to date
+# Should be deleted as soon as we promote often and more serenely
 echo "Updating wcs-scripts-teleservices package at startup"
-apt update && apt install scripts-teleservices wcs-scripts-teleservices --reinstall
+apt update && apt install scripts-teleservices wcs-scripts-teleservices
 
 test -f /opt/publik/hooks/$HOSTNAME/run-finish-hook.sh && /opt/publik/hooks/$HOSTNAME/run-finish-hook.sh
 
