@@ -1,9 +1,0 @@
-<datasources id="104">
-  <name>Pays</name>
-  <slug>pays</slug>
-  <description>Liste des pays</description>
-  <data_source>
-    <type>json</type>
-    <value>[passerelle_url]/csvdatasource/pays/data</value>
-  </data_source>
-</datasources>

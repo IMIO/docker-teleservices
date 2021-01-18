@@ -1,9 +1,0 @@
-<datasources id="108">
-  <name>py_mon_domicile_est_menage</name>
-  <slug>py_mon_domicile_est_menage</slug>
-  <description>desc.</description>
-  <data_source>
-    <type>formula</type>
-    <value>[('{0}'.format(commune_slug), 'Domicili&#233;(e) &#224; {0} (code postal : {1})'.format(commune_name, commune_cp)), ('pas_{0}'.format(commune_slug), 'Pas domicili&#233;(e) &#224; {0}'.format(commune_name)),('plus_{0}'.format(commune_slug),'Plus domicili&#233;(e) &#224; {0} mais souhaite obtenir un certificat de composition de m&#233;nage &#224; une date &#224; laquelle la personne concern&#233;e &#233;tait domicili&#233;(e) &#224; {1}. '.format(commune_name, commune_name))]</value>
-  </data_source>
-</datasources>

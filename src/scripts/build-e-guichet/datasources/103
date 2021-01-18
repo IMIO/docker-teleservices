@@ -1,9 +1,0 @@
-<datasources id="103">
-  <name>Mon Dossier : Mode de d&#233;livrance</name>
-  <slug>mode_de_delivrance</slug>
-  <description>Source de donn&#233;e pour le choix de d&#233;livrance mon dossier ou par la commune.</description>
-  <data_source>
-    <type>formula</type>
-    <value>[{'id': 'mondossier','text': 'Mon Dossier : je souhaite récupérer le fichier .pdf signé électroniquement (carte d\'identité + code pin requis).','disabled': True}, {'id': 'commune','text': 'Commune : je souhaite réaliser ma démarche et recevoir mes documents par le biais de ma commune.','disabled': False}]</value>
-  </data_source>
-</datasources>

@@ -1,9 +1,0 @@
-<datasources id="100">
-  <name>DS_CP_LOCALITE</name>
-  <slug>ds_cp_localite</slug>
-  <description>Source de donn&#233;s qui expose les code postaux ainsi que les localit&#233;s de la commune.</description>
-  <data_source>
-    <type>formula</type>
-    <value>[{'id':'cp1','text':'cp1 - entit&#233;1','cp':'cp1'}, {'id':'cp2','text':'cp2 - entit&#233;2','cp':'cp2'}, {'id':'cp3','text':'cp3 - entit&#233;3','cp':'cp3'}]</value>
-  </data_source>
-</datasources>
