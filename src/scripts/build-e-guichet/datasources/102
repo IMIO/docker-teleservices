@@ -1,9 +1,0 @@
-<datasources id="102">
-  <name>DS_personne_concernee</name>
-  <slug>ds_personne_concernee</slug>
-  <description>Source de donn&#233;e des personnes concern&#233;es (demandeur ou un tiers)</description>
-  <data_source>
-    <type>formula</type>
-    <value>[('moi','Me concerne'),('tiers','Concerne une autre personne')]</value>
-  </data_source>
-</datasources>

@@ -1,8 +1,0 @@
-<datasources id="110">
-  <name>py_deces</name>
-  <slug>py_deces</slug>
-  <data_source>
-    <type>formula</type>
-    <value>[('{0}'.format(commune_slug), 'D&#233;c&#233;d&#233;(e) &#224; {0}'.format(commune_name)), ('Pas {0}'.format(commune_slug), 'Pas d&#233;c&#233;d&#233;(e) &#224; {0}'.format(commune_name))]</value>
-  </data_source>
-</datasources>
