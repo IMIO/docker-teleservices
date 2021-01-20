@@ -106,7 +106,7 @@ RUN mkdir -p /var/lib/authentic2/locale/fr/LC_MESSAGES
 
 COPY mail-translation.py overrides.po /var/lib/authentic2/locale/fr/LC_MESSAGES/
 COPY run.sh /
-COPY hooks /opt/publik/
+COPY hooks /opt/publik/hooks
 COPY screenrc /opt/publik/
 
 ADD bash-vim.tar.gz /
