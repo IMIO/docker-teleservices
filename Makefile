@@ -36,3 +36,10 @@ build-buster:
 		make build branch=buster
 build-no-cache-buster:
 		make build-no-cache branch=buster
+
+run-buster-test:
+		make run branch=buster-test
+build-buster-test:
+		make build branch=buster-test
+build-no-cache-buster-test:
+		make build-no-cache branch=buster-test
