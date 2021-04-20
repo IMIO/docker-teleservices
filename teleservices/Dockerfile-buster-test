@@ -43,6 +43,7 @@ RUN curl https://static.imio.be/imio.gpg | apt-key add - \
   && curl https://deb.entrouvert.org/entrouvert.gpg | apt-key add -
 
 RUN apt update && apt install -y \
+  entrouvert-repository \
   entrouvert-repository-eobuilder \
   entrouvert-repository-testing \
   && apt update
