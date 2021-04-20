@@ -3,23 +3,23 @@ FROM debian:buster
 
 # Setting ENV variables
 ENV DEBIAN_FRONTEND=noninteractive \
-    APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn \
-    LANG=C.UTF-8 \
-    LC_ALL=C.UTF-8
+  APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn \
+  LANG=C.UTF-8 \
+  LC_ALL=C.UTF-8
 
 # Setting APT parameters
 RUN echo "APT::Install-Suggests \"false\";\nAPT::Install-Recommends \"false\";" >> /etc/apt/apt.conf
 
 # Don't allow services to start when building the image
 RUN echo "#!/bin/sh\nexit 101" > /usr/sbin/policy-rc.d \
-&& chmod +x /usr/sbin/policy-rc.d \
-&& sed -i "s%httpredir.debian.org%debian.mirrors.ovh.net%g" /etc/apt/sources.list
+  && chmod +x /usr/sbin/policy-rc.d \
+  && sed -i "s%httpredir.debian.org%debian.mirrors.ovh.net%g" /etc/apt/sources.list
 
 RUN apt update && apt install -y \
   apt-transport-https \
   bash-completion \
   ca-certificates \
-cron \
+  cron \
   curl \
   debian-archive-keyring \
   gettext \
@@ -33,7 +33,8 @@ cron \
   vim.nox
 
 # Configure extra repositories
-RUN echo "deb http://deb.entrouvert.org/ buster-testing main" > /etc/apt/sources.list.d/entrouvert-local.list \
+RUN echo "deb http://deb.entrouvert.org/ buster main" > /etc/apt/sources.list.d/entrouvert-local.list \
+  && echo "deb http://deb.entrouvert.org/ buster-testing main" > /etc/apt/sources.list.d/entrouvert-local.list \
   && echo "deb http://debian.mirrors.ovh.net/debian buster-backports main" > /etc/apt/sources.list.d/backports.list \
   && echo "deb [trusted=yes] https://nexus.imio.be/repository/buster buster main" > /etc/apt/sources.list.d/imio.list \
   && echo "deb [trusted=yes] https://nexus.imio.be/repository/buster-test buster-test main" > /etc/apt/sources.list.d/imio-test.list
@@ -42,9 +43,8 @@ RUN curl https://static.imio.be/imio.gpg | apt-key add - \
   && curl https://deb.entrouvert.org/entrouvert.gpg | apt-key add -
 
 RUN apt update && apt install -y \
-  entrouvert-repository \
   entrouvert-repository-eobuilder \
-  entrouvert-repository-hotfix \
+  entrouvert-repository-testing \
   && apt update
 
 RUN echo "Package: *\nPin: release a=buster-eobuilder\nPin-Priority: 400" > /etc/apt/preferences.d/entrouvert-eobuilder
@@ -93,16 +93,16 @@ RUN apt install -y -t buster-test  imio-ts-aes  --allow-unauthenticated
 # Allow services to start, this is necessary as hobo-agent postinst will fail
 # if supervisord is not running
 RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d \
-&& echo "server_names_hash_bucket_size 128;" > /etc/nginx/conf.d/server_names.conf \
-&& apt install -y hobo-agent
+  && echo "server_names_hash_bucket_size 128;" > /etc/nginx/conf.d/server_names.conf \
+  && apt install -y hobo-agent
 
 # Change cron time of authentic2 cleanup
 RUN sed -i "s/5 \*/5 1/g" /etc/cron.d/authentic2-multitenant
 
 # Cleanup
 RUN rm -f /etc/default/authentic2-multitenant \
-&& apt-get -y remove python-dev \
-&& apt-get -y autoremove
+  && apt-get -y remove python-dev \
+  && apt-get -y autoremove
 
 RUN mkdir -p /var/lib/authentic2/locale/fr/LC_MESSAGES
 
