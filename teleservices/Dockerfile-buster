@@ -76,7 +76,7 @@ RUN apt install -y \
   python3-passerelle-imio-ts1-datasources \
 -t buster-eobuilder \
 && apt install -y \
-  imio-town-street \
+  imio-townstreet \
   imio-town-time \
   imio-ts-aes \
   passerelle-imio-aes-health \

@@ -34,7 +34,7 @@ RUN apt update && apt install -y \
 
 # Configure extra repositories
 RUN echo "deb http://deb.entrouvert.org/ buster main" > /etc/apt/sources.list.d/entrouvert-local.list \
-  && echo "deb http://deb.entrouvert.org/ buster-testing main" > /etc/apt/sources.list.d/entrouvert-local.list \
+  && echo "deb http://deb.entrouvert.org/ buster-testing main" >> /etc/apt/sources.list.d/entrouvert-local.list \
   && echo "deb http://debian.mirrors.ovh.net/debian buster-backports main" > /etc/apt/sources.list.d/backports.list \
   && echo "deb [trusted=yes] https://nexus.imio.be/repository/buster buster main" > /etc/apt/sources.list.d/imio.list \
   && echo "deb [trusted=yes] https://nexus.imio.be/repository/buster-test buster-test main" > /etc/apt/sources.list.d/imio-test.list
@@ -79,7 +79,7 @@ RUN apt install -y \
   python3-passerelle-imio-ts1-datasources \
   -t buster-eobuilder
 RUN apt install -y \
-  imio-town-street \
+  imio-townstreet \
   imio-town-time \
   passerelle-imio-aes-health \
   passerelle-imio-aes-meal \
