@@ -32,7 +32,7 @@ test -f /opt/publik/hooks/$HOSTNAME/run-hook.sh && /opt/publik/hooks/$HOSTNAME/r
 
 # alter bijoe job to run at random time during the night
 RANDOM_TIME="$(( ( RANDOM % 60 ) )) $(( ( RANDOM % 6 ) ))"
-sed -ie "s/^1 0 /$RANDOM_TIME /" /etc/cron.d/bijoe
+sed -i "s/^1 0 /$RANDOM_TIME /" /etc/cron.d/bijoe
 
 # Check if UTF8 is well configured (wcs cron jobs)
 if ! grep -q 'LANG=C.UTF-8' /etc/cron.d/wcs; then
