@@ -60,6 +60,7 @@ RUN apt install -y \
   publik-base-theme \
   poppler-utils \
   python-magic \
+  python3-authentic2-auth-fedict \
   python3-passerelle \
   python3-dns \
   python3-docutils \
@@ -69,7 +70,6 @@ RUN apt install -y \
 && apt install -y \
   imio-publik-themes \
   publik-imio-industrialisation \
-  python3-authentic2-auth-fedict \
   python3-passerelle-imio-extra-fees \
   python3-passerelle-imio-ia-delib \
   python3-passerelle-imio-liege-lisrue \
