@@ -16,20 +16,6 @@ build:
 build-no-cache:
 		docker-compose -f docker-compose-$(branch).yml build --no-cache
 
-run-jessie:
-		make run branch=jessie
-build-jessie:
-		make build branch=jessie
-build-no-cache-jessie:
-		make build-no-cache branch=jessie
-
-run-stretch:
-		make run branch=stretch
-build-stretch:
-		make build branch=stretch
-build-no-cache-stretch:
-		make build-no-cache branch=stretch
-
 run-buster:
 		make run branch=buster
 build-buster:
