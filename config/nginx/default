@@ -10,7 +10,9 @@ server {
 
         location ~ ^/static/(.+)$ {
                 root /;
-                try_files /var/lib/wcs/$host/static/$1
+                try_files /var/lib/wcs/tenants/$host/static/$1
+                          /var/lib/wcs/tenants/$host/theme/static/$1
+                          /var/lib/wcs/$host/static/$1
                           /var/lib/wcs/$host/theme/static/$1
                           /var/lib/wcs/collectstatic/$1
                           =404;
@@ -22,7 +24,9 @@ server {
 
         location /themes {
             root /;
-            try_files /var/lib/wcs/$host$uri
+            try_files
+                      /var/lib/wcs/tenants/$host$uri
+                      /var/lib/wcs/$host$uri
                       /usr/share/wcs/$uri
                       =404;
                 add_header 'X-Content-Type-Options' 'nosniff';
