@@ -81,15 +81,13 @@ RUN apt install -y \
   imio-town-time \
   imio-ts-aes \
   passerelle-imio-aes-meal \
+  passerelle-imio-aes-health \
   passerelle-imio-ia-aes \
   passerelle-imio-ia-tech \
   passerelle-imio-sso-agents \
   scripts-teleservices \
   wcs-scripts-teleservices \
 --allow-unauthenticated
-
-# install harcoded version of passerelle-imio-aes-health because of INFRA-3698
-RUN apt install -y -t buster passerelle-imio-aes-health=0.1.13-2f990e1 -V
 
 # Allow services to start, this is necessary as hobo-agent postinst will fail
 # if supervisord is not running
