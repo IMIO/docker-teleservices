@@ -61,7 +61,7 @@ services:
       - database
       - rabbitmq
   rabbitmq:
-    image: rabbitmq
+    image: rabbitmq:3.7
     hostname: rabbitmq
   database:
     image: postgres
@@ -74,3 +74,4 @@ services:
   memcached:
     image: memcached
     hostname: memcached
+

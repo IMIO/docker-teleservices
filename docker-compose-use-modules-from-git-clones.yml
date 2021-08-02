@@ -62,7 +62,7 @@ services:
       - database
       - rabbitmq
   rabbitmq:
-    image: rabbitmq
+    image: rabbitmq:3.7
     hostname: rabbitmq
   database:
     image: postgres
