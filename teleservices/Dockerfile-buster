@@ -60,7 +60,7 @@ RUN apt install -y \
   publik-base-theme \
   poppler-utils \
   python-magic \
-  python3-authentic2-auth-fedict=1.15.post3+gcd9ba93-1~eob100+1 \
+  python3-authentic2-auth-fedict \
   python3-passerelle \
   python3-dns \
   python3-docutils \
