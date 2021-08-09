@@ -70,7 +70,7 @@ RUN apt install -y \
   python3-docutils \
   python3-qrcode \
   python3-magic \
-  python3-workalendar
+  python3-workalendar \
   wcs-au-quotidien
 RUN apt install -y \
   imio-publik-themes \
