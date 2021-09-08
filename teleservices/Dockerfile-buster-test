@@ -75,6 +75,7 @@ RUN apt install -y \
 RUN apt install -y \
   imio-publik-themes \
   publik-imio-industrialisation \
+  python3-combo-plugin-imio-townstreet \
   python3-authentic2-auth-fedict \
   python3-passerelle-imio-extra-fees \
   python3-passerelle-imio-ia-delib \
