@@ -92,6 +92,27 @@ fi
 echo "Updating wcs-scripts-teleservices package at startup"
 apt update && apt install scripts-teleservices wcs-scripts-teleservices
 
+# iMio DE/FR translations monkey patch
+# Should only run on Eupen
+if [ -e /var/lib/wcs/tenants/eupen-formulaires.guichet-citoyen.be/ ]
+then
+    echo "--- Eupen - Applying authentic2 django.po monkey patch..."
+    cd /usr/lib/python3/dist-packages/authentic2/locale/fr/LC_MESSAGES; \
+    curl https://raw.githubusercontent.com/dmshd/eupen-german-django-po/main/authentic2_django.po -o django.po; \
+    cd /usr/lib/python3/dist-packages/authentic2; \
+    django-admin compilemessages; \
+    cd -; \
+    service authentic2-multitenant restart
+    echo "--- Eupen - Applying wcs django.po monkey patch..."
+    cd /usr/lib/python3/dist-packages/wcs/locale/fr/LC_MESSAGES; \
+    curl https://raw.githubusercontent.com/dmshd/eupen-german-django-po/main/wcs_django.po -o django.po; \
+    cd /usr/lib/python3/dist-packages/wcs/; \
+    django-admin compilemessages; \
+    cd -; \
+    service wcs restart
+fi
+
+
 test -f /opt/publik/hooks/$HOSTNAME/run-finish-hook.sh && /opt/publik/hooks/$HOSTNAME/run-finish-hook.sh
 
 tail -f /var/log/syslog
