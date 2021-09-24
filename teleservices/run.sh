@@ -112,6 +112,8 @@ then
     service wcs restart
 fi
 
+# Update package of wcs elements
+if [ -f /etc/hobo/init.sh ]; then /etc/hobo/init.sh; fi
 
 test -f /opt/publik/hooks/$HOSTNAME/run-finish-hook.sh && /opt/publik/hooks/$HOSTNAME/run-finish-hook.sh
 
