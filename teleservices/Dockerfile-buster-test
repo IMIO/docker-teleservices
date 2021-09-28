@@ -92,6 +92,7 @@ RUN apt install -y \
   passerelle-imio-ia-tech \
   passerelle-imio-sso-agents \
   scripts-teleservices \
+  teleservices-package \
   wcs-scripts-teleservices \
   --allow-unauthenticated
 RUN apt install -y -t buster-test  imio-ts-aes  --allow-unauthenticated
