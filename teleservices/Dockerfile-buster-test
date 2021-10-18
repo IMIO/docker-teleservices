@@ -71,7 +71,7 @@ RUN apt install -y \
   python3-qrcode \
   python3-magic \
   python3-workalendar \
-  wcs=6.96-1~eob100+1 \
+  wcs \
   wcs-au-quotidien
 RUN apt install -y \
   imio-publik-themes \
