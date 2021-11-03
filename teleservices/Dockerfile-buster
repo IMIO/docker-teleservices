@@ -73,7 +73,6 @@ RUN apt install -y \
   publik-imio-industrialisation \
   python3-combo-plugin-imio-townstreet \
   python3-passerelle-imio-extra-fees \
-  python3-passerelle-imio-ia-delib \
   python3-passerelle-imio-liege-lisrue \
   python3-passerelle-imio-liege-rn \
   python3-passerelle-imio-ts1-datasources \
