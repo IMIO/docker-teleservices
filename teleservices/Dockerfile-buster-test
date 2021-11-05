@@ -90,6 +90,7 @@ RUN apt install -y \
   passerelle-imio-aes-health \
   passerelle-imio-ia-aes \
   passerelle-imio-ia-tech \
+  passerelle-imio-ia-delib \
   passerelle-imio-sso-agents \
   scripts-teleservices \
   teleservices-package \
