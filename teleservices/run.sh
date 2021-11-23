@@ -96,30 +96,29 @@ apt update && apt install scripts-teleservices wcs-scripts-teleservices
 # Should only run on Eupen or Kelmis
 if [ -e /var/lib/wcs/tenants/eupen-formulaires.guichet-citoyen.be/ ] || [ -e /var/lib/wcs/tenants/kelmis-formulaires.guichet-citoyen.be/ ]
 then
-    echo "--- Eupen/Kelmis - Applying authentic2 django.po monkey patch..." \
-    cd /usr/lib/python3/dist-packages/authentic2/locale/fr/LC_MESSAGES; \
-    curl https://raw.githubusercontent.com/dmshd/eupen-german-django-po/main/authentic2_django.po -o django.po; \
-    cd /usr/lib/python3/dist-packages/authentic2; \
-    django-admin compilemessages; \
-    cd -; \
+    echo "--- Eupen/Kelmis Monkey patch ---"
+    echo "Fetching raw file from GitHub for authentic..."
+    curl https://raw.githubusercontent.com/dmshd/eupen-german-django-po/main/authentic2_django.po -o /usr/lib/python3/dist-packages/authentic2/locale/fr/LC_MESSAGES/django.po
+    echo "Running django-admin compilemessages for authentic..."
+    cd /usr/lib/python3/dist-packages/authentic2
+    django-admin compilemessages
+    cd -
+    echo "Restarting authentic..."
     service authentic2-multitenant restart
-    echo "--- Eupen/Kelmis - Applying wcs django.po monkey patch..." \
-    cd /usr/lib/python3/dist-packages/wcs/locale/fr/LC_MESSAGES; \
-    echo "--- Eupen/Kelmis - Fetching raw file from GitHub..." \
-    curl https://raw.githubusercontent.com/dmshd/eupen-german-django-po/main/wcs_django.po -o django.po; \
-    cd /usr/lib/python3/dist-packages/wcs/; \
-    echo "--- Eupen/Kelmis - Running django-admin compilemessages..." \
-    django-admin compilemessages; \
-    cd -; \
+    echo "Fetching raw file from GitHub for wcs..."
+    curl https://raw.githubusercontent.com/dmshd/eupen-german-django-po/main/wcs_django.po -o /usr/lib/python3/dist-packages/wcs/locale/fr/LC_MESSAGES/django.po
+    echo "Running django-admin compilemessages for wcs..."
+    cd /usr/lib/python3/dist-packages/wcs/
+    django-admin compilemessages
+    cd -
+    echo "Restarting wcs..."
     service wcs restart
-  echo "--- Eupen/Kelmis - Applying combo django.po monkey patch..." \
-    cd /usr/lib/python3/dist-packages/combo/locale/fr/LC_MESSAGES; \
-    echo "--- Eupen/Kelmis - Fetching raw file from GitHub..." \
-    curl https://raw.githubusercontent.com/dmshd/eupen-german-django-po/main/combo_django.po -o django.po; \
-    cd /usr/lib/python3/dist-packages/combo/; \
-    echo "--- Eupen/Kelmis - Running django-admin compilemessages..." \
-    django-admin compilemessages; \
-    cd -; \
+    echo "Fetching raw file from GitHub for combo..."
+    curl https://raw.githubusercontent.com/dmshd/eupen-german-django-po/main/combo_django.po -o /usr/lib/python3/dist-packages/combo/locale/fr/LC_MESSAGES/django.po
+    cd /usr/lib/python3/dist-packages/combo/
+    echo "Running django-admin compilemessages for combo..."
+    django-admin compilemessages
+    cd -
     service combo restart
 fi
 
