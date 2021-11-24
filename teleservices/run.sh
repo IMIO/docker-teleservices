@@ -98,7 +98,7 @@ if [ -e /var/lib/wcs/tenants/eupen-formulaires.guichet-citoyen.be/ ] || [ -e /va
 then
     echo "--- Eupen/Kelmis Monkey patch ---"
     echo "Fetching raw file from GitHub for authentic..."
-    curl https://raw.githubusercontent.com/dmshd/eupen-german-django-po/main/authentic2_django.po -o /usr/lib/python3/dist-packages/authentic2/locale/fr/LC_MESSAGES/django.po
+    curl https://raw.githubusercontent.com/IMIO/teleservices-german-translations/main/authentic2_django.po -o /usr/lib/python3/dist-packages/authentic2/locale/fr/LC_MESSAGES/django.po
     echo "Running django-admin compilemessages for authentic..."
     cd /usr/lib/python3/dist-packages/authentic2
     django-admin compilemessages
@@ -106,7 +106,7 @@ then
     echo "Restarting authentic..."
     service authentic2-multitenant restart
     echo "Fetching raw file from GitHub for wcs..."
-    curl https://raw.githubusercontent.com/dmshd/eupen-german-django-po/main/wcs_django.po -o /usr/lib/python3/dist-packages/wcs/locale/fr/LC_MESSAGES/django.po
+    curl https://raw.githubusercontent.com/IMIO/teleservices-german-translations/main/wcs_django.po -o /usr/lib/python3/dist-packages/wcs/locale/fr/LC_MESSAGES/django.po
     echo "Running django-admin compilemessages for wcs..."
     cd /usr/lib/python3/dist-packages/wcs/
     django-admin compilemessages
@@ -114,12 +114,20 @@ then
     echo "Restarting wcs..."
     service wcs restart
     echo "Fetching raw file from GitHub for combo..."
-    curl https://raw.githubusercontent.com/dmshd/eupen-german-django-po/main/combo_django.po -o /usr/lib/python3/dist-packages/combo/locale/fr/LC_MESSAGES/django.po
+    curl https://raw.githubusercontent.com/IMIO/teleservices-german-translations/main/combo_django.po -o /usr/lib/python3/dist-packages/combo/locale/fr/LC_MESSAGES/django.po
     cd /usr/lib/python3/dist-packages/combo/
     echo "Running django-admin compilemessages for combo..."
     django-admin compilemessages
     cd -
     service combo restart
+    echo "Fetching raw file from GitHub for auquotidien..."
+    curl https://raw.githubusercontent.com/IMIO/teleservices-german-translations/main/auquotidien_django.po -o /usr/lib/python3/dist-packages/auquotidien/locale/fr/LC_MESSAGES/django.po
+      echo "Running django-admin compilemessages for auquotidien..."
+    cd /usr/lib/python3/dist-packages/auquotidien
+    django-admin compilemessages
+    cd -
+    echo "Restarting wcs..."
+    service wcs restart
 fi
 
 
