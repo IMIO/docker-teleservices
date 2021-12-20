@@ -19,36 +19,36 @@
     }},
     {"create-authentic": {
       "url": "http://${authentic}/",
-      "title": "Guichet citoyen local - Authentic"
+      "title": "Authentic - local - E-Guichet"
     }},
     {"set-idp": {
     }},
     {"create-combo": {
       "url": "http://${combo}/",
-      "title": "Guichet citoyen local - Portail",
+      "title": "Portail - local - E-Guichet",
       "template_name": "portal-user"
     }},
     {"create-combo": {
       "url": "http://${combo_agent}/",
       "slug": "portal-agent",
-      "title": "Guichet citoyen local - Portail agent",
+      "title": "Portail agent - local - E-Guichet",
       "template_name": "portal-agent"
     }},
     {"create-fargo": {
       "url": "http://${fargo}/",
-      "title": "Porte-documents local - Fargo"
+      "title": "Documents"
     }},
     {"create-passerelle": {
       "url": "http://${passerelle}/",
-      "title": "Guichet citoyen local - Passerelle"
+      "title": "Passerelle - local - E-Guichet"
     }},
     {"create-chrono": {
       "url": "http://${chrono}/",
-      "title": "Guichet citoyen local - Agendas"
+      "title": "Agendas - local - E-Guichet"
     }},
     {"create-wcs": {
       "url": "http://${wcs}/",
-      "title": "Guichet citoyen local - Formulaires"
+      "title": "Démarches - local - E-Guichet"
     }},
     {"set-attribute": {
       "name": "niss",
