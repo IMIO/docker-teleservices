@@ -7,7 +7,7 @@ pipeline {
     }
     stages {
       stage('Build') {
-        agent any
+        //agent any
         when {
           allOf{
             branch "main"
@@ -40,7 +40,7 @@ pipeline {
         }
       }
       stage('Push image to staging registry') {
-        agent any
+        //agent any
         when {
           allOf{
             branch "main"
