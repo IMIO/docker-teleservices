@@ -20,13 +20,13 @@ pipeline {
           parallel(
             buster: {
               sh 'make build-buster'
-            }
+            },
             buster-odoo9: {
               echo 'make build-buster-odoo9'
-            }
+            },
             bullseye: {
               echo 'make build-bullseye'
-            }
+            },
             bullseye-odoo9: {
               echo 'make build-bullseye-odoo9'
             }
@@ -50,13 +50,13 @@ pipeline {
                 "${env.BUILD_ID}",
                 "teleservices/buster"
               )
-            }
+            },
             buster-odoo9: {
               echo 'push teleservices/buster-odoo9'
-            }
+            },
             bullseye: {
               echo 'push teleservices/bullseye'
-            }
+            },
             bullseye-odoo9: {
               echo 'push teleservices/bullseye-odoo9'
             }
