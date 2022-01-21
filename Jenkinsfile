@@ -16,21 +16,27 @@ pipeline {
             }
           }
         }
-        steps {
-          parallel(
-            buster: {
+        parallel{
+          stage("buster") {       
+            steps {
               sh 'make build-buster'
-            },
-            buster-odoo9: {
+            }
+          }
+          stage("buster-odoo9") {       
+            steps {
               echo 'make build-buster-odoo9'
-            },
-            bullseye: {
+            }
+          }
+          stage("bullseye") {       
+            steps {
               echo 'make build-bullseye'
-            },
-            bullseye-odoo9: {
+            }
+          }
+          stage("bullseye-odoo9") {       
+            steps {
               echo 'make build-bullseye-odoo9'
             }
-          )
+          }
         }
       }
       stage('Push image to staging registry') {
@@ -43,24 +49,30 @@ pipeline {
             }
           }
         }
-        steps {
-          parallel(
-            buster: {
+        parallel{
+          stage("buster") {       
+            steps {
               pushImageToRegistry (
                 "${env.BUILD_ID}",
                 "teleservices/buster"
               )
-            },
-            buster-odoo9: {
+            }
+          }
+          stage("buster-odoo9") {       
+            steps {
               echo 'push teleservices/buster-odoo9'
-            },
-            bullseye: {
+            }
+          }
+          stage("bullseye") {       
+            steps {
               echo 'push teleservices/bullseye'
-            },
-            bullseye-odoo9: {
+            }
+          }
+          stage("bullseye-odoo9") {       
+            steps {
               echo 'push teleservices/bullseye-odoo9'
             }
-          )
+          }
         }
       }
       stage('Deploy to staging') {
