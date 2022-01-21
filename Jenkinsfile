@@ -82,7 +82,7 @@ pipeline {
       }
       stage('Deploy') {
         options {
-           timeout(time: 60, unit: 'SECONDS')
+           timeout(time: 48, unit: 'HOURS')
         }
         input {
           message "Deploy to production?"
