@@ -18,21 +18,25 @@ pipeline {
         }
         parallel{
           stage("buster") {       
+            agent any
             steps {
               sh 'make build-buster'
             }
           }
           stage("buster-odoo9") {       
+            agent any
             steps {
               echo 'make build-buster-odoo9'
             }
           }
           stage("bullseye") {       
+            agent any
             steps {
               echo 'make build-bullseye'
             }
           }
           stage("bullseye-odoo9") {       
+            agent any
             steps {
               echo 'make build-bullseye-odoo9'
             }
@@ -51,6 +55,7 @@ pipeline {
         }
         parallel{
           stage("buster") {       
+            agent any
             steps {
               pushImageToRegistry (
                 "${env.BUILD_ID}",
@@ -59,16 +64,19 @@ pipeline {
             }
           }
           stage("buster-odoo9") {       
+            agent any
             steps {
               echo 'push teleservices/buster-odoo9'
             }
           }
           stage("bullseye") {       
+            agent any
             steps {
               echo 'push teleservices/bullseye'
             }
           }
           stage("bullseye-odoo9") {       
+            agent any
             steps {
               echo 'push teleservices/bullseye-odoo9'
             }
