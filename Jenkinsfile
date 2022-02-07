@@ -100,7 +100,7 @@ pipeline {
         }
       }
       steps {
-        echo "curl -k --fail --show-error --header \"X-Rundeck-Auth-Token:$RUNDECK_TOKEN\" -d \"argString=-name staging2\" -d \"filter=name ts-staging1\" https://run.imio.be/api/12/job/94b605f2-ad32-4f9f-977e-37342f6b7d32/run/ "
+        echo "curl -k --fail --show-error --header \"X-Rundeck-Auth-Token:$RUNDECK_TS_TOKEN\" -d \"argString=-name staging2\" -d \"filter=name ts-staging1\" https://run.imio.be/api/12/job/94b605f2-ad32-4f9f-977e-37342f6b7d32/run/ "
       }
     }
     stage('Deploy') {
@@ -118,7 +118,7 @@ pipeline {
         //moveImageToProdRegistry(env.TAG_NAME, "teleservices/bullseye")
         //moveImageToProdRegistry(env.TAG_NAME, "teleservices/bullseye-odoo9")
         echo "Schedule Rundeck job"
-        sh "curl -k --fail -XPOST --header \"Content-Type: application/json\" --header \"X-Rundeck-Auth-Token: $RUNDECK_TOKEN\" https://run.imio.be/api/12/job/311af116-fedc-4e33-b2a7-99c8651f8e9b/run"
+        sh "curl -k --fail -XPOST --header \"Content-Type: application/json\" --header \"X-Rundeck-Auth-Token: $RUNDECK_TS_TOKEN\" https://run.imio.be/api/12/job/311af116-fedc-4e33-b2a7-99c8651f8e9b/run"
         emailext to: "support-ts+jenkins@imio.be",
         recipientProviders: [developers(), requestor()],
           subject: "New release will be deploy: ${currentBuild.displayName}",
