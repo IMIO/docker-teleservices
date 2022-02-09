@@ -50,6 +50,7 @@ services:
       - ./config/hobo-agent/settings.d:/etc/hobo-agent/settings.d
       - ./config/passerelle/secret:/etc/passerelle/secret
       - ./config/passerelle/settings.d:/etc/passerelle/settings.d
+      - ./config/wcs/secret:/etc/wcs/secret
     command: /bin/sh -c "sleep 10 ; /run.sh"
     depends_on:
       - database
