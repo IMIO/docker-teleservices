@@ -142,7 +142,9 @@ server {
 
         location ~ ^/static/(.+)$ {
             root /;
-            try_files /var/lib/authentic2-multitenant/static/$1
+            try_files /var/lib/authentic2-multitenant/tenants/$host/static/$1
+                      /var/lib/authentic2-multitenant/tenants/$host/theme/static/$1
+                      /var/lib/authentic2-multitenant/static/$1
                       /var/lib/authentic2-multitenant/collectstatic/$1
                       =404;
                 add_header 'X-Content-Type-Options' 'nosniff';
