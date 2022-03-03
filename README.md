@@ -9,7 +9,7 @@ docker-compose 1.6 or above
 
 * Add required host names to your /etc/hosts file, for example:
 
-    sudo sh -c "echo '127.0.0.1 local-hobo.example.net local-auth.example.net local-formulaires.example.net local.example.net local-portail-agent.example.net local-documents.example.net local-passerelle.example.net' >> /etc/hosts"
+    sudo sh -c "echo '127.0.0.1 local-hobo.example.net local-auth.example.net local-formulaires.example.net local.example.net local-portail-agent.example.net local-documents.example.net local-passerelle.example.net local-agendas.example.net' >> /etc/hosts"
 
 * Compose and run the container image
 
