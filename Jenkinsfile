@@ -80,7 +80,7 @@ pipeline {
           }
         }
       }
-      parallel{  
+      parallel{
         stage("buster-odoo9") {
           agent any
           steps {
