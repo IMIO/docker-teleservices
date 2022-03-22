@@ -12,3 +12,4 @@ src/passerelle*
 src/scripts/build-e-guichet/*
 src/wcs-scripts/*
 src/scripts/*
+.vscode/
