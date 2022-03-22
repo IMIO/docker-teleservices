@@ -53,9 +53,8 @@ pipeline {
         }
       }
     }
-    stage('Push image to staging registry') {
-      agent any
-      when {
+    stage('Push base prod image to staging registry') {
+     when {
         allOf{
           branch "main"
           not {
@@ -68,6 +67,17 @@ pipeline {
           "${env.BUILD_ID}",
           "teleservices/buster"
         )
+      }
+    }
+    stage('Push other images to staging registry') {
+      //agent any
+      when {
+        allOf{
+          branch "main"
+          not {
+            changelog '.*\\[(ci)?\\-?\\s?skip\\-?\\s?(ci)?\\].*'
+          }
+        }
       }
       parallel{  
         stage("buster-odoo9") {
