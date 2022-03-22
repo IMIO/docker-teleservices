@@ -151,7 +151,7 @@ pipeline {
           subject: "New release will be deploy: ${currentBuild.displayName}",
           body: "The pipeline ${env.JOB_NAME} ${env.BUILD_NUMBER} released ${env.fullDisplayName} <br />"
         echo 'Upgrade finished.'
-      }  
+      }
     }
   }
   post {
@@ -166,11 +166,6 @@ pipeline {
         recipientProviders: [developers(), requestor()],
         subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
         body: "The pipeline ${env.JOB_NAME} ${env.BUILD_NUMBER} failed (${env.BUILD_URL})"
-    }
-    always {
-      node(null)  {
-        sh "make clean"
-      }
     }
     success {
       cleanWs()
