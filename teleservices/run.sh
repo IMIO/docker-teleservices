@@ -87,11 +87,6 @@ then
 	screen -d -m -c /opt/publik/screenrc
 fi
 
-# Keeping wcs-scripts-teleservices up to date
-# Should be deleted as soon as we promote often and more serenely
-echo "Updating wcs-scripts-teleservices package at startup"
-apt update && apt install scripts-teleservices wcs-scripts-teleservices
-
 # iMio DE/FR translations monkey patch
 # Should only run on Eupen or Kelmis
 if [ -e /var/lib/wcs/tenants/eupen-formulaires.guichet-citoyen.be/ ] || [ -e /var/lib/wcs/tenants/kelmis-formulaires.guichet-citoyen.be/ ]
