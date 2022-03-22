@@ -1,9 +1,8 @@
 ARG DEBIAN_VERSION
-FROM debian:${DEBIAN_VERSION}
+FROM debian:${DEBIAN_VERSION} as prod-image
 ARG DEBIAN_VERSION
 ARG IMIO_TS_AES_VERSION=1.0
 ARG PASSERELLE_IMIO_IA_AES_VERSION=1.0
-
 # Setting ENV variables
 ENV DEBIAN_FRONTEND=noninteractive \
   APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn \
@@ -79,7 +78,8 @@ RUN apt install -y \
   python3-passerelle-imio-extra-fees \
   python3-passerelle-imio-liege-lisrue \
   python3-passerelle-imio-liege-rn \
-  python3-passerelle-imio-ts1-datasources \
+  python3-passerelle-imio-ts1-datasources
+RUN apt install -y \
   -t $DEBIAN_VERSION-eobuilder \
   && apt install -y \
   imio-townstreet \
@@ -123,3 +123,22 @@ RUN ln -sf /usr/share/zoneinfo/Europe/Brussels /etc/localtime
 
 # Run
 CMD ["/run.sh"]
+
+FROM prod-image as dev-image
+ARG DEBIAN_VERSION
+RUN echo "deb [trusted=yes] https://nexus.imio.be/repository/${DEBIAN_VERSION}-test ${DEBIAN_VERSION}-test main" > /etc/apt/sources.list.d/imio-test.list \
+  && cat /etc/apt/sources.list.d/*
+
+RUN apt update && apt install -y imio-townstreet \
+  imio-town-time \
+  imio-ts-aes \
+  passerelle-imio-aes-meal \
+  passerelle-imio-aes-health \
+  passerelle-imio-ia-aes \
+  passerelle-imio-ia-delib \
+  passerelle-imio-ia-tech \
+  passerelle-imio-sso-agents \
+  scripts-teleservices \
+  teleservices-package \
+  wcs-scripts-teleservices \
+  --allow-unauthenticated
