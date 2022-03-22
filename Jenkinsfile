@@ -54,7 +54,7 @@ pipeline {
       }
     }
     stage('Push image to staging registry') {
-      //agent any
+      agent any
       when {
         allOf{
           branch "main"
@@ -63,22 +63,28 @@ pipeline {
           }
         }
       }
-      parallel{
-        stage("buster") {
-          agent any
-          steps {
-            pushImageToRegistry(
-              "${env.BUILD_ID}",
-              "teleservices/buster"
-            )
-          }
-        }
+      steps {
+        pushImageToRegistry(
+          "${env.BUILD_ID}",
+          "teleservices/buster"
+        )
+      }
+      parallel{  
         stage("buster-odoo9") {
           agent any
           steps {
             pushImageToRegistry(
               "${env.BUILD_ID}",
               "teleservices/buster-odoo9"
+            )
+          }
+        }
+        stage("buster-test") {
+          agent any
+          steps {
+            pushImageToRegistry(
+              "${env.BUILD_ID}",
+              "teleservices/buster-test"
             )
           }
         }
