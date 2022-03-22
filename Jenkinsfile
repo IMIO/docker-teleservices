@@ -6,7 +6,7 @@ pipeline {
     buildDiscarder(logRotator(numToKeepStr: '50'))
   }
   stages {
-    stage('Build') {
+    stage('Build prod image') {
       //agent any
       when {
         allOf{
@@ -30,6 +30,8 @@ pipeline {
           }
         }
       }
+    }
+    stage('Build test and odoo9 image') {
       parallel{
         stage("buster-test") {
           agent any
@@ -113,7 +115,7 @@ pipeline {
     }
     stage('Deploy') {
       options {
-          timeout(time: 48, unit: 'HOURS')
+        timeout(time: 48, unit: 'HOURS')
       }
       input {
         message "Deploy to production?"
