@@ -169,8 +169,9 @@ pipeline {
         body: "The pipeline ${env.JOB_NAME} ${env.BUILD_NUMBER} failed (${env.BUILD_URL})"
     }
     success {
-      agent any
-      cleanWs()
+      node() {
+        cleanWs()
+      }
     }
   }
 }
