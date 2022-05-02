@@ -75,7 +75,6 @@ RUN apt install -y \
   imio-publik-themes \
   publik-imio-industrialisation \
   python3-combo-plugin-imio-townstreet \
-  python3-passerelle-imio-extra-fees \
   python3-passerelle-imio-liege-lisrue \
   python3-passerelle-imio-liege-rn \
   python3-passerelle-imio-ts1-datasources
@@ -88,6 +87,7 @@ RUN apt update && apt install -y \
   "imio-ts-aes=$IMIO_TS_AES_VERSION*" \
   passerelle-imio-aes-meal \
   passerelle-imio-aes-health \
+  python3-passerelle-imio-extra-fees \
   "passerelle-imio-ia-aes=$PASSERELLE_IMIO_IA_AES_VERSION*" \
   passerelle-imio-ia-delib \
   passerelle-imio-ia-tech \
