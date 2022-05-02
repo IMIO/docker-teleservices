@@ -87,7 +87,7 @@ RUN apt update && apt install -y \
   "imio-ts-aes=$IMIO_TS_AES_VERSION*" \
   passerelle-imio-aes-meal \
   passerelle-imio-aes-health \
-  python3-passerelle-imio-extra-fees \
+  python3-passerelle-imio-extra-fees=0.5.post1+g96b39c8-1~eob100+1 \
   "passerelle-imio-ia-aes=$PASSERELLE_IMIO_IA_AES_VERSION*" \
   passerelle-imio-ia-delib \
   passerelle-imio-ia-tech \
