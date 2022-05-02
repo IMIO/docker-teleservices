@@ -80,7 +80,7 @@ RUN apt install -y \
   python3-passerelle-imio-liege-rn \
   python3-passerelle-imio-ts1-datasources
 ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
-RUN apt install -y \
+RUN apt update && apt install -y \
   -t $DEBIAN_VERSION-eobuilder \
   && apt install -y \
   imio-townstreet \
