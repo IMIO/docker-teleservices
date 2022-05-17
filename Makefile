@@ -34,3 +34,7 @@ run-buster-test:
 
 build-no-cache-buster-test:
 		make build-no-cache branch=buster-test
+
+fast-clean:
+	docker-compose down -v
+	sudo rm -fr data/*/*/ data/wcs/config.pck data/wcs/.rnd
