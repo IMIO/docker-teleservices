@@ -8,7 +8,7 @@ run:
 
 build-buster:
 		cd teleservices && \
-		docker build --no-cache --target prod-image -t teleservices/buster:latest \
+		docker build --target prod-image -t teleservices/buster:latest \
 		--build-arg DEBIAN_VERSION=buster \
 		.
 
