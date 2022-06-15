@@ -25,7 +25,12 @@ python3 /var/lib/authentic2/locale/fr/LC_MESSAGES/mail-translation.py
 test -e /var/lib/wcs/configure-wcs.py && python /var/lib/wcs/configure-wcs.py
 
 # install link to wcs external scripts
-test -e /var/lib/wcs/scripts || ln -s /opt/publik/wcs-scripts /var/lib/wcs/scripts
+if [ -d /opt/publik/wcs-scripts/wcs_scripts_teleservices ];
+then
+  ln -sfn /opt/publik/wcs-scripts/wcs_scripts_teleservices /var/lib/wcs/scripts
+else
+  ln -sfn /opt/publik/wcs-scripts /var/lib/wcs/scripts
+fi
 
 HOSTNAME=$(hostname)
 test -f /opt/publik/hooks/$HOSTNAME/run-hook.sh && /opt/publik/hooks/$HOSTNAME/run-hook.sh
