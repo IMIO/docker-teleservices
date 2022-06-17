@@ -88,7 +88,7 @@ test -e /etc/hobo/extra/recipe*json && sudo -u hobo hobo-manage cook /etc/hobo/e
 
 if [ x$1 = xfromgit ]
 then
-	/opt/publik/scripts/init-dev.sh
+	/opt/publik/scripts/scripts_teleservices/init-dev.sh
 	screen -d -m -c /opt/publik/screenrc
 fi
 
