@@ -36,8 +36,7 @@ HOSTNAME=$(hostname)
 test -f /opt/publik/hooks/$HOSTNAME/run-hook.sh && /opt/publik/hooks/$HOSTNAME/run-hook.sh
 
 # alter bijoe job to run at random time during the night
-RANDOM_TIME="$(( ( RANDOM % 60 ) )) $(( ( RANDOM % 6 ) ))"
-sed -i "s/^1 0 /$RANDOM_TIME /" /etc/cron.d/bijoe
+cp /opt/publik/scripts/scripts_teleservices/bijoe_cron_randomizer/bijoe_new_cron /etc/cron.d/bijoe_random
 
 # alter chrono job to run at random time
 sed -i "s/unique-cron = -5/unique-cron = -$(( 5 + ( RANDOM % 6 ) ))/" /etc/chrono/uwsgi.ini
