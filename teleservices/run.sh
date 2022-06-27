@@ -40,9 +40,9 @@ RANDOM_TIME="$(( ( RANDOM % 60 ) )) $(( ( RANDOM % 6 ) ))"
 sed -i "s/^1 0 /$RANDOM_TIME /" /etc/cron.d/bijoe
 
 # alter chrono job to run at random time
-sed -i "s/unique-cron = -5/unique-cron = -$(expr 5 + $(( ( RANDOM % 6 ) )) )/" /etc/chrono/uwsgi.ini
+sed -i "s/unique-cron = -5/unique-cron = -$(( 5 + ( RANDOM % 6 ) ))/" /etc/chrono/uwsgi.ini
 sed -i "s/unique-cron = 1 -1/unique-cron = $(( ( RANDOM % 60 ) )) -1/" /etc/chrono/uwsgi.ini
-sed -i "s/unique-cron = 2 4/unique-cron = $(( (RANDOM % 60 ) )) $(expr 2 + $(( (RANDOM % 3) )))/" /etc/chrono/uwsgi.ini
+sed -i "s/unique-cron = 2 4/unique-cron = $(( (RANDOM % 60 ) )) $((2 + (RANDOM % 3) ))/" /etc/chrono/uwsgi.ini
 
 # Check if UTF8 is well configured (wcs cron jobs)
 if ! grep -q 'LANG=C.UTF-8' /etc/cron.d/wcs; then
