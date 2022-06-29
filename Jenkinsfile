@@ -23,13 +23,25 @@ pipeline {
         stage("buster") {
           agent any
           steps {
-            sh 'make build-buster'
+            script {
+              if (params.USE_CACHE_TO_BUILD_IMAGE) {
+                sh 'make build-buster'
+              } else {
+                sh 'make build-no-cache-buster'
+              }
+            }
           }
         }
         stage("bullseye") {
           agent any
           steps {
-            echo 'make build-bullseye'
+            script {
+              if (params.USE_CACHE_TO_BUILD_IMAGE) {
+                echo 'make build-bullseye'
+              } else {
+                echo 'make build-no-cache-bullseye'
+              }
+            }
           }
         }
       }
@@ -39,19 +51,37 @@ pipeline {
         stage("buster-test") {
           agent any
           steps {
-            sh 'make build-buster-test'
+            script {
+              if (params.USE_CACHE_TO_BUILD_IMAGE) {
+                sh 'make build-buster-test'
+              } else {
+                sh 'make build-no-cache-buster-test'
+              }
+            }
           }
         }
         stage("buster-odoo9") {
           agent any
           steps {
-            sh 'make build-buster-odoo9'
+            script {
+              if (params.USE_CACHE_TO_BUILD_IMAGE) {
+                sh 'make build-buster-odoo9'
+              } else {
+                sh 'make build-no-cache-buster-odoo9'
+              }
+            }
           }
         }
         stage("bullseye-odoo9") {
           agent any
           steps {
-            echo 'make build-bullseye-odoo9'
+            script {
+              if (params.USE_CACHE_TO_BUILD_IMAGE) {
+                echo 'make build-bullseye-odoo9'
+              } else {
+                echo 'make build-no-cache-bullseye-odoo9'
+              }
+            }
           }
         }
       }
