@@ -2,6 +2,9 @@
 
 pipeline {
   agent none
+  parameters {
+    booleanParam(name: "USE_CACHE_TO_BUILD_IMAGE", defaultValue: true, description: "Docker build will not be using cache if you choose 'false' value.")
+  }
   options {
     buildDiscarder(logRotator(numToKeepStr: '50'))
   }
