@@ -42,6 +42,7 @@ sed -i "s/minute=15/minute=$(( 20 + ( RANDOM % 20 ) ))/" /etc/authentic2-multite
 
 # alter bijoe job to run at random time during the night
 cp /opt/publik/scripts/scripts_teleservices/bijoe_cron_randomizer/bijoe_new_cron /etc/cron.d/bijoe_random
+sed -i "s/^0/$(( ( RANDOM % 60 ) ))/" /etc/cron.d/bijoe
 
 # alter chrono jobs to run at random time
 sed -i "s/unique-cron = -5/unique-cron = -$(( 5 + ( RANDOM % 6 ) ))/" /etc/chrono/uwsgi.ini
@@ -59,6 +60,9 @@ sed -i "s/50/$(( 40 + ( RANDOM % 16 ) ))/" /etc/cron.d/hobo-agent
 sed -i "s/cron = -5/cron = -$(( 5 + ( RANDOM % 6 ) ))/" /etc/passerelle/uwsgi.ini
 sed -i "s/cron = 1 -1/cron = $(( 6 + ( RANDOM % 10 ) )) -1/" /etc/passerelle/uwsgi.ini
 sed -i "s/cron = 17 -1/cron = $(( 17 + ( RANDOM % 40 ) )) -1/" /etc/passerelle/uwsgi.ini
+
+# alter hourly root jobs to run at random time
+sed -i "s/^17/$(( ( RANDOM % 60 ) ))/" /etc/crontab
 
 # Check if UTF8 is well configured (wcs cron jobs)
 if ! grep -q 'LANG=C.UTF-8' /etc/cron.d/wcs; then
