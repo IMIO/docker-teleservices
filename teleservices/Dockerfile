@@ -77,6 +77,7 @@ RUN apt install -y \
   python3-combo-plugin-imio-townstreet \
   python3-passerelle-imio-liege-lisrue \
   python3-passerelle-imio-liege-rn \
+  python3-imio-teleservices-templatetags \
   python3-passerelle-imio-ts1-datasources
 ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 RUN apt update && apt install -y \
