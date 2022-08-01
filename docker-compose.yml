@@ -51,6 +51,7 @@ services:
       - ./config/passerelle/secret:/etc/passerelle/secret
       - ./config/passerelle/settings.d:/etc/passerelle/settings.d
       - ./config/wcs/secret:/etc/wcs/secret
+      - ./config/wcs/settings.d:/etc/wcs/settings.d
     command: /bin/sh -c "sleep 10 ; /run.sh"
     depends_on:
       - database
