@@ -59,6 +59,7 @@ RUN apt install -y \
   chrono \
   fargo \
   hobo \
+  hobo-agent \
   passerelle \
   publik-base-theme \
   poppler-utils \
@@ -97,12 +98,10 @@ RUN apt update && apt install -y \
   wcs-scripts-teleservices \
   --allow-unauthenticated
 
-# Allow services to start, this is necessary as hobo-agent postinst will fail
-# if supervisord is not running
-RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d \
-  && chmod a+x /usr/sbin/policy-rc.d \
-  && echo "server_names_hash_bucket_size 128;" > /etc/nginx/conf.d/server_names.conf \
-  && apt install -y hobo-agent
+# Allow services to run
+RUN rm /usr/sbin/policy-rc.d
+
+RUN echo "server_names_hash_bucket_size 128;" > /etc/nginx/conf.d/server_names.conf 
 
 # Change cron time of authentic2 cleanup
 RUN sed -i "s/5 \*/5 1/g" /etc/cron.d/authentic2-multitenant
