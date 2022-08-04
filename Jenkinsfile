@@ -37,9 +37,9 @@ pipeline {
           steps {
             script {
               if (params.USE_CACHE_TO_BUILD_IMAGE) {
-                echo 'make build-bullseye'
+                sh 'make build-bullseye'
               } else {
-                echo 'make build-no-cache-bullseye'
+                sh 'make build-no-cache-bullseye'
               }
             }
           }
