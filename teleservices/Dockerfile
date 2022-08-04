@@ -62,7 +62,6 @@ RUN apt install -y \
   passerelle \
   publik-base-theme \
   poppler-utils \
-  python-magic \
   python3-authentic2-auth-fedict \
   python3-passerelle \
   python3-dns \
@@ -74,25 +73,25 @@ RUN apt install -y \
   && apt install -y \
   imio-publik-themes \
   publik-imio-industrialisation \
-  python3-combo-plugin-imio-townstreet \
+  # python3-combo-plugin-imio-townstreet \
   python3-passerelle-imio-liege-lisrue \
   python3-passerelle-imio-liege-rn \
-  python3-imio-teleservices-templatetags \
-  python3-passerelle-imio-ts1-datasources
+  python3-imio-teleservices-templatetags
+  # python3-passerelle-imio-ts1-datasources
 ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 RUN apt update && apt install -y \
   -t $DEBIAN_VERSION-eobuilder \
   && apt install -y \
   imio-townstreet \
-  imio-town-time \
   "imio-ts-aes=$IMIO_TS_AES_VERSION*" \
   passerelle-imio-aes-meal \
   passerelle-imio-aes-health \
-  python3-passerelle-imio-extra-fees=0.5.post1+g96b39c8-1~eob100+1 \
   "passerelle-imio-ia-aes=$PASSERELLE_IMIO_IA_AES_VERSION*" \
   passerelle-imio-ia-delib \
   passerelle-imio-ia-tech \
   passerelle-imio-sso-agents \
+  python3-passerelle-imio-extra-fees \
+  python3-passerelle-imio-ts1-datasources \
   scripts-teleservices \
   teleservices-package \
   wcs-scripts-teleservices \
@@ -101,6 +100,7 @@ RUN apt update && apt install -y \
 # Allow services to start, this is necessary as hobo-agent postinst will fail
 # if supervisord is not running
 RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d \
+  && chmod a+x /usr/sbin/policy-rc.d \
   && echo "server_names_hash_bucket_size 128;" > /etc/nginx/conf.d/server_names.conf \
   && apt install -y hobo-agent
 
@@ -132,7 +132,6 @@ RUN echo "deb [trusted=yes] https://nexus.imio.be/repository/${DEBIAN_VERSION}-t
   && cat /etc/apt/sources.list.d/*
 
 RUN apt update && apt install -y imio-townstreet \
-  imio-town-time \
   imio-ts-aes \
   passerelle-imio-aes-meal \
   passerelle-imio-aes-health \
@@ -144,3 +143,4 @@ RUN apt update && apt install -y imio-townstreet \
   teleservices-package \
   wcs-scripts-teleservices \
   --allow-unauthenticated
+
