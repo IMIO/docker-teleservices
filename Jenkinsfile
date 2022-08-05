@@ -72,14 +72,14 @@ pipeline {
             }
           }
         }
-        stage("bullseye-odoo9") {
+        stage("bullseye-test") {
           agent any
           steps {
             script {
               if (params.USE_CACHE_TO_BUILD_IMAGE) {
-                echo 'make build-bullseye-odoo9'
+                echo 'make build-bullseye-test'
               } else {
-                echo 'make build-no-cache-bullseye-odoo9'
+                echo 'make build-no-cache-bullseye-test'
               }
             }
           }
@@ -182,8 +182,7 @@ pipeline {
         echo 'Confirmed production deploy'
         moveImageToProdRegistry(env.BUILD_ID, "teleservices/buster")
         moveImageToProdRegistry(env.BUILD_ID, "teleservices/buster-odoo9")
-        //moveImageToProdRegistry(env.TAG_NAME, "teleservices/bullseye")
-        //moveImageToProdRegistry(env.TAG_NAME, "teleservices/bullseye-odoo9")
+        moveImageToProdRegistry(env.TAG_NAME, "teleservices/bullseye")
         echo "Schedule Rundeck job"
         sh "curl -k --fail -XPOST --header \"Content-Type: application/json\" --header \"X-Rundeck-Auth-Token: $RUNDECK_TS_TOKEN\" https://run.imio.be/api/12/job/311af116-fedc-4e33-b2a7-99c8651f8e9b/run"
         emailext to: "support-ts+jenkins@imio.be",
