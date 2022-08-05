@@ -135,13 +135,19 @@ pipeline {
         stage("bullseye") {
           agent any
           steps {
-            echo 'push teleservices/bullseye'
+            pushImageToRegistry(
+              "${env.BUILD_ID}",
+              "teleservices/bullseye"
+            )
           }
         }
-        stage("bullseye-odoo9") {
+        stage("bullseye-test") {
           agent any
           steps {
-            echo 'push teleservices/bullseye-odoo9'
+            pushImageToRegistry(
+              "${env.BUILD_ID}",
+              "teleservices/bullseye-test"
+            )
           }
         }
       }
