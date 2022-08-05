@@ -87,8 +87,8 @@ pipeline {
       }
     }
     stage('Push base prod image to staging registry') {
-     agent any
-     when {
+      agent any
+      when {
         allOf{
           branch "main"
           not {
@@ -96,11 +96,25 @@ pipeline {
           }
         }
       }
-      steps {
-        pushImageToRegistry(
-          "${env.BUILD_ID}",
-          "teleservices/buster"
-        )
+      parallel{
+        stage("buster") {
+          agent any
+          steps {
+            pushImageToRegistry(
+              "${env.BUILD_ID}",
+              "teleservices/buster"
+            )
+          }
+        }
+        stage("bullseye") {
+          agent any
+          steps {
+            pushImageToRegistry(
+              "${env.BUILD_ID}",
+              "teleservices/bullseye"
+            )
+          }
+        }
       }
     }
     stage('Push other images to staging registry') {
@@ -129,15 +143,6 @@ pipeline {
             pushImageToRegistry(
               "${env.BUILD_ID}",
               "teleservices/buster-test"
-            )
-          }
-        }
-        stage("bullseye") {
-          agent any
-          steps {
-            pushImageToRegistry(
-              "${env.BUILD_ID}",
-              "teleservices/bullseye"
             )
           }
         }
