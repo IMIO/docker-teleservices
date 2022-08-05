@@ -74,7 +74,7 @@ run-buster-test:
 		make run branch=buster-test
 
 run-bullseye-test:
-        make run branch=bullseye-test
+		make run branch=bullseye-test
 
 fast-clean:
 	docker-compose down -v
