@@ -77,9 +77,9 @@ pipeline {
           steps {
             script {
               if (params.USE_CACHE_TO_BUILD_IMAGE) {
-                echo 'make build-bullseye-test'
+                sh 'make build-bullseye-test'
               } else {
-                echo 'make build-no-cache-bullseye-test'
+                sh 'make build-no-cache-bullseye-test'
               }
             }
           }
