@@ -87,7 +87,7 @@ pipeline {
       }
     }
     stage('Push base prod image to staging registry') {
-      agent any
+      //agent any
       when {
         allOf{
           branch "main"
