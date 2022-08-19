@@ -105,17 +105,17 @@ service chrono start
 service nginx start
 service supervisor start
 
-echo "✨ run.sh · Running hobo-manage cook /etc/hobo/recipe.json"
+echo "✨ run.sh · Running hobo-manage cook /etc/hobo/recipe.json & setup wcs with our postrgesql"
 sudo -u hobo hobo-manage cook /etc/hobo/recipe.json
-
-echo "✨ run.sh · Running hobo-manage extras cooks."
 test -e /etc/hobo/recipe*extra.json && sudo -u hobo hobo-manage cook /etc/hobo/recipe*extra.json
 test -e /etc/hobo/extra/recipe*json && sudo -u hobo hobo-manage cook /etc/hobo/extra/recipe*.json
 
-echo "✨ run.sh · Executing /var/lib/wcs/configure-wcs.py."
 test -e /var/lib/wcs/configure-wcs.py && python /var/lib/wcs/configure-wcs.py
 
-echo "✨ run.sh · Initialize wcs SQL DB (hotfix ─ TELE-1420 · #68244)"
+echo "✨ run.sh · Re-run cooks & initialize wcs SQL DB (hotfix ─ TELE-1420 · #68244)"
+sudo -u hobo hobo-manage cook /etc/hobo/recipe.json
+test -e /etc/hobo/recipe*extra.json && sudo -u hobo hobo-manage cook /etc/hobo/recipe*extra.json
+test -e /etc/hobo/extra/recipe*json && sudo -u hobo hobo-manage cook /etc/hobo/extra/recipe*.json
 echo -e "from quixote import get_publisher\nget_publisher().initialize_sql()" > /var/lib/wcs/init-wcs-database.py && sudo -u wcs wcs-manage runscript --all-tenants /var/lib/wcs/init-wcs-database.py
 
 # should be commented or explained soon
