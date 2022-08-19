@@ -76,6 +76,8 @@ fi
 echo "✨ run.sh ·  Restarting services : rsyslob, cron."
 service rsyslog start
 service cron start
+
+# should be commented or explained soon
 if [ x$1 != xfromgit ] || [ ! -d /opt/publik/combo ]
 then
 	service combo start
@@ -116,6 +118,7 @@ test -e /var/lib/wcs/configure-wcs.py && python /var/lib/wcs/configure-wcs.py
 echo "✨ run.sh · Initialize wcs SQL DB (hotfix ─ TELE-1420 · #68244)"
 echo -e "from quixote import get_publisher\nget_publisher().initialize_sql()" > /var/lib/wcs/init-wcs-database.py && sudo -u wcs wcs-manage runscript --all-tenants /var/lib/wcs/init-wcs-database.py
 
+# should be commented or explained soon
 if [ x$1 = xfromgit ]
 then
 	/opt/publik/scripts/scripts_teleservices/init-dev.sh
