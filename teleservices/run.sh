@@ -105,10 +105,10 @@ service chrono start
 service nginx start
 service supervisor start
 
-echo "✨ run.sh · Runnung hobo-manage cook /etc/hobo/recipe.json"
+echo "✨ run.sh · Running hobo-manage cook /etc/hobo/recipe.json"
 sudo -u hobo hobo-manage cook /etc/hobo/recipe.json
 
-echo "✨ run.sh · Runnung hobo-manage extras cooks."
+echo "✨ run.sh · Running hobo-manage extras cooks."
 test -e /etc/hobo/recipe*extra.json && sudo -u hobo hobo-manage cook /etc/hobo/recipe*extra.json
 test -e /etc/hobo/extra/recipe*json && sudo -u hobo hobo-manage cook /etc/hobo/extra/recipe*.json
 
