@@ -74,15 +74,13 @@ RUN apt install -y \
   && apt install -y \
   imio-publik-themes \
   publik-imio-industrialisation \
-  # python3-combo-plugin-imio-townstreet \
+  python3-combo-plugin-imio-townstreet \
   python3-passerelle-imio-liege-lisrue \
   python3-passerelle-imio-liege-rn \
-  python3-imio-teleservices-templatetags
-  # python3-passerelle-imio-ts1-datasources
+  python3-imio-teleservices-templatetags \
+  python3-passerelle-imio-ts1-datasources
 ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 RUN apt update && apt install -y \
-  -t $DEBIAN_VERSION-eobuilder \
-  && apt install -y \
   imio-townstreet \
   "imio-ts-aes=$IMIO_TS_AES_VERSION*" \
   passerelle-imio-aes-meal \
@@ -91,7 +89,7 @@ RUN apt update && apt install -y \
   passerelle-imio-ia-delib \
   passerelle-imio-ia-tech \
   passerelle-imio-sso-agents \
-  python3-passerelle-imio-extra-fees \
+  python3-passerelle-imio-extra-fees=0.6-1~eob110+1 \
   python3-passerelle-imio-ts1-datasources \
   scripts-teleservices \
   teleservices-package \
@@ -101,7 +99,7 @@ RUN apt update && apt install -y \
 # Allow services to run
 RUN rm /usr/sbin/policy-rc.d
 
-RUN echo "server_names_hash_bucket_size 128;" > /etc/nginx/conf.d/server_names.conf 
+RUN echo "server_names_hash_bucket_size 128;" > /etc/nginx/conf.d/server_names.conf
 
 # Change cron time of authentic2 cleanup
 RUN sed -i "s/5 \*/5 1/g" /etc/cron.d/authentic2-multitenant
