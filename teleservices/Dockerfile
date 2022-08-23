@@ -136,8 +136,10 @@ RUN apt update && apt install -y imio-townstreet \
   passerelle-imio-ia-delib \
   passerelle-imio-ia-tech \
   passerelle-imio-sso-agents \
+  python3-pip \
   scripts-teleservices \
   teleservices-package \
   wcs-scripts-teleservices \
   --allow-unauthenticated
 
+RUN pip3 install --upgrade sentry-sdk
