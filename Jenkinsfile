@@ -190,7 +190,8 @@ pipeline {
       steps {
         sh {"""
           sleep 3
-          until curl -m 1 --output /dev/null --silent --fail 'https://staging.guichet-citoyen.be/'; do
+          until curl -m 1 --output /dev/null --silent --fail 'https://staging.guichet-citoyen.be/';
+          do
               sleep 3
               echo 'Waiting until guichet-citoyen staging instance started'
           done
