@@ -1,0 +1,8 @@
+version: '2.4'
+services:
+  cypress:
+    build: .
+    working_dir: /e2e
+    volumes:
+    - ./Townstreet/cypress/videos/:/e2e/cypress/videos/
+    - ./Townstreet/cypress/screenshots/:/e2e/cypress/screenshots/
