@@ -79,3 +79,7 @@ run-bullseye-test:
 fast-clean:
 	docker-compose down -v
 	sudo rm -fr data/*/*/ data/wcs/config.pck data/wcs/.rnd
+
+.PHONY: validation-tests
+validation-tests:
+		docker-compose -f validation-tests/docker-compose.yml up --exit-code-from cypress
