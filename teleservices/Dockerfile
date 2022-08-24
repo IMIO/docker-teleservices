@@ -47,7 +47,7 @@ RUN cat /etc/apt/sources.list.d/imio.list && apt update && apt install -y \
   entrouvert-repository \
   entrouvert-repository-eobuilder \
   entrouvert-repository-hotfix \
-  && apt update && rm /etc/apt/sources.list.d/entrouvert-local.list 
+  && apt update && rm /etc/apt/sources.list.d/entrouvert-local.list
 
 RUN echo "Package: *\nPin: release a=$DEBIAN_VERSION-eobuilder\nPin-Priority: 400" > /etc/apt/preferences.d/entrouvert-eobuilder
 

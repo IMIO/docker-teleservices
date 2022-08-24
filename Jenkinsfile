@@ -189,16 +189,23 @@ pipeline {
       }
       steps {
         script {
-          sh {
-            """
-            sleep 3
-            until curl -m 1 --output /dev/null --silent --fail 'https://staging.guichet-citoyen.be/';
-            do
+          try {
+            timeout(time: 15, unit: 'MINUTES', activity: true) {
+              sh {
+                """
                 sleep 3
-                echo 'Waiting until guichet-citoyen staging instance started'
-            done
-            echo 'The instance is now started.'
-            """
+                until curl -m 1 --output /dev/null --silent --fail 'https://staging.guichet-citoyen.be/';
+                do
+                    sleep 3
+                    echo 'Waiting until guichet-citoyen staging instance started'
+                done
+                echo 'The instance is now started.'
+                """
+              }
+            }
+          }
+          catch (exc) {
+            unstable('Staging instance is down.')
           }
         }
         script {
