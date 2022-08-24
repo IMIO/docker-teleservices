@@ -89,7 +89,7 @@ RUN apt update && apt install -y \
   passerelle-imio-ia-delib \
   passerelle-imio-ia-tech \
   passerelle-imio-sso-agents \
-  python3-passerelle-imio-extra-fees=0.6-1~eob110+1 \
+  python3-passerelle-imio-extra-fees/*-eobuilder \
   python3-passerelle-imio-ts1-datasources \
   scripts-teleservices \
   teleservices-package \
