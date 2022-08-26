@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 jobs:
   buster:
-    runs-on: debian:buster
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -27,7 +27,7 @@ jobs:
           pull: true
           push: true
   bullseye:
-    runs-on: debian:bullseye
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
