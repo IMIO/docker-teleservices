@@ -1,5 +1,5 @@
 ARG DEBIAN_VERSION
-FROM debian:${DEBIAN_VERSION} as prod-image
+FROM debian:${DEBIAN_VERSION}
 ARG DEBIAN_VERSION
 # Setting ENV variables
 ENV DEBIAN_FRONTEND=noninteractive \
