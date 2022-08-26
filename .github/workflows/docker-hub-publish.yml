@@ -26,8 +26,7 @@ jobs:
           platforms: linux/amd64
           pull: true
           push: true
-          buildArgs:
-            DEBIAN_VERSION: buster
+          buildArgs: DEBIAN_VERSION=buster
   bullseye:
     runs-on: ubuntu-latest
     steps:
@@ -48,5 +47,4 @@ jobs:
           platforms: linux/amd64
           pull: true
           push: true
-          buildArgs:
-            DEBIAN_VERSION: bullseye
+          buildArgs: DEBIAN_VERSION=buster
