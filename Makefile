@@ -14,7 +14,7 @@ build-buster-base:
 
 build-buster:
 		cd teleservices && \
-		docker build --target prod-image -t teleservices/buster:latest \
+		docker build --pull --target prod-image -t teleservices/buster:latest \
 		--build-arg DEBIAN_VERSION=buster \
 		.
 
@@ -41,7 +41,7 @@ build-bullseye-base:
 
 build-bullseye:
 		cd teleservices && \
-		docker build --target prod-image -t teleservices/bullseye:latest \
+		docker build --pull --target prod-image -t teleservices/bullseye:latest \
 		--build-arg DEBIAN_VERSION=bullseye \
 		.
 
