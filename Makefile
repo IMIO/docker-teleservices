@@ -20,13 +20,13 @@ build-buster:
 
 build-buster-test:
 		cd teleservices && \
-		docker build --target dev-image -t teleservices/buster-test:latest \
+		docker build --pull --target dev-image -t teleservices/buster-test:latest \
 		--build-arg DEBIAN_VERSION=buster \
 		.
 
 build-buster-odoo9:
 		cd teleservices && \
-		docker build --target prod-image -t teleservices/buster-odoo9:latest \
+		docker build --pull --target prod-image -t teleservices/buster-odoo9:latest \
 		--build-arg DEBIAN_VERSION=buster \
 		--build-arg IMIO_TS_AES_VERSION=0.2 \
 		--build-arg PASSERELLE_IMIO_IA_AES_VERSION=0.2 \
@@ -35,7 +35,7 @@ build-buster-odoo9:
 
 build-bullseye-base:
 		cd teleservices && \
-		docker build -f Dockerfile-base -t imiobe/teleservices-bullseye-base:latest \
+		docker build --pull -f Dockerfile-base -t imiobe/teleservices-bullseye-base:latest \
 		--build-arg DEBIAN_VERSION=bullseye \
 		.
 
@@ -47,25 +47,25 @@ build-bullseye:
 
 build-bullseye-test:
 		cd teleservices && \
-		docker build --target dev-image -t teleservices/bullseye-test:latest \
+		docker build --pull --target dev-image -t teleservices/bullseye-test:latest \
 		--build-arg DEBIAN_VERSION=bullseye \
 		.
 
 build-no-cache-buster:
 		cd teleservices && \
-		docker build --no-cache --target prod-image -t teleservices/buster:latest \
+		docker build --pull --no-cache --target prod-image -t teleservices/buster:latest \
 		--build-arg DEBIAN_VERSION=buster \
 		.
 
 build-no-cache-buster-test:
 		cd teleservices && \
-		docker build --no-cache --target dev-image -t teleservices/buster-test:latest \
+		docker build --pull --no-cache --target dev-image -t teleservices/buster-test:latest \
 		--build-arg DEBIAN_VERSION=buster \
 		.
 
 build-no-cache-buster-odoo9:
 		cd teleservices && \
-		docker build --no-cache --target prod-image -t teleservices/buster-odoo9:latest \
+		docker build --pull --no-cache --target prod-image -t teleservices/buster-odoo9:latest \
 		--build-arg DEBIAN_VERSION=buster \
 		--build-arg IMIO_TS_AES_VERSION=0.2 \
 		--build-arg PASSERELLE_IMIO_IA_AES_VERSION=0.2 \
@@ -73,13 +73,13 @@ build-no-cache-buster-odoo9:
 
 build-no-cache-bullseye:
 		cd teleservices && \
-		docker build --no-cache --target prod-image -t teleservices/bullseye:latest \
+		docker build --pull --no-cache --target prod-image -t teleservices/bullseye:latest \
 		--build-arg DEBIAN_VERSION=bullseye \
 		.
 
 build-no-cache-bullseye-test:
 		cd teleservices && \
-		docker build --no-cache --target dev-image -t teleservices/bullseye-test:latest \
+		docker build --pull --no-cache --target dev-image -t teleservices/bullseye-test:latest \
 		--build-arg DEBIAN_VERSION=bullseye \
 		.
 
