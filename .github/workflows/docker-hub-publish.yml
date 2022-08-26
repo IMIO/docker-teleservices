@@ -20,7 +20,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: teleservices
-          file: Dockerfile-base
+          file: teleservices/Dockerfile-base
           tags: imiobe/teleservices-buster-base:latest
           platforms: linux/amd64
           pull: true
@@ -38,10 +38,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: teleservices-bullseye
-        uses: docker/build-push-action@v23
+        uses: docker/build-push-action@v3
         with:
           context: teleservices
-          file: Dockerfile-base
+          file: teleservices/ockerfile-base
           tags: imiobe/teleservices-bullseye-base:latest
           platforms: linux/amd64
           pull: true
