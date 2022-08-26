@@ -6,6 +6,12 @@ clean:
 run:
 		docker-compose up
 
+build-buster-base:
+		cd teleservices && \
+		docker build -f Dockerfile-base -t imiobe/teleservices-buster-base:latest \
+		--build-arg DEBIAN_VERSION=buster \
+		.
+
 build-buster:
 		cd teleservices && \
 		docker build --target prod-image -t teleservices/buster:latest \
@@ -24,6 +30,13 @@ build-buster-odoo9:
 		--build-arg DEBIAN_VERSION=buster \
 		--build-arg IMIO_TS_AES_VERSION=0.2 \
 		--build-arg PASSERELLE_IMIO_IA_AES_VERSION=0.2 \
+		.
+
+
+build-bullseye-base:
+		cd teleservices && \
+		docker build -f Dockerfile-base -t imiobe/teleservices-bullseye-base:latest \
+		--build-arg DEBIAN_VERSION=bullseye \
 		.
 
 build-bullseye:
