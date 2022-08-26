@@ -41,7 +41,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: teleservices
-          file: teleservices/ockerfile-base
+          file: teleservices/Dockerfile-base
           tags: imiobe/teleservices-bullseye-base:latest
           platforms: linux/amd64
           pull: true
