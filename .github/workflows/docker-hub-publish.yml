@@ -19,7 +19,7 @@ jobs:
       - name: teleservices-buster
         uses: docker/build-push-action@v2.5.0
         with:
-          context: "{{defaultContext}}:teleservices"
+          context: teleservices/
           file: {context}/Dockerfile-base
           tags: imiobe/teleservices-buster-base:latest
           platforms: linux/amd64
@@ -40,7 +40,7 @@ jobs:
       - name: teleservices-bullseye
         uses: docker/build-push-action@v2.5.0
         with:
-          context: "{{defaultContext}}:teleservices"
+          context: teleservices/
           file: {context}/Dockerfile-base
           tags: imiobe/teleservices-bullseye-base:latest
           platforms: linux/amd64
