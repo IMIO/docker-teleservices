@@ -48,7 +48,8 @@
     }},
     {"create-wcs": {
       "url": "http://${wcs}/",
-      "title": "Démarches - local - E-Guichet"
+      "title": "Démarches - local - E-Guichet",
+      "template_name": "modele.zip"
     }},
     {"set-attribute": {
       "name": "niss",
@@ -58,7 +59,7 @@
       "enabled": true
     }},
     {"set-theme": {
-      "theme": "imio"
+      "theme": "imio-basic"
     }}
   ]
 }
