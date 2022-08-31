@@ -7,7 +7,8 @@
     "combo_agent": "local-portail-agent.example.net",
     "fargo": "local-documents.example.net",
     "passerelle": "local-passerelle.example.net",
-    "wcs": "local-formulaires.example.net"
+    "wcs": "local-formulaires.example.net",
+    "bijoe": "local-stats.example.net"
   },
   "steps": [
     {"create-hobo": {
@@ -50,6 +51,10 @@
       "url": "http://${wcs}/",
       "title": "Démarches - local - E-Guichet",
       "template_name": "modele.zip"
+    }},
+    {"create-bijoe": {
+      "url": "http://${bijoe}/",
+      "title": "Statistiques - Local - E-Guichet"
     }},
     {"set-attribute": {
       "name": "niss",
