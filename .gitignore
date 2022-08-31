@@ -6,7 +6,6 @@ data/chrono/
 data/combo/
 data/fargo/
 data/passerelle/
-data/wcs/
 data/hobo/
 src/passerelle*
 src/scripts/build-e-guichet/*
