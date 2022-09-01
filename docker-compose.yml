@@ -4,11 +4,11 @@ services:
   teleservices:
     build:
       args:
-        DEBIAN_VERSION: buster
-        IMIO_TS_AES_VERSION: 0.2
-        PASSERELLE_IMIO_IA_AES_VERSION: 0.2
+        DEBIAN_VERSION: bullseye
+        IMIO_TS_AES_VERSION: 1.1
+        PASSERELLE_IMIO_IA_AES_VERSION: 1.1
       context: teleservices
-    #image: teleservices/${DEBIAN_VERSION}:latest
+    image: teleservices/bullseye:latest
     mem_limit: 2048m
     ports:
       - "80:80"
