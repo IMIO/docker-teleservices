@@ -9,6 +9,7 @@ data/passerelle/
 data/wcs/
 !data/wcs/skeletons/modele.zip
 data/hobo/
+data/bijoe/
 src/passerelle*
 src/scripts/build-e-guichet/*
 src/wcs-scripts/*
