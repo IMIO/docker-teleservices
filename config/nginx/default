@@ -289,4 +289,34 @@ server {
         }
         error_log /var/log/nginx/error-local-agendas.example.net.log warn;
         access_log /var/log/nginx/access-local-agendas.example.net.log combined;
+
+}
+server {
+        listen   80;
+
+        server_name local-stats.example.net;
+
+        location ~ ^/static/(.+)$ {
+            root /;
+            try_files /var/lib/bijoe/static/$1
+                      /var/lib/bijoe/theme/static/$1
+                      /var/lib/bijoe/collectstatic/$1
+                      =404;
+                add_header 'X-Content-Type-Options' 'nosniff';
+                add_header 'X-XSS-Protection' '1; mode=block';
+                add_header 'Content-Security-Policy' "default-src 'none'; style-src 'self' 'unsafe-inline'; object-src 'self' 'unsafe-inline'; img-src 'self' data:;";
+                add_header 'Cache-Control' 'private';
+        }
+
+        location / {
+            proxy_pass         http://unix:/var/run/bijoe/bijoe.sock;
+            proxy_set_header   Host $http_host;
+            proxy_set_header   X-Real-IP       $remote_addr;
+            proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+                add_header 'X-Content-Type-Options' 'nosniff';
+                add_header 'X-XSS-Protection' '1; mode=block';
+                add_header 'Cache-Control' 'private';
+        }
+        error_log /var/log/nginx/error-local-stats.example.net.log warn;
+        access_log /var/log/nginx/access-local-stats.example.net.log combined;
 }

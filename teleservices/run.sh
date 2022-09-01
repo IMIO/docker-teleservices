@@ -19,8 +19,8 @@ chown passerelle:passerelle /var/lib/passerelle/tenants -R
 chown wcs:wcs /var/lib/wcs -R
 
 echo "✨ run.sh · verifying uploads & attachments permission folders."
-[ -d /var/lib/wcs/*/attachments ] && chown -R wcs:wcs /var/lib/wcs/*/attachments/
-[ -d /var/lib/wcs/*/uploads ] && chown -R wcs:wcs var/lib/wcs/*/uploads/
+[ -d /var/lib/wcs/tenants/*/attachments ] && chown -R wcs:wcs /var/lib/wcs/tenants/*/attachments/
+[ -d /var/lib/wcs/tenants/*/uploads ] && chown -R wcs:wcs var/lib/wcs/tenants/*/uploads/
 
 
 echo "✨ run.sh · Monkey-patching mails via '/var/lib/authentic2/locale/fr/LC_MESSAGES/mail-translation.py'."
@@ -109,14 +109,6 @@ echo "✨ run.sh · Running hobo-manage cook /etc/hobo/recipe.json & setup wcs w
 sudo -u hobo hobo-manage cook /etc/hobo/recipe.json
 test -e /etc/hobo/recipe*extra.json && sudo -u hobo hobo-manage cook /etc/hobo/recipe*extra.json
 test -e /etc/hobo/extra/recipe*json && sudo -u hobo hobo-manage cook /etc/hobo/extra/recipe*.json
-
-test -e /var/lib/wcs/configure-wcs.py && python /var/lib/wcs/configure-wcs.py
-
-echo "✨ run.sh · Re-run cooks & initialize wcs SQL DB (hotfix ─ TELE-1420 · #68244)"
-sudo -u hobo hobo-manage cook /etc/hobo/recipe.json
-test -e /etc/hobo/recipe*extra.json && sudo -u hobo hobo-manage cook /etc/hobo/recipe*extra.json
-test -e /etc/hobo/extra/recipe*json && sudo -u hobo hobo-manage cook /etc/hobo/extra/recipe*.json
-echo -e "from quixote import get_publisher\nget_publisher().initialize_sql()" > /var/lib/wcs/init-wcs-database.py && sudo -u wcs wcs-manage runscript --all-tenants /var/lib/wcs/init-wcs-database.py
 
 # should be commented or explained soon
 if [ x$1 = xfromgit ]
