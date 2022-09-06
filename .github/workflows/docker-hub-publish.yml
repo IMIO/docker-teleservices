@@ -45,4 +45,4 @@ jobs:
           pull: true
           push: true
           build-args: |
-            DEBIAN_VERSION=buster
+            DEBIAN_VERSION=bullseye
