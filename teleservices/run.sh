@@ -105,6 +105,11 @@ service chrono start
 service nginx start
 service supervisor start
 
+if [ ! -f "/var/lib/wcs/skeletons/modele.zip" ]; then
+  echo "✨ run.sh · Zipping wcs database config and cooking"
+  zip -j /var/lib/wcs/skeletons/modele.zip /var/lib/wcs/skeletons/site-options.cfg /var/lib/wcs/skeletons/config.json
+  sudo -u hobo hobo-manage cook /etc/hobo/recipe.json
+fi
 echo "✨ run.sh · Running hobo-manage cook /etc/hobo/recipe.json & setup wcs with our postrgesql"
 sudo -u hobo hobo-manage cook /etc/hobo/recipe.json
 test -e /etc/hobo/recipe*extra.json && sudo -u hobo hobo-manage cook /etc/hobo/recipe*extra.json
