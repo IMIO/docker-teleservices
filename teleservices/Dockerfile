@@ -16,7 +16,9 @@ RUN apt update && apt install -y \
   python3-passerelle-imio-extra-fees/*-eobuilder \
   python3-passerelle-imio-ts1-datasources \
   scripts-teleservices \
+  teleservices-iacitizen \
   teleservices-package \
+  teleservices-package-light \
   wcs-scripts-teleservices \
   --allow-unauthenticated
 
