@@ -7,6 +7,7 @@ ARG PASSERELLE_IMIO_IA_AES_VERSION=1.1*
 RUN apt update && apt install -y \
   imio-townstreet \
   "imio-ts-aes=$IMIO_TS_AES_VERSION*" \
+  passerelle-imio-abiware \
   passerelle-imio-aes-meal \
   passerelle-imio-aes-health \
   "passerelle-imio-ia-aes=$PASSERELLE_IMIO_IA_AES_VERSION*" \
