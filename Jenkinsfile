@@ -20,18 +20,6 @@ pipeline {
         }
       }
       parallel{
-        stage("buster") {
-          agent any
-          steps {
-            script {
-              if (params.USE_CACHE_TO_BUILD_IMAGE) {
-                sh 'make build-buster'
-              } else {
-                sh 'make build-no-cache-buster'
-              }
-            }
-          }
-        }
         stage("bullseye") {
           agent any
           steps {
@@ -48,30 +36,6 @@ pipeline {
     }
     stage('Build test and odoo9 image') {
       parallel{
-        stage("buster-test") {
-          agent any
-          steps {
-            script {
-              if (params.USE_CACHE_TO_BUILD_IMAGE) {
-                sh 'make build-buster-test'
-              } else {
-                sh 'make build-no-cache-buster-test'
-              }
-            }
-          }
-        }
-        stage("buster-odoo9") {
-          agent any
-          steps {
-            script {
-              if (params.USE_CACHE_TO_BUILD_IMAGE) {
-                sh 'make build-buster-odoo9'
-              } else {
-                sh 'make build-no-cache-buster-odoo9'
-              }
-            }
-          }
-        }
         stage("bullseye-test") {
           agent any
           steps {
@@ -97,15 +61,6 @@ pipeline {
         }
       }
       parallel{
-        stage("buster") {
-          agent any
-          steps {
-            pushImageToRegistry(
-              "${env.BUILD_ID}",
-              "teleservices/buster"
-            )
-          }
-        }
         stage("bullseye") {
           agent any
           steps {
@@ -128,24 +83,6 @@ pipeline {
         }
       }
       parallel{
-        stage("buster-odoo9") {
-          agent any
-          steps {
-            pushImageToRegistry(
-              "${env.BUILD_ID}",
-              "teleservices/buster-odoo9"
-            )
-          }
-        }
-        stage("buster-test") {
-          agent any
-          steps {
-            pushImageToRegistry(
-              "${env.BUILD_ID}",
-              "teleservices/buster-test"
-            )
-          }
-        }
         stage("bullseye-test") {
           agent any
           steps {
@@ -229,8 +166,6 @@ pipeline {
       }
       steps {
         echo 'Confirmed production deploy'
-        moveImageToProdRegistry(env.BUILD_ID, "teleservices/buster")
-        moveImageToProdRegistry(env.BUILD_ID, "teleservices/buster-odoo9")
         moveImageToProdRegistry(env.TAG_NAME, "teleservices/bullseye")
         echo "Schedule Rundeck job"
         sh "curl -k --fail -XPOST --header \"Content-Type: application/json\" --header \"X-Rundeck-Auth-Token: $RUNDECK_TS_TOKEN\" https://run.imio.be/api/12/job/311af116-fedc-4e33-b2a7-99c8651f8e9b/run"
