@@ -5,8 +5,8 @@ services:
     build:
       args:
         DEBIAN_VERSION: bullseye
-        IMIO_TS_AES_VERSION: 1.1
-        PASSERELLE_IMIO_IA_AES_VERSION: 1.1
+        IMIO_TS_AES_VERSION: 1.3
+        PASSERELLE_IMIO_IA_AES_VERSION: 1.2
       context: teleservices
     image: teleservices/bullseye:latest
     mem_limit: 2048m
