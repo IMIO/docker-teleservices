@@ -61,7 +61,7 @@ RUN apt update && apt install -y imio-townstreet \
   passerelle-imio-ia-aes \
   passerelle-imio-ia-delib \
   passerelle-imio-ia-tech \
-  passerelle-imio-apim-baec \
+  passerelle-imio-apims-baec \
   passerelle-imio-sso-agents \
   python3-pip \
   scripts-teleservices \
