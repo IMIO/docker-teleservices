@@ -1,16 +1,14 @@
 ARG DEBIAN_VERSION
 FROM imiobe/teleservices-${DEBIAN_VERSION}-base as prod-image
 ARG DEBIAN_VERSION
-ARG IMIO_TS_AES_VERSION=1.3*
-ARG PASSERELLE_IMIO_IA_AES_VERSION=1.2*
 
 RUN apt update && apt install -y \
   imio-townstreet \
-  "imio-ts-aes=$IMIO_TS_AES_VERSION*" \
+  imio-ts-aes \
   passerelle-imio-abiware \
   passerelle-imio-aes-meal \
   passerelle-imio-aes-health \
-  "passerelle-imio-ia-aes=$PASSERELLE_IMIO_IA_AES_VERSION*" \
+  passerelle-imio-ia-aes \
   passerelle-imio-ia-delib \
   passerelle-imio-ia-tech \
   passerelle-imio-sso-agents \
