@@ -34,7 +34,7 @@ pipeline {
         }
       }
     }
-    stage('Build test and odoo9 image') {
+    stage('Build test image') {
       parallel{
         stage("bullseye-test") {
           agent any
