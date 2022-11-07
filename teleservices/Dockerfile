@@ -8,6 +8,7 @@ RUN apt update && apt install -y \
   passerelle-imio-abiware \
   passerelle-imio-aes-meal \
   passerelle-imio-aes-health \
+  passerelle-imio-apims-baec \
   passerelle-imio-ia-aes \
   passerelle-imio-ia-delib \
   passerelle-imio-ia-tech \
@@ -58,10 +59,10 @@ RUN apt update && apt install -y imio-townstreet \
   imio-ts-aes \
   passerelle-imio-aes-meal \
   passerelle-imio-aes-health \
+  passerelle-imio-apims-baec \
   passerelle-imio-ia-aes \
   passerelle-imio-ia-delib \
   passerelle-imio-ia-tech \
-  passerelle-imio-apims-baec \
   passerelle-imio-sso-agents \
   python3-pip \
   scripts-teleservices \
