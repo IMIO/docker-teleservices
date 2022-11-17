@@ -70,4 +70,4 @@ RUN apt update && apt install -y imio-townstreet \
   wcs-scripts-teleservices \
   --allow-unauthenticated
 
-RUN pip3 install --upgrade sentry-sdk
+RUN pip3 install sentry-sdk uwsgitop
