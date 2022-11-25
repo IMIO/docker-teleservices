@@ -71,3 +71,5 @@ RUN apt update && apt install -y imio-townstreet \
   --allow-unauthenticated
 
 RUN pip3 install sentry-sdk uwsgitop
+COPY prometheus_uwsgi_exporter.py /usr/bin/
+RUN crontab -l | { cat; echo "* * * * * /usr/bin/prometheus_uwsgi_exporter.py"; } | crontab -
