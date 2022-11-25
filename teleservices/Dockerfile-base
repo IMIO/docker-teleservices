@@ -29,6 +29,7 @@ RUN apt update && apt install -y \
   locales \
   nginx \
   procps \
+  prometheus-entrouvert-exporter \
   rsyslog \
   vim-nox \
   zip
