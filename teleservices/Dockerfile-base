@@ -29,7 +29,6 @@ RUN apt update && apt install -y \
   locales \
   nginx \
   procps \
-  prometheus-entrouvert-exporter \
   rsyslog \
   vim-nox \
   zip
@@ -61,6 +60,7 @@ RUN apt install -y \
   hobo \
   hobo-agent \
   passerelle \
+  prometheus-entrouvert-exporter \
   publik-base-theme \
   poppler-utils \
   python3-authentic2-auth-fedict \
