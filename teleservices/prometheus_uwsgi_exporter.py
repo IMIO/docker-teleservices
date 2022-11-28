@@ -14,55 +14,55 @@ registry = CollectorRegistry()
 uwsgi_workers_rss_avg = Gauge(
     "ts_uwsgi_workers_rss_avg",
     "Average RSS of uwsgi workers",
-    ["app", "client_id"],
+    ["app", "client_id", "name"],
     registry=registry,
 )
 uwsgi_workers_rss_med = Gauge(
     "ts_uwsgi_workers_rss_med",
     "Median RSS of uwsgi workers",
-    ["app", "client_id"],
+    ["app", "client_id", "name"],
     registry=registry,
 )
 uwsgi_workers_rss_max = Gauge(
     "ts_uwsgi_workers_rss_max",
     "Maximum RSS of uwsgi workers",
-    ["app", "client_id"],
+    ["app", "client_id", "name"],
     registry=registry,
 )
 uwsgi_workers_rss_total = Gauge(
     "ts_uwsgi_workers_rss_total",
     "Total RSS of uwsgi workers",
-    ["app", "client_id"],
+    ["app", "client_id", "name"],
     registry=registry,
 )
 uwsgi_workers_vsz_avg = Gauge(
     "ts_uwsgi_workers_vsz_avg",
     "Average VSZ of uwsgi workers",
-    ["app", "client_id"],
+    ["app", "client_id", "name"],
     registry=registry,
 )
 uwsgi_workers_vsz_med = Gauge(
     "ts_uwsgi_workers_vsz_med",
     "Median VSZ of uwsgi workers",
-    ["app", "client_id"],
+    ["app", "client_id", "name"],
     registry=registry,
 )
 uwsgi_workers_vsz_max = Gauge(
     "ts_uwsgi_workers_vsz_max",
     "Maximum VSZ of uwsgi workers",
-    ["app", "client_id"],
+    ["app", "client_id", "name"],
     registry=registry,
 )
 uwsgi_workers_vsz_total = Gauge(
     "ts_uwsgi_workers_vsz_total",
     "Total VSZ of uwsgi workers",
-    ["app", "client_id"],
+    ["app", "client_id", "name"],
     registry=registry,
 )
 uwsgi_workers_status = Gauge(
     "ts_uwsgi_workers_status",
     "uwsgi workers status",
-    ["app", "status", "client_id"],
+    ["app", "status", "client_id", "name"],
     registry=registry,
 )
 app_name = None
