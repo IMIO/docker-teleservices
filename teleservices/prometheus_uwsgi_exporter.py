@@ -70,10 +70,10 @@ app_name = None
 for stats_sock in glob.glob("/run/*/stats.sock"):
     app_name = stats_sock.split("/")[2]
     app_name = app_name.replace("authentic2-multitenant", "authentic")
-    #  if app_name == "authentic":
-    #      # do not collect authentic data as it triggers some uwsgi bug
-    #      # https://dev.entrouvert.org/issues/54624
-    #      continue
+    if app_name == "authentic":
+         # do not collect authentic data as it triggers some uwsgi bug
+         # https://dev.entrouvert.org/issues/54624
+         continue
     stats_json = ""
     with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as s:
         s.connect(stats_sock)
@@ -97,33 +97,34 @@ for stats_sock in glob.glob("/run/*/stats.sock"):
         workers_rss.append(worker["rss"])
         workers_vsz.append(worker["vsz"])
     client_id = os.getenv("HOSTNAME").replace("teleservices", "")
-    uwsgi_workers_rss_total.labels(app=app_name, client_id=client_id).set(
+    name = f"{client_id}_teleservices"
+    uwsgi_workers_rss_total.labels(app=app_name, client_id=client_id, name=name).set(
         sum(workers_rss)
     )
-    uwsgi_workers_rss_max.labels(app=app_name, client_id=client_id).set(
+    uwsgi_workers_rss_max.labels(app=app_name, client_id=client_id, name=name).set(
         max(workers_rss)
     )
-    uwsgi_workers_rss_avg.labels(app=app_name, client_id=client_id).set(
+    uwsgi_workers_rss_avg.labels(app=app_name, client_id=client_id, name=name).set(
         statistics.mean(workers_rss)
     )
-    uwsgi_workers_rss_med.labels(app=app_name, client_id=client_id).set(
+    uwsgi_workers_rss_med.labels(app=app_name, client_id=client_id, name=name).set(
         statistics.median(workers_rss)
     )
-    uwsgi_workers_vsz_total.labels(app=app_name, client_id=client_id).set(
+    uwsgi_workers_vsz_total.labels(app=app_name, client_id=client_id, name=name).set(
         sum(workers_vsz)
     )
-    uwsgi_workers_vsz_max.labels(app=app_name, client_id=client_id).set(
+    uwsgi_workers_vsz_max.labels(app=app_name, client_id=client_id, name=name).set(
         max(workers_vsz)
     )
-    uwsgi_workers_vsz_avg.labels(app=app_name, client_id=client_id).set(
+    uwsgi_workers_vsz_avg.labels(app=app_name, client_id=client_id, name=name).set(
         statistics.mean(workers_vsz)
     )
-    uwsgi_workers_vsz_med.labels(app=app_name, client_id=client_id).set(
+    uwsgi_workers_vsz_med.labels(app=app_name, client_id=client_id, name=name).set(
         statistics.median(workers_vsz)
     )
     for k in workers_status:
         uwsgi_workers_status.labels(
-            app=app_name, status=k, client_id=client_id
+            app=app_name, status=k, client_id=client_id, name=name
         ).set(workers_status[k])
 
 
