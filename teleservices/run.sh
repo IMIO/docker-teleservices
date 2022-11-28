@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export LANG=C.UTF-8
-
+printenv >> /etc/environment  # set env variables for cron jobs
 echo "✨ run.sh · cleaning some pid/sock files that can be generated at image creation (if they exist)."
 for file in /var/run/{authentic2-multitenant/authentic2-multitenant,chrono/chrono,fargo/fargo,hobo/hobo,combo/combo,nginx,rsyslogd,supervisord,wcs,passerelle/passerelle,bijoe/bijoe}.{pid,sock};
 do
