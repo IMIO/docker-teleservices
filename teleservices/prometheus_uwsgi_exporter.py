@@ -14,55 +14,55 @@ registry = CollectorRegistry()
 uwsgi_workers_rss_avg = Gauge(
     "ts_uwsgi_workers_rss_avg",
     "Average RSS of uwsgi workers",
-    ["app", "client_id", "name"],
+    ["app", "client_id", "compose_service"],
     registry=registry,
 )
 uwsgi_workers_rss_med = Gauge(
     "ts_uwsgi_workers_rss_med",
     "Median RSS of uwsgi workers",
-    ["app", "client_id", "name"],
+    ["app", "client_id", "compose_service"],
     registry=registry,
 )
 uwsgi_workers_rss_max = Gauge(
     "ts_uwsgi_workers_rss_max",
     "Maximum RSS of uwsgi workers",
-    ["app", "client_id", "name"],
+    ["app", "client_id", "compose_service"],
     registry=registry,
 )
 uwsgi_workers_rss_total = Gauge(
     "ts_uwsgi_workers_rss_total",
     "Total RSS of uwsgi workers",
-    ["app", "client_id", "name"],
+    ["app", "client_id", "compose_service"],
     registry=registry,
 )
 uwsgi_workers_vsz_avg = Gauge(
     "ts_uwsgi_workers_vsz_avg",
     "Average VSZ of uwsgi workers",
-    ["app", "client_id", "name"],
+    ["app", "client_id", "compose_service"],
     registry=registry,
 )
 uwsgi_workers_vsz_med = Gauge(
     "ts_uwsgi_workers_vsz_med",
     "Median VSZ of uwsgi workers",
-    ["app", "client_id", "name"],
+    ["app", "client_id", "compose_service"],
     registry=registry,
 )
 uwsgi_workers_vsz_max = Gauge(
     "ts_uwsgi_workers_vsz_max",
     "Maximum VSZ of uwsgi workers",
-    ["app", "client_id", "name"],
+    ["app", "client_id", "compose_service"],
     registry=registry,
 )
 uwsgi_workers_vsz_total = Gauge(
     "ts_uwsgi_workers_vsz_total",
     "Total VSZ of uwsgi workers",
-    ["app", "client_id", "name"],
+    ["app", "client_id", "compose_service"],
     registry=registry,
 )
 uwsgi_workers_status = Gauge(
     "ts_uwsgi_workers_status",
     "uwsgi workers status",
-    ["app", "status", "client_id", "name"],
+    ["app", "status", "client_id", "compose_service"],
     registry=registry,
 )
 app_name = None
@@ -97,34 +97,34 @@ for stats_sock in glob.glob("/run/*/stats.sock"):
         workers_rss.append(worker["rss"])
         workers_vsz.append(worker["vsz"])
     client_id = os.getenv("HOSTNAME").replace("teleservices", "")
-    name = f"{client_id}_teleservices"
-    uwsgi_workers_rss_total.labels(app=app_name, client_id=client_id, name=name).set(
+    compose_service = f"{client_id}teleservices"
+    uwsgi_workers_rss_total.labels(app=app_name, client_id=client_id, compose_service=compose_service).set(
         sum(workers_rss)
     )
-    uwsgi_workers_rss_max.labels(app=app_name, client_id=client_id, name=name).set(
+    uwsgi_workers_rss_max.labels(app=app_name, client_id=client_id, compose_service=compose_service).set(
         max(workers_rss)
     )
-    uwsgi_workers_rss_avg.labels(app=app_name, client_id=client_id, name=name).set(
+    uwsgi_workers_rss_avg.labels(app=app_name, client_id=client_id, compose_service=compose_service).set(
         statistics.mean(workers_rss)
     )
-    uwsgi_workers_rss_med.labels(app=app_name, client_id=client_id, name=name).set(
+    uwsgi_workers_rss_med.labels(app=app_name, client_id=client_id, compose_service=compose_service).set(
         statistics.median(workers_rss)
     )
-    uwsgi_workers_vsz_total.labels(app=app_name, client_id=client_id, name=name).set(
+    uwsgi_workers_vsz_total.labels(app=app_name, client_id=client_id, compose_service=compose_service).set(
         sum(workers_vsz)
     )
-    uwsgi_workers_vsz_max.labels(app=app_name, client_id=client_id, name=name).set(
+    uwsgi_workers_vsz_max.labels(app=app_name, client_id=client_id, compose_service=compose_service).set(
         max(workers_vsz)
     )
-    uwsgi_workers_vsz_avg.labels(app=app_name, client_id=client_id, name=name).set(
+    uwsgi_workers_vsz_avg.labels(app=app_name, client_id=client_id, compose_service=compose_service).set(
         statistics.mean(workers_vsz)
     )
-    uwsgi_workers_vsz_med.labels(app=app_name, client_id=client_id, name=name).set(
+    uwsgi_workers_vsz_med.labels(app=app_name, client_id=client_id, compose_service=compose_service).set(
         statistics.median(workers_vsz)
     )
     for k in workers_status:
         uwsgi_workers_status.labels(
-            app=app_name, status=k, client_id=client_id, name=name
+            app=app_name, status=k, client_id=client_id, compose_service=compose_service
         ).set(workers_status[k])
 
 
