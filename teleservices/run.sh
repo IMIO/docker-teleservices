@@ -165,9 +165,3 @@ echo "✨ run.sh · Update package of wcs elements."
 if [ -f /etc/hobo/init.sh ]; then /etc/hobo/init.sh; fi
 test -f /opt/publik/hooks/$HOSTNAME/run-finish-hook.sh && /opt/publik/hooks/$HOSTNAME/run-finish-hook.sh
 tail -f /var/log/syslog
-
-
-# Temporary setup latest imio-templatetags package since it not yet in entrouvert production repositories but needed now
-echo "✨ run.sh · Temporary setup latest imio-templatetags package since it not yet in entrouvert production repositories but needed now."
-echo "✨ run.sh · This should be removed next week after we're certain that the latest version is in production."
-apt update && apt install python3-imio-teleservices-templatetags=0.3.post4+g6bab9f5-1~eob110+1
