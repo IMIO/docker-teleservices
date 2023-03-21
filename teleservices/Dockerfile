@@ -64,9 +64,11 @@ RUN apt update && apt install -y imio-townstreet \
   passerelle-imio-ia-delib \
   passerelle-imio-ia-tech \
   passerelle-imio-sso-agents \
+  passerelle-imio-wca \
   python3-pip \
   scripts-teleservices \
   teleservices-package \
+  teleservices-package-light \
   wcs-scripts-teleservices \
   --allow-unauthenticated
 
