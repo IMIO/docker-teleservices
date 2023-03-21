@@ -6,8 +6,8 @@ RUN apt update && apt install -y \
   imio-townstreet \
   imio-ts-aes \
   passerelle-imio-abiware \
-  passerelle-imio-aes-meal \
   passerelle-imio-aes-health \
+  passerelle-imio-aes-meal \
   passerelle-imio-apims-baec \
   passerelle-imio-ia-aes \
   passerelle-imio-ia-delib \
@@ -57,8 +57,8 @@ RUN echo "deb [trusted=yes] https://nexus.imio.be/repository/${DEBIAN_VERSION}-t
 
 RUN apt update && apt install -y imio-townstreet \
   imio-ts-aes \
-  passerelle-imio-aes-meal \
   passerelle-imio-aes-health \
+  passerelle-imio-aes-meal \
   passerelle-imio-apims-baec \
   passerelle-imio-ia-aes \
   passerelle-imio-ia-delib \
