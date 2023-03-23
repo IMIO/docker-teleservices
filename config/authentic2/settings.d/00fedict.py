@@ -1,3 +1,10 @@
+if 'authentic2_auth_fedict' not in INSTALLED_APPS:
+    INSTALLED_APPS += ('authentic2_auth_fedict',)
+if 'authentic2_auth_fedict' not in TENANT_APPS:
+    TENANT_APPS += ('authentic2_auth_fedict',)
+if 'authentic2_auth_fedict.backends.FedictBackend' not in AUTHENTICATION_BACKENDS:
+    AUTHENTICATION_BACKENDS += ('authentic2_auth_fedict.backends.FedictBackend',)
+
 A2_AUTH_SAML_ENABLE = False
 A2_AUTH_FEDICT_ENABLE = True
 
