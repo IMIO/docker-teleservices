@@ -9,6 +9,7 @@ RUN apt update && apt install -y \
   passerelle-imio-aes-health \
   passerelle-imio-aes-meal \
   passerelle-imio-apims-baec \
+  passerelle-imio-apims-casier-judiciare \
   passerelle-imio-ia-aes \
   passerelle-imio-ia-delib \
   passerelle-imio-ia-tech \
