@@ -27,7 +27,7 @@ echo "✨ run.sh · Monkey-patching mails via '/var/lib/authentic2/locale/fr/LC_
 python3 /var/lib/authentic2/locale/fr/LC_MESSAGES/mail-translation.py
 
 echo "✨ run.sh · INFRA-5052 - Database update"
-test -e /var/lib/wcs/configure-wcs.py && python /var/lib/wcs/configure-wcs.py
+test -e /var/lib/wcs/configure-wcs.py && python3 /var/lib/wcs/configure-wcs.py
 
 echo "✨ run.sh · linking iMio wcs_scripts_teleservices."
 if [ -d /opt/publik/wcs-scripts/wcs_scripts_teleservices ];
