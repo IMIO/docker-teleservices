@@ -40,6 +40,37 @@ fi
 HOSTNAME=$(hostname)
 test -f /opt/publik/hooks/$HOSTNAME/run-hook.sh && echo "✨ run.sh · exec run-hook.sh" && /opt/publik/hooks/$HOSTNAME/run-hook.sh
 
+
+verify_cron_jobs_for_monkeypatch() {
+    local stage=$1
+    echo "✨ ($state) Verifying cron definition monkey-patch..."
+    # Authentic2 jobs
+    echo "✨ ($state) Authentic 2 jobs"
+    grep "minute=" /etc/authentic2-multitenant/authentic2-multitenant-uwsgi.ini
+    # bijoe job
+    echo "✨ ($state) bijoe job"
+    grep "^.*$" /etc/cron.d/bijoe
+    # chrono jobs
+    echo "✨ ($state) chrono jobs"
+    grep "unique-cron = " /etc/chrono/uwsgi.ini
+    # combo jobs
+    echo "✨ ($state) combo jobs"
+    grep "^.*$" /etc/cron.d/combo
+    # hobo jobs
+    echo "✨ ($state) hobo jobs"
+    grep "^.*$" /etc/cron.d/hobo-agent
+    # passerelle jobs
+    echo "✨ ($state) passerelle jobs"
+    grep "cron = " /etc/passerelle/uwsgi.ini
+    # hourly root jobs
+    echo "✨ ($state) hourly root jobs"
+    grep "^.*$" /etc/crontab
+    echo "✨ ($state) cron definition monkey-patch verification  done."
+}
+
+
+verify_cron_jobs_for_monkeypatch "before"
+
 echo "✨ run.sh ·  Alter Authentic2 jobs to run them at random time."
 sed -i "s/minute=0/minute=$(( ( RANDOM % 5 ) ))/" /etc/authentic2-multitenant/authentic2-multitenant-uwsgi.ini
 sed -i "s/minute=5/minute=$(( 6 + ( RANDOM % 10 ) ))/" /etc/authentic2-multitenant/authentic2-multitenant-uwsgi.ini
@@ -62,6 +93,9 @@ sed -i "s/cron = 1 -1/cron = $(( 6 + ( RANDOM % 10 ) )) -1/" /etc/passerelle/uws
 sed -i "s/cron = 17 -1/cron = $(( 17 + ( RANDOM % 40 ) )) -1/" /etc/passerelle/uwsgi.ini
 echo "✨ run.sh ·  Alter hourly root jobs to run them at random time."
 sed -i "s/^17/$(( ( RANDOM % 60 ) ))/" /etc/crontab
+
+verify_cron_jobs_for_monkeypatch "after"
+
 
 
 echo "✨ run.sh ·  Check if UTF8 is well configured (wcs cron jobs)."
