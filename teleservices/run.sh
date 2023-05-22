@@ -3,6 +3,7 @@
 export LANG=C.UTF-8
 printenv >> /etc/environment  # set env variables for cron jobs
 log_prefix="✨ run.sh ·"
+monkey_prefix="🐒Monkey-patching"
 echo "$prefix cleaning some pid/sock files that can be generated at image creation (if they exist)."
 for file in /var/run/{authentic2-multitenant/authentic2-multitenant,chrono/chrono,fargo/fargo,hobo/hobo,combo/combo,nginx,rsyslogd,supervisord,wcs,passerelle/passerelle,bijoe/bijoe}.{pid,sock};
 do
@@ -24,7 +25,7 @@ echo "$prefix verifying uploads & attachments permission folders."
 [ -d /var/lib/wcs/tenants/*/uploads ] && chown -R wcs:wcs var/lib/wcs/tenants/*/uploads/
 
 
-echo "$prefix 🐒Monkey-patching mails via '/var/lib/authentic2/locale/fr/LC_MESSAGES/mail-translation.py'."
+echo "$prefix $monkey_prefix mails via '/var/lib/authentic2/locale/fr/LC_MESSAGES/mail-translation.py'."
 python3 /var/lib/authentic2/locale/fr/LC_MESSAGES/mail-translation.py
 
 echo "$prefix INFRA-5052 - Database update"
@@ -77,7 +78,7 @@ then
 fi
 
 # Monkey patching chrono uwsgi.ini (cron jobs)
-echo "$prefix Monkey patching chrono uwsgi.ini (cron jobs)"
+echo "$prefix $monkey_prefix chrono uwsgi.ini (cron jobs)"
 cur_brick="chrono"
 declare -A commands=(
     ["cancel_events"]="-11 -6"
