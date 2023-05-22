@@ -2,13 +2,14 @@
 
 export LANG=C.UTF-8
 printenv >> /etc/environment  # set env variables for cron jobs
-echo "✨ run.sh · cleaning some pid/sock files that can be generated at image creation (if they exist)."
+log_prefix="✨ run.sh ·"
+echo "$prefix cleaning some pid/sock files that can be generated at image creation (if they exist)."
 for file in /var/run/{authentic2-multitenant/authentic2-multitenant,chrono/chrono,fargo/fargo,hobo/hobo,combo/combo,nginx,rsyslogd,supervisord,wcs,passerelle/passerelle,bijoe/bijoe}.{pid,sock};
 do
   test -e $file && rm $file;
 done
 
-echo "✨ run.sh · updating some Entr'Ouvert services folders user:group via chown."
+echo "$prefix updating some Entr'Ouvert services folders user:group via chown."
 chown authentic-multitenant:authentic-multitenant /var/lib/authentic2-multitenant/tenants -R
 chown hobo:hobo /var/lib/hobo/tenants -R
 chown bijoe:bijoe /var/lib/bijoe/tenants -R
@@ -18,18 +19,18 @@ chown fargo:fargo /var/lib/fargo/tenants -R
 chown passerelle:passerelle /var/lib/passerelle/tenants -R
 chown wcs:wcs /var/lib/wcs -R
 
-echo "✨ run.sh · verifying uploads & attachments permission folders."
+echo "$prefix verifying uploads & attachments permission folders."
 [ -d /var/lib/wcs/tenants/*/attachments ] && chown -R wcs:wcs /var/lib/wcs/tenants/*/attachments/
 [ -d /var/lib/wcs/tenants/*/uploads ] && chown -R wcs:wcs var/lib/wcs/tenants/*/uploads/
 
 
-echo "✨ run.sh · Monkey-patching mails via '/var/lib/authentic2/locale/fr/LC_MESSAGES/mail-translation.py'."
+echo "$prefix 🐒Monkey-patching mails via '/var/lib/authentic2/locale/fr/LC_MESSAGES/mail-translation.py'."
 python3 /var/lib/authentic2/locale/fr/LC_MESSAGES/mail-translation.py
 
-echo "✨ run.sh · INFRA-5052 - Database update"
+echo "$prefix INFRA-5052 - Database update"
 test -e /var/lib/wcs/configure-wcs.py && python3 /var/lib/wcs/configure-wcs.py
 
-echo "✨ run.sh · linking iMio wcs_scripts_teleservices."
+echo "$prefix linking iMio wcs_scripts_teleservices."
 if [ -d /opt/publik/wcs-scripts/wcs_scripts_teleservices ];
 then
   ln -sfn /opt/publik/wcs-scripts/wcs_scripts_teleservices /var/lib/wcs/scripts
@@ -38,9 +39,9 @@ else
 fi
 
 HOSTNAME=$(hostname)
-test -f /opt/publik/hooks/$HOSTNAME/run-hook.sh && echo "✨ run.sh · exec run-hook.sh" && /opt/publik/hooks/$HOSTNAME/run-hook.sh
+test -f /opt/publik/hooks/$HOSTNAME/run-hook.sh && echo "$prefix exec run-hook.sh" && /opt/publik/hooks/$HOSTNAME/run-hook.sh
 
-echo "✨ run.sh ·  Check if UTF8 is well configured (wcs cron jobs)."
+echo "$prefix  Check if UTF8 is well configured (wcs cron jobs)."
 if ! grep -q 'LANG=C.UTF-8' /etc/cron.d/wcs; then
   sed -i '2i LANG=C.UTF-8' /etc/cron.d/wcs
   if [ $? -eq 0 ]; then
@@ -52,7 +53,7 @@ else
   echo " --- the /etc/cron.d/wcs file is well configured with the LANG=C.UTF-8 option ! :-)"
 fi
 
-echo "✨ run.sh ·  Restarting services : rsyslob, cron."
+echo "$prefix  Restarting services : rsyslob, cron."
 service rsyslog start
 service cron start
 
@@ -75,7 +76,7 @@ then
 	service passerelle start
 fi
 
-echo "✨ run.sh · Starting services : hobo, fargo, bijoe, chrono, nginx, supervisor."
+echo "$prefix Starting services : hobo, fargo, bijoe, chrono, nginx, supervisor."
 service hobo start
 service fargo start
 service bijoe update
@@ -85,11 +86,11 @@ service nginx start
 service supervisor start
 
 if [ ! -f "/var/lib/wcs/skeletons/modele.zip" ]; then
-  echo "✨ run.sh · Zipping wcs database config and cooking"
+  echo "$prefix Zipping wcs database config and cooking"
   zip -j /var/lib/wcs/skeletons/modele.zip /var/lib/wcs/skeletons/site-options.cfg /var/lib/wcs/skeletons/config.json
   sudo -u hobo hobo-manage cook /etc/hobo/recipe.json
 fi
-echo "✨ run.sh · Running hobo-manage cook /etc/hobo/recipe.json & setup wcs with our postrgesql"
+echo "$prefix Running hobo-manage cook /etc/hobo/recipe.json & setup wcs with our postrgesql"
 sudo -u hobo hobo-manage cook /etc/hobo/recipe.json
 test -e /etc/hobo/recipe*extra.json && sudo -u hobo hobo-manage cook /etc/hobo/recipe*extra.json
 test -e /etc/hobo/extra/recipe*json && sudo -u hobo hobo-manage cook /etc/hobo/extra/recipe*.json
@@ -105,7 +106,7 @@ fi
 # Should only run on Eupen or Kelmis
 if [ -e /var/lib/wcs/tenants/eupen-formulaires.guichet-citoyen.be/ ] || [ -e /var/lib/wcs/tenants/kelmis-formulaires.guichet-citoyen.be/ ]
 then
-    echo "✨ run.sh · Eupen/Kelmis Monkey patch"
+    echo "$prefix Eupen/Kelmis 🐒Monkey patch"
     echo "✨ Fetching raw file from GitHub for authentic..."
     curl https://raw.githubusercontent.com/IMIO/teleservices-german-translations/main/authentic2_django.po -o /usr/lib/python3/dist-packages/authentic2/locale/fr/LC_MESSAGES/django.po
     echo "Running django-admin compilemessages for authentic..."
@@ -140,7 +141,7 @@ then
 fi
 
 
-echo "✨ run.sh · Update package of wcs elements."
+echo "$prefix Update package of wcs elements."
 if [ -f /etc/hobo/init.sh ]; then /etc/hobo/init.sh; fi
 test -f /opt/publik/hooks/$HOSTNAME/run-finish-hook.sh && /opt/publik/hooks/$HOSTNAME/run-finish-hook.sh
 tail -f /var/log/syslog
