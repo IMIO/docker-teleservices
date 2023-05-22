@@ -118,6 +118,25 @@ for command in "${!commands[@]}"; do
     echo "✨ $command (chrono) · Modified line: $modified_line"
 done
 
+echo "✨ run.sh ·  Alter Authentic2 jobs to run them at random time."
+sed -i "s/minute=0/minute=$(( ( RANDOM % 5 ) ))/" /etc/authentic2-multitenant/authentic2-multitenant-uwsgi.ini
+sed -i "s/minute=5/minute=$(( 6 + ( RANDOM % 10 ) ))/" /etc/authentic2-multitenant/authentic2-multitenant-uwsgi.ini
+sed -i "s/minute=15/minute=$(( 20 + ( RANDOM % 20 ) ))/" /etc/authentic2-multitenant/authentic2-multitenant-uwsgi.ini
+echo "✨ run.sh ·  Alter bijoe job to run them at random time."
+cp /opt/publik/scripts/scripts_teleservices/bijoe_cron_randomizer/bijoe_new_cron /etc/cron.d/bijoe_random
+sed -i "s/^0/$(( ( RANDOM % 60 ) ))/" /etc/cron.d/bijoe
+echo "✨ run.sh ·  Alter combo jobs to run them at random time."
+sed -i "s/0 8/$(( ( RANDOM % 60 ) )) $(( 6 + ( RANDOM % 6 ) ))/" /etc/cron.d/combo
+sed -i "s#\*/10#$(( ( RANDOM % 9 ) ))-59/10#" /etc/cron.d/combo
+echo "✨ run.sh ·  Alter hobo jobs to run them at random time."
+sed -i "s/50/$(( 40 + ( RANDOM % 16 ) ))/" /etc/cron.d/hobo-agent
+echo "✨ run.sh ·  Alter passerelle jobs to run them at random time."
+sed -i "s/cron = -5/cron = -$(( 5 + ( RANDOM % 6 ) ))/" /etc/passerelle/uwsgi.ini
+sed -i "s/cron = 1 -1/cron = $(( 6 + ( RANDOM % 10 ) )) -1/" /etc/passerelle/uwsgi.ini
+sed -i "s/cron = 17 -1/cron = $(( 17 + ( RANDOM % 40 ) )) -1/" /etc/passerelle/uwsgi.ini
+echo "✨ run.sh ·  Alter hourly root jobs to run them at random time."
+sed -i "s/^17/$(( ( RANDOM % 60 ) ))/" /etc/crontab
+
 
 echo "$prefix Starting services : hobo, fargo, bijoe, chrono, nginx, supervisor."
 service hobo start
