@@ -40,64 +40,6 @@ fi
 HOSTNAME=$(hostname)
 test -f /opt/publik/hooks/$HOSTNAME/run-hook.sh && echo "✨ run.sh · exec run-hook.sh" && /opt/publik/hooks/$HOSTNAME/run-hook.sh
 
-
-verify_cron_jobs_for_monkeypatch() {
-    local stage=$1
-    echo "✨ ($state) Verifying cron definition monkey-patch..."
-    # Authentic2 jobs
-    echo "✨ ($state) Authentic 2 jobs"
-    grep "minute=" /etc/authentic2-multitenant/authentic2-multitenant-uwsgi.ini
-    # bijoe job
-    echo "✨ ($state) bijoe job"
-    grep "^.*$" /etc/cron.d/bijoe
-    # chrono jobs
-    echo "✨ ($state) chrono jobs"
-    grep "unique-cron = " /etc/chrono/uwsgi.ini
-    # combo jobs
-    echo "✨ ($state) combo jobs"
-    grep "^.*$" /etc/cron.d/combo
-    # hobo jobs
-    echo "✨ ($state) hobo jobs"
-    grep "^.*$" /etc/cron.d/hobo-agent
-    # passerelle jobs
-    echo "✨ ($state) passerelle jobs"
-    grep "cron = " /etc/passerelle/uwsgi.ini
-    # hourly root jobs
-    echo "✨ ($state) hourly root jobs"
-    grep "^.*$" /etc/crontab
-    echo "✨ ($state) cron definition monkey-patch verification  done."
-}
-
-
-verify_cron_jobs_for_monkeypatch "before"
-
-echo "✨ run.sh ·  Alter Authentic2 jobs to run them at random time."
-sed -i "s/minute=0/minute=$(( ( RANDOM % 5 ) ))/" /etc/authentic2-multitenant/authentic2-multitenant-uwsgi.ini
-sed -i "s/minute=5/minute=$(( 6 + ( RANDOM % 10 ) ))/" /etc/authentic2-multitenant/authentic2-multitenant-uwsgi.ini
-sed -i "s/minute=15/minute=$(( 20 + ( RANDOM % 20 ) ))/" /etc/authentic2-multitenant/authentic2-multitenant-uwsgi.ini
-echo "✨ run.sh ·  Alter bijoe job to run them at random time."
-cp /opt/publik/scripts/scripts_teleservices/bijoe_cron_randomizer/bijoe_new_cron /etc/cron.d/bijoe_random
-sed -i "s/^0/$(( ( RANDOM % 60 ) ))/" /etc/cron.d/bijoe
-echo "✨ run.sh ·  Alter chrono jobs to run them at random time."
-sed -i "s/unique-cron = -5/unique-cron = -$(( 5 + ( RANDOM % 6 ) ))/" /etc/chrono/uwsgi.ini
-sed -i "s/unique-cron = 1 -1/unique-cron = $(( 15 + ( RANDOM % 40 ) )) -1/" /etc/chrono/uwsgi.ini
-sed -i "s/unique-cron = 2 4/unique-cron = $(( (RANDOM % 60 ) )) $((2 + (RANDOM % 3) ))/" /etc/chrono/uwsgi.ini
-echo "✨ run.sh ·  Alter combo jobs to run them at random time."
-sed -i "s/0 8/$(( ( RANDOM % 60 ) )) $(( 6 + ( RANDOM % 6 ) ))/" /etc/cron.d/combo
-sed -i "s#\*/10#$(( ( RANDOM % 9 ) ))-59/10#" /etc/cron.d/combo
-echo "✨ run.sh ·  Alter hobo jobs to run them at random time."
-sed -i "s/50/$(( 40 + ( RANDOM % 16 ) ))/" /etc/cron.d/hobo-agent
-echo "✨ run.sh ·  Alter passerelle jobs to run them at random time."
-sed -i "s/cron = -5/cron = -$(( 5 + ( RANDOM % 6 ) ))/" /etc/passerelle/uwsgi.ini
-sed -i "s/cron = 1 -1/cron = $(( 6 + ( RANDOM % 10 ) )) -1/" /etc/passerelle/uwsgi.ini
-sed -i "s/cron = 17 -1/cron = $(( 17 + ( RANDOM % 40 ) )) -1/" /etc/passerelle/uwsgi.ini
-echo "✨ run.sh ·  Alter hourly root jobs to run them at random time."
-sed -i "s/^17/$(( ( RANDOM % 60 ) ))/" /etc/crontab
-
-verify_cron_jobs_for_monkeypatch "after"
-
-
-
 echo "✨ run.sh ·  Check if UTF8 is well configured (wcs cron jobs)."
 if ! grep -q 'LANG=C.UTF-8' /etc/cron.d/wcs; then
   sed -i '2i LANG=C.UTF-8' /etc/cron.d/wcs
