@@ -76,6 +76,48 @@ then
 	service passerelle start
 fi
 
+# Monkey patching chrono uwsgi.ini (cron jobs)
+echo "$prefix Monkey patching chrono uwsgi.ini (cron jobs)"
+cur_brick="chrono"
+declare -A commands=(
+    ["cancel_events"]="-11 -6"
+    ["send_email_notifications"]="-11 -6"
+    ["update_event_recurrences"]="-11 -6"
+    ["clearsessions"]="4 6"
+    ["send_booking_reminders"]="16 24"
+    ["sync_desks_timeperiod_exceptions"]="23 33"
+    ["anonymize_bookings"]="32 43"
+    ["update_shared_custody_holiday_rules"]="47 53"
+    ["sync_desks_timeperiod_exceptions_from_settings"]="43 59"
+)
+
+declare -a usedMinutes=()
+
+for command in "${!commands[@]}"; do
+    IFS=' ' read -r -a range <<<"${commands[$command]}"
+    while :; do
+        minute=$((RANDOM % (range[1] - range[0] + 1) + range[0]))
+        if [[ ! " ${usedMinutes[@]} " =~ " ${minute} " ]]; then
+            break
+        fi
+    done
+    usedMinutes+=("$minute")
+
+    # capture original line
+    original_line=$(grep "$command" uwsgi.ini)
+
+    # attempt to modify line and apply the changes directly into the file
+    sed -i "/$command/ s/minute=[^,]*,/minute=$minute,/" uwsgi.ini
+
+    # capture modified line
+    modified_line=$(grep "$command" uwsgi.ini)
+
+    # print original and modified lines for comparison
+    echo "✨ $command (chrono) · Original line: $original_line"
+    echo "✨ $command (chrono) · Modified line: $modified_line"
+done
+
+
 echo "$prefix Starting services : hobo, fargo, bijoe, chrono, nginx, supervisor."
 service hobo start
 service fargo start
