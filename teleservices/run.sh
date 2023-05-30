@@ -71,10 +71,10 @@ if [ x$1 != xfromgit ] || [ ! -d /opt/publik/passerelle ]; then
 fi
 
 # Monkey patching chrono uwsgi.ini (cron jobs)
-echo "$prefix $monkey_prefix chrono uwsgi.ini (cron jobs)"
 cur_brick="chrono"
-uwsgi_ini="/etc/chrono/uwsgi.ini"
-declare -A commands=(
+uwsgi_ini_path="/etc/chrono/uwsgi.ini"
+echo "$prefix $monkey_prefix $cur_brick $uwsgi_init_path (cron jobs)"
+declare -A chrono_crons=(
   ["cancel_events"]="-11 -6"
   ["send_email_notifications"]="-11 -6"
   ["update_event_recurrences"]="-11 -6"
@@ -85,37 +85,52 @@ declare -A commands=(
   ["update_shared_custody_holiday_rules"]="47 53"
   ["sync_desks_timeperiod_exceptions_from_settings"]="43 59"
 )
-
-declare -a usedMinutes=()
-
-for command in "${!commands[@]}"; do
-  IFS=' ' read -r -a range <<<"${commands[$command]}"
+declare -a chrono_used_minutes=()
+for cron_def in "${!chrono_crons[@]}"; do
+  IFS=' ' read -r -a range <<<"${chrono_crons[$cron_def]}"
   while :; do
     minute=$((RANDOM % (range[1] - range[0] + 1) + range[0]))
-    if [[ ! " ${usedMinutes[@]} " =~ " ${minute} " ]]; then
+    if [[ ! " ${chrono_used_minutes[@]} " =~ " ${minute} " ]]; then
       break
     fi
   done
-  usedMinutes+=("$minute")
-
-  # capture original line
-  original_line=$(grep "$command" $uwsgi_ini)
-
-  # attempt to modify line and apply the changes directly into the file
-  sed -i "/$command/ s/minute=[^,]*,/minute=$minute,/" $uwsgi_ini
-
-  # capture modified line
-  modified_line=$(grep "$command" $uwsgi_ini)
-
-  # print original and modified lines for comparison
-  echo "✨ $command (chrono) · Original line: $original_line"
-  echo "✨ $command (chrono) · Modified line: $modified_line"
+  chrono_used_minutes+=("$minute")
+  original_line=$(grep "$cron_def" $uwsgi_ini_path)
+  sed -i "/$cron_def/ s/minute=[^,]*,/minute=$minute,/" $uwsgi_ini_path
+  modified_line=$(grep "$cron_def" $uwsgi_ini_path)
+  echo "✨ $cron_def ($cur_brick) · Original line: $original_line"
+  echo "🔁 $cron_def ($cur_brick) · Modified line: $modified_line"
 done
 
-echo "✨ run.sh ·  Alter Authentic2 jobs to run them at random time."
-sed -i "s/minute=0/minute=$(((RANDOM % 5)))/" /etc/authentic2-multitenant/authentic2-multitenant-uwsgi.ini
-sed -i "s/minute=5/minute=$((6 + (RANDOM % 10)))/" /etc/authentic2-multitenant/authentic2-multitenant-uwsgi.ini
-sed -i "s/minute=15/minute=$((20 + (RANDOM % 20)))/" /etc/authentic2-multitenant/authentic2-multitenant-uwsgi.ini
+# Monkey patching authentic2 uwsgi.ini (cron jobs)
+cur_brick="authentic2-multitenant"
+uwsgi_ini_path="/etc/authentic2-multitenant/authentic2-multitenant-uwsgi.ini"
+echo "$prefix $monkey_prefix $cur_brick $uwsgi_init_path (cron jobs)"
+declare -A authentic_crons=(
+  ["clearsessions"]="2 4"
+  ["cleanupauthentic"]="15 22"
+  ["clean-unused-accounts"]="23 43"
+  ["clean-user-exports"]="1 5"
+  ["sync-ldap-users"]="19 27"
+  ["deactivate-orphaned-ldap-users"]="32 56"
+)
+declare -a authentic_used_minutes=()
+for cron_def in "${!authentic_crons[@]}"; do
+  IFS=' ' read -r -a range <<<"${authentic_crons[$cron_def]}"
+  while :; do
+    minute=$((RANDOM % (range[1] - range[0] + 1) + range[0]))
+    if [[ ! " ${authentic_used_minutes[@]} " =~ " ${minute} " ]]; then
+      break
+    fi
+  done
+  authentic_used_minutes+=("$minute")
+  original_line=$(grep "$cron_def" $uwsgi_ini_path)
+  sed -i "/$cron_def/ s/minute=[^,]*,/minute=$minute,/" $uwsgi_ini_path
+  modified_line=$(grep "$cron_def" $uwsgi_ini_path)
+  echo "✨ $cron_def ($cur_brick) · Original line: $original_line"
+  echo "🔁 $cron_def ($cur_brick) · Modified line: $modified_line"
+done
+
 echo "✨ run.sh ·  Alter bijoe job to run them at random time."
 cp /opt/publik/scripts/scripts_teleservices/bijoe_cron_randomizer/bijoe_new_cron /etc/cron.d/bijoe_random
 sed -i "s/^0/$(((RANDOM % 60)))/" /etc/cron.d/bijoe
