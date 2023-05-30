@@ -73,7 +73,7 @@ fi
 # Monkey patching chrono uwsgi.ini (cron jobs)
 cur_brick="chrono"
 uwsgi_ini_path="/etc/chrono/uwsgi.ini"
-echo "$prefix $monkey_prefix $cur_brick $uwsgi_init_path (cron jobs)"
+echo "$prefix $monkey_prefix $cur_brick $uwsgi_ini_path (cron jobs)"
 declare -A chrono_crons=(
   ["cancel_events"]="-11 -6"
   ["send_email_notifications"]="-11 -6"
@@ -105,7 +105,7 @@ done
 # Monkey patching authentic2 uwsgi.ini (cron jobs)
 cur_brick="authentic2-multitenant"
 uwsgi_ini_path="/etc/authentic2-multitenant/authentic2-multitenant-uwsgi.ini"
-echo "$prefix $monkey_prefix $cur_brick $uwsgi_init_path (cron jobs)"
+echo "$prefix $monkey_prefix $cur_brick $uwsgi_ini_path (cron jobs)"
 declare -A authentic_crons=(
   ["clearsessions"]="2 4"
   ["cleanupauthentic"]="15 22"
@@ -134,7 +134,7 @@ done
 # Monkey patching combo uwsgi.ini (cron jobs)
 cur_brick="combo"
 uwsgi_ini_path="/etc/combo/uwsgi.ini"
-echo "$prefix $monkey_prefix $cur_brick $uwsgi_init_path (cron jobs)"
+echo "$prefix $monkey_prefix $cur_brick $uwsgi_ini_path (cron jobs)"
 declare -A combo_crons=(
   ["clear_snapshot_pages"]="34 49"
 )
