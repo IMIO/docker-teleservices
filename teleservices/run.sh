@@ -155,6 +155,20 @@ for cron_def in "${!combo_crons[@]}"; do
   echo "🔁 $cron_def ($cur_brick) · Modified line: $modified_line"
 done
 
+combo_crond_random_8=$((RANDOM % 5 + 5))    # random number between 5 and 9
+combo_crond_random_10=$((RANDOM % 15 + 13)) # random number between 13 and 27
+combo_crond_file="/etc/cron.d/combo"
+combo_crond_original_line1=$(grep "notify_new_remote_invoices" $combo_crond_file)
+combo_crond_original_line2=$(grep "lingo-poll-backend" $combo_crond_file)
+echo "✨ notify_new_remote_invoices ($cur_brick) · Original line: $combo_crond_original_line1"
+echo "✨ lingo-poll-backend ($cur_brick) · Original line: $combo_crond_original_line2"
+sed -i -E "/notify_new_remote_invoices/ s/([0-9]+) ([0-9]+)(.*combo-manage tenant_command notify_new_remote_invoices.*)/0 $combo_crond_random_8\3/;
+     /lingo-poll-backend/ s/(\*\/)[0-9]+(.*)/\*\/$combo_crond_random_10\2/" $combo_crond_file
+combo_crond_altered_line1=$(grep "notify_new_remote_invoices" $combo_crond_file)
+combo_crond_altered_line2=$(grep "lingo-poll-backend" $combo_crond_file)
+echo "🔁 notify_new_remote_invoices ($cur_brick) · Modified line: $combo_crond_altered_line1"
+echo "🔁 lingo-poll-backend ($cur_brick) · Modified line: $combo_crond_altered_line2"
+
 # Monkey patching passerelle uwsgi.ini (cron jobs)
 cur_brick="passerelle"
 uwsgi_ini_path="/etc/passerelle/uwsgi.ini"
