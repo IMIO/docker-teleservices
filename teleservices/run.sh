@@ -203,6 +203,21 @@ for cron_def in "${!passerelle_crons[@]}"; do
   echo "🔁 $cron_def ($cur_brick) · Modified line: $modified_line"
 done
 
+# Monkey patching hobo (cron.d job)
+hobo_agent_random=$((RANDOM % 11 + 40)) # random number between 40 and 50
+hobo_agent_file="/etc/cron.d/hobo-agent"
+hobo_agent_original_line=$(grep "hobo_provision" $hobo_agent_file)
+echo "✨ hobo_provision · Original line: $hobo_agent_original_line"
+
+if sed -i -E "/hobo_provision/ s/([0-9]+)(.*hobo_provision.*)/$hobo_agent_random\2/" $hobo_agent_file; then
+  echo "Changes applied."
+else
+  echo "Changes not applied."
+fi
+
+hobo_agent_altered_line=$(grep "hobo_provision" $hobo_agent_file)
+echo "🔁 hobo_provision · Modified line: $hobo_agent_altered_line"
+
 echo "$prefix Starting services : hobo, fargo, bijoe, chrono, nginx, supervisor."
 service hobo start
 service fargo start
