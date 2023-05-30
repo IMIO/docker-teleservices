@@ -155,6 +155,40 @@ for cron_def in "${!combo_crons[@]}"; do
   echo "🔁 $cron_def ($cur_brick) · Modified line: $modified_line"
 done
 
+# Monkey patching passerelle uwsgi.ini (cron jobs)
+cur_brick="passerelle"
+uwsgi_ini_path="/etc/passerelle/uwsgi.ini"
+echo "$prefix $monkey_prefix $cur_brick $uwsgi_ini_path (cron jobs)"
+declare -A passerelle_crons=(
+  ["cron --all-tenants availability"]="-11 -21"
+  ["cron --all-tenants jobs"]="-11 -21"
+  ["clearsessions"]="11 21"
+  ["cron --all-tenants hourly"]="42 57"
+  ["cron --all-tenants daily"]="25 45"
+  ["cron --all-tenants weekly"]="30 55"
+  ["cron --all-tenants monthly"]="40 57"
+)
+declare -a passerelle_used_minutes=()
+for cron_def in "${!passerelle_crons[@]}"; do
+  IFS=' ' read -r -a range <<<"${passerelle_crons[$cron_def]}"
+  while :; do
+    minute=$((RANDOM % (range[1] - range[0] + 1) + range[0]))
+    if [[ ! " ${passerelle_used_minutes[@]} " =~ " ${minute} " ]]; then
+      break
+    fi
+  done
+
+  passerelle_used_minutes+=("$minute")
+  original_line=$(grep "$cron_def" $uwsgi_ini_path)
+  sed -i "/$cron_def/ s~unique-cron = [-0-9]*~unique-cron = $minute~" $uwsgi_ini_path
+  # echo "DEBUG $original_line"
+  # sed -i "/$cron_def/ s~unique-cron = (-\d+|\d+)~unique-cron = $minute~" $uwsgi_ini_path
+  # sed -i "/$cron_def/ s/minute=[^,]*,/minute=$minute,/" $uwsgi_ini_path
+  modified_line=$(grep "$cron_def" $uwsgi_ini_path)
+  echo "✨ $cron_def ($cur_brick) · Original line: $original_line"
+  echo "🔁 $cron_def ($cur_brick) · Modified line: $modified_line"
+done
+
 echo "$prefix Starting services : hobo, fargo, bijoe, chrono, nginx, supervisor."
 service hobo start
 service fargo start
