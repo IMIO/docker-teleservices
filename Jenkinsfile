@@ -108,7 +108,7 @@ pipeline {
         }
       }
       steps {
-        sh "curl -k --fail --show-error --header \"X-Rundeck-Auth-Token:$RUNDECK_TS_TOKEN\" -d \"argString=-name staging2\" -d \"filter=name ts-staging1.imio.be\" https://run.imio.be/api/12/job/94b605f2-ad32-4f9f-977e-37342f6b7d32/run/ "
+        sh "curl -k --fail --show-error --header \"X-Rundeck-Auth-Token:$RUNDECK_TS_TOKEN\" -d \"argString=-name staging\" -d \"filter=name ts001.staging.imio.be\" https://run.imio.be/api/12/job/94b605f2-ad32-4f9f-977e-37342f6b7d32/run/ "
       }
     }
     // stage('Test staging') {
