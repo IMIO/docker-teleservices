@@ -18,7 +18,7 @@ FORMS_DICT = {
     "cartes_garderies": "Commande de cartes de garderie",
 }
 FILENAME = sys.argv[1]
-FORM_NAME_TICKETS_REPAS = FORMS_DICT[sys.argv[1]]
+FORM_FULLNAME = FORMS_DICT[FILENAME]
 FILE_OPEN_METHOD = "w+"
 SAVE_FILE_PATH = f"/var/tmp/{FILENAME}.csv"
 
@@ -32,7 +32,7 @@ if path.exists(SAVE_FILE_PATH):
     os.remove(SAVE_FILE_PATH)
 
 
-for form_def in FormDef.select(lambda x: x.name == FORM_NAME_TICKETS_REPAS):
+for form_def in FormDef.select(lambda x: x.name == FORM_FULLNAME):
     forms_data_full_list = form_def.data_class().select()
     for form_data in forms_data_full_list:
         # Status to filter :
