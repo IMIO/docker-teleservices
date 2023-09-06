@@ -71,7 +71,7 @@ RUN apt install -y \
   python3-magic \
   python3-workalendar \
   wcs-au-quotidien \
-  && apt install -y \
+  && apt install -y -t $DEBIAN_VERSION-eobuilder \
   imio-publik-themes \
   publik-imio-industrialisation \
   python3-combo-plugin-imio-townstreet \
