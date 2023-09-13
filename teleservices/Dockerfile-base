@@ -54,21 +54,21 @@ RUN echo "Package: *\nPin: release a=$DEBIAN_VERSION-eobuilder\nPin-Priority: 40
 RUN apt install -y \
   authentic2-multitenant \
   bijoe \
-  combo \
   chrono \
+  combo \
   fargo \
   hobo \
   hobo-agent \
   passerelle \
+  poppler-utils \
   prometheus-entrouvert-exporter \
   publik-base-theme \
-  poppler-utils \
   python3-authentic2-auth-fedict \
-  python3-passerelle \
   python3-dns \
   python3-docutils \
-  python3-qrcode \
   python3-magic \
+  python3-passerelle \
+  python3-qrcode \
   python3-workalendar \
   wcs-au-quotidien \
   && apt install -y -t $DEBIAN_VERSION-eobuilder \
