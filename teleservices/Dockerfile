@@ -15,8 +15,6 @@ RUN apt update && apt install -y \
   passerelle-imio-ia-tech \
   passerelle-imio-sso-agents \
   passerelle-imio-wca \
-  python3-passerelle-imio-extra-fees/*-eobuilder \
-  python3-passerelle-imio-ts1-datasources \
   scripts-teleservices \
   teleservices-iacitizen \
   teleservices-package \
