@@ -1,4 +1,8 @@
-version: '2.4'
+# This file is mainly relevant for development (local) purposes.
+# It is not used in production and is not representative of the production environment.
+# The production docker-compose.yml is generated from this file : docker-compose.yml.erb
+# in the industrialisation repository.
+version: "2.4"
 
 services:
   teleservices:
