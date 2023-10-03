@@ -12,8 +12,7 @@ RUN echo "APT::Install-Suggests \"false\";\nAPT::Install-Recommends \"false\";" 
 
 # Don't allow services to start when building the image
 RUN echo "#!/bin/sh\nexit 101" > /usr/sbin/policy-rc.d \
-  && chmod +x /usr/sbin/policy-rc.d \
-  && sed -i "s%httpredir.debian.org%debian.mirrors.ovh.net%g" /etc/apt/sources.list
+  && chmod +x /usr/sbin/policy-rc.d
 
 RUN apt update && apt install -y \
   apt-transport-https \
