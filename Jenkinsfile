@@ -32,6 +32,18 @@ pipeline {
             }
           }
         }
+        stage("bookworm") {
+          agent any
+          steps {
+            script {
+              if (params.USE_CACHE_TO_BUILD_IMAGE) {
+                sh 'make build-bookworm'
+              } else {
+                sh 'make build-no-cache-bookworm'
+              }
+            }
+          }
+        }
       }
     }
     stage('Build test image') {
@@ -44,6 +56,18 @@ pipeline {
                 sh 'make build-bullseye-test'
               } else {
                 sh 'make build-no-cache-bullseye-test'
+              }
+            }
+          }
+        }
+        stage('bookworm-test') {
+          agent any
+          steps {
+            script {
+              if (params.USE_CACHE_TO_BUILD_IMAGE) {
+                sh 'make build-bookworm-test'
+              } else {
+                sh 'make build-no-cache-bookworm-test'
               }
             }
           }
@@ -68,6 +92,12 @@ pipeline {
               "${env.BUILD_ID}",
               'teleservices/bullseye'
             )
+          }
+        }
+        stage("bookworm") {
+          agent any
+          steps {
+            echo 'push teleservices/bookworm'
           }
         }
       }
