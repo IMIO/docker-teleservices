@@ -20,19 +20,7 @@ pipeline {
         }
       }
       parallel {
-        stage('bullseye') {
-          agent any
-          steps {
-            script {
-              if (params.USE_CACHE_TO_BUILD_IMAGE) {
-                sh 'make build-bullseye'
-              } else {
-                sh 'make build-no-cache-bullseye'
-              }
-            }
-          }
-        }
-        stage("bookworm") {
+        stage('bookworm') {
           agent any
           steps {
             script {
@@ -48,18 +36,6 @@ pipeline {
     }
     stage('Build test image') {
       parallel {
-        stage('bullseye-test') {
-          agent any
-          steps {
-            script {
-              if (params.USE_CACHE_TO_BUILD_IMAGE) {
-                sh 'make build-bullseye-test'
-              } else {
-                sh 'make build-no-cache-bullseye-test'
-              }
-            }
-          }
-        }
         stage('bookworm-test') {
           agent any
           steps {
@@ -85,19 +61,13 @@ pipeline {
         }
       }
       parallel {
-        stage('bullseye') {
+        stage('bookworm') {
           agent any
           steps {
             pushImageToRegistry(
               "${env.BUILD_ID}",
-              'teleservices/bullseye'
+              'teleservices/bookworm'
             )
-          }
-        }
-        stage("bookworm") {
-          agent any
-          steps {
-            echo 'push teleservices/bookworm'
           }
         }
       }
@@ -113,12 +83,12 @@ pipeline {
         }
       }
       parallel {
-        stage('bullseye-test') {
+        stage('bookworm-test') {
           agent any
           steps {
             pushImageToRegistry(
               "${env.BUILD_ID}",
-              'teleservices/bullseye-test'
+              'teleservices/bookworm-test'
             )
           }
         }
@@ -196,7 +166,7 @@ pipeline {
       }
       steps {
         echo 'Confirmed production deploy'
-        moveImageToProdRegistry(env.TAG_NAME, 'teleservices/bullseye')
+        moveImageToProdRegistry(env.TAG_NAME, 'teleservices/bookworm')
         echo 'Schedule Rundeck job'
         sh "curl -k --fail -XPOST --header \"Content-Type: application/json\" --header \"X-Rundeck-Auth-Token: $RUNDECK_TS_TOKEN\" https://run.imio.be/api/12/job/311af116-fedc-4e33-b2a7-99c8651f8e9b/run"
         emailext to: 'support-ts+jenkins@imio.be',
