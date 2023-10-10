@@ -34,6 +34,7 @@ RUN apt update && apt install -y \
 
 # Configure extra repositories
 RUN export && echo ${DEBIAN_VERSION}  && echo "deb http://deb.entrouvert.org/ ${DEBIAN_VERSION} main" > /etc/apt/sources.list.d/entrouvert-local.list \
+  && echo "deb http://deb.entrouvert.org/ ${DEBIAN_VERSION}-testing main" > /etc/apt/sources.list.d/entrouvert-local.list \
   && echo "deb http://debian.mirrors.ovh.net/debian ${DEBIAN_VERSION}-backports main" > /etc/apt/sources.list.d/backports.list \
   && echo "deb [trusted=yes] https://nexus.imio.be/repository/${DEBIAN_VERSION} ${DEBIAN_VERSION} main" > /etc/apt/sources.list.d/imio.list \
   && cat /etc/apt/sources.list.d/*
@@ -50,20 +51,18 @@ RUN cat /etc/apt/sources.list.d/imio.list && apt update && apt install -y \
 RUN echo "Package: *\nPin: release a=$DEBIAN_VERSION-eobuilder\nPin-Priority: 400" > /etc/apt/preferences.d/entrouvert-eobuilder
 
 # Install extra modules
-#RUN apt install -y python3-django-import-export=2.5.0-1 --reinstall
-#RUN apt install -y python3-djangorestframework=3.12.2-1 --reinstall
-RUN apt install -y authentic2-multitenant
-RUN apt install -y  bijoe
+#RUN apt install -y -t bookworm-testing authentic2-multitenant=5.5-1~eob120+1
+#RUN apt install -y  bijoe
 RUN apt install -y  chrono
 RUN apt install -y  combo
-RUN apt install -y  fargo
+#RUN apt install -y  fargo
 RUN apt install -y  hobo
 RUN apt install -y  hobo-agent
 RUN apt install -y  passerelle
 RUN apt install -y  poppler-utils
 RUN apt install -y  prometheus-entrouvert-exporter
 RUN apt install -y  publik-base-theme
-RUN apt install -y  python3-authentic2-auth-fedict
+#RUN apt install -y  python3-authentic2-auth-fedict
 RUN apt install -y  python3-dns
 RUN apt install -y  python3-docutils
 RUN apt install -y  python3-magic
@@ -78,4 +77,4 @@ RUN apt install -y -t $DEBIAN_VERSION-eobuilder python3-imio-teleservices-templa
 RUN apt install -y -t $DEBIAN_VERSION-eobuilder python3-passerelle-imio-extra-fees
 RUN apt install -y -t $DEBIAN_VERSION-eobuilder python3-passerelle-imio-liege-lisrue
 RUN apt install -y -t $DEBIAN_VERSION-eobuilder python3-passerelle-imio-liege-rn
-RUN apt install -y -t $DEBIAN_VERSION-eobuilder python3-passerelle-imio-ts1-datasources
+#RUN apt install -y -t $DEBIAN_VERSION-eobuilder python3-passerelle-imio-ts1-datasources
