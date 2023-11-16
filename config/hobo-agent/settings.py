@@ -17,7 +17,7 @@ BROKER_URL = 'amqp://'
 # *.dev.example.net.
 AGENT_HOST_PATTERNS = None
 
-WCS_MANAGE_COMMAND = 'sudo -u wcs /usr/bin/wcsctl -f /etc/wcs/wcs-au-quotidien.cfg'
+WCS_MANAGE_COMMAND = 'sudo -u wcs /usr/bin/wcs-manage'
 AUTHENTIC_MANAGE_COMMAND = 'sudo -u authentic-multitenant /usr/bin/authentic2-multitenant-manage'
 COMBO_MANAGE_COMMAND = 'sudo -u combo /usr/bin/combo-manage'
 PASSERELLE_MANAGE_COMMAND = 'sudo -u passerelle /usr/bin/passerelle-manage'
