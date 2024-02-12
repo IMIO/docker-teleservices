@@ -59,21 +59,6 @@ echo "$prefix  Restarting services : rsyslob, cron."
 service rsyslog start
 service cron start
 
-# should be commented or explained soon
-if [ x$1 != xfromgit ] || [ ! -d /opt/publik/combo ]; then
-  service combo start
-fi
-if [ x$1 != xfromgit ] || [ ! -d /opt/publik/authentic ]; then
-  test -e /var/lib/authentic2-multitenant/tenants/configure.py && python3 /var/lib/authentic2-multitenant/tenants/configure.py
-  service authentic2-multitenant start
-fi
-if [ x$1 != xfromgit ] || [ ! -d /opt/publik/wcs ]; then
-  service wcs start
-fi
-if [ x$1 != xfromgit ] || [ ! -d /opt/publik/passerelle ]; then
-  service passerelle start
-fi
-
 # Monkey patching chrono uwsgi.ini (cron jobs)
 cur_brick="chrono"
 uwsgi_ini_path="/etc/chrono/uwsgi.ini"
@@ -240,12 +225,6 @@ echo "$prefix Running hobo-manage cook /etc/hobo/recipe.json & setup wcs with ou
 sudo -u hobo hobo-manage cook /etc/hobo/recipe.json
 test -e /etc/hobo/recipe*extra.json && sudo -u hobo hobo-manage cook /etc/hobo/recipe*extra.json
 test -e /etc/hobo/extra/recipe*json && sudo -u hobo hobo-manage cook /etc/hobo/extra/recipe*.json
-
-# should be commented or explained soon
-if [ x$1 = xfromgit ]; then
-  /opt/publik/scripts/scripts_teleservices/init-dev.sh
-  screen -d -m -c /opt/publik/screenrc
-fi
 
 # iMio DE/FR translations monkey patch
 # Should only run on Eupen or Kelmis
