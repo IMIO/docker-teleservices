@@ -1,6 +1,10 @@
 #!/bin/bash
 
+# Fix problem causing scripts still run by " init.d " not work working properly
+# https://dev.entrouvert.org/issues/41958
+# https://dev.entrouvert.org/issues/41960
 export LANG=C.UTF-8
+
 printenv >>/etc/environment # set env variables for cron jobs
 log_prefix="✨ run.sh ·"
 monkey_prefix="🐒Monkey-patching"
