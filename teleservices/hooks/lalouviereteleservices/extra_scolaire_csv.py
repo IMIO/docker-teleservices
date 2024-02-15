@@ -16,6 +16,7 @@ sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript \
 sudo -u wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript \
     --vhost=lalouviere-formulaires.guichet-citoyen.be extra_scolaire_csv.py
 """
+
 import csv
 import os
 import re
@@ -84,52 +85,36 @@ for form_def in FormDef.select(lambda x: x.name == form_fullname):
             status_names = [
                 status.name
                 for evolution in form_data.evolution
-                if (status := evolution.get_status()) is not None
-                and status.name is not None
+                if (status := evolution.get_status()) is not None and status.name is not None
             ]
 
-            matching_count = sum(
-                1 for _ in filter(status_to_filter_regex.match, status_names)
-            )
+            matching_count = sum(1 for _ in filter(status_to_filter_regex.match, status_names))
 
             if matching_count > 0:
                 columns = []
                 columns.append(form_data.get_display_id())  # identifiant du formulaire
                 columns.append(creation_date.strftime("%d/%m/%Y %H:%M:%S"))
-                last_update_date = datetime.fromtimestamp(
-                    mktime(form_data.last_update_time)
-                )
+                last_update_date = datetime.fromtimestamp(mktime(form_data.last_update_time))
                 columns.append(last_update_date.strftime("%d/%m/%Y %H:%M:%S"))
-                columns.append(
-                    form_data.user.get_display_name() if form_data.user else "-"
-                )
+                columns.append(form_data.user.get_display_name() if form_data.user else "-")
                 for field in form_def.get_all_fields():  # les autres champs
                     if not hasattr(field, "get_view_value"):  # sauf les titres, etc.
                         continue
                     if hasattr(field, "in_listing") and field.in_listing:
                         field_value = form_data.get_field_view_value(field) or ""
                     if hasattr(field, "include_in_listing") and (
-                        field.include_in_listing
-                        or field.varname == "nom_eleve"
-                        or field.varname == "prenom_eleve"
+                        field.include_in_listing or field.varname == "nom_eleve" or field.varname == "prenom_eleve"
                     ):
                         field_value = form_data.get_field_view_value(field) or ""
                         if (
                             hasattr(field, "get_display_value")
-                            and field.get_display_value(
-                                form_data.get_field_view_value(field)
-                            )
-                            is not None
+                            and field.get_display_value(form_data.get_field_view_value(field)) is not None
                         ):
-                            field_value = field.get_display_value(
-                                form_data.get_field_view_value(field)
-                            )
+                            field_value = field.get_display_value(form_data.get_field_view_value(field))
                         columns.append(field_value)
                 if path.exists(save_file_path):
                     file_open_method = "a"  # pylint: disable=invalid-name
-                with open(
-                    save_file_path, file_open_method, encoding="utf-8"
-                ) as csvfile:
+                with open(save_file_path, file_open_method, encoding="utf-8") as csvfile:
                     csvwriter = csv.writer(
                         csvfile,
                         delimiter="|",
