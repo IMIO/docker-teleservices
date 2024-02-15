@@ -3,7 +3,7 @@ This will export some data from a specific form to a csv file.
 Initially written by cboulanger, it was not working due to a bug in the
 evolution.get_status().name part (see SUP-31982 and below for more details)
 
-Args (wcsctl):
+Args (wcs-manage):
     $1: vhost
     $2: domain
 
@@ -11,9 +11,9 @@ Args (script):
     1: form name (tickets_repas or cartes_garderies)
 
 Example:
-sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript \
+sudo -u  wcs wcs-manage \
     --vhost=$1-formulaires.$2
-sudo -u wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript \
+sudo -u wcs wcs-manage runscript \
     --vhost=lalouviere-formulaires.guichet-citoyen.be extra_scolaire_csv.py
 """
 

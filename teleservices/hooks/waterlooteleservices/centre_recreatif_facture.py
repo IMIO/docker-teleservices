@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# sudo -u  wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=$1-formulaires.$2
-# sudo -u wcs wcsctl -f /etc/wcs/wcs-au-quotidien.cfg runscript --vhost=waterloo-formulaires.guichet-citoyen.be centre_recreatif_facture.py waterloo_facture
+# sudo -u  wcs wcs-manage runscript --vhost=$1-formulaires.$2
+# sudo -u wcs wcs-manage runscript --vhost=waterloo-formulaires.guichet-citoyen.be centre_recreatif_facture.py waterloo_facture
 
 import csv
 import re
