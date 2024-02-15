@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from django import forms
 import re
+
+from django import forms
 
 
 class RrnField(forms.CharField):
