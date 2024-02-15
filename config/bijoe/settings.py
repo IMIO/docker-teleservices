@@ -14,15 +14,15 @@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-#ADMINS = (
+# ADMINS = (
 #        # ('User 1', 'watchdog@example.net'),
 #        # ('User 2', 'janitor@example.net'),
-#)
+# )
 
 # ALLOWED_HOSTS must be correct in production!
 # See https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = [
-        '*',
+    "*",
 ]
 
 # Databases
@@ -35,8 +35,8 @@ ALLOWED_HOSTS = [
 # DATABASES['default']['HOST'] = 'localhost'
 # DATABASES['default']['PORT'] = '5432'
 
-LANGUAGE_CODE = 'fr-fr'
-TIME_ZONE = 'Europe/Paris'
+LANGUAGE_CODE = "fr-fr"
+TIME_ZONE = "Europe/Paris"
 
 # Email configuration
 # EMAIL_SUBJECT_PREFIX = '[bijoe] '
