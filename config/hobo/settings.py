@@ -15,15 +15,15 @@
 # DEBUG = False
 # TEMPLATE_DEBUG = False
 
-#ADMINS = (
+# ADMINS = (
 #        ('User 1', 'poulpe@example.org'),
 #        ('User 2', 'janitor@example.net'),
-#)
+# )
 
 # ALLOWED_HOSTS must be correct in production!
 # See https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = [
-        '*',
+    "*",
 ]
 
 # If a tenant doesn't exist, the tenant middleware raise a 404 error. If you
@@ -40,8 +40,8 @@ ALLOWED_HOSTS = [
 # DATABASES['default']['HOST'] = 'localhost'
 # DATABASES['default']['PORT'] = '5432'
 
-LANGUAGE_CODE = 'fr-fr'
-TIME_ZONE = 'Europe/Paris'
+LANGUAGE_CODE = "fr-fr"
+TIME_ZONE = "Europe/Paris"
 
 # Email configuration
 # EMAIL_SUBJECT_PREFIX = '[Hobo] '
