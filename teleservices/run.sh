@@ -207,13 +207,26 @@ fi
 hobo_agent_altered_line=$(grep "hobo_provision" $hobo_agent_file)
 echo "🔁 hobo_provision · Modified line: $hobo_agent_altered_line"
 
-echo "$prefix Starting services : hobo, fargo, bijoe, chrono, nginx, supervisor."
+echo "$prefix Starting hoho... 🚀"
 service hobo start
+echo "$prefix Starting combo... 🚀"
+service combo start
+echo "$prefix Starting authentic2-multitenant... 🚀"
+service authentic2-multitenant start
+echo "$prefix Starting chrono... 🚀"
+service chrono start
+echo "$prefix Starting passerelle... 🚀"
+service passerelle start
+echo "$prefix Starting wcs... 🚀"
+service wcs start
+echo "$prefix Starting fargo... 🚀"
 service fargo start
+echo "$prefix Starting bijoe... 🚀"
 service bijoe update
 service bijoe start
-service chrono start
+echo "$prefix Starting nginx... 🚀"
 service nginx start
+echo "$prefix Starting supervisor... 🚀"
 service supervisor start
 
 if [ ! -f "/var/lib/wcs/skeletons/modele.zip" ]; then
