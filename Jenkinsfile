@@ -164,7 +164,7 @@ pipeline {
         stage('Deploy') {
             agent any
             options {
-                timeout(time: 48, unit: 'HOURS')
+                timeout(time: 96, unit: 'HOURS')
             }
             input {
                 message 'Deploy to production?'
