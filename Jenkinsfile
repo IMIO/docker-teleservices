@@ -100,23 +100,23 @@ pipeline {
                 }
             }
         }
-//         stage('Deploy to staging') {
-//             agent any
-//             when {
-//                 allOf {
-//                     branch 'main'
-//                     expression {
-//                         currentBuild.result == null || currentBuild.result == 'SUCCESS'
-//                     }
-//                     not {
-//                         changelog '.*\\[(ci)?\\-?\\s?skip\\-?\\s?(ci)?\\].*'
-//                     }
-//                 }
-//             }
-//             steps {
-//                 sh "curl -k --fail --show-error --header \"X-Rundeck-Auth-Token:$RUNDECK_TS_TOKEN\" -d \"argString=-name staging\" -d \"filter=name ts001.staging.imio.be\" https://run.imio.be/api/12/job/94b605f2-ad32-4f9f-977e-37342f6b7d32/run/ "
-//             }
-//         }
+        stage('Deploy to staging') {
+            agent any
+            when {
+                allOf {
+                    branch 'main'
+                    expression {
+                        currentBuild.result == null || currentBuild.result == 'SUCCESS'
+                    }
+                    not {
+                        changelog '.*\\[(ci)?\\-?\\s?skip\\-?\\s?(ci)?\\].*'
+                    }
+                }
+            }
+            steps {
+                sh "curl -k --fail --show-error --header \"X-Rundeck-Auth-Token:$RUNDECK_TS_TOKEN\" -d \"argString=-name staging\" -d \"filter=name ts001.staging.imio.be\" https://run.imio.be/api/18/job/94b605f2-ad32-4f9f-977e-37342f6b7d32/run/ "
+            }
+        }
         // stage('Test staging') {
         //   agent any
         //   when {
@@ -174,7 +174,7 @@ pipeline {
                 echo 'Confirmed production deploy'
                 moveImageToProdRegistry(env.TAG_NAME, 'teleservices/bullseye')
                 echo 'Schedule Rundeck job'
-                sh "curl -k --fail -XPOST --header \"Content-Type: application/json\" --header \"X-Rundeck-Auth-Token: $RUNDECK_TS_TOKEN\" https://run.imio.be/api/12/job/311af116-fedc-4e33-b2a7-99c8651f8e9b/run"
+                sh "curl -k --fail -XPOST --header \"Content-Type: application/json\" --header \"X-Rundeck-Auth-Token: $RUNDECK_TS_TOKEN\" https://run.imio.be/api/18/job/311af116-fedc-4e33-b2a7-99c8651f8e9b/run"
                 emailext to: supportTeleservicesEmail,
                 recipientProviders: [developers(), requestor()],
                 subject: "New release will be deploy: ${currentBuild.displayName}",
