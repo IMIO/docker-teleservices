@@ -5,10 +5,8 @@
     "chrono": "local-agendas.example.net",
     "combo": "local.example.net",
     "combo_agent": "local-portail-agent.example.net",
-    "fargo": "local-documents.example.net",
     "passerelle": "local-passerelle.example.net",
-    "wcs": "local-formulaires.example.net",
-    "bijoe": "local-stats.example.net"
+    "wcs": "local-formulaires.example.net"
   },
   "steps": [
     {"create-hobo": {
@@ -35,10 +33,6 @@
       "title": "Portail agent - local - E-Guichet",
       "template_name": "portal-agent"
     }},
-    {"create-fargo": {
-      "url": "http://${fargo}/",
-      "title": "Documents"
-    }},
     {"create-passerelle": {
       "url": "http://${passerelle}/",
       "title": "Passerelle - local - E-Guichet"
@@ -51,10 +45,6 @@
       "url": "http://${wcs}/",
       "title": "Démarches - local - E-Guichet",
       "template_name": "modele.zip"
-    }},
-    {"create-bijoe": {
-      "url": "http://${bijoe}/",
-      "title": "Statistiques - Local - E-Guichet"
     }},
     {"set-attribute": {
       "name": "niss",
