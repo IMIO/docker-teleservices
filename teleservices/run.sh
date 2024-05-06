@@ -49,7 +49,7 @@ if ! grep -q 'LANG=C.UTF-8' /etc/cron.d/wcs; then
   if [ $? -eq 0 ]; then
     echo " --- LANG=C.UTF-8 has been added to /etc/cron.d/wcs ..."
   else
-    echo " --- I encoutered a problem with the sed command ..."
+    echo " --- I encountered a problem with the sed command ..."
   fi
 else
   echo " --- the /etc/cron.d/wcs file is well configured with the LANG=C.UTF-8 option ! :-)"
@@ -236,7 +236,7 @@ if [ ! -f "/var/lib/wcs/skeletons/modele.zip" ]; then
   zip -j /var/lib/wcs/skeletons/modele.zip /var/lib/wcs/skeletons/site-options.cfg /var/lib/wcs/skeletons/config.json
   sudo -u hobo hobo-manage cook /etc/hobo/recipe.json
 fi
-echo "$prefix Running hobo-manage cook /etc/hobo/recipe.json & setup wcs with our postrgesql"
+echo "$prefix Running hobo-manage cook /etc/hobo/recipe.json & setup wcs with our postgresql"
 sudo -u hobo hobo-manage cook /etc/hobo/recipe.json
 test -e /etc/hobo/recipe*extra.json && sudo -u hobo hobo-manage cook /etc/hobo/recipe*extra.json
 test -e /etc/hobo/extra/recipe*json && sudo -u hobo hobo-manage cook /etc/hobo/extra/recipe*.json
