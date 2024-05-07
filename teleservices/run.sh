@@ -3,15 +3,18 @@
 # Fix problem causing scripts still run by " init.d " not work working properly
 # https://dev.entrouvert.org/issues/41958
 # https://dev.entrouvert.org/issues/41960
+echo "$prefix 🏁 Starting script 🏁"
+
 export LANG=C.UTF-8
 
 printenv >>/etc/environment # set env variables for cron jobs
-log_prefix="✨ run.sh ·"
+prefix="✨ run.sh ·"
 monkey_prefix="🐒Monkey-patching"
 echo "$prefix cleaning some pid/sock files that can be generated at image creation (if they exist)."
 for file in /var/run/{authentic2-multitenant/authentic2-multitenant,chrono/chrono,fargo/fargo,hobo/hobo,combo/combo,nginx,rsyslogd,supervisord,wcs,passerelle/passerelle,bijoe/bijoe}.{pid,sock}; do
   test -e $file && rm $file
 done
+echo "$prefix cleaning some pid/sock files that can be generated at image creation (if they exist) done! ✅"
 
 echo "$prefix updating some Entr'Ouvert services folders user:group via chown."
 chown authentic-multitenant:authentic-multitenant /var/lib/authentic2-multitenant/tenants -R
@@ -22,16 +25,20 @@ chown combo:combo /var/lib/combo/tenants -R
 chown fargo:fargo /var/lib/fargo/tenants -R
 chown passerelle:passerelle /var/lib/passerelle/tenants -R
 chown wcs:wcs /var/lib/wcs -R
+echo "$prefix updating some Entr'Ouvert services folders user:group via chown done! ✅"
 
 echo "$prefix verifying uploads & attachments permission folders."
 [ -d /var/lib/wcs/tenants/*/attachments ] && chown -R wcs:wcs /var/lib/wcs/tenants/*/attachments/
 [ -d /var/lib/wcs/tenants/*/uploads ] && chown -R wcs:wcs var/lib/wcs/tenants/*/uploads/
+echo "$prefix verifying uploads & attachments permission folders done! ✅"
 
 echo "$prefix $monkey_prefix mails via '/var/lib/authentic2/locale/fr/LC_MESSAGES/mail-translation.py'."
 python3 /var/lib/authentic2/locale/fr/LC_MESSAGES/mail-translation.py
+echo "$prefix $monkey_prefix mails via '/var/lib/authentic2/locale/fr/LC_MESSAGES/mail-translation.py' done! ✅"
 
 echo "$prefix INFRA-5052 - Database update"
 test -e /var/lib/wcs/configure-wcs.py && python3 /var/lib/wcs/configure-wcs.py
+echo "$prefix INFRA-5052 - Database update done! ✅"
 
 echo "$prefix linking iMio wcs_scripts_teleservices."
 if [ -d /opt/publik/wcs-scripts/wcs_scripts_teleservices ]; then
@@ -39,6 +46,7 @@ if [ -d /opt/publik/wcs-scripts/wcs_scripts_teleservices ]; then
 else
   ln -sfn /opt/publik/wcs-scripts /var/lib/wcs/scripts
 fi
+echo "$prefix linking iMio wcs_scripts_teleservices done! ✅"
 
 HOSTNAME=$(hostname)
 test -f /opt/publik/hooks/$HOSTNAME/run-hook.sh && echo "$prefix exec run-hook.sh" && /opt/publik/hooks/$HOSTNAME/run-hook.sh
@@ -54,12 +62,14 @@ if ! grep -q 'LANG=C.UTF-8' /etc/cron.d/wcs; then
 else
   echo " --- the /etc/cron.d/wcs file is well configured with the LANG=C.UTF-8 option ! :-)"
 fi
+echo "$prefix  Check if UTF8 is well configured (wcs cron jobs) done! ✅"
 
 echo "$prefix  Restarting services : rsyslob, cron."
 # new way to start rsyslog since bookworm
 /usr/sbin/rsyslogd
 
 service cron start
+echo "$prefix  Restarting services : rsyslob, cron done! ✅"
 
 # Monkey patching chrono uwsgi.ini (cron jobs)
 cur_brick="chrono"
@@ -92,6 +102,7 @@ for cron_def in "${!chrono_crons[@]}"; do
   echo "✨ $cron_def ($cur_brick) · Original line: $original_line"
   echo "🔁 $cron_def ($cur_brick) · Modified line: $modified_line"
 done
+echo "$prefix $monkey_prefix $cur_brick $uwsgi_ini_path (cron jobs) done! ✅"
 
 # Monkey patching authentic2 uwsgi.ini (cron jobs)
 cur_brick="authentic2-multitenant"
@@ -121,6 +132,7 @@ for cron_def in "${!authentic_crons[@]}"; do
   echo "✨ $cron_def ($cur_brick) · Original line: $original_line"
   echo "🔁 $cron_def ($cur_brick) · Modified line: $modified_line"
 done
+echo "$prefix $monkey_prefix $cur_brick $uwsgi_ini_path (cron jobs) done! ✅"
 
 # Monkey patching combo uwsgi.ini (cron jobs)
 cur_brick="combo"
@@ -159,6 +171,7 @@ combo_crond_altered_line1=$(grep "notify_new_remote_invoices" $combo_crond_file)
 combo_crond_altered_line2=$(grep "lingo-poll-backend" $combo_crond_file)
 echo "🔁 notify_new_remote_invoices ($cur_brick) · Modified line: $combo_crond_altered_line1"
 echo "🔁 lingo-poll-backend ($cur_brick) · Modified line: $combo_crond_altered_line2"
+echo "$prefix $monkey_prefix $cur_brick $uwsgi_ini_path (cron jobs) done! ✅"
 
 # Monkey patching passerelle uwsgi.ini (cron jobs)
 cur_brick="passerelle"
@@ -193,8 +206,10 @@ for cron_def in "${!passerelle_crons[@]}"; do
   echo "✨ $cron_def ($cur_brick) · Original line: $original_line"
   echo "🔁 $cron_def ($cur_brick) · Modified line: $modified_line"
 done
+echo "$prefix $monkey_prefix $cur_brick $uwsgi_ini_path (cron jobs) done! ✅"
 
 # Monkey patching hobo (cron.d job)
+echo "$prefix $monkey_prefix monkey patching hobo_provision (hobo related cron.d job)"
 hobo_agent_random=$((RANDOM % 11 + 40)) # random number between 40 and 50
 hobo_agent_file="/etc/cron.d/hobo-agent"
 hobo_agent_original_line=$(grep "hobo_provision" $hobo_agent_file)
@@ -208,43 +223,73 @@ fi
 
 hobo_agent_altered_line=$(grep "hobo_provision" $hobo_agent_file)
 echo "🔁 hobo_provision · Modified line: $hobo_agent_altered_line"
+echo "$prefix $monkey_prefix monkey patching hobo_provision (hobo related cron.d job) done! ✅"
 
 echo "$prefix Starting hoho... 🚀"
 service hobo start
+echo "$prefix Starting hoho... 🚀 done! ✅"
+
 echo "$prefix Starting combo... 🚀"
 service combo start
+echo "$prefix Starting combo... 🚀 done! ✅
+"
 echo "$prefix Starting authentic2-multitenant... 🚀"
 service authentic2-multitenant start
+echo "$prefix Starting authentic2-multitenant... 🚀 done! ✅"
+
 echo "$prefix Starting chrono... 🚀"
 service chrono start
+echo "$prefix Starting chrono... 🚀 done! ✅"
+
 echo "$prefix Starting passerelle... 🚀"
 service passerelle start
+echo "$prefix Starting passerelle... 🚀 done! ✅"
+
 echo "$prefix Starting wcs... 🚀"
 service wcs start
+echo "$prefix Starting wcs... 🚀 done! ✅"
+
 echo "$prefix Starting fargo... 🚀"
 service fargo start
+echo "$prefix Starting fargo... 🚀 done! ✅"
+
 echo "$prefix Starting bijoe... 🚀"
 service bijoe update
 service bijoe start
+echo "$prefix Starting bijoe... 🚀 done! ✅"
+
 echo "$prefix Starting nginx... 🚀"
 service nginx start
+echo "$prefix Starting nginx... 🚀 done! ✅"
+
 echo "$prefix Starting supervisor... 🚀"
 service supervisor start
+echo "$prefix Starting supervisor... 🚀 done! ✅"
 
+echo "$prefix Checking if /var/lib/wcs/skeletons/modele.zip exists"
 if [ ! -f "/var/lib/wcs/skeletons/modele.zip" ]; then
-  echo "$prefix Zipping wcs database config and cooking"
+  echo "$prefix /var/lib/wcs/skeletons/modele.zip does not exist. Creating it."
   zip -j /var/lib/wcs/skeletons/modele.zip /var/lib/wcs/skeletons/site-options.cfg /var/lib/wcs/skeletons/config.json
+  echo "$prefix /var/lib/wcs/skeletons/modele.zip creation done! ✅"
+  echo "$prefix running sudo -u hobo hobo-manage cook /etc/hobo/recipe.json ..."
   sudo -u hobo hobo-manage cook /etc/hobo/recipe.json
+  echo "$prefix running sudo -u hobo hobo-manage cook /etc/hobo/recipe.json done! ✅"
+  echo "$prefix modele.zip and cook done! ✅"
 fi
 echo "$prefix Running hobo-manage cook /etc/hobo/recipe.json & setup wcs with our postgresql"
 sudo -u hobo hobo-manage cook /etc/hobo/recipe.json
+echo "$prefix Running hobo-manage cook /etc/hobo/recipe.json & setup wcs with our postgresql done! ✅"
+echo "$prefix Running hobo-manage cook /etc/hobo/recipe*extra.json"
 test -e /etc/hobo/recipe*extra.json && sudo -u hobo hobo-manage cook /etc/hobo/recipe*extra.json
+echo "$prefix Running hobo-manage cook /etc/hobo/extra/recipe*.json done! ✅"
+echo "$prefix Running hobo-manage cook /etc/hobo/extra/recipe*.json"
 test -e /etc/hobo/extra/recipe*json && sudo -u hobo hobo-manage cook /etc/hobo/extra/recipe*.json
+echo "$prefix Running hobo-manage cook /etc/hobo/extra/recipe*.json done! ✅"
 
 # iMio DE/FR translations monkey patch
 # Should only run on Eupen or Kelmis
 if [ -e /var/lib/wcs/tenants/eupen-formulaires.guichet-citoyen.be/ ] || [ -e /var/lib/wcs/tenants/kelmis-formulaires.guichet-citoyen.be/ ]; then
-  echo "$prefix Eupen/Kelmis 🐒Monkey patch"
+  echo "$prefix $monkey_prefix Monkey-patching translations files  (iMio DE/FR translations monkey patch)."
   echo "✨ Fetching raw file from GitHub for authentic..."
   curl https://raw.githubusercontent.com/IMIO/teleservices-german-translations/main/authentic2_django.po -o /usr/lib/python3/dist-packages/authentic2/locale/fr/LC_MESSAGES/django.po
   echo "Running django-admin compilemessages for authentic..."
@@ -276,9 +321,15 @@ if [ -e /var/lib/wcs/tenants/eupen-formulaires.guichet-citoyen.be/ ] || [ -e /va
   cd -
   echo "Restarting wcs..."
   service wcs restart
+  echo "$prefix $monkey_prefix Monkey-patching translations files  (iMio DE/FR translations monkey patch) done! ✅"
 fi
 
-echo "$prefix Update package of wcs elements."
-if [ -f /etc/hobo/init.sh ]; then /etc/hobo/init.sh; fi
-test -f /opt/publik/hooks/$HOSTNAME/run-finish-hook.sh && /opt/publik/hooks/$HOSTNAME/run-finish-hook.sh
+if [ -f /etc/hobo/init.sh ]; then
+  echo "$prefix Running /etc/hobo/init.sh"
+  /etc/hobo/init.sh
+fi
+test -f /opt/publik/hooks/$HOSTNAME/run-finish-hook.sh && echo "$prefix Executing run-finish-hook.sh" && /opt/publik/hooks/$HOSTNAME/run-finish-hook.sh
+
+echo "$prefix 🏁 Script finished 🏁"
+echo "$prefix 🏁 Starting syslog tail 🏁"
 tail -f /var/log/syslog
