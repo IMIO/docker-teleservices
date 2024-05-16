@@ -29,7 +29,7 @@ urls = [
 
 
 def download_and_save_ods(url, filename):
-    """Download the .ods file from the given URL and save it to the given filename."""
+    """Download the .ods file from the given URL and save it to /var/tmp/"""
     try:
         ts_api_key = os.environ.get("TS_API_KEY")
         ts_api_identifier = os.environ.get("TS_API_IDENTIFIER")
@@ -37,18 +37,20 @@ def download_and_save_ods(url, filename):
         response = requests.get(url, auth=(ts_api_identifier, ts_api_key))
 
         if response.status_code == 200:
-            with open(filename, "wb") as file:
+            save_path = f"/var/tmp/{filename}"
+            with open(save_path, "wb") as file:
                 file.write(response.content)
-            logging.info(f"Successfully downloaded and saved {filename}")
+            logging.info(f"Successfully downloaded and saved {save_path}")
         else:
-            logging.error(f"Failed to download {filename}. Status code: {response.status_code}")
-            print(f"Failed to download {filename}. Status code: {response.status_code}")
+            logging.error(f"Failed to download {save_path}. Status code: {response.status_code}")
+            print(f"Failed to download {save_path}. Status code: {response.status_code}")
 
     except Exception as e:
-        logging.error(f"An error occurred while downloading {filename}: {e}")
-        print(f"An error occurred while downloading {filename}: {e}")
+        logging.error(f"An error occurred while downloading {save_path}: {e}")
+        print(f"An error occurred while downloading {save_path}: {e}")
 
 
+# Main execution
 if __name__ == "__main__":
     filenames = ["commande_de_tickets_repas_nightly_export.ods", "commande_de_cartes_de_garderie_nightly_export.ods"]
 
