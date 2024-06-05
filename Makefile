@@ -6,38 +6,38 @@ clean:
 run:
 		docker-compose up
 
-build-bullseye-base:
+build-bookworm-base:
 		cd teleservices && \
-		docker build --pull -f Dockerfile-base -t imiobe/teleservices-bullseye-base:latest \
-		--build-arg DEBIAN_VERSION=bullseye \
+		docker build --pull -f Dockerfile-base -t imiobe/teleservices-bookworm-base:latest \
+		--build-arg DEBIAN_VERSION=bookworm \
 		.
 
-build-bullseye:
+build-bookworm:
 		cd teleservices && \
-		docker build --pull --target prod-image -t teleservices/bullseye:latest \
-		--build-arg DEBIAN_VERSION=bullseye \
+		docker build --pull --target prod-image -t teleservices/bookworm:latest \
+		--build-arg DEBIAN_VERSION=bookworm \
 		.
 
-build-bullseye-test:
+build-bookworm-test:
 		cd teleservices && \
-		docker build --pull --target dev-image -t teleservices/bullseye-test:latest \
-		--build-arg DEBIAN_VERSION=bullseye \
+		docker build --pull --target dev-image -t teleservices/bookworm-test:latest \
+		--build-arg DEBIAN_VERSION=bookworm \
 		.
 
-build-no-cache-bullseye:
+build-no-cache-bookworm:
 		cd teleservices && \
-		docker build --pull --no-cache --target prod-image -t teleservices/bullseye:latest \
-		--build-arg DEBIAN_VERSION=bullseye \
+		docker build --pull --no-cache --target prod-image -t teleservices/bookworm:latest \
+		--build-arg DEBIAN_VERSION=bookworm \
 		.
 
-build-no-cache-bullseye-test:
+build-no-cache-bookworm-test:
 		cd teleservices && \
-		docker build --pull --no-cache --target dev-image -t teleservices/bullseye-test:latest \
-		--build-arg DEBIAN_VERSION=bullseye \
+		docker build --pull --no-cache --target dev-image -t teleservices/bookworm-test:latest \
+		--build-arg DEBIAN_VERSION=bookworm \
 		.
 
-run-bullseye-test:
-		make run branch=bullseye-test
+run-bookworm-test:
+		make run branch=bookworm-test
 
 fast-clean:
 	docker-compose down -v
