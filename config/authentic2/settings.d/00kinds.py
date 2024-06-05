@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from django import forms
 import re
+
+from django import forms
 
 
 class RrnField(forms.CharField):
@@ -27,6 +28,7 @@ class NumHouseField(forms.CharField):
         except ValueError:
             raise forms.ValidationError("Format invalide")
 
+
 class NumPhoneField(forms.CharField):
     def validate(self, value):
         super(NumPhoneField, self).validate(value)
@@ -39,21 +41,20 @@ class NumPhoneField(forms.CharField):
             raise forms.ValidationError("Format invalide")
 
 
-
 A2_ATTRIBUTE_KINDS = [
-        {
-            'label': u'Numéro de registre national',
-            'name': 'rrn',
-            'field_class': RrnField,
-        },
-        {
-            'label': u'Numéro de maison',
-            'name': 'num_house',
-            'field_class': NumHouseField,
-        },
-        {
-            'label': u'Numéro de téléphone',
-            'name': 'phone',
-            'field_class': NumPhoneField,
-        }
+    {
+        "label": "Numéro de registre national",
+        "name": "rrn",
+        "field_class": RrnField,
+    },
+    {
+        "label": "Numéro de maison",
+        "name": "num_house",
+        "field_class": NumHouseField,
+    },
+    {
+        "label": "Numéro de téléphone",
+        "name": "phone",
+        "field_class": NumPhoneField,
+    },
 ]

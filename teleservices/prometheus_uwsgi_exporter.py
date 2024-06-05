@@ -71,9 +71,9 @@ for stats_sock in glob.glob("/run/*/stats.sock"):
     app_name = stats_sock.split("/")[2]
     app_name = app_name.replace("authentic2-multitenant", "authentic")
     if app_name == "authentic":
-         # do not collect authentic data as it triggers some uwsgi bug
-         # https://dev.entrouvert.org/issues/54624
-         continue
+        # do not collect authentic data as it triggers some uwsgi bug
+        # https://dev.entrouvert.org/issues/54624
+        continue
     stats_json = ""
     with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as s:
         s.connect(stats_sock)
@@ -123,11 +123,9 @@ for stats_sock in glob.glob("/run/*/stats.sock"):
         statistics.median(workers_vsz)
     )
     for k in workers_status:
-        uwsgi_workers_status.labels(
-            app=app_name, status=k, client_id=client_id, compose_service=compose_service
-        ).set(workers_status[k])
+        uwsgi_workers_status.labels(app=app_name, status=k, client_id=client_id, compose_service=compose_service).set(
+            workers_status[k]
+        )
 
 
-write_to_textfile(
-    f"/var/lib/prometheus/node-exporter/{client_id}_uwsgi.prom", registry
-)
+write_to_textfile(f"/var/lib/prometheus/node-exporter/{client_id}_uwsgi.prom", registry)

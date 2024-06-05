@@ -1,6 +1,10 @@
 #!/bin/bash
 
+# Fix problem causing scripts still run by " init.d " not work working properly
+# https://dev.entrouvert.org/issues/41958
+# https://dev.entrouvert.org/issues/41960
 export LANG=C.UTF-8
+
 printenv >>/etc/environment # set env variables for cron jobs
 log_prefix="✨ run.sh ·"
 monkey_prefix="🐒Monkey-patching"
@@ -54,21 +58,6 @@ fi
 echo "$prefix  Restarting services : rsyslob, cron."
 service rsyslog start
 service cron start
-
-# should be commented or explained soon
-if [ x$1 != xfromgit ] || [ ! -d /opt/publik/combo ]; then
-  service combo start
-fi
-if [ x$1 != xfromgit ] || [ ! -d /opt/publik/authentic ]; then
-  test -e /var/lib/authentic2-multitenant/tenants/configure.py && python3 /var/lib/authentic2-multitenant/tenants/configure.py
-  service authentic2-multitenant start
-fi
-if [ x$1 != xfromgit ] || [ ! -d /opt/publik/wcs ]; then
-  service wcs start
-fi
-if [ x$1 != xfromgit ] || [ ! -d /opt/publik/passerelle ]; then
-  service passerelle start
-fi
 
 # Monkey patching chrono uwsgi.ini (cron jobs)
 cur_brick="chrono"
@@ -218,13 +207,26 @@ fi
 hobo_agent_altered_line=$(grep "hobo_provision" $hobo_agent_file)
 echo "🔁 hobo_provision · Modified line: $hobo_agent_altered_line"
 
-echo "$prefix Starting services : hobo, fargo, bijoe, chrono, nginx, supervisor."
+echo "$prefix Starting hoho... 🚀"
 service hobo start
+echo "$prefix Starting combo... 🚀"
+service combo start
+echo "$prefix Starting authentic2-multitenant... 🚀"
+service authentic2-multitenant start
+echo "$prefix Starting chrono... 🚀"
+service chrono start
+echo "$prefix Starting passerelle... 🚀"
+service passerelle start
+echo "$prefix Starting wcs... 🚀"
+service wcs start
+echo "$prefix Starting fargo... 🚀"
 service fargo start
+echo "$prefix Starting bijoe... 🚀"
 service bijoe update
 service bijoe start
-service chrono start
+echo "$prefix Starting nginx... 🚀"
 service nginx start
+echo "$prefix Starting supervisor... 🚀"
 service supervisor start
 
 if [ ! -f "/var/lib/wcs/skeletons/modele.zip" ]; then
@@ -236,12 +238,6 @@ echo "$prefix Running hobo-manage cook /etc/hobo/recipe.json & setup wcs with ou
 sudo -u hobo hobo-manage cook /etc/hobo/recipe.json
 test -e /etc/hobo/recipe*extra.json && sudo -u hobo hobo-manage cook /etc/hobo/recipe*extra.json
 test -e /etc/hobo/extra/recipe*json && sudo -u hobo hobo-manage cook /etc/hobo/extra/recipe*.json
-
-# should be commented or explained soon
-if [ x$1 = xfromgit ]; then
-  /opt/publik/scripts/scripts_teleservices/init-dev.sh
-  screen -d -m -c /opt/publik/screenrc
-fi
 
 # iMio DE/FR translations monkey patch
 # Should only run on Eupen or Kelmis

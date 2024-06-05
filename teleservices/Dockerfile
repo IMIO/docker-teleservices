@@ -10,6 +10,7 @@ RUN apt update && apt install -y \
   passerelle-imio-aes-meal \
   passerelle-imio-apims-baec \
   passerelle-imio-apims-casier-judiciaire \
+  passerelle-imio-apims-certificats-population \
   passerelle-imio-ia-aes \
   passerelle-imio-ia-delib \
   passerelle-imio-ia-tech \
@@ -18,6 +19,7 @@ RUN apt update && apt install -y \
   scripts-teleservices \
   teleservices-iacitizen \
   teleservices-package \
+  teleservices-package-certificats-population \
   teleservices-package-light \
   wcs-scripts-teleservices \
   --allow-unauthenticated
@@ -59,6 +61,7 @@ RUN apt update && apt install -y imio-townstreet \
   passerelle-imio-aes-health \
   passerelle-imio-aes-meal \
   passerelle-imio-apims-baec \
+  passerelle-imio-apims-certificats-population \
   passerelle-imio-ia-aes \
   passerelle-imio-ia-delib \
   passerelle-imio-ia-tech \
@@ -67,6 +70,7 @@ RUN apt update && apt install -y imio-townstreet \
   python3-pip \
   scripts-teleservices \
   teleservices-package \
+  teleservices-package-certificats-population \
   teleservices-package-light \
   wcs-scripts-teleservices \
   --allow-unauthenticated
