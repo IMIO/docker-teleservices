@@ -8,9 +8,9 @@ services:
   teleservices:
     build:
       args:
-        DEBIAN_VERSION: bullseye
+        DEBIAN_VERSION: bookworm
       context: teleservices
-    image: teleservices/bullseye:latest
+    image: teleservices/bookworm:latest
     mem_limit: 2048m
     ports:
       - "80:80"

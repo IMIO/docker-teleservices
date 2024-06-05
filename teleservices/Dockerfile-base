@@ -51,7 +51,7 @@ RUN cat /etc/apt/sources.list.d/imio.list && apt update && apt install -y \
 RUN echo "Package: *\nPin: release a=$DEBIAN_VERSION-eobuilder\nPin-Priority: 400" > /etc/apt/preferences.d/entrouvert-eobuilder
 
 # Install extra modules
-#RUN apt install -y -t bookworm-testing authentic2-multitenant=5.5-1~eob120+1
+RUN apt install -y authentic2-multitenant
 #RUN apt install -y  bijoe
 RUN apt install -y  chrono
 RUN apt install -y  combo
@@ -77,4 +77,4 @@ RUN apt install -y -t $DEBIAN_VERSION-eobuilder python3-imio-teleservices-templa
 RUN apt install -y -t $DEBIAN_VERSION-eobuilder python3-passerelle-imio-extra-fees
 RUN apt install -y -t $DEBIAN_VERSION-eobuilder python3-passerelle-imio-liege-lisrue
 RUN apt install -y -t $DEBIAN_VERSION-eobuilder python3-passerelle-imio-liege-rn
-#RUN apt install -y -t $DEBIAN_VERSION-eobuilder python3-passerelle-imio-ts1-datasources
+RUN apt install -y -t $DEBIAN_VERSION-eobuilder python3-passerelle-imio-ts1-datasources
