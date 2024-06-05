@@ -56,7 +56,9 @@ else
 fi
 
 echo "$prefix  Restarting services : rsyslob, cron."
-service rsyslog start
+# new way to start rsyslog since bookworm
+/usr/sbin/rsyslogd
+
 service cron start
 
 # Monkey patching chrono uwsgi.ini (cron jobs)
