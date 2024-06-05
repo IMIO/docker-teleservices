@@ -62,7 +62,7 @@ RUN apt install -y  passerelle
 RUN apt install -y  poppler-utils
 RUN apt install -y  prometheus-entrouvert-exporter
 RUN apt install -y  publik-base-theme
-#RUN apt install -y  python3-authentic2-auth-fedict
+RUN apt install -y  python3-authentic2-auth-fedict
 RUN apt install -y  python3-dns
 RUN apt install -y  python3-docutils
 RUN apt install -y  python3-magic
