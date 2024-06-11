@@ -22,7 +22,6 @@ chown hobo:hobo /var/lib/hobo/tenants -R &&
 chown bijoe:bijoe /var/lib/bijoe/tenants -R &&
 chown chrono:chrono /var/lib/chrono/tenants -R &&
 chown combo:combo /var/lib/combo/tenants -R &&
-chown fargo:fargo /var/lib/fargo/tenants -R &&
 chown passerelle:passerelle /var/lib/passerelle/tenants -R &&
 chown wcs:wcs /var/lib/wcs -R &&
 echo " done! ✅"
@@ -239,9 +238,6 @@ service passerelle start && echo " passerelle service has been started ! ✅" ||
 
 echo -n "$prefix Starting wcs... 🚀"
 service wcs start && echo " wcs service has been started ! ✅" || echo " wcs service starting failed! ❌"
-
-echo -n "$prefix Starting fargo... 🚀"
-service fargo start && echo " fargo service has been started ! ✅" || echo " fargo service starting failed! ❌"
 
 echo -n "$prefix Bijoe... 🚀"
 service bijoe update && echo -n " bijoe service has been updated ! ✅..." || echo -n " Updating failed! ❌"
