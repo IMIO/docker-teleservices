@@ -25,11 +25,9 @@ services:
       local-hobo.example.net: 127.0.0.1
       local-stats.example.net: 127.0.0.1
     volumes:
-      - ./data/bijoe:/var/lib/bijoe/tenants
       - ./data/hobo:/var/lib/hobo/tenants
       - ./data/chrono:/var/lib/chrono/tenants
       - ./data/combo:/var/lib/combo/tenants
-      - ./data/fargo:/var/lib/fargo/tenants
       - ./data/authentic2:/var/lib/authentic2-multitenant/tenants
       - ./data/wcs:/var/lib/wcs
       - ./data/passerelle:/var/lib/passerelle/tenants
@@ -38,13 +36,9 @@ services:
       - ./config/chrono/settings.d:/etc/chrono/settings.d
       - ./config/combo/secret:/etc/combo/secret
       - ./config/combo/settings.d:/etc/combo/settings.d
-      - ./config/fargo/secret:/etc/fargo/secret
-      - ./config/fargo/settings.d:/etc/fargo/settings.d
       - ./config/authentic2/secret:/etc/authentic2-multitenant/secret
       - ./config/authentic2/settings.d:/etc/authentic2-multitenant/settings.d
       - ./config/authentic2/settings.json:/etc/authentic2-multitenant/settings.json
-      - ./config/bijoe/secret:/etc/bijoe/secret
-      - ./config/bijoe/settings.d:/etc/bijoe/settings.d
       - ./config/hobo/secret:/etc/hobo/secret
       - ./config/hobo/recipe.json:/etc/hobo/recipe.json
       - ./config/hobo/extra:/etc/hobo/extra

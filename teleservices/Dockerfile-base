@@ -52,10 +52,8 @@ RUN echo "Package: *\nPin: release a=$DEBIAN_VERSION-eobuilder\nPin-Priority: 40
 
 # Install extra modules
 RUN apt install -y authentic2-multitenant
-#RUN apt install -y  bijoe
 RUN apt install -y  chrono
 RUN apt install -y  combo
-#RUN apt install -y  fargo
 RUN apt install -y  hobo
 RUN apt install -y  hobo-agent
 RUN apt install -y  passerelle
