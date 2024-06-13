@@ -12,8 +12,7 @@ RUN echo "APT::Install-Suggests \"false\";\nAPT::Install-Recommends \"false\";" 
 
 # Don't allow services to start when building the image
 RUN echo "#!/bin/sh\nexit 101" > /usr/sbin/policy-rc.d \
-  && chmod +x /usr/sbin/policy-rc.d \
-  && sed -i "s%httpredir.debian.org%debian.mirrors.ovh.net%g" /etc/apt/sources.list
+  && chmod +x /usr/sbin/policy-rc.d
 
 RUN apt update && apt install -y \
   apt-transport-https \
@@ -35,6 +34,7 @@ RUN apt update && apt install -y \
 
 # Configure extra repositories
 RUN export && echo ${DEBIAN_VERSION}  && echo "deb http://deb.entrouvert.org/ ${DEBIAN_VERSION} main" > /etc/apt/sources.list.d/entrouvert-local.list \
+  && echo "deb http://deb.entrouvert.org/ ${DEBIAN_VERSION}-testing main" > /etc/apt/sources.list.d/entrouvert-local.list \
   && echo "deb http://debian.mirrors.ovh.net/debian ${DEBIAN_VERSION}-backports main" > /etc/apt/sources.list.d/backports.list \
   && echo "deb [trusted=yes] https://nexus.imio.be/repository/${DEBIAN_VERSION} ${DEBIAN_VERSION} main" > /etc/apt/sources.list.d/imio.list \
   && cat /etc/apt/sources.list.d/*
@@ -51,32 +51,29 @@ RUN cat /etc/apt/sources.list.d/imio.list && apt update && apt install -y \
 RUN echo "Package: *\nPin: release a=$DEBIAN_VERSION-eobuilder\nPin-Priority: 400" > /etc/apt/preferences.d/entrouvert-eobuilder
 
 # Install extra modules
-RUN apt install -y \
-  authentic2-multitenant \
-  bijoe \
-  chrono \
-  combo \
-  fargo \
-  hobo \
-  hobo-agent \
-  passerelle \
-  poppler-utils \
-  prometheus-entrouvert-exporter \
-  publik-base-theme \
-  python3-authentic2-auth-fedict \
-  python3-dns \
-  python3-docutils \
-  python3-magic \
-  python3-passerelle \
-  python3-qrcode \
-  python3-workalendar \
-  wcs-au-quotidien \
-  && apt install -y -t $DEBIAN_VERSION-eobuilder \
-  imio-publik-themes \
-  publik-imio-industrialisation \
-  python3-combo-plugin-imio-townstreet \
-  python3-imio-teleservices-templatetags \
-  python3-passerelle-imio-extra-fees \
-  python3-passerelle-imio-liege-lisrue \
-  python3-passerelle-imio-liege-rn \
-  python3-passerelle-imio-ts1-datasources
+RUN apt install -y authentic2-multitenant
+RUN apt install -y  bijoe
+RUN apt install -y  chrono
+RUN apt install -y  combo
+RUN apt install -y  hobo
+RUN apt install -y  hobo-agent
+RUN apt install -y  passerelle
+RUN apt install -y  poppler-utils
+RUN apt install -y  prometheus-entrouvert-exporter
+RUN apt install -y  publik-base-theme
+RUN apt install -y  python3-authentic2-auth-fedict
+RUN apt install -y  python3-dns
+RUN apt install -y  python3-docutils
+RUN apt install -y  python3-magic
+RUN apt install -y  python3-passerelle
+RUN apt install -y  python3-qrcode
+RUN apt install -y  python3-workalendar
+RUN apt install -y  wcs-au-quotidien
+RUN apt install -y -t $DEBIAN_VERSION-eobuilder imio-publik-themes
+RUN apt install -y -t $DEBIAN_VERSION-eobuilder publik-imio-industrialisation
+RUN apt install -y -t $DEBIAN_VERSION-eobuilder python3-combo-plugin-imio-townstreet
+RUN apt install -y -t $DEBIAN_VERSION-eobuilder python3-imio-teleservices-templatetags
+RUN apt install -y -t $DEBIAN_VERSION-eobuilder python3-passerelle-imio-extra-fees
+RUN apt install -y -t $DEBIAN_VERSION-eobuilder python3-passerelle-imio-liege-lisrue
+RUN apt install -y -t $DEBIAN_VERSION-eobuilder python3-passerelle-imio-liege-rn
+RUN apt install -y -t $DEBIAN_VERSION-eobuilder python3-passerelle-imio-ts1-datasources

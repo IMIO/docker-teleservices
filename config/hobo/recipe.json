@@ -5,7 +5,6 @@
     "chrono": "local-agendas.example.net",
     "combo": "local.example.net",
     "combo_agent": "local-portail-agent.example.net",
-    "fargo": "local-documents.example.net",
     "passerelle": "local-passerelle.example.net",
     "wcs": "local-formulaires.example.net",
     "bijoe": "local-stats.example.net"
@@ -34,10 +33,6 @@
       "slug": "portal-agent",
       "title": "Portail agent - local - E-Guichet",
       "template_name": "portal-agent"
-    }},
-    {"create-fargo": {
-      "url": "http://${fargo}/",
-      "title": "Documents"
     }},
     {"create-passerelle": {
       "url": "http://${passerelle}/",
