@@ -56,7 +56,9 @@ ARG DEBIAN_VERSION
 RUN echo "deb [trusted=yes] https://nexus.imio.be/repository/${DEBIAN_VERSION}-test ${DEBIAN_VERSION}-test main" > /etc/apt/sources.list.d/imio-test.list \
   && cat /etc/apt/sources.list.d/*
 
-RUN apt update && apt install -y imio-townstreet \
+RUN apt update && apt install -y \
+  python3-pip \
+  imio-townstreet \
   imio-ts-aes \
   passerelle-imio-aes-health \
   passerelle-imio-aes-meal \
@@ -75,6 +77,6 @@ RUN apt update && apt install -y imio-townstreet \
   wcs-scripts-teleservices \
   --allow-unauthenticated
 
-RUN pip3 install sentry-sdk uwsgitop
+RUN pip3 install sentry-sdk uwsgitop --break-system-packages
 COPY prometheus_uwsgi_exporter.py /usr/bin/
 RUN crontab -l | { cat; echo "* * * * * /usr/bin/python3 /usr/bin/prometheus_uwsgi_exporter.py"; } | crontab -
