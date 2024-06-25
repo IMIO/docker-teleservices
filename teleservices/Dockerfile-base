@@ -32,21 +32,25 @@ RUN apt update && apt install -y \
   vim-nox \
   zip
 
+# Install imio and entrouvert certificates TELE-1927
+RUN curl https://static.imio.be/imio.gpg -o /etc/apt/keyrings/imio.gpg && curl https://deb.entrouvert.org/entrouvert.gpg -o /etc/apt/keyrings/entrouvert.gpg
+
 # Configure extra repositories
-RUN export && echo ${DEBIAN_VERSION}  && echo "deb http://deb.entrouvert.org/ ${DEBIAN_VERSION} main" > /etc/apt/sources.list.d/entrouvert-local.list \
-  && echo "deb http://deb.entrouvert.org/ ${DEBIAN_VERSION}-testing main" > /etc/apt/sources.list.d/entrouvert-local.list \
+RUN export && echo ${DEBIAN_VERSION}  && echo "deb [signed-by=/etc/apt/keyrings/entrouvert.gpg] http://deb.entrouvert.org/ ${DEBIAN_VERSION} main" > /etc/apt/sources.list.d/entrouvert-local.list \
+  && echo "deb [signed-by=/etc/apt/keyrings/entrouvert.gpg] http://deb.entrouvert.org/ ${DEBIAN_VERSION}-testing main" > /etc/apt/sources.list.d/entrouvert-local.list \
   && echo "deb http://debian.mirrors.ovh.net/debian ${DEBIAN_VERSION}-backports main" > /etc/apt/sources.list.d/backports.list \
   && echo "deb [trusted=yes] https://nexus.imio.be/repository/${DEBIAN_VERSION} ${DEBIAN_VERSION} main" > /etc/apt/sources.list.d/imio.list \
   && cat /etc/apt/sources.list.d/*
 
-RUN curl https://static.imio.be/imio.gpg | apt-key add - \
-  && curl https://deb.entrouvert.org/entrouvert.gpg | apt-key add -
-
+# Install entrouvert repositories
+# TELE-1927 : Add signed-by to all entrouvert repositories
 RUN cat /etc/apt/sources.list.d/imio.list && apt update && apt install -y \
   entrouvert-repository \
   entrouvert-repository-eobuilder \
   entrouvert-repository-hotfix \
-  && apt update && rm /etc/apt/sources.list.d/entrouvert-local.list
+  && sed -i 's/deb https/deb [signed-by=\/etc\/apt\/keyrings\/entrouvert.gpg] https/g' /etc/apt/sources.list.d/entrouvert*.list
+
+RUN apt update && rm /etc/apt/sources.list.d/entrouvert-local.list
 
 RUN echo "Package: *\nPin: release a=$DEBIAN_VERSION-eobuilder\nPin-Priority: 400" > /etc/apt/preferences.d/entrouvert-eobuilder
 
