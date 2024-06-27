@@ -55,3 +55,8 @@ jobs:
       - name: Restart staging instance
         run: |
           curl -k --fail --show-error --header "X-Rundeck-Auth-Token:${{ secrets.TELESERVICES_RUNDECK_TOKEN }}" -d "argString=-name staging" -d "filter=name ts001.staging.imio.be" ${{ secrets.RUNDECK_URL }}/api/18/job/94b605f2-ad32-4f9f-977e-37342f6b7d32/run/
+      - name : Send notification on Mattermost
+        run: |
+          JOB_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          MESSAGE="docker image has been updated on staging registry and the staging instance has been restarted. [Click here to see job on GitHub]($JOB_URL)"
+          curl -i -X POST -H 'Content-Type: application/json' -d "{\"text\": \"$MESSAGE\"}" ${{ secrets.TELESERVICES_MATTERMOST_WEBHOOK_URL }}
