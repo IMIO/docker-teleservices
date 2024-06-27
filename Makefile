@@ -8,7 +8,7 @@ run:
 
 build-bookworm-base:
 		cd teleservices && \
-		docker build --pull -f Dockerfile-base -t imiobe/teleservices-bookworm-base:latest \
+		docker build --pull -f Dockerfile-base -t harbor.imio.be/teleservices-bookworm-base:latest \
 		--build-arg DEBIAN_VERSION=bookworm \
 		.
 
