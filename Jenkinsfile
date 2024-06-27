@@ -73,7 +73,7 @@ pipeline {
                         pushImageToHarbor(
                             "${env.BUILD_ID}",
                             'teleservices/bookworm',
-                            '3f299fca-cb03-4a2a-9b96-4b3d9efd5598'
+                            '90f180cc-1b66-45da-ae06-e8cf35dde358'
                         )
                     }
                 }
@@ -96,7 +96,7 @@ pipeline {
                         pushImageToHarbor(
                         "${env.BUILD_ID}",
                         'teleservices/bookworm-test',
-                        '3f299fca-cb03-4a2a-9b96-4b3d9efd5598'
+                        '90f180cc-1b66-45da-ae06-e8cf35dde358'
                         )
                     }
                 }
