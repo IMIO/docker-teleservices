@@ -1,5 +1,5 @@
 ARG DEBIAN_VERSION
-FROM imiobe/teleservices-${DEBIAN_VERSION}-base as prod-image
+FROM harbor.imio.be/teleservices/teleservices-${DEBIAN_VERSION}-base as prod-image
 ARG DEBIAN_VERSION
 
 RUN apt update && apt install -y \
