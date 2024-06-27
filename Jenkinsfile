@@ -70,9 +70,10 @@ pipeline {
                 stage('bookworm') {
                     agent any
                     steps {
-                        pushImageToRegistry(
+                        pushImageToHarbor(
                             "${env.BUILD_ID}",
-                            'teleservices/bookworm'
+                            'teleservices/bookworm',
+                            '90f180cc-1b66-45da-ae06-e8cf35dde358'
                         )
                     }
                 }
@@ -92,9 +93,10 @@ pipeline {
                 stage('bookworm-test') {
                     agent any
                     steps {
-                        pushImageToRegistry(
+                        pushImageToHarbor(
                         "${env.BUILD_ID}",
-                        'teleservices/bookworm-test'
+                        'teleservices/bookworm-test',
+                        '90f180cc-1b66-45da-ae06-e8cf35dde358'
                         )
                     }
                 }
