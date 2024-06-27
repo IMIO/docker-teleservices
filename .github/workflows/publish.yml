@@ -1,4 +1,4 @@
-name: Update images in Harbor
+name: Update bookworm images in Harbor
 on:
   schedule:
     - cron: '0 5 * * 0' # Weekly on Sundays at 05:00
@@ -26,7 +26,7 @@ jobs:
           registry: ${{ secrets.HARBOR_URL_STAGING }}
           username: ${{ secrets.TELESERVICES_HARBOR_USERNAME_STAGING }}
           password: ${{ secrets.TELESERVICES_HARBOR_PASSWORD_STAGING }}
-      - name: Build
+      - name: Build push bookworm image to staging registry
         uses: docker/build-push-action@v2.5.0
         with:
           context: teleservices
@@ -38,3 +38,20 @@ jobs:
           target: prod-image
           build-args: |
             DEBIAN_VERSION=bookworm
+      - name: Build push bookworm-test image to staging registry
+        uses: docker/build-push-action@v2.5.0
+        with:
+          context: teleservices
+          file: teleservices/Dockerfile
+          tags: ${{ secrets.HARBOR_URL_STAGING }}/teleservices/bookworm-test:latest
+          platforms: linux/amd64
+          pull: true
+          push: true
+          target: prod-image
+          build-args: |
+            DEBIAN_VERSION=bookworm
+      - name: Install curl
+        run: sudo apt-get update && sudo apt-get install -y curl
+      - name: Restart staging instance
+        run: |
+          curl -k --fail --show-error --header "X-Rundeck-Auth-Token:${{ secrets.TELESERVICES_RUNDECK_TOKEN }}" -d "argString=-name staging" -d "filter=name ts001.staging.imio.be" ${{ secrets.RUNDECK_URL }}/api/18/job/94b605f2-ad32-4f9f-977e-37342f6b7d32/run/
