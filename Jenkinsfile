@@ -30,10 +30,14 @@ pipeline {
                     agent any
                     steps {
                         script {
-                            if (params.USE_CACHE_TO_BUILD_IMAGE) {
-                                sh 'make build-bookworm'
-                            } else {
-                                sh 'make build-no-cache-bookworm'
+                            withCredentials([usernamePassword(credentialsId: '3f299fca-cb03-4a2a-9b96-4b3d9efd5598', passwordVariable: 'HARBOR_PASSWORD', usernameVariable: 'HARBOR_USER')]) {
+                                sh "docker login -u ${HARBOR_USER} -p ${HARBOR_PASSWORD} harbor.imio.be"
+                                if (params.USE_CACHE_TO_BUILD_IMAGE) {
+                                    sh 'make build-bookworm'
+                                } else {
+                                    sh 'make build-no-cache-bookworm'
+                                }
+                                sh "docker logout harbor.imio.be"
                             }
                         }
                     }
@@ -46,10 +50,14 @@ pipeline {
                     agent any
                     steps {
                         script {
-                            if (params.USE_CACHE_TO_BUILD_IMAGE) {
-                                sh 'make build-bookworm-test'
-                            } else {
-                                sh 'make build-no-cache-bookworm-test'
+                            withCredentials([usernamePassword(credentialsId: '3f299fca-cb03-4a2a-9b96-4b3d9efd5598', passwordVariable: 'HARBOR_PASSWORD', usernameVariable: 'HARBOR_USER')]) {
+                                sh "docker login -u ${HARBOR_USER} -p ${HARBOR_PASSWORD} harbor.imio.be"
+                                if (params.USE_CACHE_TO_BUILD_IMAGE) {
+                                    sh 'make build-bookworm-test'
+                                } else {
+                                    sh 'make build-no-cache-bookworm-test'
+                                }
+                                sh "docker logout harbor.imio.be"
                             }
                         }
                     }
@@ -174,7 +182,12 @@ pipeline {
             }
             steps {
                 echo 'Confirmed production deploy'
-                moveImageToProdHarbor(env.TAG_NAME, '3f299fca-cb03-4a2a-9b96-4b3d9efd5598', 'teleservices/bookworm')
+                moveImageToProdHarbor(
+                    env.TAG_NAME,
+                    'teleservices/bookworm',
+                    '90f180cc-1b66-45da-ae06-e8cf35dde358',
+                    '3f299fca-cb03-4a2a-9b96-4b3d9efd5598'
+                )
                 echo 'Schedule Rundeck job'
                 sh "curl -k --fail -XPOST --header \"Content-Type: application/json\" --header \"X-Rundeck-Auth-Token: $RUNDECK_TS_TOKEN\" https://run.imio.be/api/18/job/311af116-fedc-4e33-b2a7-99c8651f8e9b/run"
                 emailext to: supportTeleservicesEmail,
