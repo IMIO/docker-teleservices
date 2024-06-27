@@ -1,0 +1,40 @@
+name: Update images in Harbor
+on:
+  schedule:
+    - cron: '0 5 * * 0' # Weekly on Sundays at 05:00
+  workflow_dispatch:
+jobs:
+  bookworm:
+    runs-on:
+      group: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to Harbor prod registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.HARBOR_URL_PROD }}
+          username: ${{ secrets.TELESERVICES_HARBOR_USERNAME_PROD }}
+          password: ${{ secrets.TELESERVICES_HARBOR_PASSWORD_PROD }}
+      - name: Login to Harbor staging registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.HARBOR_URL_STAGING }}
+          username: ${{ secrets.TELESERVICES_HARBOR_USERNAME_STAGING }}
+          password: ${{ secrets.TELESERVICES_HARBOR_PASSWORD_STAGING }}
+      - name: Build
+        uses: docker/build-push-action@v2.5.0
+        with:
+          context: teleservices
+          file: teleservices/Dockerfile
+          tags: ${{ secrets.HARBOR_URL_STAGING }}/teleservices/bookworm:latest
+          platforms: linux/amd64
+          pull: true
+          push: true
+          target: prod-image
+          build-args: |
+            DEBIAN_VERSION=bookworm
