@@ -4,7 +4,7 @@ on:
     - cron: '0 5 * * 0' # Weekly on Sundays at 05:00
   workflow_dispatch:
 jobs:
-  bookworm:
+  bookworm-staging:
     runs-on:
       group: self-hosted
     steps:
@@ -59,4 +59,45 @@ jobs:
         run: |
           JOB_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
           MESSAGE="docker image has been updated on staging registry and the staging instance has been restarted. [Click here to see job on GitHub]($JOB_URL)"
+          curl -i -X POST -H 'Content-Type: application/json' -d "{\"text\": \"$MESSAGE\"}" ${{ secrets.TELESERVICES_MATTERMOST_WEBHOOK_URL }}
+  bookworm-prod:
+    needs: [bookworm-staging]
+    environment:
+      name: production
+    timeout-minutes: 2880
+    runs-on:
+      group: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to Harbor prod registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.HARBOR_URL_PROD }}
+          username: ${{ secrets.TELESERVICES_HARBOR_USERNAME_PROD }}
+          password: ${{ secrets.TELESERVICES_HARBOR_PASSWORD_PROD }}
+      - name: Login to Harbor staging registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.HARBOR_URL_STAGING }}
+          username: ${{ secrets.TELESERVICES_HARBOR_USERNAME_STAGING }}
+          password: ${{ secrets.TELESERVICES_HARBOR_PASSWORD_STAGING }}
+      - name: Deploying image to prod registry
+        run: echo "Deploying image to prod registry"
+      - name: Pull Image from staging registry
+        run: docker pull ${{ secrets.HARBOR_URL_STAGING }}/teleservices/bookworm:latest
+      - name: Tag image for prod registry
+        run: docker tag ${{ secrets.HARBOR_URL_STAGING }}/teleservices/bookworm:latest ${{ secrets.HARBOR_URL_PROD }}/teleservices/bookworm:latest
+      - name: Push image to prod registry
+        run: docker push ${{ secrets.HARBOR_URL_PROD }}/teleservices/bookworm:latest
+      - name: Install curl
+        run: sudo apt-get update && sudo apt-get install -y curl
+      - name : Send notification on Mattermost
+        run: |
+          JOB_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          MESSAGE="docker image has been updated on prod registry. [Click here to see job on GitHub]($JOB_URL)"
           curl -i -X POST -H 'Content-Type: application/json' -d "{\"text\": \"$MESSAGE\"}" ${{ secrets.TELESERVICES_MATTERMOST_WEBHOOK_URL }}
