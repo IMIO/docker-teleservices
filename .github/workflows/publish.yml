@@ -96,8 +96,11 @@ jobs:
         run: docker push ${{ secrets.HARBOR_URL_PROD }}/teleservices/bookworm:latest
       - name: Install curl
         run: sudo apt-get update && sudo apt-get install -y curl
+      - name: Schedule restart of all prod instances
+        run: |
+          curl -k --fail -XPOST --show-error --header "X-Rundeck-Auth-Token:${{ secrets.TELESERVICES_RUNDECK_TOKEN }}" ${{ secrets.RUNDECK_URL }}/api/18/job/311af116-fedc-4e33-b2a7-99c8651f8e9b/run/
       - name : Send notification on Mattermost
         run: |
           JOB_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
-          MESSAGE="docker image has been updated on prod registry. [Click here to see job on GitHub]($JOB_URL)"
+          MESSAGE="docker image has been updated on prod registry. [Click here to see job on GitHub]($JOB_URL) A reboot of all production instances has been scheduled for tomorrow at 1am. "
           curl -i -X POST -H 'Content-Type: application/json' -d "{\"text\": \"$MESSAGE\"}" ${{ secrets.TELESERVICES_MATTERMOST_WEBHOOK_URL }}
