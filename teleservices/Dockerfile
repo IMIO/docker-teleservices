@@ -1,5 +1,5 @@
 ARG DEBIAN_VERSION
-FROM harbor.imio.be/teleservices/teleservices-${DEBIAN_VERSION}-base as prod-image
+FROM harbor.imio.be/teleservices/teleservices-${DEBIAN_VERSION}-base AS prod-image
 ARG DEBIAN_VERSION
 
 RUN apt update && apt install -y \
@@ -41,6 +41,7 @@ RUN mkdir -p /var/lib/authentic2/locale/fr/LC_MESSAGES
 
 COPY mail-translation.py overrides.po /var/lib/authentic2/locale/fr/LC_MESSAGES/
 COPY run.sh /
+COPY scripts /opt/publik/scripts
 COPY hooks /opt/publik/hooks
 COPY screenrc /opt/publik/
 
@@ -51,7 +52,7 @@ RUN ln -sf /usr/share/zoneinfo/Europe/Brussels /etc/localtime
 # Run
 CMD ["/run.sh"]
 
-FROM prod-image as dev-image
+FROM prod-image AS dev-image
 ARG DEBIAN_VERSION
 RUN echo "deb [trusted=yes] https://nexus.imio.be/repository/${DEBIAN_VERSION}-test ${DEBIAN_VERSION}-test main" > /etc/apt/sources.list.d/imio-test.list \
   && cat /etc/apt/sources.list.d/*
