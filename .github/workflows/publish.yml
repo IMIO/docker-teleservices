@@ -1,7 +1,10 @@
 name: Update images in Harbor
 on:
-  schedule:
-    - cron: '0 5 * * 0' # Weekly on Sundays at 05:00
+  push:
+    branches:
+      - main
+    paths:
+      - 'teleservices/**'
   workflow_dispatch:
 env:
   IMAGE_NAME: teleservices/bookworm
@@ -60,7 +63,13 @@ jobs:
       - name : Send notification on Mattermost
         run: |
           JOB_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
-          MESSAGE="docker staging image has been updated on registry and the staging instance has been restarted. [Click here to see job on GitHub]($JOB_URL)"
+          MESSAGE="docker staging image $IMAGE_NAME has been updated on registry and the staging instance has been restarted. [Click here to see job on GitHub]($JOB_URL)"
+          curl -i -X POST -H 'Content-Type: application/json' -d "{\"text\": \"$MESSAGE\"}" ${{ secrets.TELESERVICES_MATTERMOST_WEBHOOK_URL }}
+      - name : Send failure notification on Mattermost
+        if: failure()
+        run: |
+          JOB_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          MESSAGE="Error : docker staging image  $IMAGE_NAME has not been updated on registry. [Click here to see job on GitHub]($JOB_URL)"
           curl -i -X POST -H 'Content-Type: application/json' -d "{\"text\": \"$MESSAGE\"}" ${{ secrets.TELESERVICES_MATTERMOST_WEBHOOK_URL }}
   production:
     needs: [staging]
@@ -106,5 +115,11 @@ jobs:
       - name : Send notification on Mattermost
         run: |
           JOB_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
-          MESSAGE="docker prod image has been updated on registry. [Click here to see job on GitHub]($JOB_URL) A reboot of all production instances has been scheduled for tomorrow at 1am. "
+          MESSAGE="docker prod image $IMAGE_NAME has been updated on registry. [Click here to see job on GitHub]($JOB_URL) A reboot of all production instances has been scheduled for tomorrow at 1am. "
+          curl -i -X POST -H 'Content-Type: application/json' -d "{\"text\": \"$MESSAGE\"}" ${{ secrets.TELESERVICES_MATTERMOST_WEBHOOK_URL }}
+      - name : Send failure notification on Mattermost
+        if: failure()
+        run: |
+          JOB_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          MESSAGE="Error : docker prod image  $IMAGE_NAME has not been updated on registry. [Click here to see job on GitHub]($JOB_URL)"
           curl -i -X POST -H 'Content-Type: application/json' -d "{\"text\": \"$MESSAGE\"}" ${{ secrets.TELESERVICES_MATTERMOST_WEBHOOK_URL }}
