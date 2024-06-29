@@ -1,10 +1,14 @@
-name: Update bookworm images in Harbor
+name: Update images in Harbor
 on:
   schedule:
     - cron: '0 5 * * 0' # Weekly on Sundays at 05:00
   workflow_dispatch:
+env:
+  IMAGE_NAME: teleservices/bookworm
+  DEBIAN_VERSION: bookworm
+
 jobs:
-  bookworm-staging:
+  staging:
     runs-on:
       group: self-hosted
     steps:
@@ -14,42 +18,40 @@ jobs:
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-      - name: Login to Harbor prod registry
+      - name: Login to Harbor registry
         uses: docker/login-action@v3
         with:
-          registry: ${{ secrets.HARBOR_URL_PROD }}
-          username: ${{ secrets.TELESERVICES_HARBOR_USERNAME_PROD }}
-          password: ${{ secrets.TELESERVICES_HARBOR_PASSWORD_PROD }}
-      - name: Login to Harbor staging registry
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ secrets.HARBOR_URL_STAGING }}
-          username: ${{ secrets.TELESERVICES_HARBOR_USERNAME_STAGING }}
-          password: ${{ secrets.TELESERVICES_HARBOR_PASSWORD_STAGING }}
-      - name: Build push bookworm image to staging registry
+          registry: ${{ secrets.HARBOR_URL }}
+          username: ${{ secrets.TELESERVICES_HARBOR_USERNAME }}
+          password: ${{ secrets.TELESERVICES_HARBOR_PASSWORD }}
+      - name: Build push image to registry
         uses: docker/build-push-action@v2.5.0
         with:
           context: teleservices
           file: teleservices/Dockerfile
-          tags: ${{ secrets.HARBOR_URL_STAGING }}/teleservices/bookworm:latest
+          tags: |
+            ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}:staging
+            ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}:staging-${{ github.run_number }}
           platforms: linux/amd64
           pull: true
           push: true
           target: prod-image
           build-args: |
-            DEBIAN_VERSION=bookworm
-      - name: Build push bookworm-test image to staging registry
+            DEBIAN_VERSION=${{ env.DEBIAN_VERSION }}
+      - name: Build push test image to registry
         uses: docker/build-push-action@v2.5.0
         with:
           context: teleservices
           file: teleservices/Dockerfile
-          tags: ${{ secrets.HARBOR_URL_STAGING }}/teleservices/bookworm-test:latest
+          tags: |
+            ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}-test:staging
+            ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}-test:staging-${{ github.run_number }}
           platforms: linux/amd64
           pull: true
           push: true
-          target: prod-image
+          target: dev-image
           build-args: |
-            DEBIAN_VERSION=bookworm
+            DEBIAN_VERSION=${{ env.DEBIAN_VERSION }}
       - name: Install curl
         run: sudo apt-get update && sudo apt-get install -y curl
       - name: Restart staging instance
@@ -58,10 +60,10 @@ jobs:
       - name : Send notification on Mattermost
         run: |
           JOB_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
-          MESSAGE="docker image has been updated on staging registry and the staging instance has been restarted. [Click here to see job on GitHub]($JOB_URL)"
+          MESSAGE="docker staging image has been updated on registry and the staging instance has been restarted. [Click here to see job on GitHub]($JOB_URL)"
           curl -i -X POST -H 'Content-Type: application/json' -d "{\"text\": \"$MESSAGE\"}" ${{ secrets.TELESERVICES_MATTERMOST_WEBHOOK_URL }}
-  bookworm-prod:
-    needs: [bookworm-staging]
+  production:
+    needs: [staging]
     environment:
       name: production
     timeout-minutes: 2880
@@ -74,26 +76,28 @@ jobs:
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-      - name: Login to Harbor prod registry
+      - name: Login to Harbor registry
         uses: docker/login-action@v3
         with:
-          registry: ${{ secrets.HARBOR_URL_PROD }}
-          username: ${{ secrets.TELESERVICES_HARBOR_USERNAME_PROD }}
-          password: ${{ secrets.TELESERVICES_HARBOR_PASSWORD_PROD }}
-      - name: Login to Harbor staging registry
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ secrets.HARBOR_URL_STAGING }}
-          username: ${{ secrets.TELESERVICES_HARBOR_USERNAME_STAGING }}
-          password: ${{ secrets.TELESERVICES_HARBOR_PASSWORD_STAGING }}
-      - name: Deploying image to prod registry
-        run: echo "Deploying image to prod registry"
-      - name: Pull Image from staging registry
-        run: docker pull ${{ secrets.HARBOR_URL_STAGING }}/teleservices/bookworm:latest
-      - name: Tag image for prod registry
-        run: docker tag ${{ secrets.HARBOR_URL_STAGING }}/teleservices/bookworm:latest ${{ secrets.HARBOR_URL_PROD }}/teleservices/bookworm:latest
-      - name: Push image to prod registry
-        run: docker push ${{ secrets.HARBOR_URL_PROD }}/teleservices/bookworm:latest
+          registry: ${{ secrets.HARBOR_URL }}
+          username: ${{ secrets.TELESERVICES_HARBOR_USERNAME }}
+          password: ${{ secrets.TELESERVICES_HARBOR_PASSWORD }}
+      - name : Pull staging images
+        run: |
+          docker pull ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}:staging
+          docker pull ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}-test:staging
+      - name: Tag prod images
+        run: |
+          docker tag ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}:staging ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}:latest
+          docker tag ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}:latest ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}:latest-${{ github.run_number }}
+          docker tag ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}-test:staging ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}-test:latest
+          docker tag ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}-test:latest ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}-test:latest-${{ github.run_number }}
+      - name: Push images to registry
+        run: |
+          docker push ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}:latest
+          docker push ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}:latest-${{ github.run_number }}
+          docker push ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}-test:latest
+          docker push ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}-test:latest-${{ github.run_number }}
       - name: Install curl
         run: sudo apt-get update && sudo apt-get install -y curl
       - name: Schedule restart of all prod instances
@@ -102,5 +106,5 @@ jobs:
       - name : Send notification on Mattermost
         run: |
           JOB_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
-          MESSAGE="docker image has been updated on prod registry. [Click here to see job on GitHub]($JOB_URL) A reboot of all production instances has been scheduled for tomorrow at 1am. "
+          MESSAGE="docker prod image has been updated on registry. [Click here to see job on GitHub]($JOB_URL) A reboot of all production instances has been scheduled for tomorrow at 1am. "
           curl -i -X POST -H 'Content-Type: application/json' -d "{\"text\": \"$MESSAGE\"}" ${{ secrets.TELESERVICES_MATTERMOST_WEBHOOK_URL }}
