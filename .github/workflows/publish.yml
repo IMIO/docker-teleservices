@@ -57,13 +57,13 @@ jobs:
             DEBIAN_VERSION=${{ env.DEBIAN_VERSION }}
       - name: Install curl
         run: sudo apt-get update && sudo apt-get install -y curl
-      - name: Restart staging instance
+      - name: Restart staging instances
         run: |
-          curl -k --fail --show-error --header "X-Rundeck-Auth-Token:${{ secrets.TELESERVICES_RUNDECK_TOKEN }}" -d "argString=-name staging" -d "filter=name ts001.staging.imio.be" ${{ secrets.RUNDECK_URL }}/api/18/job/94b605f2-ad32-4f9f-977e-37342f6b7d32/run/
+          curl -k --fail --show-error --header "X-Rundeck-Auth-Token:${{ secrets.TELESERVICES_RUNDECK_TOKEN }}" -d "filter=name ts001.staging.imio.be" ${{ secrets.RUNDECK_URL }}/api/18/job/5dca225b-ff0d-4251-8052-2a89a05aa314/run/
       - name : Send notification on Mattermost
         run: |
           JOB_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
-          MESSAGE="docker staging image $IMAGE_NAME has been updated on registry and the staging instance has been restarted. [Click here to see job on GitHub]($JOB_URL)"
+          MESSAGE="docker staging image $IMAGE_NAME has been updated on registry and the staging instances have been restarted. [Click here to see job on GitHub]($JOB_URL)"
           curl -i -X POST -H 'Content-Type: application/json' -d "{\"text\": \"$MESSAGE\"}" ${{ secrets.TELESERVICES_MATTERMOST_WEBHOOK_URL }}
       - name : Send failure notification on Mattermost
         if: failure()
