@@ -119,13 +119,13 @@ jobs:
           password: ${{ secrets.TELESERVICES_HARBOR_PASSWORD }}
       - name : Pull staging images
         run: |
-          docker pull ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}:staging
-          docker pull ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}-test:staging
+          docker pull ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}:staging-${{ github.run_number }}
+          docker pull ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}-test:staging-${{ github.run_number }}
       - name: Tag prod images
         run: |
-          docker tag ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}:staging ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}:latest
+          docker tag ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}:staging-${{ github.run_number }} ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}:latest
           docker tag ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}:latest ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}:latest-${{ github.run_number }}
-          docker tag ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}-test:staging ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}-test:latest
+          docker tag ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}-test:staging-${{ github.run_number }} ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}-test:latest
           docker tag ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}-test:latest ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}-test:latest-${{ github.run_number }}
       - name: Push images to registry
         run: |
