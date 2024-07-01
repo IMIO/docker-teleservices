@@ -3,6 +3,9 @@ on:
   schedule:
     - cron: '0 5 * * 0' # Weekly on Sundays at 05:00
   workflow_dispatch:
+env:
+  IMAGE_NAME: teleservices/teleservices-bookworm-base
+  DEBIAN_VERSION: bookworm
 jobs:
   base_harbor:
     runs-on:
@@ -25,9 +28,11 @@ jobs:
         with:
           context: teleservices
           file: teleservices/Dockerfile-base
-          tags: ${{ secrets.HARBOR_URL }}/teleservices/teleservices-bookworm-base:latest
+          tags: |
+            ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}:latest
+            ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}:latest-${{ github.run_number }}
           platforms: linux/amd64
           pull: true
           push: true
           build-args: |
-            DEBIAN_VERSION=bookworm
+            DEBIAN_VERSION=${{ env.DEBIAN_VERSION }}
