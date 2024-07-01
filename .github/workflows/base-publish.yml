@@ -36,3 +36,16 @@ jobs:
           push: true
           build-args: |
             DEBIAN_VERSION=${{ env.DEBIAN_VERSION }}
+      - name: Install curl
+        run: sudo apt-get update && sudo apt-get install -y curl
+      - name : Send notification on Mattermost
+        run: |
+          JOB_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          MESSAGE="docker image $IMAGE_NAME has been updated on registry. [Click here to see job on GitHub]($JOB_URL) "
+          curl -i -X POST -H 'Content-Type: application/json' -d "{\"text\": \"$MESSAGE\"}" ${{ secrets.TELESERVICES_MATTERMOST_WEBHOOK_URL }}
+      - name : Send failure notification on Mattermost
+        if: failure()
+        run: |
+          JOB_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          MESSAGE="Error : docker image  $IMAGE_NAME has not been updated on registry. [Click here to see job on GitHub]($JOB_URL)"
+          curl -i -X POST -H 'Content-Type: application/json' -d "{\"text\": \"$MESSAGE\"}" ${{ secrets.TELESERVICES_MATTERMOST_WEBHOOK_URL }}
