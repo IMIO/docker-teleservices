@@ -23,6 +23,8 @@ jobs:
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
+      - name: Install curl and jq
+        run: sudo apt-get update && sudo apt-get install -y curl jq
       - name: Login to Harbor registry
         uses: docker/login-action@v3
         with:
@@ -57,8 +59,6 @@ jobs:
           target: dev-image
           build-args: |
             DEBIAN_VERSION=${{ env.DEBIAN_VERSION }}
-      - name: Install curl and jq
-        run: sudo apt-get update && sudo apt-get install -y curl jq
       - name: Restart staging instances
         run: |
           curl -k --fail --show-error --header "X-Rundeck-Auth-Token:${{ secrets.TELESERVICES_RUNDECK_TOKEN }}" -d "filter=name ts001.staging.imio.be" ${{ secrets.RUNDECK_URL }}/api/18/job/5dca225b-ff0d-4251-8052-2a89a05aa314/run/
@@ -111,6 +111,8 @@ jobs:
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
+      - name: Install curl
+        run: sudo apt-get update && sudo apt-get install -y curl
       - name: Login to Harbor registry
         uses: docker/login-action@v3
         with:
@@ -133,8 +135,6 @@ jobs:
           docker push ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}:latest-${{ github.run_number }}
           docker push ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}-test:latest
           docker push ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}-test:latest-${{ github.run_number }}
-      - name: Install curl
-        run: sudo apt-get update && sudo apt-get install -y curl
       - name: Schedule restart of all prod instances
         run: |
           curl -k --fail -XPOST --show-error --header "X-Rundeck-Auth-Token:${{ secrets.TELESERVICES_RUNDECK_TOKEN }}" ${{ secrets.RUNDECK_URL }}/api/18/job/311af116-fedc-4e33-b2a7-99c8651f8e9b/run/
