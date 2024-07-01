@@ -26,6 +26,7 @@ jobs:
           username: ${{ secrets.TELESERVICES_HARBOR_USERNAME }}
           password: ${{ secrets.TELESERVICES_HARBOR_PASSWORD }}
       - name: Build
+        timeout-minutes: 15
         uses: docker/build-push-action@v2.5.0
         with:
           context: teleservices

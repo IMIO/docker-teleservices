@@ -32,6 +32,7 @@ jobs:
           username: ${{ secrets.TELESERVICES_HARBOR_USERNAME }}
           password: ${{ secrets.TELESERVICES_HARBOR_PASSWORD }}
       - name: Build push image to registry
+        timeout-minutes: 15
         uses: docker/build-push-action@v2.5.0
         with:
           context: teleservices
@@ -46,6 +47,7 @@ jobs:
           build-args: |
             DEBIAN_VERSION=${{ env.DEBIAN_VERSION }}
       - name: Build push test image to registry
+        timeout-minutes: 15
         uses: docker/build-push-action@v2.5.0
         with:
           context: teleservices
