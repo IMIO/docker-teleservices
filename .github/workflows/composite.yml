@@ -1,0 +1,20 @@
+name: Composite test update base image in Harbor
+on: [workflow_dispatch]
+
+jobs:
+  base-staging:
+    runs-on:
+      group: self-hosted
+    steps:
+      - name: Build push and notify
+        uses: IMIO/gha/build-push-notify@main
+        with:
+          IMAGE_NAME: 'teleservices/teleservices-bookworm-base'
+          IMAGE_TAG: 'composite'
+          REGISTRY_URL: ${{ secrets.HARBOR_URL }}
+          REGISTRY_USERNAME: ${{ secrets.TELESERVICES_HARBOR_USERNAME }}
+          REGISTRY_PASSWORD: ${{ secrets.TELESERVICES_HARBOR_PASSWORD }}
+          MATTERMOST_WEBHOOK_URL: ${{ secrets.TELESERVICES_MATTERMOST_WEBHOOK_URL }}
+          CONTEXT: 'teleservices'
+          DOCKERFILE: 'teleservices/Dockerfile-base'
+          BUILD_ARGS: 'DEBIAN_VERSION=bookworm'
