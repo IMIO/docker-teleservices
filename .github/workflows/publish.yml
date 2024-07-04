@@ -5,6 +5,7 @@ on:
       - main
     paths:
       - 'teleservices/**'
+      - '!teleservices/Dockerfile-base'
   workflow_dispatch:
 env:
   IMAGE_NAME: teleservices/bookworm
