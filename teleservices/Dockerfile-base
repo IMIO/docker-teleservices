@@ -35,13 +35,13 @@ RUN apt update && apt install -y \
 
 # Install imio and entrouvert certificates TELE-1927
 # Configure extra repositories
-RUN curl https://static.imio.be/imio.gpg -o /etc/apt/keyrings/imio.gpg \
+RUN curl https://static.imio.be/imio.gpg | gpg --dearmor --yes --output /etc/apt/keyrings/imio.gpg \
   && curl https://deb.entrouvert.org/entrouvert.gpg -o /etc/apt/keyrings/entrouvert.gpg \
   && export && echo ${DEBIAN_VERSION} \
   && echo "deb [signed-by=/etc/apt/keyrings/entrouvert.gpg] http://deb.entrouvert.org/ ${DEBIAN_VERSION} main" > /etc/apt/sources.list.d/entrouvert-local.list \
   && echo "deb [signed-by=/etc/apt/keyrings/entrouvert.gpg] http://deb.entrouvert.org/ ${DEBIAN_VERSION}-testing main" > /etc/apt/sources.list.d/entrouvert-local.list \
   && echo "deb http://debian.mirrors.ovh.net/debian ${DEBIAN_VERSION}-backports main" > /etc/apt/sources.list.d/backports.list \
-  && echo "deb [trusted=yes] https://nexus.imio.be/repository/${DEBIAN_VERSION} ${DEBIAN_VERSION} main" > /etc/apt/sources.list.d/imio.list \
+  && echo "deb [signed-by=/etc/apt/keyrings/imio.gpg] https://nexus.imio.be/repository/${DEBIAN_VERSION} ${DEBIAN_VERSION} main" > /etc/apt/sources.list.d/imio.list \
   && cat /etc/apt/sources.list.d/* \
   && apt update && apt install -y \
   entrouvert-repository \

@@ -53,7 +53,7 @@ CMD ["/run.sh"]
 
 FROM prod-image as dev-image
 ARG DEBIAN_VERSION
-RUN echo "deb [trusted=yes] https://nexus.imio.be/repository/${DEBIAN_VERSION}-test ${DEBIAN_VERSION}-test main" > /etc/apt/sources.list.d/imio-test.list \
+RUN echo "deb [signed-by=/etc/apt/keyrings/imio.gpg] https://nexus.imio.be/repository/${DEBIAN_VERSION}-test ${DEBIAN_VERSION}-test main" > /etc/apt/sources.list.d/imio-test.list \
   && cat /etc/apt/sources.list.d/*
 
 RUN apt update && apt install -y \
