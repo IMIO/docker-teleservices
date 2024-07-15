@@ -1,4 +1,4 @@
-name: Update images in Harbor
+name: Promote
 on:
   push:
     branches:
