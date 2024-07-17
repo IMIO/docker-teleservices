@@ -1,8 +1,8 @@
 ARG DEBIAN_VERSION
-FROM harbor.imio.be/teleservices/teleservices-${DEBIAN_VERSION}-base as prod-image
+FROM harbor.imio.be/teleservices/teleservices-${DEBIAN_VERSION}-base:latest as prod-image
 ARG DEBIAN_VERSION
 
-RUN apt update && apt install -y \
+RUN apt-get update && apt-get install -y \
   imio-townstreet \
   imio-ts-aes \
   passerelle-imio-abiware \
@@ -56,7 +56,7 @@ ARG DEBIAN_VERSION
 RUN echo "deb [signed-by=/etc/apt/keyrings/imio.gpg] https://nexus.imio.be/repository/${DEBIAN_VERSION}-test ${DEBIAN_VERSION}-test main" > /etc/apt/sources.list.d/imio-test.list \
   && cat /etc/apt/sources.list.d/*
 
-RUN apt update && apt install -y \
+RUN apt-get update && apt-get install -y \
   python3-pip \
   imio-townstreet \
   imio-ts-aes \
