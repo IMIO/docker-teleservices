@@ -20,6 +20,7 @@ RUN apt-get update && apt-get install -y \
   teleservices-iacitizen \
   teleservices-package \
   teleservices-package-certificats-population \
+  teleservices-package-liaisons
   teleservices-package-light \
   wcs-scripts-teleservices \
   --allow-unauthenticated
@@ -73,6 +74,7 @@ RUN apt-get update && apt-get install -y \
   scripts-teleservices \
   teleservices-package \
   teleservices-package-certificats-population \
+  teleservices-package-liaisons
   teleservices-package-light \
   wcs-scripts-teleservices \
   --allow-unauthenticated
