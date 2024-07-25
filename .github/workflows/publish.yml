@@ -1,10 +1,5 @@
-name: Update images in Harbor
+name: Promote
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'teleservices/**'
   workflow_dispatch:
 env:
   IMAGE_NAME: teleservices/bookworm
@@ -12,114 +7,137 @@ env:
 
 jobs:
   staging:
+    environment:
+      name: staging
     runs-on:
       group: self-hosted
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      - name: Login to Harbor registry
-        uses: docker/login-action@v3
+      - name: Build push prod image and notify
+        uses: IMIO/gha/build-push-notify@v3.1
         with:
-          registry: ${{ secrets.HARBOR_URL }}
-          username: ${{ secrets.TELESERVICES_HARBOR_USERNAME }}
-          password: ${{ secrets.TELESERVICES_HARBOR_PASSWORD }}
-      - name: Build push image to registry
-        uses: docker/build-push-action@v2.5.0
-        with:
-          context: teleservices
-          file: teleservices/Dockerfile
-          tags: |
+          IMAGE_NAME: ${{ env.IMAGE_NAME }}
+          IMAGE_TAGS: |
             ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}:staging
             ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}:staging-${{ github.run_number }}
-          platforms: linux/amd64
-          pull: true
-          push: true
-          target: prod-image
-          build-args: |
-            DEBIAN_VERSION=${{ env.DEBIAN_VERSION }}
-      - name: Build push test image to registry
-        uses: docker/build-push-action@v2.5.0
+          REGISTRY_URL: ${{ secrets.HARBOR_URL }}
+          REGISTRY_USERNAME: ${{ secrets.TELESERVICES_HARBOR_USERNAME }}
+          REGISTRY_PASSWORD: ${{ secrets.TELESERVICES_HARBOR_PASSWORD }}
+          MATTERMOST_WEBHOOK_URL: ${{ secrets.TELESERVICES_MATTERMOST_WEBHOOK_URL }}
+          CONTEXT: 'teleservices'
+          DOCKERFILE: 'teleservices/Dockerfile'
+          BUILD_ARGS: 'DEBIAN_VERSION=${{ env.DEBIAN_VERSION }}'
+          TARGET: 'prod-image'
+      - name: Build push dev image and notify
+        uses: IMIO/gha/build-push-notify@v3.1
         with:
-          context: teleservices
-          file: teleservices/Dockerfile
-          tags: |
+          IMAGE_NAME: ${{ env.IMAGE_NAME }}
+          IMAGE_TAGS: |
             ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}-test:staging
             ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}-test:staging-${{ github.run_number }}
-          platforms: linux/amd64
-          pull: true
-          push: true
-          target: dev-image
-          build-args: |
-            DEBIAN_VERSION=${{ env.DEBIAN_VERSION }}
-      - name: Install curl
-        run: sudo apt-get update && sudo apt-get install -y curl
-      - name: Restart staging instance
+          REGISTRY_URL: ${{ secrets.HARBOR_URL }}
+          REGISTRY_USERNAME: ${{ secrets.TELESERVICES_HARBOR_USERNAME }}
+          REGISTRY_PASSWORD: ${{ secrets.TELESERVICES_HARBOR_PASSWORD }}
+          MATTERMOST_WEBHOOK_URL: ${{ secrets.TELESERVICES_MATTERMOST_WEBHOOK_URL }}
+          CONTEXT: 'teleservices'
+          DOCKERFILE: 'teleservices/Dockerfile'
+          BUILD_ARGS: 'DEBIAN_VERSION=${{ env.DEBIAN_VERSION }}'
+          TARGET: 'dev-image'
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+      - name: Restart staging instances
+        uses: IMIO/gha/rundeck-notify@v3.1
+        with:
+          RUNDECK_URL: ${{ secrets.RUNDECK_URL }}
+          RUNDECK_TOKEN: ${{ secrets.TELESERVICES_RUNDECK_TOKEN }}
+          RUNDECK_JOB_ID: ${{ secrets.RUNDECK_JOB_ID }}
+          RUNDECK_PARAMETERS: '-F "filter=name ${{ vars.NODE_NAME }}"'
+          MATTERMOST_WEBHOOK_URL: ${{ secrets.TELESERVICES_MATTERMOST_WEBHOOK_URL }}
+      - name: Sleep 30s to let instances restart
+        run: sleep 30
+        shell: bash
+      - name: Test staging instance
+        uses: IMIO/gha/check-url-availibility@v3.1
+        with:
+          URL: ${{ secrets.STAGING_HEALTH_API_URL }}
+      - name: Test staging services
+        timeout-minutes: 5
         run: |
-          curl -k --fail --show-error --header "X-Rundeck-Auth-Token:${{ secrets.TELESERVICES_RUNDECK_TOKEN }}" -d "argString=-name staging" -d "filter=name ts001.staging.imio.be" ${{ secrets.RUNDECK_URL }}/api/18/job/94b605f2-ad32-4f9f-977e-37342f6b7d32/run/
-      - name : Send notification on Mattermost
-        run: |
-          JOB_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
-          MESSAGE="docker staging image $IMAGE_NAME has been updated on registry and the staging instance has been restarted. [Click here to see job on GitHub]($JOB_URL)"
-          curl -i -X POST -H 'Content-Type: application/json' -d "{\"text\": \"$MESSAGE\"}" ${{ secrets.TELESERVICES_MATTERMOST_WEBHOOK_URL }}
+          until curl -m 2 --output /dev/null --silent --fail '${{ secrets.STAGING_HEALTH_API_URL }}' | jq '
+            .data.passerelle.is_running
+            and .data.portal.is_running
+            and ".data.portal-agent.is_running"
+            and .data.idp.is_running
+            and .data.eservices.is_running
+            and .data.agenda.is_running
+            and .data.statistics.is_running'
+            do
+                sleep 3
+                echo 'Waiting until services are running on guichet-citoyen staging instance'
+            done
+          echo 'services are running on guichet-citoyen staging instance'
       - name : Send failure notification on Mattermost
         if: failure()
         run: |
           JOB_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
           MESSAGE="Error : docker staging image  $IMAGE_NAME has not been updated on registry. [Click here to see job on GitHub]($JOB_URL)"
           curl -i -X POST -H 'Content-Type: application/json' -d "{\"text\": \"$MESSAGE\"}" ${{ secrets.TELESERVICES_MATTERMOST_WEBHOOK_URL }}
-  production:
+  canary:
     needs: [staging]
     environment:
-      name: production
+      name: canary
     timeout-minutes: 2880
     runs-on:
       group: self-hosted
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      - name: Login to Harbor registry
-        uses: docker/login-action@v3
+      - name: Get tomorrow date
+        run: echo "DEPLOY_DATE=$(date --date='01:00 tomorrow' +'%Y-%m-%dT%H:%M:%S%z')" >> $GITHUB_ENV
+      - name: Tag prod image and notify
+        uses: IMIO/gha/tag-notify@v3.1
         with:
-          registry: ${{ secrets.HARBOR_URL }}
-          username: ${{ secrets.TELESERVICES_HARBOR_USERNAME }}
-          password: ${{ secrets.TELESERVICES_HARBOR_PASSWORD }}
-      - name : Pull staging images
-        run: |
-          docker pull ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}:staging
-          docker pull ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}-test:staging
-      - name: Tag prod images
-        run: |
-          docker tag ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}:staging ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}:latest
-          docker tag ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}:latest ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}:latest-${{ github.run_number }}
-          docker tag ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}-test:staging ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}-test:latest
-          docker tag ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}-test:latest ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}-test:latest-${{ github.run_number }}
-      - name: Push images to registry
-        run: |
-          docker push ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}:latest
-          docker push ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}:latest-${{ github.run_number }}
-          docker push ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}-test:latest
-          docker push ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}-test:latest-${{ github.run_number }}
-      - name: Install curl
-        run: sudo apt-get update && sudo apt-get install -y curl
-      - name: Schedule restart of all prod instances
-        run: |
-          curl -k --fail -XPOST --show-error --header "X-Rundeck-Auth-Token:${{ secrets.TELESERVICES_RUNDECK_TOKEN }}" ${{ secrets.RUNDECK_URL }}/api/18/job/311af116-fedc-4e33-b2a7-99c8651f8e9b/run/
-      - name : Send notification on Mattermost
-        run: |
-          JOB_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
-          MESSAGE="docker prod image $IMAGE_NAME has been updated on registry. [Click here to see job on GitHub]($JOB_URL) A reboot of all production instances has been scheduled for tomorrow at 1am. "
-          curl -i -X POST -H 'Content-Type: application/json' -d "{\"text\": \"$MESSAGE\"}" ${{ secrets.TELESERVICES_MATTERMOST_WEBHOOK_URL }}
-      - name : Send failure notification on Mattermost
-        if: failure()
-        run: |
-          JOB_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
-          MESSAGE="Error : docker prod image  $IMAGE_NAME has not been updated on registry. [Click here to see job on GitHub]($JOB_URL)"
-          curl -i -X POST -H 'Content-Type: application/json' -d "{\"text\": \"$MESSAGE\"}" ${{ secrets.TELESERVICES_MATTERMOST_WEBHOOK_URL }}
+          IMAGE_NAME: ${{ env.IMAGE_NAME }}
+          IMAGE_TAG: 'staging'
+          NEW_IMAGE_TAGS: |
+            latest
+            latest-${{ github.run_number }}
+          REGISTRY_URL: ${{ secrets.HARBOR_URL }}
+          REGISTRY_USERNAME: ${{ secrets.TELESERVICES_HARBOR_USERNAME }}
+          REGISTRY_PASSWORD: ${{ secrets.TELESERVICES_HARBOR_PASSWORD }}
+          MATTERMOST_WEBHOOK_URL: ${{ secrets.TELESERVICES_MATTERMOST_WEBHOOK_URL }}
+      - name: Tag test image and notify
+        uses: IMIO/gha/tag-notify@v3.1
+        with:
+          IMAGE_NAME: ${{ env.IMAGE_NAME }}-test
+          IMAGE_TAG: 'staging'
+          NEW_IMAGE_TAGS: |
+            latest
+            latest-${{ github.run_number }}
+          REGISTRY_URL: ${{ secrets.HARBOR_URL }}
+          REGISTRY_USERNAME: ${{ secrets.TELESERVICES_HARBOR_USERNAME }}
+          REGISTRY_PASSWORD: ${{ secrets.TELESERVICES_HARBOR_PASSWORD }}
+          MATTERMOST_WEBHOOK_URL: ${{ secrets.TELESERVICES_MATTERMOST_WEBHOOK_URL }}
+      - name: Schedule restart of canary instances
+        uses: IMIO/gha/rundeck-notify@v3.1
+        with:
+          RUNDECK_URL: ${{ secrets.RUNDECK_URL }}
+          RUNDECK_TOKEN: ${{ secrets.TELESERVICES_RUNDECK_TOKEN }}
+          RUNDECK_JOB_ID: ${{ secrets.RUNDECK_JOB_ID }}
+          RUNDECK_PARAMETERS: '-F "runAtTime=${{ env.DEPLOY_DATE }}" -F "filter=name ${{ vars.NODE_NAME }}"'
+          MATTERMOST_WEBHOOK_URL: ${{ secrets.TELESERVICES_MATTERMOST_WEBHOOK_URL }}
+  production:
+    needs: [canary]
+    environment:
+      name: production
+    timeout-minutes: 5760
+    runs-on:
+      group: self-hosted
+    steps:
+      - name: Get tomorrow date
+        run: echo "DEPLOY_DATE=$(date --date='01:00 tomorrow' +'%Y-%m-%dT%H:%M:%S%z')" >> $GITHUB_ENV
+      - name: Schedule restart of prod instances
+        uses: IMIO/gha/rundeck-notify@v3.1
+        with:
+          RUNDECK_URL: ${{ secrets.RUNDECK_URL }}
+          RUNDECK_TOKEN: ${{ secrets.TELESERVICES_RUNDECK_TOKEN }}
+          RUNDECK_JOB_ID: ${{ secrets.RUNDECK_JOB_ID }}
+          RUNDECK_PARAMETERS: '-F "runAtTime=${{ env.DEPLOY_DATE }}"'
+          MATTERMOST_WEBHOOK_URL: ${{ secrets.TELESERVICES_MATTERMOST_WEBHOOK_URL }}
