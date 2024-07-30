@@ -43,7 +43,12 @@ jobs:
           BUILD_ARGS: 'DEBIAN_VERSION=${{ env.DEBIAN_VERSION }}'
           TARGET: 'dev-image'
       - name: Install jq
-        run: sudo apt-get update && sudo apt-get install -y jq
+        run: |
+          if which jq > /dev/null; then
+            echo "jq is already installed"
+          else
+            sudo apt-get update && sudo apt-get install -y jq
+          fi
       - name: Restart staging instances
         uses: IMIO/gha/rundeck-notify@v3.7
         with:
