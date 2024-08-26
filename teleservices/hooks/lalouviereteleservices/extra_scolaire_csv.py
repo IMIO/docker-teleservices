@@ -62,14 +62,18 @@ def ods_to_csv(ods_path, csv_path):
         subprocess.run(command, check=True)
         logger.info(f"Successfully converted {ods_path} to CSV")
 
-        # Post-process the CSV to ensure UTF-8 encoding
-        with open(csv_path, mode="r", encoding="ISO-8859-1") as file:
-            content = file.read()
+        # Post-process the CSV to ensure UTF-8 encoding and change delimiter to '|'
+        temp_csv_path = csv_path + ".tmp"
+        with open(csv_path, mode="r", encoding="ISO-8859-1") as infile, open(
+            temp_csv_path, mode="w", encoding="UTF-8", newline=""
+        ) as outfile:
+            reader = csv.reader(infile)
+            writer = csv.writer(outfile, delimiter="|")
+            for row in reader:
+                writer.writerow(row)
 
-        with open(csv_path, mode="w", encoding="UTF-8") as file:
-            file.write(content)
-
-        logger.info(f"Successfully re-encoded {csv_path} to UTF-8")
+        os.replace(temp_csv_path, csv_path)
+        logger.info(f"Successfully re-encoded {csv_path} to UTF-8 with '|' delimiter")
 
     except subprocess.CalledProcessError as e:
         logger.error(f"An error occurred while converting {ods_path} to CSV: {e}")
