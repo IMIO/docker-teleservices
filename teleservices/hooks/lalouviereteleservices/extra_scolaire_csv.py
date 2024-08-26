@@ -24,8 +24,8 @@ logger.addHandler(syslog_handler)
 
 # URLs to download the .ods files from
 urls = [
-    "https://lalouviere-formulaires.guichet-citoyen.be/api/forms/commande-de-tickets-repas/csv-pour-david/ods",
-    "https://lalouviere-formulaires.guichet-citoyen.be/api/forms/commande-de-cartes-de-garderie/csv-pour-export/ods",
+    "https://lalouviere-formulaires.guichet-citoyen.be/api/forms/commande-de-tickets-repas/csv-pour-david/ods?filter-start=on&filter-start-value=2024-08-01",
+    "https://lalouviere-formulaires.guichet-citoyen.be/api/forms/commande-de-cartes-de-garderie/csv-pour-export/ods?filter-start=on&filter-start-value=2024-08-01",
 ]
 
 
