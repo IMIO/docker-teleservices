@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install -y \
   passerelle-imio-ia-aes \
   passerelle-imio-ia-delib \
   passerelle-imio-ia-tech \
+  passerelle-imio-membre \
   passerelle-imio-sso-agents \
   passerelle-imio-wca \
   scripts-teleservices \
@@ -68,6 +69,7 @@ RUN apt-get update && apt-get install -y \
   passerelle-imio-ia-aes \
   passerelle-imio-ia-delib \
   passerelle-imio-ia-tech \
+  passerelle-imio-membre \
   passerelle-imio-sso-agents \
   passerelle-imio-wca \
   python3-pip \
