@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
   passerelle-imio-apims-baec \
   passerelle-imio-apims-casier-judiciaire \
   passerelle-imio-apims-certificats-population \
+  passerelle-imio-focus \
   passerelle-imio-ia-aes \
   passerelle-imio-ia-delib \
   passerelle-imio-ia-tech \
@@ -66,6 +67,7 @@ RUN apt-get update && apt-get install -y \
   passerelle-imio-aes-meal \
   passerelle-imio-apims-baec \
   passerelle-imio-apims-certificats-population \
+  passerelle-imio-focus \
   passerelle-imio-ia-aes \
   passerelle-imio-ia-delib \
   passerelle-imio-ia-tech \
