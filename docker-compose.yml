@@ -10,7 +10,7 @@ services:
       args:
         DEBIAN_VERSION: bookworm
       context: teleservices
-    image: teleservices/bookworm:latest
+    image: devops79 
     mem_limit: 2048m
     ports:
       - "80:80"
