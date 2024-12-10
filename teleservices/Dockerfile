@@ -46,6 +46,7 @@ COPY mail-translation.py overrides.po /var/lib/authentic2/locale/fr/LC_MESSAGES/
 COPY run.sh /
 COPY hooks /opt/publik/hooks
 COPY screenrc /opt/publik/
+COPY scripts /opt/publik/scripts
 
 ADD bash-vim.tar.gz /
 
