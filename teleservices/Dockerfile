@@ -1,4 +1,12 @@
 ARG DEBIAN_VERSION
+
+FROM harbor.imio.be/teleservices/teleservices-${DEBIAN_VERSION}-base:latest as base-image
+
+RUN apt-get update && apt-get install -y \
+  python3-pip
+
+RUN pip3 install uwsgitop --break-system-packages
+
 FROM harbor.imio.be/teleservices/teleservices-${DEBIAN_VERSION}-base:latest as prod-image
 ARG DEBIAN_VERSION
 
@@ -47,6 +55,7 @@ COPY run.sh /
 COPY hooks /opt/publik/hooks
 COPY screenrc /opt/publik/
 COPY scripts /opt/publik/scripts
+COPY --from=base-image /usr/local/bin/uwsgitop /usr/local/bin/uwsgitop
 
 ADD bash-vim.tar.gz /
 
@@ -84,6 +93,6 @@ RUN apt-get update && apt-get install -y \
   wcs-scripts-teleservices \
   --allow-unauthenticated
 
-RUN pip3 install sentry-sdk uwsgitop --break-system-packages
+RUN pip3 install sentry-sdk --break-system-packages
 COPY prometheus_uwsgi_exporter.py /usr/bin/
 RUN crontab -l | { cat; echo "* * * * * /usr/bin/python3 /usr/bin/prometheus_uwsgi_exporter.py"; } | crontab -
