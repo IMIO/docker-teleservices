@@ -81,7 +81,7 @@ RUN apt-get update && apt-get install -y \
   passerelle-imio-ia-aes \
   passerelle-imio-ia-delib \
   passerelle-imio-ia-tech \
-  passerelle_imio_keycloak \
+  passerelle-imio-keycloak \
   passerelle-imio-membre \
   passerelle-imio-sso-agents \
   passerelle-imio-wca \
