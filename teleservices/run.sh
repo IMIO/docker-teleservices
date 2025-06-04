@@ -167,6 +167,13 @@ fi
 echo -n "$prefix Executing run-finish-hook.sh..."
 test -f /opt/publik/hooks/$HOSTNAME/run-finish-hook.sh && ( /opt/publik/hooks/$HOSTNAME/run-finish-hook.sh && echo " done! ✅" || echo " failed! ❌") || echo " skipped! 🚫"
 
+echo -n "$prefix Running /etc/authentic2-multitenant/oidc-register-issuer.sh..."
+if [ -f /etc/authentic2-multitenant/oidc-register-issuer.sh ]; then
+ /etc/authentic2-multitenant/oidc-register-issuer.sh && echo " done! ✅" || echo " oidc-register-issuer failed! ❌"
+else
+  echo " skipped! 🚫"
+fi
+
 echo "$prefix 🏁 Script finished 🏁"
 echo "$prefix 🏁 Starting syslog tail 🏁"
 tail -f /var/log/syslog
