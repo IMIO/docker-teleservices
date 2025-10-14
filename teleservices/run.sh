@@ -174,10 +174,6 @@ else
   echo " skipped! 🚫"
 fi
 
-echo -n "$prefix Updating imio-publik-themes package..."
-  apt-get update -o Dir::Etc::sourcelist=/etc/apt/sources.list.d/entrouvert-eobuilder.list -o Dir::Etc::sourceparts="-" && apt-get install --only-upgrade -y imio-publik-themes && echo " done! ✅" || echo " failed! ❌"
-fi
-
 echo "$prefix 🏁 Script finished 🏁"
 echo "$prefix 🏁 Starting syslog tail 🏁"
 tail -f /var/log/syslog
