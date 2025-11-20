@@ -57,7 +57,7 @@ RUN curl https://static.imio.be/imio.gpg | gpg --dearmor --yes --output /etc/apt
   authentic2-multitenant \
   bijoe \
   chrono \
-  combo \
+  combo=7.36-1~eob120+1 \
   hobo \
   hobo-agent \
   passerelle \
