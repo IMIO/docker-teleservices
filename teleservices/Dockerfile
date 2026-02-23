@@ -29,7 +29,7 @@ RUN apt-get update && apt-get install -y \
   passerelle-imio-wca \
   scripts-teleservices \
   teleservices-iacitizen \
-  teleservices-package \
+  teleservices-package=1.0.1-20260130112137~ae01776 \
   teleservices-package-certificats-population \
   teleservices-package-liaisons \
   teleservices-package-light \
