@@ -34,8 +34,8 @@ jobs:
         run: |
           {
             echo 'IMAGE_TAGS<<EOF'
-            echo '${{ env.HARBOR_URL }}/${{ env.IMAGE_NAME }}:trivy'
-            echo '${{ env.HARBOR_URL }}/${{ env.IMAGE_NAME }}:trivy-${{ github.run_number }}'
+            echo '${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}:trivy'
+            echo '${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}:trivy-${{ github.run_number }}'
             echo EOF
           } >> $GITHUB_ENV
       - name: Build push prod image (trivy) and notify
@@ -43,7 +43,7 @@ jobs:
         with:
           IMAGE_NAME: ${{ env.IMAGE_NAME }}
           IMAGE_TAGS: ${{ env.IMAGE_TAGS }}
-          REGISTRY_URL: ${{ env.HARBOR_URL}}
+          REGISTRY_URL: ${{ secrets.HARBOR_URL}}
           REGISTRY_USERNAME: ${{ secrets.TELESERVICES_HARBOR_USERNAME }}
           REGISTRY_PASSWORD: ${{ secrets.TELESERVICES_HARBOR_PASSWORD }}
           CONTEXT: 'teleservices'
