@@ -27,7 +27,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MATTERMOST_WEBHOOK_URL: ${{ secrets.TELESERVICES_MATTERMOST_WEBHOOK_URL }}
           UPLOAD_SARIF: 'true'
-  build-push:
+          IGNORE_UNFIXED: 'false'
+  build-push-trivy-scan:
     runs-on: gha-runners-teleservices
     steps:
       - name: Build tags
@@ -67,3 +68,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MATTERMOST_WEBHOOK_URL: ${{ secrets.TELESERVICES_MATTERMOST_WEBHOOK_URL }}
           UPLOAD_SARIF: 'true'
+          IGNORE_UNFIXED: 'false'
