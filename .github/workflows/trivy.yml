@@ -28,7 +28,7 @@ jobs:
           MATTERMOST_WEBHOOK_URL: ${{ secrets.TELESERVICES_MATTERMOST_WEBHOOK_URL }}
           UPLOAD_SARIF: 'true'
           IGNORE_UNFIXED: 'false'
-  build-push-trivy-scan:
+  build-push:
     runs-on: gha-runners-teleservices
     steps:
       - name: Build tags
