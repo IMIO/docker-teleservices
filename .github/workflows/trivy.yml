@@ -1,0 +1,69 @@
+name: Trivy security scan
+
+on:
+  push:
+  schedule:
+    - cron: '0 4 * * 1'  # Every Monday at 04:00 UTC
+  workflow_dispatch:
+env:
+  IMAGE_NAME: teleservices/bookworm
+  DEBIAN_VERSION: bookworm
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  trivy-fs:
+    name: Filesystem scan
+    runs-on: gha-runners-teleservices
+    steps:
+      - uses: IMIO/gha/trivy-scan-notify@v7
+        with:
+          SCAN_TYPE: fs
+          SCAN_REF: .
+          EXIT_CODE: '0'
+          TRIVYIGNORES: ''
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MATTERMOST_WEBHOOK_URL: ${{ secrets.TELESERVICES_MATTERMOST_WEBHOOK_URL }}
+          UPLOAD_SARIF: 'true'
+  build-push:
+    runs-on: gha-runners-teleservices
+    steps:
+      - name: Build tags
+        run: |
+          {
+            echo 'IMAGE_TAGS<<EOF'
+            echo '${{ env.HARBOR_URL }}/${{ env.IMAGE_NAME }}:trivy'
+            echo '${{ env.HARBOR_URL }}/${{ env.IMAGE_NAME }}:trivy-${{ github.run_number }}'
+            echo EOF
+          } >> $GITHUB_ENV
+      - name: Build push prod image (trivy) and notify
+        uses: IMIO/gha/build-push-notify@v7
+        with:
+          IMAGE_NAME: ${{ env.IMAGE_NAME }}
+          IMAGE_TAGS: ${{ env.IMAGE_TAGS }}
+          REGISTRY_URL: ${{ env.HARBOR_URL}}
+          REGISTRY_USERNAME: ${{ secrets.TELESERVICES_HARBOR_USERNAME }}
+          REGISTRY_PASSWORD: ${{ secrets.TELESERVICES_HARBOR_PASSWORD }}
+          CONTEXT: 'teleservices'
+          DOCKERFILE: 'teleservices/Dockerfile'
+          BUILD_ARGS: 'DEBIAN_VERSION=${{ env.DEBIAN_VERSION }}'          
+          MATTERMOST_WEBHOOK_URL: ${{ secrets.TELESERVICES_MATTERMOST_WEBHOOK_URL }}
+          TARGET: 'prod-image'          
+  trivy-image:
+    name: Image scan
+    runs-on: gha-runners-teleservices
+    needs: build-push
+    steps:
+      - uses: IMIO/gha/trivy-scan-notify@v7
+        with:
+          SCAN_TYPE: image
+          IMAGE_REF: ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}:trivy
+          EXIT_CODE: '0'
+          TRIVYIGNORES: ''
+          TRIVY_USERNAME: ${{ secrets.TELESERVICES_HARBOR_USERNAME }}
+          TRIVY_PASSWORD: ${{ secrets.TELESERVICES_HARBOR_PASSWORD }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MATTERMOST_WEBHOOK_URL: ${{ secrets.TELESERVICES_MATTERMOST_WEBHOOK_URL }}
+          UPLOAD_SARIF: 'true'
