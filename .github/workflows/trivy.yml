@@ -1,7 +1,6 @@
 name: Trivy security scan
 
 on:
-  push:
   schedule:
     - cron: '0 4 * * 1'  # Every Monday at 04:00 UTC
   workflow_dispatch:
@@ -14,20 +13,6 @@ permissions:
   security-events: write
 
 jobs:
-  trivy-fs:
-    name: Filesystem scan
-    runs-on: gha-runners-teleservices
-    steps:
-      - uses: IMIO/gha/trivy-scan-notify@v7
-        with:
-          SCAN_TYPE: fs
-          SCAN_REF: .
-          EXIT_CODE: '0'
-          TRIVYIGNORES: ''
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MATTERMOST_WEBHOOK_URL: ${{ secrets.TELESERVICES_MATTERMOST_WEBHOOK_URL }}
-          UPLOAD_SARIF: 'true'
-          IGNORE_UNFIXED: 'false'
   build-push:
     runs-on: gha-runners-teleservices
     steps:
@@ -56,11 +41,17 @@ jobs:
     name: Image scan
     runs-on: gha-runners-teleservices
     needs: build-push
+    outputs:
+      critical: ${{ steps.trivy.outputs.critical }}
+      high: ${{ steps.trivy.outputs.high }}
+      json_file: ${{ steps.trivy.outputs.json_file }}
+      artifact_name: ${{ steps.trivy.outputs.artifact_name }}
     steps:
-      - uses: IMIO/gha/trivy-scan-notify@v7
+      - id: trivy
+        uses: IMIO/gha/trivy-scan-notify@v7
         with:
           SCAN_TYPE: image
-          IMAGE_REF: ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}:trivy
+          IMAGE_REF: ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}:trivy-${{ github.run_number }}
           EXIT_CODE: '0'
           TRIVYIGNORES: ''
           TRIVY_USERNAME: ${{ secrets.TELESERVICES_HARBOR_USERNAME }}
@@ -69,3 +60,28 @@ jobs:
           MATTERMOST_WEBHOOK_URL: ${{ secrets.TELESERVICES_MATTERMOST_WEBHOOK_URL }}
           UPLOAD_SARIF: 'true'
           IGNORE_UNFIXED: 'false'
+
+  trivy-claude-image:
+    name: Claude advisory analysis (image)
+    needs: trivy-image
+    if: needs.trivy-image.outputs.critical > 0 || needs.trivy-image.outputs.high > 0
+    environment: security-review
+    runs-on: gha-runners-smartweb
+    permissions:
+      contents: read
+    steps:
+      - id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.ADVISORY_APP_ID }}
+          private-key: ${{ secrets.ADVISORY_APP_SECRET }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.trivy-image.outputs.artifact_name }}
+      - uses: IMIO/gha/trivy-claude-analysis@v7
+        with:
+          JSON_FILE: ${{ needs.trivy-image.outputs.json_file }}
+          SCAN_TYPE: image
+          TARGET: ${{ secrets.HARBOR_URL }}/${{ env.IMAGE_NAME }}:trivy-${{ github.run_number }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
