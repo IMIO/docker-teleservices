@@ -1,0 +1,21 @@
+FROM harbor.imio.be/teleservices/bookworm:latest
+
+RUN apt-get update && apt-get install -y \
+  python3-pip \
+  python3-venv \
+  vim-nox \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
+
+# Download TLS certificates issued by Entr'ouvert for *.dev.publik.love
+RUN mkdir -p /etc/ssl/certs/dev.publik.love /etc/ssl/private/dev.publik.love \
+    && curl -fsSL https://doc-publik.entrouvert.com/media/certificates/dev.publik.love/fullchain.pem \
+       -o /etc/ssl/certs/dev.publik.love/fullchain.pem \
+    && curl -fsSL https://doc-publik.entrouvert.com/media/certificates/dev.publik.love/privkey.pem \
+       -o /etc/ssl/private/dev.publik.love/privkey.pem \
+    && chmod 600 /etc/ssl/private/dev.publik.love/privkey.pem
+
+COPY dev/entrypoint-dev.sh /entrypoint-dev.sh
+RUN chmod +x /entrypoint-dev.sh
+
+ENTRYPOINT ["/entrypoint-dev.sh"]

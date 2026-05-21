@@ -2,30 +2,17 @@
 # It is not used in production and is not representative of the production environment.
 # The production docker-compose.yml is generated from this file : docker-compose.yml.erb
 # in the industrialisation repository.
-version: "2.4"
-
 services:
-  teleservices:
+  ts-dev:
     build:
-      args:
-        DEBIAN_VERSION: bookworm
-      context: teleservices
-    image: teleservices/bookworm:latest
-    mem_limit: 2048m
+      context: .
+      dockerfile: Dockerfile.dev
+    image: ts-dev:latest
+    mem_limit: 4096m
     ports:
+      - "443:443"
       - "80:80"
-    extra_hosts:
-      local.example.net: 127.0.0.1
-      local-portail-agent.example.net: 127.0.0.1
-      local-agendas.example.net: 127.0.0.1
-      local-auth.example.net: 127.0.0.1
-      local-formulaires.example.net: 127.0.0.1
-      local-documents.example.net: 127.0.0.1
-      local-passerelle.example.net: 127.0.0.1
-      local-hobo.example.net: 127.0.0.1
-      local-stats.example.net: 127.0.0.1
     volumes:
-      - ./data/bijoe:/var/lib/bijoe/tenants
       - ./data/hobo:/var/lib/hobo/tenants
       - ./data/chrono:/var/lib/chrono/tenants
       - ./data/combo:/var/lib/combo/tenants
@@ -40,8 +27,6 @@ services:
       - ./config/authentic2/secret:/etc/authentic2-multitenant/secret
       - ./config/authentic2/settings.d:/etc/authentic2-multitenant/settings.d
       - ./config/authentic2/settings.json:/etc/authentic2-multitenant/settings.json
-      - ./config/bijoe/secret:/etc/bijoe/secret
-      - ./config/bijoe/settings.d:/etc/bijoe/settings.d
       - ./config/hobo/secret:/etc/hobo/secret
       - ./config/hobo/recipe.json:/etc/hobo/recipe.json
       - ./config/hobo/extra:/etc/hobo/extra
@@ -51,21 +36,62 @@ services:
       - ./config/passerelle/settings.d:/etc/passerelle/settings.d
       - ./config/wcs/secret:/etc/wcs/secret
       - ./config/wcs/settings.d:/etc/wcs/settings.d
-    command: /bin/sh -c "sleep 10 ; /run.sh"
+      - ./dev/run.sh:/run.sh
+      # iMio packages mounted for live editing (clone with: make clone-src)
+      - ./src/passerelle-imio-ia-tech:/opt/imio-src/passerelle-imio-ia-tech
+      - ./src/passerelle-imio-ia-aes:/opt/imio-src/passerelle-imio-ia-aes
+      - ./src/passerelle-imio-ia-delib:/opt/imio-src/passerelle-imio-ia-delib
+      - ./src/passerelle-imio-keycloak:/opt/imio-src/passerelle-imio-keycloak
+      - ./src/passerelle-imio-focus:/opt/imio-src/passerelle-imio-focus
+      - ./src/passerelle-imio-abiware:/opt/imio-src/passerelle-imio-abiware
+      - ./src/passerelle-imio-aes-health:/opt/imio-src/passerelle-imio-aes-health
+      - ./src/passerelle-imio-aes-meal:/opt/imio-src/passerelle-imio-aes-meal
+      - ./src/passerelle-imio-apims-baec:/opt/imio-src/passerelle-imio-apims-baec
+      - ./src/passerelle-imio-apims-casier-judiciaire:/opt/imio-src/passerelle-imio-apims-casier-judiciaire
+      - ./src/passerelle-imio-apims-certificats-population:/opt/imio-src/passerelle-imio-apims-certificats-population
+      - ./src/passerelle-imio-membre:/opt/imio-src/passerelle-imio-membre
+      - ./src/passerelle-imio-sso-agents:/opt/imio-src/passerelle-imio-sso-agents
+      - ./src/passerelle-imio-wca:/opt/imio-src/passerelle-imio-wca
+      - ./src/imio-townstreet:/opt/imio-src/imio-townstreet
+      - ./src/imio-ts-aes:/opt/imio-src/imio-ts-aes
+      - ./src/teleservices-package:/opt/imio-src/teleservices-package
+      - ./src/teleservices-package-light:/opt/imio-src/teleservices-package-light
+      - ./src/teleservices-package-liaisons:/opt/imio-src/teleservices-package-liaisons
+      - ./src/teleservices-package-certificats-population:/opt/imio-src/teleservices-package-certificats-population
+      - ./src/teleservices-iacitizen:/opt/imio-src/teleservices-iacitizen
+      - ./src/scripts-teleservices:/opt/imio-src/scripts-teleservices
+      - ./src/wcs-scripts-teleservices:/opt/imio-src/wcs-scripts-teleservices
+      # - ./src/publik-imio-industrialisation:/opt/imio-src/publik-imio-industrialisation
+      - ./src/imio-publik-themes:/opt/imio-src/imio-publik-themes
+    # network_mode: "host"
     depends_on:
       - database
       - rabbitmq
+    extra_hosts:
+      - "combo.dev.publik.love:127.0.0.1"
+      - "agent-combo.dev.publik.love:127.0.0.1"
+      - "authentic.dev.publik.love:127.0.0.1"
+      - "wcs.dev.publik.love:127.0.0.1"
+      - "chrono.dev.publik.love:127.0.0.1"
+      - "passerelle.dev.publik.love:127.0.0.1"
+      - "hobo.dev.publik.love:127.0.0.1"
+
   rabbitmq:
     image: rabbitmq:3.7
     hostname: rabbitmq
+
   database:
     image: postgres
     hostname: postgres
-    container_name: postgres
     volumes:
       - ./data/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d/
+      - pgdata:/var/lib/postgresql/data
     environment:
       - "POSTGRES_PASSWORD=password"
+
   memcached:
     image: memcached
     hostname: memcached
+
+volumes:
+  pgdata:

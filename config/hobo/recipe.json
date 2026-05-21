@@ -1,57 +1,52 @@
 {
   "variables": {
-    "hobo": "local-hobo.example.net",
-    "authentic": "local-auth.example.net",
-    "chrono": "local-agendas.example.net",
-    "combo": "local.example.net",
-    "combo_agent": "local-portail-agent.example.net",
-    "passerelle": "local-passerelle.example.net",
-    "wcs": "local-formulaires.example.net",
-    "bijoe": "local-stats.example.net"
+    "hobo": "hobo.dev.publik.love",
+    "authentic": "authentic.dev.publik.love",
+    "chrono": "chrono.dev.publik.love",
+    "combo": "combo.dev.publik.love",
+    "combo_agent": "agent-combo.dev.publik.love",
+    "passerelle": "passerelle.dev.publik.love",
+    "wcs": "wcs.dev.publik.love"
   },
   "steps": [
     {"create-hobo": {
-      "url": "http://${hobo}/"
+      "url": "https://${hobo}/"
     }},
     {"create-superuser": {
       "email": "admints@example.net",
       "password": "admin"
     }},
     {"create-authentic": {
-      "url": "http://${authentic}/",
+      "url": "https://${authentic}/",
       "title": "Authentic - local - E-Guichet"
     }},
     {"set-idp": {
     }},
     {"create-combo": {
-      "url": "http://${combo}/",
+      "url": "https://${combo}/",
       "title": "Portail - local - E-Guichet",
       "template_name": "portal-user"
     }},
     {"create-combo": {
-      "url": "http://${combo_agent}/",
+      "url": "https://${combo_agent}/",
       "slug": "portal-agent",
       "title": "Portail agent - local - E-Guichet",
       "template_name": "portal-agent"
     }},
     {"create-passerelle": {
-      "url": "http://${passerelle}/",
+      "url": "https://${passerelle}/",
       "title": "Passerelle - local - E-Guichet"
     }},
     {"create-chrono": {
-      "url": "http://${chrono}/",
+      "url": "https://${chrono}/",
       "title": "Agendas - local - E-Guichet"
     }},
     {"create-wcs": {
-      "url": "http://${wcs}/",
+      "url": "https://${wcs}/",
       "title": "Démarches - local - E-Guichet",
       "template_name": "modele.zip"
     }},
-    {"create-bijoe": {
-      "url": "http://${bijoe}/",
-      "title": "Statistiques - Local - E-Guichet"
-    }},
-    {"set-attribute": {
+{"set-attribute": {
       "name": "niss",
       "label": "Num\u00e9ro national",
       "description": "Le n\u00B0 d'identification au Registre national se trouve sur la carte d'identit\u00e9.",
