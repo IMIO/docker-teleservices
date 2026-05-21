@@ -81,7 +81,7 @@ services:
     hostname: rabbitmq
 
   database:
-    image: postgres
+    image: postgres:17
     hostname: postgres
     volumes:
       - ./data/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d/
