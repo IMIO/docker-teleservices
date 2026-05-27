@@ -16,3 +16,4 @@ src/wcs-scripts/*
 src/scripts/*
 .vscode/
 src
+.env

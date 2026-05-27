@@ -75,6 +75,14 @@ services:
       - "chrono.dev.publik.love:127.0.0.1"
       - "passerelle.dev.publik.love:127.0.0.1"
       - "hobo.dev.publik.love:127.0.0.1"
+    environment:
+      - SSO_APPS_URL=${SSO_APPS_URL}
+      - SSO_APPS_CLIENT_ID=${SSO_APPS_CLIENT_ID}
+      - SSO_APPS_CLIENT_SECRET=${SSO_APPS_CLIENT_SECRET}
+      - SSO_APPS_USER_USERNAME=${SSO_APPS_USER_USERNAME}
+      - SSO_APPS_USER_PASSWORD=${SSO_APPS_USER_PASSWORD}
+      - SMARTWEB_URL=${SMARTWEB_URL}
+      - SMARTWEB_URI=${SMARTWEB_URI}
 
   rabbitmq:
     image: rabbitmq:3.7
@@ -87,7 +95,7 @@ services:
       - ./data/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d/
       - pgdata:/var/lib/postgresql/data
     environment:
-      - "POSTGRES_PASSWORD=password"
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
 
   memcached:
     image: memcached
