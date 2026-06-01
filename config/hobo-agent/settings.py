@@ -27,7 +27,6 @@ MANDAYEJS_MANAGE_COMMAND = "sudo -u mandayejs /usr/bin/mandayejs-manage"
 CHRONO_MANAGE_COMMAND = "sudo -u chrono /usr/bin/chrono-manage"
 CORBO_MANAGE_COMMAND = "sudo -u corbo /usr/bin/corbo-manage"
 PIWIK_MANAGE_COMMAND = "sudo -u hobo-piwik /usr/bin/piwik-manage.py"
-BIJOE_MANAGE_COMMAND = "sudo -u bijoe /usr/bin/bijoe-manage"
 HOBO_MANAGE_COMMAND = "sudo -u hobo /usr/bin/hobo-manage"
 
 CELERY_SETTINGS = {
