@@ -37,6 +37,14 @@ RUN apt-get update && apt-get install -y \
   wcs-scripts-teleservices \
   --allow-unauthenticated
 
+# teleservices-iacitizen: APT installs to /usr/lib (not on Python sys.path).
+# Symlink module to site-packages and replace pip-generated console scripts
+# (which use load_entry_point requiring metadata) with direct import wrappers.
+RUN ln -sf /usr/lib/teleservices_iacitizen /usr/lib/python3/dist-packages/teleservices_iacitizen \
+  && printf '#!/usr/bin/env python3\nimport sys\nfrom teleservices_iacitizen.create_plone_restapi import main\nsys.exit(main())\n' > /usr/local/bin/create_plone_restapi \
+  && printf '#!/usr/bin/env python3\nimport sys\nfrom teleservices_iacitizen.delete_plone_restapi import main\nsys.exit(main())\n' > /usr/local/bin/delete_plone_restapi \
+  && chmod +x /usr/local/bin/create_plone_restapi /usr/local/bin/delete_plone_restapi
+
 # Allow services to run
 RUN rm /usr/sbin/policy-rc.d
 
