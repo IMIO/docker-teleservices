@@ -43,7 +43,8 @@ RUN apt-get update && apt-get install -y \
 RUN ln -sf /usr/lib/teleservices_iacitizen /usr/lib/python3/dist-packages/teleservices_iacitizen \
   && printf '#!/usr/bin/env python3\nimport sys\nfrom teleservices_iacitizen.create_plone_restapi import main\nsys.exit(main())\n' > /usr/local/bin/create_plone_restapi \
   && printf '#!/usr/bin/env python3\nimport sys\nfrom teleservices_iacitizen.delete_plone_restapi import main\nsys.exit(main())\n' > /usr/local/bin/delete_plone_restapi \
-  && chmod +x /usr/local/bin/create_plone_restapi /usr/local/bin/delete_plone_restapi
+  && printf '#!/usr/bin/env python3\nimport sys\nfrom teleservices_iacitizen.backup_plone_restapi import main\nsys.exit(main())\n' > /usr/local/bin/backup_plone_restapi \
+  && chmod +x /usr/local/bin/create_plone_restapi /usr/local/bin/delete_plone_restapi /usr/local/bin/backup_plone_restapi
 
 # Allow services to run
 RUN rm /usr/sbin/policy-rc.d
