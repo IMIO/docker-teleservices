@@ -54,6 +54,11 @@ RUN echo "server_names_hash_bucket_size 128;" > /etc/nginx/conf.d/server_names.c
 # Change cron time of authentic2 cleanup
 RUN sed -i "s/5 \*/5 1/g" /etc/cron.d/authentic2-multitenant
 
+# passerelle PR #888 (non mergée) : ajoute le header Accept: application/json
+# sur le check_status de plone_restapi
+RUN sed -i "s|response = self.requests.get(self.service_url + '/ok')|headers = {'Accept': 'application/json'}\n        response = self.requests.get(self.service_url + '/ok', headers=headers)|" \
+  /usr/lib/python3/dist-packages/passerelle/apps/plone_restapi/models.py
+
 # Cleanup
 RUN rm -f /etc/default/authentic2-multitenant \
   && apt-get -y remove python-dev \
