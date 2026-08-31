@@ -6,38 +6,38 @@ clean:
 run:
 		docker compose up
 
-build-bookworm-base:
+build-trixie-base:
 		cd teleservices && \
-		docker build --pull -f Dockerfile-base -t harbor.imio.be/teleservices-bookworm-base:latest \
-		--build-arg DEBIAN_VERSION=bookworm \
+		docker build --pull -f Dockerfile-base -t harbor.imio.be/teleservices/teleservices-trixie-base:latest \
+		--build-arg DEBIAN_VERSION=trixie \
 		.
 
-build-bookworm:
+build-trixie:
 		cd teleservices && \
-		docker build --pull --target prod-image -t teleservices/bookworm:latest \
-		--build-arg DEBIAN_VERSION=bookworm \
+		docker build --target prod-image -t teleservices/trixie:latest \
+		--build-arg DEBIAN_VERSION=trixie \
 		.
 
-build-bookworm-test:
+build-trixie-test:
 		cd teleservices && \
-		docker build --pull --target dev-image -t teleservices/bookworm-test:latest \
-		--build-arg DEBIAN_VERSION=bookworm \
+		docker build --pull --target dev-image -t teleservices/trixie-test:latest \
+		--build-arg DEBIAN_VERSION=trixie \
 		.
 
-build-no-cache-bookworm:
+build-no-cache-trixie:
 		cd teleservices && \
-		docker build --pull --no-cache --target prod-image -t teleservices/bookworm:latest \
-		--build-arg DEBIAN_VERSION=bookworm \
+		docker build --pull --no-cache --target prod-image -t teleservices/trixie:latest \
+		--build-arg DEBIAN_VERSION=trixie \
 		.
 
-build-no-cache-bookworm-test:
+build-no-cache-trixie-test:
 		cd teleservices && \
-		docker build --pull --no-cache --target dev-image -t teleservices/bookworm-test:latest \
-		--build-arg DEBIAN_VERSION=bookworm \
+		docker build --pull --no-cache --target dev-image -t teleservices/trixie-test:latest \
+		--build-arg DEBIAN_VERSION=trixie \
 		.
 
-run-bookworm-test:
-		make run branch=bookworm-test
+run-trixie-test:
+		make run branch=trixie-test
 
 fast-clean:
 	docker compose down -v
