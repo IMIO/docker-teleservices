@@ -5,8 +5,8 @@ on:
     - cron: '0 4 * * 1'  # Every Monday at 04:00 UTC
   workflow_dispatch:
 env:
-  IMAGE_NAME: teleservices/bookworm
-  DEBIAN_VERSION: bookworm
+  IMAGE_NAME: teleservices/trixie
+  DEBIAN_VERSION: trixie
 
 permissions:
   contents: read
@@ -36,7 +36,7 @@ jobs:
           DOCKERFILE: 'teleservices/Dockerfile'
           BUILD_ARGS: 'DEBIAN_VERSION=${{ env.DEBIAN_VERSION }}'          
           MATTERMOST_WEBHOOK_URL: ${{ secrets.TELESERVICES_MATTERMOST_WEBHOOK_URL }}
-          TARGET: 'prod-image'          
+          TARGET: 'prod-image'
   trivy-image:
     name: Image scan
     runs-on: gha-runners-teleservices

@@ -1,21 +1,23 @@
 ARG DEBIAN_VERSION
 
-FROM harbor.imio.be/teleservices/teleservices-${DEBIAN_VERSION}-base:latest as base-image
+FROM harbor.imio.be/teleservices/teleservices-${DEBIAN_VERSION}-base:latest AS base-image
 
 RUN apt-get update && apt-get install -y \
   python3-pip
 
 RUN pip3 install uwsgitop --break-system-packages
 
-FROM harbor.imio.be/teleservices/teleservices-${DEBIAN_VERSION}-base:latest as prod-image
+FROM harbor.imio.be/teleservices/teleservices-${DEBIAN_VERSION}-base:latest AS prod-image
 ARG DEBIAN_VERSION
 
 RUN apt-get update && apt-get install -y \
   imio-townstreet \
   imio-ts-aes \
   passerelle-imio-abiware \
-  passerelle-imio-aes-health \
-  passerelle-imio-aes-meal \
+  # archived on aug 1 2024
+  # passerelle-imio-aes-health \
+  # archived on aug 1 2024
+  # passerelle-imio-aes-meal \
   passerelle-imio-apims-baec \
   passerelle-imio-apims-casier-judiciaire \
   passerelle-imio-apims-certificats-population \
@@ -32,7 +34,8 @@ RUN apt-get update && apt-get install -y \
   scripts-teleservices \
   teleservices-iacitizen \
   teleservices-package=1.0.1-20260130112137~ae01776 \
-  teleservices-package-certificats-population \
+  # archived on feb 9 2026
+  # teleservices-package-certificats-population \
   teleservices-package-liaisons \
   teleservices-package-light \
   wcs-scripts-teleservices \
@@ -81,7 +84,7 @@ RUN ln -sf /usr/share/zoneinfo/Europe/Brussels /etc/localtime
 # Run
 CMD ["/run.sh"]
 
-FROM prod-image as dev-image
+FROM prod-image AS dev-image
 ARG DEBIAN_VERSION
 RUN echo "deb [signed-by=/etc/apt/keyrings/imio.gpg] https://nexus.imio.be/repository/${DEBIAN_VERSION}-test ${DEBIAN_VERSION}-test main" > /etc/apt/sources.list.d/imio-test.list \
   && cat /etc/apt/sources.list.d/*

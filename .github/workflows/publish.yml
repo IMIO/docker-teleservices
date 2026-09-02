@@ -2,8 +2,8 @@ name: Promote
 on:
   workflow_dispatch:
 env:
-  IMAGE_NAME: teleservices/bookworm
-  DEBIAN_VERSION: bookworm
+  IMAGE_NAME: teleservices/trixie
+  DEBIAN_VERSION: trixie
 
 jobs:
   staging:

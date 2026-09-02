@@ -9,8 +9,8 @@ on:
       - 'teleservices/Dockerfile-base'
   workflow_dispatch:
 env:
-  IMAGE_NAME: teleservices/teleservices-bookworm-base
-  DEBIAN_VERSION: bookworm
+  IMAGE_NAME: teleservices/teleservices-trixie-base
+  DEBIAN_VERSION: trixie
   PROXY_CACHE: ${{ secrets.HARBOR_URL }}/docker-hub/library/
 jobs:
   base_harbor:

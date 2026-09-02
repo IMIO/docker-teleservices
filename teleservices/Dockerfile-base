@@ -55,7 +55,6 @@ RUN curl https://static.imio.be/imio.gpg | gpg --dearmor --yes --output /etc/apt
   && echo "Package: *\nPin: release a=$DEBIAN_VERSION-eobuilder\nPin-Priority: 400" > /etc/apt/preferences.d/entrouvert-eobuilder \
   && apt-get install -y \
   authentic2-multitenant \
-  bijoe \
   chrono \
   combo \
   hobo \
@@ -71,7 +70,8 @@ RUN curl https://static.imio.be/imio.gpg | gpg --dearmor --yes --output /etc/apt
   python3-passerelle \
   python3-qrcode \
   python3-workalendar \
-  wcs-au-quotidien \
+  # https://git.entrouvert.org/entrouvert/auquotidien has been archived on 2023-02-21
+  # wcs-au-quotidien \
   && apt-get install -y -t $DEBIAN_VERSION-eobuilder \
   imio-publik-themes \
   publik-imio-industrialisation \

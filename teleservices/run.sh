@@ -11,7 +11,7 @@ printenv >>/etc/environment # set env variables for cron jobs
 prefix="✨ run.sh ·"
 monkey_prefix="🐒Monkey-patching"
 echo -n "$prefix cleaning some pid/sock files that can be generated at image creation (if they exist)."
-for file in /var/run/{authentic2-multitenant/authentic2-multitenant,chrono/chrono,fargo/fargo,hobo/hobo,combo/combo,nginx,rsyslogd,supervisord,wcs,passerelle/passerelle,bijoe/bijoe}.{pid,sock}; do
+for file in /var/run/{authentic2-multitenant/authentic2-multitenant,chrono/chrono,fargo/fargo,hobo/hobo,combo/combo,nginx,rsyslogd,supervisord,wcs,passerelle/passerelle}.{pid,sock}; do
   test -e $file && (rm $file || echo "deletion of $file failed! ❌")
 done
 echo "$prefix cleaning some pid/sock files that can be generated at image creation (if they exist) done! ✅"
@@ -19,7 +19,6 @@ echo "$prefix cleaning some pid/sock files that can be generated at image creati
 echo -n "$prefix updating some Entr'Ouvert services folders user:group via chown..."
 chown authentic-multitenant:authentic-multitenant /var/lib/authentic2-multitenant/tenants -R &&
 chown hobo:hobo /var/lib/hobo/tenants -R &&
-chown bijoe:bijoe /var/lib/bijoe/tenants -R &&
 chown chrono:chrono /var/lib/chrono/tenants -R &&
 chown combo:combo /var/lib/combo/tenants -R &&
 chown passerelle:passerelle /var/lib/passerelle/tenants -R &&
@@ -93,10 +92,6 @@ service passerelle start && echo " passerelle service has been started ! ✅" ||
 
 echo -n "$prefix Starting wcs... 🚀"
 service wcs start && echo " wcs service has been started ! ✅" || echo " wcs service starting failed! ❌"
-
-echo -n "$prefix Bijoe... 🚀"
-service bijoe update && echo -n " bijoe service has been updated ! ✅..." || echo -n " Updating failed! ❌"
-service bijoe start && echo " bijoe service has been started ! ✅" || echo " bijoe service starting failed! ❌"
 
 echo -n "$prefix Starting nginx... 🚀"
 service nginx start && echo " done! ✅" || echo " nginx service starting failed! ❌"

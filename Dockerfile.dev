@@ -1,4 +1,4 @@
-FROM harbor.imio.be/teleservices/bookworm:latest
+FROM harbor.imio.be/teleservices/trixie:latest
 
 RUN apt-get update && apt-get install -y \
   python3-pip \
