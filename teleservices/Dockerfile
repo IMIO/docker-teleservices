@@ -93,8 +93,10 @@ RUN apt-get update && apt-get install -y \
   python3-pip \
   imio-townstreet \
   imio-ts-aes \
-  passerelle-imio-aes-health \
-  passerelle-imio-aes-meal \
+  # archived on aug 1 2024
+  # passerelle-imio-aes-health \
+  # archived on aug 1 2024
+  # passerelle-imio-aes-meal \
   passerelle-imio-apims-baec \
   passerelle-imio-apims-certificats-population \
   passerelle-imio-focus \
@@ -109,7 +111,8 @@ RUN apt-get update && apt-get install -y \
   python3-pip \
   scripts-teleservices \
   teleservices-package \
-  teleservices-package-certificats-population \
+  # archived on feb 9 2026
+  # teleservices-package-certificats-population \
   teleservices-package-liaisons \
   teleservices-package-light \
   wcs-scripts-teleservices \
