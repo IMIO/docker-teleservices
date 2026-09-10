@@ -38,7 +38,8 @@ RUN apt-get update && apt-get install -y \
   # teleservices-package-certificats-population \
   teleservices-package-liaisons \
   teleservices-package-light \
-  wcs-scripts-teleservices \
+  # archived on sep 10 2026
+  # wcs-scripts-teleservices \
   --allow-unauthenticated
 
 # teleservices-iacitizen: APT installs to /usr/lib (not on Python sys.path).
@@ -115,7 +116,8 @@ RUN apt-get update && apt-get install -y \
   # teleservices-package-certificats-population \
   teleservices-package-liaisons \
   teleservices-package-light \
-  wcs-scripts-teleservices \
+  # archived on sep 10 2026
+  # wcs-scripts-teleservices \
   --allow-unauthenticated
 
 RUN pip3 install sentry-sdk --break-system-packages

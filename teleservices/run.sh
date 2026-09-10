@@ -35,12 +35,8 @@ python3 /var/lib/authentic2/locale/fr/LC_MESSAGES/mail-translation.py && echo " 
 echo -n "$prefix INFRA-5052 - Database update..."
 test -e /var/lib/wcs/configure-wcs.py && (python3 /var/lib/wcs/configure-wcs.py && echo " done! ✅" || echo " failed! ❌") || echo " skipped! 🚫"
 
-echo -n "$prefix linking iMio wcs_scripts_teleservices..."
-if [ -d /opt/publik/wcs-scripts/wcs_scripts_teleservices ]; then
-  ln -sfn /opt/publik/wcs-scripts/wcs_scripts_teleservices /var/lib/wcs/scripts && echo " done! ✅" || echo " failed! ❌"
-else
-  ln -sfn /opt/publik/wcs-scripts /var/lib/wcs/scripts && echo " done! ✅" || echo " failed! ❌"
-fi
+echo -n "$prefix linking wcs-scripts..."
+ln -sfn /opt/publik/wcs-scripts /var/lib/wcs/scripts && echo " done! ✅" || echo " failed! ❌"
 
 HOSTNAME=$(hostname)
 echo -n "$prefix exec run-hook.sh..."
